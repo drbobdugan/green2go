@@ -1,3 +1,3 @@
 Pat O'Shea was here
-Ethan Batt was here
+Ethan Batt
 Shawn LaBonte
