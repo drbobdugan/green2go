@@ -7,3 +7,4 @@
 - Samantha Salvas
 - Andrew Petti
 - Elizabeth Blake
+- Parker Rowley
