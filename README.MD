@@ -5,7 +5,7 @@
 - <img src="bobdugan.jpg" height=200/>Bob Dugan - likes hiking, sailing, adventures and working with capstone students... oh and dogs... and cheescakes.
 - Ruthie Missett
 - Samantha Salvas :)
-- Andrew Petti
+- Andrew Petti :)
 - Elizabeth Blake :)
 - Parker Rowley
 - Marianne Kenney √
