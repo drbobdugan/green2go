@@ -6,7 +6,7 @@
 - Ruthie Missett
 - Samantha Salvas :)
 - Andrew Petti
-- Elizabeth Blake
+- Elizabeth Blake :)
 - Parker Rowley
 - Marianne Kenney √
 - Taylor Li:)
