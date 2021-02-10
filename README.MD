@@ -11,3 +11,4 @@
 - Marianne Kenney √
 - Taylor Li:)
 - Aaron Jones
+- Dylan Vieira
