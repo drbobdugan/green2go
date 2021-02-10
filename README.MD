@@ -8,3 +8,4 @@
 - Andrew Petti
 - Elizabeth Blake
 - Parker Rowley
+- Marianne Kenney √
