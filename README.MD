@@ -12,3 +12,4 @@
 - Taylor Li:)
 - Aaron Jones
 - Dylan Vieira
+- Thomas Hines
