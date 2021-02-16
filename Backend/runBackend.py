@@ -6,6 +6,23 @@ from userDao import UserDao
 app = Flask(__name__)
 dao=UserDao()
 
+@app.route('/getUser', methods=['GET'])
+def getUser():
+    email = None
+    try:
+        email = request.json['email']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+
+    res=None
+
+    try:
+        res = dao.getUser(email)
+    except:
+        res = {"response" : "Email does not correspond to user"}
+    return res
+
 @app.route('/addUser', methods=['POST'])
 def addUser():
     newUser=None
