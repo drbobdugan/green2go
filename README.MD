@@ -10,6 +10,6 @@
 - Parker Rowley
 - Marianne Kenney √
 - Taylor Li:)
-- Aaron Jones
+- Aaron Daniel Jones
 - Dylan Vieira
 - Thomas Hines
