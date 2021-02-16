@@ -2,6 +2,7 @@ from flask import Flask
 import mysql.connector
 import json
 from flask import request
+from userDao import UserDao
 app = Flask(__name__)
 
 mydb = mysql.connector.connect(
