@@ -4,63 +4,49 @@ import json
 from flask import request
 from userDao import UserDao
 app = Flask(__name__)
+dao=UserDao()
 
-mydb = mysql.connector.connect(
-        host="198.199.77.174",
-        user="root",
-        password="Capstone2021!",
-        database="sys")
-
-
-@app.route('/getTables', methods=['GET', 'POST'])
-def hello_world():
-
-    print(request.json["value"])
-
-    global mydb
-
-    mycursor = None
-    # try to see if connection is alive
-    try:
-        mycursor = mydb.cursor()
-    except:
-        # try to reconnect if broken cnnxn
-        mydb = mysql.connector.connect(
-        host="198.199.77.174",
-        user="root",
-        password="Capstone2021!",
-        database="sys")
-        mycursor = mydb.cursor()
-    # execute command
-    mycursor.execute("SHOW TABLES")
-    # empty list to return items
-    out = []
-    d = {}
-    # add things to empty list
-    for x in mycursor:
-        out.append(x[0])
-    #return list as json
-    d["data"] = out
-    return json.dumps(d)
 @app.route('/addUser', methods=['POST'])
 def addUser():
-    if request.method =='POST':
-        newuser=[request.form['email'], request.form['password'], request.form['firstName'],request.form['lastName'], request.form['middleName'], request.form['phoneNum'], request.form['role'], request.form['classYear'], request.form['authCode'],request.form['authTime'],request.form['lastLogIn']]
-        dao=UserDao()
-        dao.addUser(newuser)
-@app.route('/updateUser', methods=['GET','POST'])
+    newUser=None
+    try:
+        newUser=[request.json['email'], request.json['password'], request.json['firstName'],request.json['lastName'], request.json['middleName'], request.json['phoneNum'], request.json['role'], request.json['classYear'], request.json['authCode'],request.json['authTime'],request.json['lastLogIn']]
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+    res = dao.addUser(newUser)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
+
+
+# left alone because incomplete in userDao.py
+@app.route('/updateUser', methods=['POST'])
 def updateUser():
-       dao=UserDao()
-       user=dao.getUser(request.form['email']) # how put in the connect to app where the email is coming from
-       userupdate=[user.email, user.password, user.firstName,user.lastName, user.middleName, user.phoneNum, user.role, user.classYear, user.authCode,user.authTime,user.lastLogIn]
-       dao.updateUser(userupdate)
+    email = None
+    try:
+        email = request.json['email']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+    user=dao.getUser(email) # how put in the connect to app where the email is coming from
+    userupdate=[user.email, user.password, user.firstName,user.lastName, user.middleName, user.phoneNum, user.role, user.classYear, user.authCode,user.authTime,user.lastLogIn]
+    dao.updateUser(userupdate)
 
-@app.route('/deleteUser', methods=['GET','POST'])
+@app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
-    dao=UserDao()
-    user=dao.getUser(request.form['email'])# get the value from the frontend for the Email
-    dao.deleteUser(user)
-
+    email = None
+    try:
+        email = request.json['email']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+    res = dao.deleteUser(email)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
 
 
 if __name__ == '__main__':
