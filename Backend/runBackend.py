@@ -52,7 +52,7 @@ def addUser():
 def updateUser():
        dao=UserDao()
        user=dao.getUser(request.form['email']) # how put in the connect to app where the email is coming from
-       userupdate=[user.email, user.password, user.firstName,user.lastName, user.middleName, user.phoneNum, request.form['role'], user.classYear, user.authCode,user.authTime,user.lastLogIn]
+       userupdate=[user.email, user.password, user.firstName,user.lastName, user.middleName, user.phoneNum, user.role, user.classYear, user.authCode,user.authTime,user.lastLogIn]
        dao.updateUser(userupdate)
 
 @app.route('/deleteUser', methods=['GET','POST'])
