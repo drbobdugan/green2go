@@ -3,8 +3,12 @@ import mysql.connector
 import json
 from flask import request
 from userDao import UserDao
+from containerDao import ContainerDao
 app = Flask(__name__)
 dao=UserDao()
+dao2=ContainerDao()
+
+#----------------------------User Methods --------------------------------
 
 @app.route('/getUser', methods=['GET'])
 def getUser():
@@ -38,18 +42,18 @@ def addUser():
         return json.dumps({"response" : "Failed"})
 
 
-# left alone because incomplete in userDao.py
-@app.route('/updateUser', methods=['POST'])
+@app.route('/updateUser', methods=['PATCH'])
 def updateUser():
-    email = None
-    try:
-        email = request.json['email']
-    except Exception as e:
-        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    mockuser = None
+    keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'authTime', 'lastLogIn']
+
+    dictOfUserAttrib = {key : request.json[key] if key in request.json else None for key in keys}
     global dao
-    user=dao.getUser(email) # how put in the connect to app where the email is coming from
-    userupdate=[user.email, user.password, user.firstName,user.lastName, user.middleName, user.phoneNum, user.role, user.classYear, user.authCode,user.authTime,user.lastLogIn]
-    dao.updateUser(userupdate)
+    res = dao.updateUser(dictOfUserAttrib)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
 
 @app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
@@ -65,6 +69,66 @@ def deleteUser():
     else:
         return json.dumps({"response" : "Failed"})
 
+
+#----------------------------Container Methods --------------------------------
+
+@app.route('/addContainer', methods=['POST'])
+def addContainer():
+    newContainer = None
+    try:
+        newContainer = request.json['qrcode']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missingfrom request"})
+    global dao2
+    res = dao2.addContainer(newContainer)
+    if res is true:
+        return json.dumps({"response: Success"})
+    else:
+        return json.dumps({"response: Failed"})
+
+@app.route('/getContainer', methods = ['GET'])
+def getContainer():
+    qrcode = None
+    try:
+        qrcode = request.json['qrcode']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao2
+    res = None
+    try:
+        res = dao2.getContainer(qrcode)
+    except:
+        res = {"response" : "Qr Code does not correspond to Container"}
+    return res
+
+@app.route('/deleteContainer', methods = ['DELETE'])
+def deleteContainer():
+    qrcode = None
+    try:
+        qrcode = request.json['qrcode']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao2
+    res = deleteContainer(qrcode)
+    if res is true:
+        return json.dumps({"response: Success"})
+    else:
+        return json.sumps({"response: Failed"})
+
+
+@app.route('/updateContainer', methods=['PATCH'])
+def updateContainer():
+    mockuser = None
+    keys = ['qrcode']
+    dictOfContainerAttrib = {key : request.json[key] if key in request.json else None for key in keys}
+    global dao2
+    res = dao2.updateContainer(dictOfContainerAttrib)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
+
+    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
