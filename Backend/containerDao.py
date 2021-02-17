@@ -16,11 +16,11 @@ class ContainerDao:
         mycursor.execute(sql, val)
         print(mycursor.rowcount, "record inserted.")
         mydb.commit()
-    #Gets container based on its qrcode
+    #Gets container based on its qrcode 
     def getContainer(self,qrcode):
         global mydb
         mycursor = mydb.cursor()
-        mycursor.execute("SELECT * FROM container where qrcode = '" + qrcode + "'")
+        mycursor.execute("SELECT * FROM container WHERE qrcode = '" + qrcode + "'")
         myresult = mycursor.fetchall()
         for x in myresult:
             print(x)
