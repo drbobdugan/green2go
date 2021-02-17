@@ -8,6 +8,8 @@ app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
 
+#----------------------------User Methods --------------------------------
+
 @app.route('/getUser', methods=['GET'])
 def getUser():
     email = None
@@ -40,18 +42,18 @@ def addUser():
         return json.dumps({"response" : "Failed"})
 
 
-# left alone because incomplete in userDao.py
-@app.route('/updateUser', methods=['POST'])
+@app.route('/updateUser', methods=['UPDATE'])
 def updateUser():
-    email = None
-    try:
-        email = request.json['email']
-    except Exception as e:
-        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    mockuser = None
+    keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'authTime', 'lastLogIn']
+
+    dictOfUserAttrib = {key : request.json[key] if key in request.json else None for key in keys}
     global dao
-    user=dao.getUser(email) # how put in the connect to app where the email is coming from
-    userupdate=[user.email, user.password, user.firstName,user.lastName, user.middleName, user.phoneNum, user.role, user.classYear, user.authCode,user.authTime,user.lastLogIn]
-    dao.updateUser(userupdate)
+    res = dao.updateUser(dictOfUserAttrib)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
 
 @app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
@@ -66,6 +68,9 @@ def deleteUser():
         return json.dumps({"response" : "Success"})
     else:
         return json.dumps({"response" : "Failed"})
+
+
+#----------------------------Container Methods --------------------------------
 
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
@@ -109,6 +114,19 @@ def deleteContainer():
         return json.dumps({"response: Success"})
     else:
         return json.sumps({"response: Failed"})
+
+
+@app.route('/updateContainer', methods=['UPDATE'])
+def updateContainer():
+    mockuser = None
+    keys = ['qrcode']
+    dictOfContainerAttrib = {key : request.json[key] if key in request.json else None for key in keys}
+    global dao2
+    res = dao2.updateContainer(dictOfContainerAttrib)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
 
     
 
