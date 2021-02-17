@@ -81,7 +81,7 @@ def addContainer():
         return json.dumps({"error" : str(e).replace("'", '') + " field missingfrom request"})
     global dao2
     res = dao2.addContainer(newContainer)
-    if res is true:
+    if res is True:
         return json.dumps({"response: Success"})
     else:
         return json.dumps({"response: Failed"})
@@ -110,7 +110,7 @@ def deleteContainer():
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao2
     res = deleteContainer(qrcode)
-    if res is true:
+    if res is True:
         return json.dumps({"response: Success"})
     else:
         return json.sumps({"response: Failed"})
