@@ -73,7 +73,7 @@ def addContainer():
     try:
         newContainer = request.json['qrcode']
     except Exception as e:
-        return json.dumps({"error" : str(e).replace("'", '') + " field missingfrom request"}])
+        return json.dumps({"error" : str(e).replace("'", '') + " field missingfrom request"})
     global dao2
     res = dao2.addContainer(newContainer)
     if res is true:
