@@ -6,10 +6,11 @@
 - Ruthie Missett
 - Samantha Salvas :)
 - Andrew Petti :)
-- Elizabeth Blake :)
+- Elizabeth R Blake
 - Parker Rowley
 - Marianne Kenney √
 - Taylor Li:)
 - Aaron Jones
 - Dylan Vieira
 - Thomas Hines
+- Mike Sale
