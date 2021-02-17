@@ -42,7 +42,7 @@ def addUser():
         return json.dumps({"response" : "Failed"})
 
 
-@app.route('/updateUser', methods=['UPDATE'])
+@app.route('/updateUser', methods=['PATCH'])
 def updateUser():
     mockuser = None
     keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'authTime', 'lastLogIn']
@@ -116,7 +116,7 @@ def deleteContainer():
         return json.sumps({"response: Failed"})
 
 
-@app.route('/updateContainer', methods=['UPDATE'])
+@app.route('/updateContainer', methods=['PATCH'])
 def updateContainer():
     mockuser = None
     keys = ['qrcode']
