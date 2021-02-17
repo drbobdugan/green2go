@@ -3,15 +3,10 @@ import mysql.connector
 import json
 from flask import request
 from userDao import UserDao
-<<<<<<< HEAD
 from containerDao import ContainerDao
 app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
-=======
-app = Flask(__name__)
-dao=UserDao()
->>>>>>> 29ba48b577ee9651dae0d91c8a220eec9ea6601e
 
 @app.route('/getUser', methods=['GET'])
 def getUser():
@@ -72,7 +67,6 @@ def deleteUser():
     else:
         return json.dumps({"response" : "Failed"})
 
-<<<<<<< HEAD
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
     newContainer = None
@@ -117,8 +111,6 @@ def deleteContainer():
         return json.sumps({"response: Failed"})
 
     
-=======
 
->>>>>>> 29ba48b577ee9651dae0d91c8a220eec9ea6601e
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
