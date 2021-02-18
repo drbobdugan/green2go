@@ -110,9 +110,9 @@ def validateCode():
     authtimets=datetime.strptime(authtime, f)
     timepassed=datetime.now()-authtimets
     if (code==codefromtable and timepassed.total_seconds()<300):
-        return json.dumps({"response: Success"})
+        return json.dumps({"response" : "Success"})
     else:
-        return json.dumps({"response: Failed"})
+        return json.dumps({"response" : "Failed"})
 
 
 #----------------------------Container Methods --------------------------------
@@ -128,9 +128,9 @@ def addContainer():
     global dao2
     res = dao2.addContainer([newContainer])
     if res is True:
-        return json.dumps({"response: Success"})
+        return json.dumps({"response" : "Success"})
     else:
-        return json.dumps({"response: Failed"})
+        return json.dumps({"response" : "Failed"})
 
 @app.route('/getContainer', methods = ['GET'])
 def getContainer():
@@ -157,9 +157,9 @@ def deleteContainer():
     global dao2
     res = deleteContainer(qrcode)
     if res is True:
-        return json.dumps({"response: Success"})
+        return json.dumps({"response" : "Success"})
     else:
-        return json.sumps({"response: Failed"})
+        return json.sumps({"response" : "Failed"})
 
 
 @app.route('/updateContainer', methods=['PATCH'])
