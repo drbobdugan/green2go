@@ -1,14 +1,21 @@
 from flask import Flask
 import mysql.connector
 import json
+import string
+import random
 from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
+from datetime import datetime
 app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
 
+
 #----------------------------User Methods --------------------------------
+# this crates the unique code for the user 
+def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
+    return ''.join(random.choice(chars) for _ in range(size)) 
 
 @app.route('/getUser', methods=['GET'])
 def getUser():
@@ -30,8 +37,10 @@ def getUser():
 @app.route('/addUser', methods=['POST'])
 def addUser():
     newUser=None
+    authCode = id_generator()
+    authTime = datetime.now()
     try:
-        newUser=[request.json['email'], request.json['password'], request.json['firstName'],request.json['lastName'], request.json['middleName'], request.json['phoneNum'], request.json['role'], request.json['classYear'], request.json['authCode'],request.json['authTime'],request.json['lastLogIn']]
+        newUser=[request.json['email'], request.json['password'], request.json['firstName'],request.json['lastName'], request.json['middleName'], request.json['phoneNum'], request.json['role'], request.json['classYear']]
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao

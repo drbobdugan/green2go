@@ -2,8 +2,9 @@ from userDao import UserDao
 dao = UserDao()
 def main():
     #testAddUser()
-    testGetUser()
+    #testGetUser()
     #testDeleteUser()
+    testUpdateUser()
 
 def testAddUser():
     email = "test@students.stonehill.edu"
@@ -64,7 +65,18 @@ def testUserDict(userDict,email):
     and userDict["lastLogIn"] == "2021-01-01 01:01:01")
 
 
-    
-
-
+def testUpdateUser():
+    userDict={
+                "email": "test@students.stonehill.edu",
+                "password": "newPassword",
+                "firstName": "newFirstName",
+                "lastName": "newLastName",
+                "middleName":"newMiddleName",
+                "phoneNum": "newPhoneNum",
+                "role": "Role",
+                "classYear": "newClassYear",
+                "authCode": "newAuthCode",
+                "authTime": None,
+                "lastLogIn": None}
+    dao.updateUser(userDict)
 main()
