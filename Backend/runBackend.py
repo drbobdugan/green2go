@@ -7,10 +7,20 @@ from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
 from datetime import datetime
+import sys
+import os
+sys.path.insert(0, os.getcwd()+'/Email/')
+from emailServer import EmailManager
 app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
+emailServer = EmailManager()
 
+#----------------------------Email Methods --------------------------------
+def sendEmail(email, code):
+    global emailServer
+    return emailServer.sendEmail(email, code)
+    
 
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
