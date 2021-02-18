@@ -1,3 +1,4 @@
+import 'image_banner.dart';
 import 'package:flutter/material.dart';
 
 Map<int, Color> green = {
@@ -21,41 +22,58 @@ class GreenToGo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Green To Go',
+      title: 'Green2Go',
       theme: ThemeData(
         primarySwatch: MaterialColor(0xFF2E856E, green),
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MainPage(title: 'Green To Go'),
+      home: Scaffold(
+          appBar: AppBar(
+            title: Text('Green2Go'),
+          ),
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ImageBanner("assets/images/Green2Gologo.jpg"),
+              TextFormField(decoration: InputDecoration(labelText: 'Email')),
+              TextFormField(decoration: InputDecoration(labelText: 'Password')),
+              ElevatedButton(
+                child: Text('Sign In'),
+                onPressed: () {},
+              ),
+              Text('Dont have an account? Sign up now!'),
+            ],
+          )),
     );
   }
 }
 
-class MainPage extends StatefulWidget {
-  MainPage({Key key, this.title}) : super(key: key);
+//class MainPage extends StatefulWidget {
+// MainPage({Key key, this.title}) : super(key: key);
 
-  final String title;
+// final String title;
 
-  @override
-  _MainPageState createState() => _MainPageState();
-}
+//@override
+///_MainPageState createState() => _MainPageState();
+//}
 
-class _MainPageState extends State<MainPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text(widget.title),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'Welcome!',
-              )
-            ],
-          ),
-        ));
-  }
-}
+//class _MainPageState extends State<MainPage> {
+// @override
+// Widget build(BuildContext context) {
+//   return Scaffold(
+//     appBar: AppBar(
+//         title: Text(widget.title),
+//       ),
+//      body: Center(
+//        child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//          children: <Widget>[
+//            Text(
+//              'Welcome!',
+//            )
+//           ],
+//        ),
+//      ));
+// }
+//}
