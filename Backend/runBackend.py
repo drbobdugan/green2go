@@ -117,6 +117,7 @@ def validateCode():
 
 #----------------------------Container Methods --------------------------------
 
+#currently wrap the container qrcode in list because that's how db handles is in  DAO
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
     newContainer = None
@@ -125,7 +126,7 @@ def addContainer():
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missingfrom request"})
     global dao2
-    res = dao2.addContainer(newContainer)
+    res = dao2.addContainer([newContainer])
     if res is True:
         return json.dumps({"response: Success"})
     else:
