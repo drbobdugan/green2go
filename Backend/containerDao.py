@@ -36,7 +36,7 @@ class ContainerDao:
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM container WHERE qrcode = '" + qrcode + "'")
             myresult = mycursor.fetchall()
-            return myresult[0]
+            return {"qrcode" : myresult[0][0]}
         except:
             self.reconnectSql()
             return self.getContainer(qrcode)
