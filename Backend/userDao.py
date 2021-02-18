@@ -73,6 +73,7 @@ class UserDao:
         sqlSet += sqlWhere
         mycursor.execute(sqlSet)
         self.mydb.commit()
+        return True
         
     def deleteUser(self,email):
         try:

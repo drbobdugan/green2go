@@ -6,17 +6,21 @@ def main():
     testDeleteContainer()
 
 def testAddContainer():
+    val = []
     qrcode = "000"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
+    val = []
     qrcode = "001"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
+    val = []
     qrcode = "010"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
+    val = []
     qrcode = "011"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
     
     
