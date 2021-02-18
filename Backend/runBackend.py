@@ -15,7 +15,7 @@ dao2=ContainerDao()
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
 def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
-    return ''.join(random.choice(chars) for _ in range(size)) 
+    return ''.join(random.choice(chars) for _ in range(size))
 
 @app.route('/getUser', methods=['GET'])
 def getUser():
@@ -38,9 +38,8 @@ def getUser():
 def addUser():
     newUser=None
     authCode = id_generator()
-    authTime = datetime.now()
     try:
-        newUser=[request.json['email'], request.json['password'], request.json['firstName'],request.json['lastName'], request.json['middleName'], request.json['phoneNum'], request.json['role'], request.json['classYear']]
+        newUser=[request.json['email'], request.json['password'], request.json['firstName'],request.json['lastName'], request.json['middleName'], request.json['phoneNum'], request.json['role'], request.json['classYear'], authCode]
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao

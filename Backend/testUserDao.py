@@ -18,16 +18,16 @@ def testAddUser():
     authCode= "111111"
     authTime= "2021-01-01 01:01:01"
     lastLogIn= "2021-01-01 01:01:01"
-    val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
+    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
     dao.addUser(val)
     email = "test1@students.stonehill.edu"
-    val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
+    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
     dao.addUser(val)
     email = "test2@students.stonehill.edu"
-    val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
+    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
     dao.addUser(val)
     email = "test3@students.stonehill.edu"
-    val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
+    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
     dao.addUser(val)
     
 def testGetUser():
