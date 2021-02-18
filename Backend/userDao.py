@@ -51,6 +51,19 @@ class UserDao:
             self.reconnectSql()
             return self.getUser(email)
     #Deletes user based on their email
+    def updateUser(self,userDict):
+        mycursor = self.mydb.cursor()
+        email = userDict["email"]
+        sqlSet = "UPDATE user SET "
+        sqlWhere = "WHERE email = '"+email + "'"
+        for key in userDict:
+            if key == "email" or key=="authCode" or key=="authTime" or key=="classYear" or key=="lastLogIn":
+                pass
+            elif userDict[key] is not None:
+                sqlSet = sqlSet + key + " = '" + userDict[key] + "' "
+        sqlSet += sqlWhere
+        print(sqlSet)
+        
     def deleteUser(self,email):
         try:
             mycursor = self.mydb.cursor()
