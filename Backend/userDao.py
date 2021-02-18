@@ -1,5 +1,6 @@
 import mysql.connector
 import json
+from datetime import datetime
 class UserDao:
 
     mydb = mysql.connector.connect(
@@ -19,14 +20,21 @@ class UserDao:
     def addUser(self, val):
         try:
             mycursor = self.mydb.cursor()
+            time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            # adding mock info
+            val.append(111111)
+            val.append(time)
+            val.append(time)
             sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             mycursor.execute(sql, val)
             print(mycursor.rowcount, "record inserted.")
-            mydb.commit()
+            self.mydb.commit()
             return True
-        except:
-            self.reconnectSql()
-            return self.addUser(val)
+        except Exception as e:
+            print(str(e))
+            return False
+            #self.reconnectSql()
+            #return self.addUser(val)
     #Gets user based on their email
     def getUser(self,email):
         try:
@@ -68,7 +76,7 @@ class UserDao:
         try:
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM user WHERE email = '" + email + "'")
-            mydb.commit()
+            self.mydb.commit()
             return True
         except:
             self.reconnectSql()
