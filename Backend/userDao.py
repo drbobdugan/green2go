@@ -22,9 +22,9 @@ class UserDao:
             mycursor = self.mydb.cursor()
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             # adding mock info
-            val.append(111111)
-            val.append(time)
-            val.append(time)
+            #val.append(111111)
+            #val.append(time)
+           # val.append(time)
             sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             mycursor.execute(sql, val)
             print(mycursor.rowcount, "record inserted.")
@@ -68,9 +68,11 @@ class UserDao:
             if key == "email" or key=="authCode" or key=="authTime" or key=="classYear" or key=="lastLogIn":
                 pass
             elif userDict[key] is not None:
-                sqlSet = sqlSet + key + " = '" + userDict[key] + "' "
+                sqlSet = sqlSet + str(key) + " = '" + str(userDict[key]) + "', "
+        sqlSet = sqlSet[:-2]
         sqlSet += sqlWhere
-        print(sqlSet)
+        mycursor.execute(sqlSet)
+        self.mydb.commit()
         
     def deleteUser(self,email):
         try:

@@ -73,7 +73,7 @@ def testUpdateUser():
                 "lastName": "newLastName",
                 "middleName":"newMiddleName",
                 "phoneNum": "newPhoneNum",
-                "role": "newRole",
+                "role": "Role",
                 "classYear": "newClassYear",
                 "authCode": "newAuthCode",
                 "authTime": None,
