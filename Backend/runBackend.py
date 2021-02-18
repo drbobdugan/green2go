@@ -155,7 +155,7 @@ def deleteContainer():
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao2
-    res = deleteContainer(qrcode)
+    res = dao2.deleteContainer(qrcode)
     if res is True:
         return json.dumps({"response" : "Success"})
     else:
