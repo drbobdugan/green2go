@@ -76,6 +76,33 @@ def deleteUser():
         return json.dumps({"response" : "Success"})
     else:
         return json.dumps({"response" : "Failed"})
+@app.route('/validateCode', methods=['GET'])
+def validateCode():
+    f='%Y-%m-%d %H:%M:%S'
+    code = None
+    email=None
+    try:
+        email = request.json['email']
+        code = request.json['authcode']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+
+    res=None
+
+    try:
+        res = dao.getUser(email)
+
+    except:
+        res = {"response" : "Email does not correspond to user"}
+    codefromtable=res["authCode"]
+    authtime=res["authtime"]
+    authtimets=datetime.strptime(authtime, f)
+    timepassed=datetime.now()-authtimets
+    if (code==codefromtable and timepassed.total_seconds()<300):
+        return json.dumps({"response: Success"})
+    else:
+        return json.dumps({"response: Failed"})
 
 
 #----------------------------Container Methods --------------------------------
