@@ -1,5 +1,6 @@
 import 'image_banner.dart';
 import 'package:flutter/material.dart';
+import 'signup.dart';
 
 Map<int, Color> green = {
   50: Color.fromRGBO(46, 133, 110, .1),
@@ -42,7 +43,15 @@ class GreenToGo extends StatelessWidget {
                 child: Text('Sign In'),
                 onPressed: () {},
               ),
-              Text('Dont have an account? Sign up now!'),
+              TextButton(
+                child: Text('Dont have an account? Sign up now!'),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => SignUp()),
+                  );
+                },
+              )
             ],
           )),
     );
