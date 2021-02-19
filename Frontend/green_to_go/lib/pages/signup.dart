@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:green_to_go/components/cool_textField.dart';
 
+import '../components/cool_textField.dart';
 import 'validation.dart';
 
 class SignUpPage extends StatelessWidget {

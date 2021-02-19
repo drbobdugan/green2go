@@ -1,11 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:green_to_go/components/cool_textField.dart';
 
 import '../components/image_banner.dart';
+import '../components/cool_textField.dart';
+import '../services/userService.dart';
 import 'signup.dart';
 import 'home.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
+  LoginPage({Key key}) : super(key: key);
+
+  final _userService = UserService();
+  void handleSignIn() {
+    _userService.getUser('test1@students.stonehill.edu');
+  }
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  void handleSignIn(BuildContext context) {
+    widget.handleSignIn();
+    Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => new HomePage()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,7 +33,7 @@ class LoginPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ImageBanner("assets/images/green2go_full_logo.jpg"),
+          ImageBanner("assets/images/green2go_logo.jpg"),
           Padding(
             padding: const EdgeInsets.only(left: 50.0, right: 50.0),
             child: Column(
@@ -32,8 +51,7 @@ class LoginPage extends StatelessWidget {
                   child: ElevatedButton(
                     child: Text('Sign In'),
                     onPressed: () {
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => new HomePage()));
+                      handleSignIn(context);
                     },
                   ),
                 ),
