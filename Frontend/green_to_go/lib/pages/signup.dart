@@ -1,17 +1,6 @@
 import 'package:flutter/material.dart';
 
-Map<int, Color> green = {
-  50: Color.fromRGBO(46, 133, 110, .1),
-  100: Color.fromRGBO(46, 133, 110, .2),
-  200: Color.fromRGBO(46, 133, 110, .3),
-  300: Color.fromRGBO(46, 133, 110, .4),
-  400: Color.fromRGBO(46, 133, 110, .5),
-  500: Color.fromRGBO(46, 133, 110, .6),
-  600: Color.fromRGBO(46, 133, 110, .7),
-  700: Color.fromRGBO(46, 133, 110, .8),
-  800: Color.fromRGBO(46, 133, 110, .9),
-  900: Color.fromRGBO(46, 133, 110, 1),
-};
+import 'home.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -50,7 +39,11 @@ class SignUpPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: ElevatedButton(
                       child: Text('Sign Up'),
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => new HomePage()));
+                      },
                     )),
               ],
             )));

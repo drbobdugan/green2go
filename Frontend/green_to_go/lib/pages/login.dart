@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/image_banner.dart';
 import 'signup.dart';
+import 'home.dart';
 
 class LoginPage extends StatelessWidget {
   @override
@@ -27,7 +28,11 @@ class LoginPage extends StatelessWidget {
                         padding: const EdgeInsets.only(top: 20.0),
                         child: ElevatedButton(
                           child: Text('Sign In'),
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                    builder: (context) => new HomePage()));
+                          },
                         )),
                     Padding(
                         padding: const EdgeInsets.only(top: 10.0),
