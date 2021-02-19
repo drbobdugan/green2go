@@ -16,18 +16,21 @@ Map<int, Color> green = {
 };
 
 void main() {
-  runApp(Green2GoApp());
+  runApp(
+    Green2GoApp(),
+  );
 }
 
 class Green2GoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Green2Go',
-        theme: ThemeData(
-            primarySwatch: MaterialColor(0xFF2E856E, green),
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            fontFamily: 'Raleway'),
-        home: LoginPage());
+      title: 'Green2Go',
+      theme: ThemeData(
+          primarySwatch: MaterialColor(0xFF2E856E, green),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          fontFamily: 'Raleway'),
+      home: LoginPage(),
+    );
   }
 }
