@@ -10,8 +10,8 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  void handleSignIn() {
-    _userService.getUser('test1@students.stonehill.edu');
+  void onSignIn(String email, String password) {
+    _userService.signIn({'email': email, 'password': password});
   }
 
   @override
@@ -19,8 +19,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void handleSignIn(BuildContext context) {
-    widget.handleSignIn();
+  String email;
+  String password;
+
+  handleSignIn(BuildContext context) {
+    widget.onSignIn(email, password);
     Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => new HomePage()));
   }
@@ -41,11 +44,19 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CoolTextField(
-                  text: "Email",
-                ),
+                    text: "Email",
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    }),
                 CoolTextField(
-                  text: "Password",
-                ),
+                    text: "Password",
+                    onChanged: (value) {
+                      setState(() {
+                        password = value;
+                      });
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: ElevatedButton(

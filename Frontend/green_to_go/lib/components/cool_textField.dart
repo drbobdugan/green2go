@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 
 class CoolTextField extends StatelessWidget {
   final String text;
-  CoolTextField({@required this.text});
+  final ValueChanged<String> onChanged;
+
+  CoolTextField({@required this.text, @required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,7 @@ class CoolTextField extends StatelessWidget {
           labelText: text,
           contentPadding: EdgeInsets.only(bottom: 0),
         ),
+        onChanged: onChanged,
       ),
     );
   }

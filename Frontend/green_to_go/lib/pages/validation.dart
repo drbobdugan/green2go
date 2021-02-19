@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
 
+import '../components/cool_textField.dart';
+import '../services/userService.dart';
 import 'home.dart';
 
-class ValidationPage extends StatelessWidget {
+class ValidationPage extends StatefulWidget {
+  final dynamic data;
+
+  ValidationPage({Key key, @required this.data}) : super(key: key);
+
+  final _userService = UserService();
+  bool onVerify() {
+    print(data);
+    return _userService
+        .signUp({'email': data.email, 'password': data.password});
+  }
+
+  @override
+  _ValidationPageState createState() => _ValidationPageState();
+}
+
+class _ValidationPageState extends State<ValidationPage> {
+  handleVerify(BuildContext context) {
+    var response = widget.onVerify();
+    if (response) {
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => new HomePage()));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,13 +58,7 @@ class ValidationPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: ElevatedButton(
                       child: Text('Submit'),
-                      onPressed: () {
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
-                        Navigator.of(context).pop();
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => new HomePage()));
-                      },
+                      onPressed: handleVerify(context),
                     )),
                 Padding(
                     padding: const EdgeInsets.only(top: 10.0),
