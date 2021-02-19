@@ -37,8 +37,9 @@ class UserDao:
     def getUser(self,email):
         try:
             mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT * FROM user where email = '" + email + "'")
+            mycursor.execute("SELECT * FROM user where email like '" + email + "'")
             myresult = mycursor.fetchall()
+            print(myresult)
             myresult = myresult[0]
             userDict={
                 "email": myresult[0],
@@ -53,7 +54,7 @@ class UserDao:
                 "authTime": myresult[9],
                 "lastLogIn": myresult[10]}
             return userDict
-        except:
+        except Exception as e:
             self.reconnectSql()
             return self.getUser(email)
     #Deletes user based on their email

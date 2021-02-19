@@ -31,7 +31,9 @@ def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.a
 def getUser():
     email = None
     try:
-        email = request.json['email']
+        email = request.args.get('email')
+        if email is None:
+            raise Exception("email")
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao
@@ -114,6 +116,29 @@ def validateCode():
     else:
         return json.dumps({"response" : "Failed"})
 
+@app.route('/login', methods=['POST'])
+def login():
+    email = None
+    pas = None
+    try:
+        email = request.json["email"]
+        pas = request.json["password"]
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+
+    res=None
+
+    try:
+        res = dao.getUser(email)
+    except:
+        return {"response" : "Denied!"}
+    if "password" in res and pas == res["password"]:
+        return {"response" : "Success!"}
+    else:
+        return {"response" : "Denied!"}
+
+
 
 #----------------------------Container Methods --------------------------------
 
@@ -136,7 +161,9 @@ def addContainer():
 def getContainer():
     qrcode = None
     try:
-        qrcode = request.json['qrcode']
+        qrcode = request.args.get('qrcode')
+        if qrcode is None:
+            raise Exception("qrcode")
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao2
