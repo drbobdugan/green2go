@@ -10,32 +10,37 @@ class LoginPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Green2Go'),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(50.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ImageBanner("assets/images/Green2Gologo.jpg"),
-              TextFormField(decoration: InputDecoration(labelText: 'Email')),
-              TextFormField(decoration: InputDecoration(labelText: 'Password')),
-              Padding(
-                  padding: const EdgeInsets.only(top: 20.0),
-                  child: ElevatedButton(
-                    child: Text('Sign In'),
-                    onPressed: () {},
-                  )),
-              Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: TextButton(
-                    child: Text('Dont have an account? Sign up now!'),
-                    onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => new SignUpPage()));
-                    },
-                  ))
-            ],
-          )),
+      body: Column(
+        children: [
+          ImageBanner("assets/images/green2go_full_logo.jpg"),
+          Padding(
+              padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    TextFormField(
+                        decoration: InputDecoration(labelText: 'Email')),
+                    TextFormField(
+                        decoration: InputDecoration(labelText: 'Password')),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 20.0),
+                        child: ElevatedButton(
+                          child: Text('Sign In'),
+                          onPressed: () {},
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: TextButton(
+                          child: Text('Dont have an account? Sign up here'),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => new SignUpPage()));
+                          },
+                        ))
+                  ]))
+        ],
+      ),
     );
   }
 }

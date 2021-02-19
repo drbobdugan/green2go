@@ -25,9 +25,9 @@ class Green2GoApp extends StatelessWidget {
     return MaterialApp(
         title: 'Green2Go',
         theme: ThemeData(
-          primarySwatch: MaterialColor(0xFF2E856E, green),
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
+            primarySwatch: MaterialColor(0xFF2E856E, green),
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            fontFamily: 'Raleway'),
         home: LoginPage());
   }
 }
