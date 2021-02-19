@@ -23,6 +23,8 @@ class SignUpPage extends StatelessWidget {
                 TextFormField(
                     decoration: InputDecoration(labelText: 'First Name')),
                 TextFormField(
+                    decoration: InputDecoration(labelText: 'Middle Name')),
+                TextFormField(
                     decoration: InputDecoration(labelText: 'Last Name')),
                 TextFormField(
                     decoration: InputDecoration(labelText: 'Graduation Year')),

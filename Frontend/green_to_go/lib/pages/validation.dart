@@ -16,11 +16,16 @@ class ValidationPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: Text("Welcome!",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20.0))),
+                Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
                     child: Text(
                         "Thank you for signing up for the Green to Go App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20.0))),
+                        style: TextStyle(fontSize: 18.0))),
                 TextFormField(
                     decoration: InputDecoration(labelText: 'Enter code here')),
                 Padding(
@@ -28,8 +33,10 @@ class ValidationPage extends StatelessWidget {
                     child: ElevatedButton(
                       child: Text('Submit'),
                       onPressed: () {
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
                         Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => new HomePage()));
                       },
                     )),
