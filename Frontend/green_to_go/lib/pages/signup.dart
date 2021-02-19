@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import 'validation.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -40,9 +40,8 @@ class SignUpPage extends StatelessWidget {
                     child: ElevatedButton(
                       child: Text('Sign Up'),
                       onPressed: () {
-                        Navigator.of(context).pop();
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => new HomePage()));
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => new ValidationPage()));
                       },
                     )),
               ],

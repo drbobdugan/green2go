@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/user_appBar.dart';
 
-class HomePage extends StatelessWidget {
+class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
               children: [
                 Padding(
                     padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text("Hello, Bob!",
+                    child: Text("Checkout a container here...",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 20.0))),
