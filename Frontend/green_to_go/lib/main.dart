@@ -1,6 +1,6 @@
-import 'image_banner.dart';
 import 'package:flutter/material.dart';
-import 'signup.dart';
+
+import 'pages/login.dart';
 
 Map<int, Color> green = {
   50: Color.fromRGBO(46, 133, 110, .1),
@@ -16,73 +16,18 @@ Map<int, Color> green = {
 };
 
 void main() {
-  runApp(GreenToGo());
+  runApp(Green2GoApp());
 }
 
-class GreenToGo extends StatelessWidget {
+class Green2GoApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Green2Go',
-      theme: ThemeData(
-        primarySwatch: MaterialColor(0xFF2E856E, green),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: Scaffold(
-          appBar: AppBar(
-            title: Text('Green2Go'),
-          ),
-          body: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              ImageBanner("assets/images/Green2Gologo.jpg"),
-              TextFormField(decoration: InputDecoration(labelText: 'Email')),
-              TextFormField(decoration: InputDecoration(labelText: 'Password')),
-              ElevatedButton(
-                child: Text('Sign In'),
-                onPressed: () {},
-              ),
-              TextButton(
-                child: Text('Dont have an account? Sign up now!'),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => SignUp()),
-                  );
-                },
-              )
-            ],
-          )),
-    );
+        title: 'Green2Go',
+        theme: ThemeData(
+          primarySwatch: MaterialColor(0xFF2E856E, green),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: LoginPage());
   }
 }
-
-//class MainPage extends StatefulWidget {
-// MainPage({Key key, this.title}) : super(key: key);
-
-// final String title;
-
-//@override
-///_MainPageState createState() => _MainPageState();
-//}
-
-//class _MainPageState extends State<MainPage> {
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//      body: Center(
-//        child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'Welcome!',
-//            )
-//           ],
-//        ),
-//      ));
-// }
-//}
