@@ -6,38 +6,42 @@ def main():
     testDeleteContainer()
 
 def testAddContainer():
+    val = []
     qrcode = "000"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
+    val = []
     qrcode = "001"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
+    val = []
     qrcode = "010"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
+    val = []
     qrcode = "011"
-    val = qrcode
+    val.append(qrcode)
     dao.addContainer(val)
     
     
 def testGetContainer():
     qrcode = "000"
-    dao.getContainer(qrcode)
+    print(dao.getContainer(qrcode))
     qrcode = "001"
-    dao.getContainer(qrcode)
+    print(dao.getContainer(qrcode))
     qrcode = "010"
-    dao.getContainer(qrcode)
+    print(dao.getContainer(qrcode))
     qrcode = "011"
-    dao.getContainer(qrcode)
+    print(dao.getContainer(qrcode))
 
 def testDeleteContainer():
     qrcode = "000"
-    dao.deleteContainer(qrcode)
+    print(dao.deleteContainer(qrcode))
     qrcode = "001"
-    dao.deleteContainer(qrcode)
+    print(dao.deleteContainer(qrcode))
     qrcode = "010"
-    dao.deleteContainer(qrcode)
+    print(dao.deleteContainer(qrcode))
     qrcode = "011"
-    dao.deleteContainer(qrcode)
+    print(dao.deleteContainer(qrcode))
 
 main()

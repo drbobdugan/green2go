@@ -21,10 +21,8 @@ class UserDao:
         try:
             mycursor = self.mydb.cursor()
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            # adding mock info
-            #val.append(111111)
-            #val.append(time)
-           # val.append(time)
+            val.append(time)
+            val.append(time)
             sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             mycursor.execute(sql, val)
             print(mycursor.rowcount, "record inserted.")
@@ -39,8 +37,9 @@ class UserDao:
     def getUser(self,email):
         try:
             mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT * FROM user where email = '" + email + "'")
+            mycursor.execute("SELECT * FROM user where email like '" + email + "'")
             myresult = mycursor.fetchall()
+            print(myresult)
             myresult = myresult[0]
             userDict={
                 "email": myresult[0],
@@ -55,7 +54,7 @@ class UserDao:
                 "authTime": myresult[9],
                 "lastLogIn": myresult[10]}
             return userDict
-        except:
+        except Exception as e:
             self.reconnectSql()
             return self.getUser(email)
     #Deletes user based on their email
@@ -73,6 +72,7 @@ class UserDao:
         sqlSet += sqlWhere
         mycursor.execute(sqlSet)
         self.mydb.commit()
+        return True
         
     def deleteUser(self,email):
         try:
