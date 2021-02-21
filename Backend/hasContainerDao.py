@@ -16,11 +16,11 @@ class HasContainerDao:
             password="Capstone2021!",
             database="sys")
 
-    #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime) Tom's dictionary? 
+    #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
     def addRelationship(self, val):  
         try:
              mycursor = self.mydb.cursor()
-             sql = "INSERT INTO hascontainer () VALUES (%s)"
+             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
              mycursor.execute(sql,val)
              print(mycursor.rowcount, "record inserted.")
              self.mydb.commit()
@@ -37,8 +37,15 @@ class HasContainerDao:
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'")
             myresult = mycursor.fetchall()
-            return {"relationship" : myresult[0][0]} #???
-        except:
+            print(myresult)
+            myresult = myresult[0]
+            relDict={
+                "email": myresult[0],
+                "qrcode": myresult[1],
+                "status": myresult[2],
+                "statusUpdateTime": myresult[3]}
+            return relDict
+        except Exception as e:
             self.reconnectSql()
             return self.getRelationship(val)
             
@@ -55,3 +62,19 @@ class HasContainerDao:
 
     def updateRelationship(self,val):
         # for when status changes 
+        def updateUser(self,userDict):
+        mycursor = self.mydb.cursor()
+        email = relDict["email"]
+        qrcode = relDict["qrcode"]
+        sqlSet = "UPDATE hasContainer SET "
+        sqlWhere = "WHERE email = '" + email + "' and qrcode = '" + qrcode + "'"
+        for key in userDict:
+            if key == "email" or key=="qrcode" or key=="status" or key=="statusUpdateTime":
+                pass
+            elif userDict[key] is not None:
+                sqlSet = sqlSet + str(key) + " = '" + str(relDict[key]) + "', "
+        sqlSet = sqlSet[:-2]
+        sqlSet += sqlWhere
+        mycursor.execute(sqlSet)
+        self.mydb.commit()
+        return True
