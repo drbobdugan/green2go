@@ -1,10 +1,10 @@
 from userDao import UserDao
 dao = UserDao()
 def main():
-    #testAddUser()
-    #testGetUser()
-    #testDeleteUser()
+    testAddUser()
+    testGetUser()
     testUpdateUser()
+    testDeleteUser()
 
 def testAddUser():
     email = "test@students.stonehill.edu"
@@ -34,19 +34,19 @@ def testGetUser():
     email = "test@students.stonehill.edu"
     userDict = dao.getUser(email)
     print("testGetUser: test0")
-    print(testUserDict(userDict,email))
+    #print(testUserDict(userDict,email))
     email = "test1@students.stonehill.edu"
     userDict = dao.getUser(email)
     print("testGetUser: test1")
-    print(testUserDict(userDict,email))
+    #print(testUserDict(userDict,email))
     email = "test2@students.stonehill.edu"
     userDict = dao.getUser(email)
     print("testGetUser: test2")
-    print(testUserDict(userDict,email))
+    #print(testUserDict(userDict,email))
     email = "test3@students.stonehill.edu"
     userDict= dao.getUser(email)
     print("testGetUser: test2")
-    print(testUserDict(userDict,email))
+    #print(testUserDict(userDict,email))
 def testDeleteUser():
     email = "test@students.stonehill.edu"
     dao.deleteUser(email)

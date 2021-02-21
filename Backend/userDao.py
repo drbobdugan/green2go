@@ -30,16 +30,17 @@ class UserDao:
             return True
         except Exception as e:
             print(str(e))
-            return False
-            #self.reconnectSql()
-            #return self.addUser(val)
+            if "Duplicate entry" in str(e):
+                return False
+            else:
+                self.reconnectSql()
+                return self.addUser(val)
     #Gets user based on their email
     def getUser(self,email):
         try:
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM user where email like '" + email + "'")
             myresult = mycursor.fetchall()
-            print(myresult)
             myresult = myresult[0]
             userDict={
                 "email": myresult[0],
@@ -55,31 +56,65 @@ class UserDao:
                 "lastLogIn": myresult[10]}
             return userDict
         except Exception as e:
-            self.reconnectSql()
-            return self.getUser(email)
+            if "list index out of range" in str(e):
+                print("No user with that email")
+            else:
+                self.reconnectSql()
+                return self.getUser(email)
     #Deletes user based on their email
     def updateUser(self,userDict):
-        mycursor = self.mydb.cursor()
-        email = userDict["email"]
-        sqlSet = "UPDATE user SET "
-        sqlWhere = "WHERE email = '"+email + "'"
-        for key in userDict:
-            if key == "email" or key=="authCode" or key=="authTime" or key=="classYear" or key=="lastLogIn":
-                pass
-            elif userDict[key] is not None:
-                sqlSet = sqlSet + str(key) + " = '" + str(userDict[key]) + "', "
-        sqlSet = sqlSet[:-2]
-        sqlSet += sqlWhere
-        mycursor.execute(sqlSet)
-        self.mydb.commit()
-        return True
+        try:
+            mycursor = self.mydb.cursor()
+            email = userDict["email"]
+            sqlSet = "UPDATE user SET "
+            sqlWhere = "WHERE email = '"+email + "'"
+            for key in userDict:
+                if key == "email" or key=="authCode" or key=="authTime" or key=="classYear" or key=="lastLogIn":
+                    pass
+                elif userDict[key] is not None:
+                    sqlSet = sqlSet + str(key) + " = '" + str(userDict[key]) + "', "
+            sqlSet = sqlSet[:-2]
+            sqlSet += sqlWhere
+            mycursor.execute(sqlSet)
+            self.mydb.commit()
+            return True
+        except Exception as e:
+            self.reconnectSql()
+            return False
+            #return self.deleteUser(email)
+        
         
     def deleteUser(self,email):
+        if(self.userExists(email) == False):
+            return False
         try:
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM user WHERE email = '" + email + "'")
             self.mydb.commit()
             return True
-        except:
+        except Exception as e:
             self.reconnectSql()
             return self.deleteUser(email)
+    def userExists(self,email):
+        try:
+            mycursor = self.mydb.cursor()
+            mycursor.execute("SELECT * FROM user where email like '" + email + "'")
+            myresult = mycursor.fetchall()
+            myresult = myresult[0]
+            userDict={
+                "email": myresult[0],
+                "password": myresult[1],
+                "firstName": myresult[2],
+                "lastName": myresult[3],
+                "middleName": myresult[4],
+                "phoneNum": myresult[5],
+                "role": myresult[6],
+                "classYear": myresult[7],
+                "authCode": myresult[8],
+                "authTime": myresult[9],
+                "lastLogIn": myresult[10]}
+            return True
+        except Exception as e:
+            if "list index out of range" in str(e):
+                return False
+            
