@@ -4,7 +4,7 @@ class CoolTextField extends StatelessWidget {
   final String text;
   final ValueChanged<String> onChanged;
 
-  CoolTextField({@required this.text, @required this.onChanged});
+  CoolTextField({@required this.text, this.onChanged});
 
   @override
   Widget build(BuildContext context) {

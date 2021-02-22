@@ -1,30 +1,27 @@
 import 'package:flutter/material.dart';
 
 import '../components/cool_textField.dart';
-import '../services/userService.dart';
+import '../static/user.dart';
 import 'validation.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key key}) : super(key: key);
-
-  final _userService = UserService();
-  void onSignUp(dynamic state) {
-    _userService
-        .signIn({}); //'email': state.email, 'password': state.password});
-  }
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  dynamic state = {};
+  NewUser user = new NewUser();
 
   handleSignUp(BuildContext context) {
-    if (state.password == state.passwordConfirm) {
-      //Navigator.of(context).pushReplacement(MaterialPageRoute(
-      //builder: (context) => new ValidationPage(data: state)));
-      print(state);
+    user.consoleLog();
+    if (user.firstName != '' &&
+        user.lastName != '' &&
+        user.email != '' &&
+        user.password == user.confirmPassword) {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => new ValidationPage(user: user)));
     }
   }
 
@@ -55,7 +52,63 @@ class _SignUpPageState extends State<SignUpPage> {
               text: "First Name",
               onChanged: (value) {
                 setState(() {
-                  state.firstName = value;
+                  user.firstName = value;
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Middle Name",
+              onChanged: (value) {
+                setState(() {
+                  user.middleName = value;
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Last Name",
+              onChanged: (value) {
+                setState(() {
+                  user.lastName = value;
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Phone Number",
+              onChanged: (value) {
+                setState(() {
+                  user.phoneNum = value;
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Email",
+              onChanged: (value) {
+                setState(() {
+                  user.email = value;
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Class Year",
+              onChanged: (value) {
+                setState(() {
+                  user.classYear = int.parse(value);
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Password",
+              onChanged: (value) {
+                setState(() {
+                  user.password = value;
+                });
+              },
+            ),
+            CoolTextField(
+              text: "Confirm Password",
+              onChanged: (value) {
+                setState(() {
+                  user.confirmPassword = value;
                 });
               },
             ),

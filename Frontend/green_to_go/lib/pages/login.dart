@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
 import '../services/userService.dart';
+import '../static/user.dart';
 import 'signup.dart';
 import 'home.dart';
 
@@ -10,8 +11,8 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  void onSignIn(String email, String password) {
-    _userService.signIn({'email': email, 'password': password});
+  bool onSignIn(user) {
+    return _userService.signIn(user);
   }
 
   @override
@@ -19,13 +20,14 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  String email;
-  String password;
+  ExistingUser user = new ExistingUser();
 
   handleSignIn(BuildContext context) {
-    widget.onSignIn(email, password);
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => new HomePage()));
+    var response = widget.onSignIn(user);
+    if (response) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => new HomePage()));
+    }
   }
 
   handleSignUp(BuildContext context) {
@@ -52,14 +54,14 @@ class _LoginPageState extends State<LoginPage> {
                     text: "Email",
                     onChanged: (value) {
                       setState(() {
-                        email = value;
+                        user.email = value;
                       });
                     }),
                 CoolTextField(
                     text: "Password",
                     onChanged: (value) {
                       setState(() {
-                        password = value;
+                        user.password = value;
                       });
                     }),
                 Padding(

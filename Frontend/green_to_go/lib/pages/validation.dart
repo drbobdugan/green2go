@@ -5,15 +5,17 @@ import '../components/cool_textField.dart';
 import 'home.dart';
 
 class ValidationPage extends StatefulWidget {
-  final dynamic data;
+  final dynamic user;
 
-  ValidationPage({Key key, @required this.data}) : super(key: key);
+  ValidationPage({Key key, @required this.user}) : super(key: key);
 
   final _userService = UserService();
-  bool onVerify() {
-    print(data);
-    return _userService
-        .signUp({'email': data.email, 'password': data.password});
+  dynamic onVerify() {
+    return _userService.signUp(user);
+  }
+
+  dynamic onSendCode() {
+    return _userService.sendCode(user);
   }
 
   @override
@@ -23,10 +25,20 @@ class ValidationPage extends StatefulWidget {
 class _ValidationPageState extends State<ValidationPage> {
   handleVerify(BuildContext context) {
     var response = widget.onVerify();
+    print(response);
     if (response) {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => new HomePage()));
+      Navigator.of(context).popUntil((route) => route.isFirst);
+      Navigator.of(context).pop();
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => new HomePage(),
+        ),
+      );
     }
+  }
+
+  handleNewCode(BuildContext context) {
+    var response = widget.onSendCode();
   }
 
   @override
@@ -62,13 +74,7 @@ class _ValidationPageState extends State<ValidationPage> {
               child: ElevatedButton(
                 child: Text('Submit'),
                 onPressed: () {
-                  Navigator.of(context).popUntil((route) => route.isFirst);
-                  Navigator.of(context).pop();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => new HomePage(),
-                    ),
-                  );
+                  handleVerify(context);
                 },
               ),
             ),
@@ -76,7 +82,9 @@ class _ValidationPageState extends State<ValidationPage> {
               padding: const EdgeInsets.only(top: 10.0),
               child: TextButton(
                 child: Text('Request a new code'),
-                onPressed: () {},
+                onPressed: () {
+                  handleNewCode(context);
+                },
               ),
             ),
           ],
