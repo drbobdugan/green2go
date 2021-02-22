@@ -67,7 +67,14 @@ class HasContainerDao:
 
     # Update relationship (for when status changes)
     def updateRelationship(self,val):
+<<<<<<< HEAD
         def updateUser(self,userDict):
+=======
+        # for when status changes 
+        return False
+
+    def updateUser(self,userDict):
+>>>>>>> feee6bf169039d3caee2a7a76dd2ba31ec8f3f18
         mycursor = self.mydb.cursor()
         email = relDict["email"]
         qrcode = relDict["qrcode"]

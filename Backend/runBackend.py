@@ -59,6 +59,8 @@ def addUser():
     global dao
     res = dao.addUser(newUser)
     if res is True:
+        # send email
+        sendEmail(request.json['email'], authCode)
         return json.dumps({"response" : "Success"})
     else:
         return json.dumps({"response" : "Failed"})
