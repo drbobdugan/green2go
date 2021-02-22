@@ -66,27 +66,5 @@ class HasContainerDao:
             return self.deleteRelationship(val)
 
     # Update relationship (for when status changes)
-    def updateRelationship(self,val):
-<<<<<<< HEAD
-        def updateUser(self,userDict):
-=======
-        # for when status changes 
-        return False
-
-    def updateUser(self,userDict):
->>>>>>> feee6bf169039d3caee2a7a76dd2ba31ec8f3f18
-        mycursor = self.mydb.cursor()
-        email = relDict["email"]
-        qrcode = relDict["qrcode"]
-        sqlSet = "UPDATE hasContainer SET "
-        sqlWhere = "WHERE email = '" + email + "' and qrcode = '" + qrcode + "'"
-        for key in userDict:
-            if key == "email" or key=="qrcode" or key=="status" or key=="statusUpdateTime":
-                pass
-            elif userDict[key] is not None:
-                sqlSet = sqlSet + str(key) + " = '" + str(relDict[key]) + "', "
-        sqlSet = sqlSet[:-2]
-        sqlSet += sqlWhere
-        mycursor.execute(sqlSet)
-        self.mydb.commit()
-        return True
+    def updateRelationship(self,):
+        # use same code from get relationship?
