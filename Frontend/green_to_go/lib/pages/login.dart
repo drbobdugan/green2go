@@ -24,8 +24,13 @@ class _LoginPageState extends State<LoginPage> {
 
   handleSignIn(BuildContext context) {
     widget.onSignIn(email, password);
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => new HomePage()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => new HomePage()));
+  }
+
+  handleSignUp(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => new SignUpPage()));
   }
 
   @override
@@ -71,11 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextButton(
                     child: Text('Need an account? Sign up here!'),
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => new SignUpPage(),
-                        ),
-                      );
+                      handleSignUp(context);
                     },
                   ),
                 ),
@@ -87,32 +88,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-//class MainPage extends StatefulWidget {
-// MainPage({Key key, this.title}) : super(key: key);
-
-// final String title;
-
-//@override
-///_MainPageState createState() => _MainPageState();
-//}
-
-//class _MainPageState extends State<MainPage> {
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//      body: Center(
-//        child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'Welcome!',
-//            )
-//           ],
-//        ),
-//      ));
-// }
-//}

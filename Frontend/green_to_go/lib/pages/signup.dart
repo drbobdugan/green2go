@@ -9,7 +9,8 @@ class SignUpPage extends StatefulWidget {
 
   final _userService = UserService();
   void onSignUp(dynamic state) {
-    _userService.signIn({'email': state.email, 'password': state.password});
+    _userService
+        .signIn({}); //'email': state.email, 'password': state.password});
   }
 
   @override
@@ -21,8 +22,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   handleSignUp(BuildContext context) {
     if (state.password == state.passwordConfirm) {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-          builder: (context) => new ValidationPage(data: state)));
+      //Navigator.of(context).pushReplacement(MaterialPageRoute(
+      //builder: (context) => new ValidationPage(data: state)));
+      print(state);
     }
   }
 
@@ -61,7 +63,9 @@ class _SignUpPageState extends State<SignUpPage> {
                 padding: const EdgeInsets.only(top: 20.0),
                 child: ElevatedButton(
                   child: Text('Sign Up'),
-                  onPressed: handleSignUp(context),
+                  onPressed: () {
+                    handleSignUp(context);
+                  },
                 )),
           ],
         ),
