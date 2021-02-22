@@ -6,6 +6,7 @@ import random
 from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
+from hasContainerDao import HasContainerDao
 from datetime import datetime
 import sys
 import os
@@ -14,6 +15,7 @@ from emailServer import EmailManager
 app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
+dao3=HasContainerDao()
 emailServer = EmailManager()
 
 #----------------------------Email Methods --------------------------------
@@ -201,6 +203,65 @@ def updateContainer():
     else:
         return json.dumps({"response" : "Failed"})
 
+#----------------------------HasContainer Methods --------------------------------
+
+#Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
+@app.route('/addRelationship', methods=['POST'])
+def addRelationship():
+    userContainer = None
+    try:
+        userContainer =[request.json['email'],request.json['qrcode'],request.json['status'],request.json['statusUpdateTime']]
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missingfrom request"})
+    global dao3
+    res = dao3.addRelationship([userContainer])
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
+@app.route('/getRelationship', methods = ['GET'])
+def getRelationship():
+    email = None
+    try:
+        email = request.args.get('email')
+        if email is None:
+            raise Exception("email")
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao3
+    res = None
+    try:
+        res = dao3.getRelationship(email)
+    except:
+        res = {"response" : "Qr Code does not correspond to Container"}
+    return res
+
+@app.route('/updateRelationship', methods=['PATCH'])
+def updateRelationship():
+    mockuser = None
+    keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
+
+    dictOfUserAttrib = {key : request.json[key] if key in request.json else None for key in keys}
+    global dao3
+    res = dao3.updateRelationship(dictOfUserAttrib)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
+
+@app.route('/deleteRelationship', methods=['DELETE'])
+def deleteRelationship():
+    email = None
+    try:
+        email = request.json['email']
+    except Exception as e:
+        return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
+    global dao3
+    res = dao3.deleteRelationship(email)
+    if res is True:
+        return json.dumps({"response" : "Success"})
+    else:
+        return json.dumps({"response" : "Failed"})
     
 
 if __name__ == '__main__':
