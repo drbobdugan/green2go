@@ -29,39 +29,44 @@ class HasContainerDao:
             print(str(e))
             #return False
             self.reconnectSql()
-            return self.addContainer(val)
+            return self.addRelationship(val)
 
     #Gets relationship based on email and qrcode 
-    def getRelationship(self,val):
+    def getRelationship(self,relDict): #backend passes a dict to database / some fields will be null
         try: 
             mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT * FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'")
-            myresult = mycursor.fetchall()
-            print(myresult)
-            myresult = myresult[0]
-            relDict={
-                "email": myresult[0],
-                "qrcode": myresult[1],
-                "status": myresult[2],
-                "statusUpdateTime": myresult[3]}
-            return relDict
+            email = relDict["email"]
+            qrcode = relDict["qrcode"]
+            status = relDict["status"]
+            sqlSet = "SELECT * FROM hasContainer "
+            sqlWhere = "WHERE " #email/email+qrcode/email+status/qrcode/qrcode+status/ or all three
+            for key in relDict:
+                if (key=="email") or : #???
+                    pass
+                elif relDict[key] is not None:
+                    #
+            sqlSet = sqlSet[:-2]
+            sqlSet += sqlWhere
+            mycursor.execute(sqlSet)
+            self.mydb.commit()
+            return True
         except Exception as e:
             self.reconnectSql()
-            return self.getRelationship(val)
+            return False
             
-    #Deletes relationship based on email and qrcode
+    #Deletes relationship based on email, qrcode, and status
     def deleteRelationship(self,val):
         try:
             mycursor = self.mydb.cursor()
-            mycursor.execute("DELETE FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'")
+            mycursor.execute("DELETE FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = '" + status + "'")
             self.mydb.commit()
             return True
         except:
             self.reconnectSql()
             return self.deleteRelationship(val)
 
+    # Update relationship (for when status changes)
     def updateRelationship(self,val):
-        # for when status changes 
         def updateUser(self,userDict):
         mycursor = self.mydb.cursor()
         email = relDict["email"]
