@@ -14,11 +14,18 @@ class CheckoutPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
-                    padding: const EdgeInsets.only(bottom: 10.0),
-                    child: Text("Checkout a container here...",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20.0))),
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  child: Text("Checkout a container here...",
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, fontSize: 20.0)),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 20.0),
+                    child: ElevatedButton(
+                      child: Text('Scan QR Code'),
+                      onPressed: () {},
+                    )),
               ],
             )));
   }
