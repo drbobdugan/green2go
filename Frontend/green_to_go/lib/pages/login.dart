@@ -58,7 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(top: 0.0),
                   child: TextButton(
-                    child: Text('No existing account? Sign up here'),
+                    child: Text('Need an account? Sign up here!'),
                     onPressed: () {
                       Navigator.of(context).push(
                         MaterialPageRoute(
