@@ -5,9 +5,8 @@ class NewUser {
   String firstName;
   String middleName;
   String lastName;
-  int classYear;
+  String classYear;
   String phoneNum;
-  int authCode;
 
   NewUser() {
     email = '';
@@ -16,14 +15,13 @@ class NewUser {
     firstName = '';
     middleName = '';
     lastName = '';
-    classYear = 0;
+    classYear = '';
     phoneNum = '';
-    authCode = 0;
   }
 
   consoleLog() {
     print(
-        "email: ${email},\n password: ${password},\n confirmPassword: ${confirmPassword},\n firstName: ${firstName},\n lastName: ${lastName},\n middleName: ${middleName},\n phoneNum: ${phoneNum},\n classYear: ${classYear},\n authCode: ${authCode}");
+        "email: ${email},\n password: ${password},\n confirmPassword: ${confirmPassword},\n firstName: ${firstName},\n lastName: ${lastName},\n middleName: ${middleName},\n phoneNum: ${phoneNum},\n classYear: ${classYear}");
   }
 }
 

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../services/userService.dart';
 import '../components/cool_textField.dart';
+import '../components/cool_errorMessage.dart';
+import '../static/user.dart';
 import 'home.dart';
 
 class ValidationPage extends StatefulWidget {
@@ -10,31 +12,68 @@ class ValidationPage extends StatefulWidget {
   ValidationPage({Key key, @required this.user}) : super(key: key);
 
   final _userService = UserService();
-  dynamic onVerify() {
-    return _userService.signUp(user);
+  Future<bool> onVerify(code) async {
+    return await _userService.validateCode(user, code);
   }
 
-  dynamic onSendCode() {
-    return _userService.sendCode(user);
+  Future<bool> onSignUp() async {
+    return await _userService.signUp(user);
   }
+
+  Future<bool> onSendCode() async {
+    return await _userService.sendCode(user);
+  }
+
+  NewUser getUser() => user;
 
   @override
   _ValidationPageState createState() => _ValidationPageState();
 }
 
 class _ValidationPageState extends State<ValidationPage> {
-  handleVerify(BuildContext context) {
-    var response = widget.onVerify();
-    print(response);
-    if (response) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.of(context).pop();
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => new HomePage(),
-        ),
-      );
+  String code = '';
+  String errorMessage = '';
+
+  bool isValidCode() {
+    if (code == '') {
+      setState(() {
+        errorMessage = 'Please enter a valid code.';
+      });
+      return false;
     }
+    return true;
+  }
+
+  handleVerify(BuildContext context) {
+    if (isValidCode()) {
+      widget.onVerify(code).then((response) {
+        if (response) {
+          handleSignUp(context);
+        } else {
+          setState(() {
+            errorMessage = 'Invalid code.';
+          });
+        }
+      });
+    }
+  }
+
+  handleSignUp(BuildContext context) {
+    widget.onSignUp().then((response) {
+      if (response) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pop();
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => new HomePage(),
+          ),
+        );
+      } else {
+        setState(() {
+          errorMessage = 'An error occured, please try again later.';
+        });
+      }
+    });
   }
 
   handleNewCode(BuildContext context) {
@@ -87,6 +126,7 @@ class _ValidationPageState extends State<ValidationPage> {
                 },
               ),
             ),
+            CoolErrorMessage(text: errorMessage),
           ],
         ),
       ),

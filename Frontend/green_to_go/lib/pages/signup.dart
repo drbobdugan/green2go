@@ -1,6 +1,8 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import '../components/cool_textField.dart';
+import '../components/cool_errorMessage.dart';
 import '../static/user.dart';
 import 'validation.dart';
 
@@ -13,13 +15,38 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
   NewUser user = new NewUser();
+  String errorMessage = '';
+
+  bool isSignUpValid() {
+    if (user.firstName == '' || user.lastName == '') {
+      setState(() {
+        errorMessage = 'Please enter a first and last name.';
+      });
+      return false;
+    }
+    if (user.email == '') {
+      setState(() {
+        errorMessage = 'Please enter an email.';
+      });
+      return false;
+    }
+    if (!EmailValidator.validate(user.email)) {
+      setState(() {
+        errorMessage = 'Please enter a valid email.';
+      });
+      return false;
+    }
+    if (user.password != user.confirmPassword) {
+      setState(() {
+        errorMessage = 'Please enter passwords that match.';
+      });
+      return false;
+    }
+    return true;
+  }
 
   handleSignUp(BuildContext context) {
-    user.consoleLog();
-    if (user.firstName != '' &&
-        user.lastName != '' &&
-        user.email != '' &&
-        user.password == user.confirmPassword) {
+    if (isSignUpValid()) {
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => new ValidationPage(user: user)));
     }
@@ -92,7 +119,7 @@ class _SignUpPageState extends State<SignUpPage> {
               text: "Class Year",
               onChanged: (value) {
                 setState(() {
-                  user.classYear = int.parse(value);
+                  user.classYear = value;
                 });
               },
             ),
@@ -120,6 +147,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     handleSignUp(context);
                   },
                 )),
+            CoolErrorMessage(text: errorMessage),
           ],
         ),
       ),

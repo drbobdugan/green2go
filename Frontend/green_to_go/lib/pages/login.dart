@@ -3,6 +3,7 @@ import 'package:email_validator/email_validator.dart';
 
 import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
+import '../components/cool_errorMessage.dart';
 import '../services/userService.dart';
 import '../static/user.dart';
 import 'signup.dart';
@@ -12,7 +13,7 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  Future<String> onLogIn(user) async {
+  Future<bool> onLogIn(user) async {
     return await _userService.logIn(user);
   }
 
@@ -41,17 +42,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   handleLogIn(BuildContext context) {
-    widget.onLogIn(user).then((response) {
-      print(response);
-      // if (response) {
-      //   Navigator.of(context)
-      //       .push(MaterialPageRoute(builder: (context) => new HomePage()));
-      // } else {
-      //   setState(() {
-      //     errorMessage = 'An error occured, please try again later.';
-      //   });
-      // }
-    });
+    if (isValidLogin())
+      widget.onLogIn(user).then((response) {
+        if (response) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => new HomePage()));
+        } else {
+          setState(() {
+            errorMessage = 'Invalid email or password.';
+          });
+        }
+      });
   }
 
   handleSignUp(BuildContext context) {
@@ -107,14 +108,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 10.0),
-                  child: Center(
-                      child: Text(errorMessage,
-                          style: TextStyle(
-                              fontStyle: FontStyle.italic,
-                              color: Color(0xffff0000)))),
-                ),
+                CoolErrorMessage(text: errorMessage),
               ],
             ),
           ),

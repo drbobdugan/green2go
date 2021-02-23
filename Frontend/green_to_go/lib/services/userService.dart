@@ -22,17 +22,37 @@ class UserService {
     return response.body;
   }
 
-  dynamic signUp(Map params) async {
-    return await postResponse("addUser", params);
+  Future<bool> validateCode(NewUser user, String code) async {
+    var resp = await postResponse(
+        "validateCode",
+        jsonEncode(<String, String>{
+          'email': user.email,
+          'code': code,
+        }));
+    return resp == "Success";
   }
 
-  Future<String> logIn(ExistingUser params) async {
-    return await postResponse(
-        "login",
+  Future<bool> signUp(NewUser user) async {
+    var resp = await postResponse(
+        "addUser",
         jsonEncode(<String, String>{
-          'email': params.email,
-          'password': params.password
+          'email': user.email,
+          'password': user.password,
+          'firstName': user.firstName,
+          'middleName': user.middleName,
+          'lastName': user.lastName,
+          'phoneNum': user.phoneNum,
+          'classYear': user.firstName
         }));
+    return resp == "Success";
+  }
+
+  Future<bool> logIn(ExistingUser user) async {
+    var resp = await postResponse(
+        "login",
+        jsonEncode(
+            <String, String>{'email': user.email, 'password': user.password}));
+    return resp == "Success!";
   }
 
   dynamic sendCode(Map params) async {
