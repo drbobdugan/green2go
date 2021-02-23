@@ -6,7 +6,6 @@ import random
 from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
-from hasContainerDao import HasContainerDao
 from datetime import datetime
 import sys
 import os
@@ -16,7 +15,7 @@ from emailServer import EmailManager
 app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
-dao3=HasContainerDao()
+
 emailServer = EmailManager()
 
 #----------------------------Email Methods --------------------------------
@@ -233,17 +232,17 @@ def addRelationship():
         return json.dumps({"success" : False, "message" : "Database error"})
 @app.route('/getRelationship', methods = ['GET'])
 def getRelationship():
-    email = None
+    relationship = None
     try:
-        email = request.args.get('email')
-        if email is None:
-            raise Exception("email")
+        relationship = [request.args.get('email'),request.args.get('qrcode')]
+        if relationship is None:
+            raise Exception("relationship")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao3
     res = None
     try:
-        res = dao3.getRelationship(email)
+        res = dao2.getRelationship(relationship)
     except:
         res = json.dumps({"success" : False, "message" : "QRcode did not correspond to container"})
     return res
@@ -254,8 +253,8 @@ def updateRelationship():
     keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
 
     dictOfUserAttrib = {key : request.json[key] if key in request.json else None for key in keys}
-    global dao3
-    res = dao3.updateRelationship(dictOfUserAttrib)
+    global dao2
+    res = dao2.updateRelationship(dictOfUserAttrib)
     if res is True:
         return json.dumps({"success" : True, "message" : ""})
     else:
@@ -263,9 +262,9 @@ def updateRelationship():
 
 @app.route('/deleteRelationship', methods=['DELETE'])
 def deleteRelationship():
-    email = None
+    relationship = None
     try:
-        email = request.json['email']
+        relationship = [request.json['email'],request.json['qrcode'],request.json['status']]
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao3
