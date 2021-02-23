@@ -8,6 +8,7 @@ def main():
     #testDeleteContainer()
 
 def testAddContainer():
+    
     val = []
     qrcode = "000"
     val.append(qrcode)
@@ -70,8 +71,12 @@ def testAddRelationship():
     qrcode = "000"
     status = "Checked out"
     authTime= "2021-01-01 01:01:01"
-    val = [email,qrcode,status]
-    dao.addRelationship(val)
+    relDict={
+                "email": email,
+                "qrcode": qrcode,
+                "status": status,
+                "statusUpdateTime": None}
+    dao.addRelationship(relDict)
     email = "test1@students.stonehill.edu"
     qrcode = "000"
     status = "Checked out"

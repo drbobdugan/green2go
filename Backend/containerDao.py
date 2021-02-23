@@ -58,8 +58,13 @@ class ContainerDao:
 # ____________________________________________________________________________________________________ #
 
     #Accepts list val in format  val = (email, qrcode, status)
-    def addRelationship(self, val):  
+    #accepts dictionary with email qrcode and status
+    def addRelationship(self, relDict):  
         try:
+            val = []
+            val.append(relDict['email'])
+            val.append(relDict['qrcode'])
+            val.append(relDict['status'])
             mycursor = self.mydb.cursor()
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
@@ -108,8 +113,11 @@ class ContainerDao:
             return self.handleError(e)
             
     #Deletes relationship based on email, qrcode, and status
-    def deleteRelationship(self,val):
+    def deleteRelationship(self,relDict):
         try:
+            email = relDict["email"]
+            qrcode = relDict["qrcode"]
+            status = relDict["status"]
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = '" + status + "'")
             self.mydb.commit()
