@@ -17,8 +17,24 @@ class UserDao:
             database="sys")
     #Accepts list val in format  val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
-    def addUser(self, val):
+    def addUser(self, userDict):
         try:
+            for key in userDict:
+                if key == "middleName" or key =="classYear":
+                    pass
+                elif userDict[key] is None:
+                    string = "Missing " + str(userDict[key])
+                    return False, string
+            val = []
+            val.append(userDict['email'])
+            val.append(userDict['password'])
+            val.append(userDict['firstName'])
+            val.append(userDict['lastName'])
+            val.append(userDict['middleName'])
+            val.append(userDict['phoneNum'])
+            val.append(userDict['role'])
+            val.append(userDict['classYear'])
+            val.append(userDict['authCode'])
             mycursor = self.mydb.cursor()
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(time)
@@ -29,12 +45,8 @@ class UserDao:
             self.mydb.commit()
             return True
         except Exception as e:
-            print(str(e))
-            if "Duplicate entry" in str(e):
-                return False
-            else:
-                self.reconnectSql()
-                return self.addUser(val)
+            print("Error in addUser")
+            self.handleError(e)
     #Gets user based on their email
     def getUser(self,email):
         try:
@@ -56,11 +68,8 @@ class UserDao:
                 "lastLogIn": myresult[10]}
             return userDict
         except Exception as e:
-            if "list index out of range" in str(e):
-                print("No user with that email")
-            else:
-                self.reconnectSql()
-                return self.getUser(email)
+            print("Error in getUser")
+            self.handleError(e)
     #Deletes user based on their email
     def updateUser(self,userDict):
         try:
@@ -69,7 +78,7 @@ class UserDao:
             sqlSet = "UPDATE user SET "
             sqlWhere = "WHERE email = '"+email + "'"
             for key in userDict:
-                if key == "email" or key=="authCode" or key=="authTime" or key=="classYear" or key=="lastLogIn":
+                if key == "email":
                     pass
                 elif userDict[key] is not None:
                     sqlSet = sqlSet + str(key) + " = '" + str(userDict[key]) + "', "
@@ -79,8 +88,8 @@ class UserDao:
             self.mydb.commit()
             return True
         except Exception as e:
-            self.reconnectSql()
-            return False
+            print("Error in updateUser")
+            self.handleError(e)
             #return self.deleteUser(email)
         
         
@@ -93,8 +102,8 @@ class UserDao:
             self.mydb.commit()
             return True
         except Exception as e:
-            self.reconnectSql()
-            return self.deleteUser(email)
+            print("Error in deleteUser")
+            self.handleError(e)
     def userExists(self,email):
         try:
             mycursor = self.mydb.cursor()
@@ -115,6 +124,16 @@ class UserDao:
                 "lastLogIn": myresult[10]}
             return True
         except Exception as e:
-            if "list index out of range" in str(e):
-                return False
+            print("Error in userExists")
+            self.handleError(e)
             
+    def handleError(self,error):
+        error = str(error)
+        print(error)
+        if "Duplicate entry" in error:
+            return False,"Duplicate Entry"
+        if "Can't connect to MySQL server" in error:
+            self.reconnectSql()
+            return False, "Could not connect to database please try again"
+        if "list index out of range" in error:
+            return False, "Entry could not be found"

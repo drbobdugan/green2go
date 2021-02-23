@@ -4,31 +4,28 @@ def main():
     testAddUser()
     testGetUser()
     testUpdateUser()
-    testDeleteUser()
+    #testDeleteUser()
 
 def testAddUser():
-    email = "test@students.stonehill.edu"
-    password = "password"
-    firstName = "Test"
-    lastName = "User"
-    middleName="Example"
-    phoneNum = "7817817811"
-    role = "reus"
-    classYear = "2021"
-    authCode= "111111"
-    authTime= "2021-01-01 01:01:01"
-    lastLogIn= "2021-01-01 01:01:01"
-    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
-    dao.addUser(val)
-    email = "test1@students.stonehill.edu"
-    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
-    dao.addUser(val)
-    email = "test2@students.stonehill.edu"
-    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
-    dao.addUser(val)
-    email = "test3@students.stonehill.edu"
-    val = [email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode]
-    dao.addUser(val)
+    userDict={
+                "email": "test@students.stonehill.edu",
+                "password": "password",
+                "firstName": "Test",
+                "lastName": "User",
+                "middleName":"Example",
+                "phoneNum": "7817817811",
+                "role": "RegularUser",
+                "classYear": "2021",
+                "authCode": "1111111",
+                "authTime": "2021-01-01 01:01:01",
+                "lastLogIn": "2021-01-01 01:01:01"}
+    dao.addUser(userDict)
+    userDict['email']= "test1@students.stonehill.edu"
+    dao.addUser(userDict)
+    userDict['email']= "test2@students.stonehill.edu"
+    dao.addUser(userDict)
+    userDict['email']= "test3@students.stonehill.edu"
+    dao.addUser(userDict)
     
 def testGetUser():
     email = "test@students.stonehill.edu"
@@ -45,7 +42,7 @@ def testGetUser():
     #print(testUserDict(userDict,email))
     email = "test3@students.stonehill.edu"
     userDict= dao.getUser(email)
-    print("testGetUser: test2")
+    print("testGetUser: test3")
     #print(testUserDict(userDict,email))
 def testDeleteUser():
     email = "test@students.stonehill.edu"
@@ -74,7 +71,7 @@ def testUpdateUser():
                 "middleName":"newMiddleName",
                 "phoneNum": "newPhoneNum",
                 "role": "Role",
-                "classYear": "newClassYear",
+                "classYear": None,
                 "authCode": "newAuthCode",
                 "authTime": None,
                 "lastLogIn": None}
