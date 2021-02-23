@@ -9,11 +9,21 @@ class NewUser {
   String phoneNum;
   int authCode;
 
-  NewUser() {}
+  NewUser() {
+    email = '';
+    password = '';
+    confirmPassword = '';
+    firstName = '';
+    middleName = '';
+    lastName = '';
+    classYear = 0;
+    phoneNum = '';
+    authCode = 0;
+  }
 
   consoleLog() {
     print(
-        "email: ${email},\n password: ${password},\n email: ${email},\n email: ${email},\n email: ${email},\n email: ${email},\n email: ${email},\n email: ${email},\n email: ${email}");
+        "email: ${email},\n password: ${password},\n confirmPassword: ${confirmPassword},\n firstName: ${firstName},\n lastName: ${lastName},\n middleName: ${middleName},\n phoneNum: ${phoneNum},\n classYear: ${classYear},\n authCode: ${authCode}");
   }
 }
 
