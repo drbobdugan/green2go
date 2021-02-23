@@ -6,7 +6,7 @@ import random
 from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
-#from hasContainerDao import HasContainerDao
+from hasContainerDao import HasContainerDao
 from datetime import datetime
 import sys
 import os
