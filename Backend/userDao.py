@@ -19,6 +19,12 @@ class UserDao:
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
     def addUser(self, userDict):
         try:
+            for key in userDict:
+                if key == "middleName" or key =="classYear":
+                    pass
+                elif userDict[key] is None:
+                    string = "Missing " + str(userDict[key])
+                    return False, string
             val = []
             val.append(userDict['email'])
             val.append(userDict['password'])
