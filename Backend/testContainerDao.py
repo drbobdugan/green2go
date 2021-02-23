@@ -1,51 +1,55 @@
 from containerDao import ContainerDao
 dao = ContainerDao()
 def main():
-    #testAddContainer()
+    testAddContainer()
     testAddRelationship()
     testGetRelationship()
-    #testGetContainer()
-    #testDeleteContainer()
+    testGetContainer()
+    testDeleteContainer()
 
 def testAddContainer():
     
-    val = []
     qrcode = "000"
-    val.append(qrcode)
-    dao.addContainer(val)
-    val = []
+    contDict={"qrcode": qrcode}
+    dao.addContainer(contDict)
     qrcode = "001"
-    val.append(qrcode)
-    dao.addContainer(val)
-    val = []
+    contDict={"qrcode": qrcode}
+    dao.addContainer(contDict)
     qrcode = "010"
-    val.append(qrcode)
-    dao.addContainer(val)
-    val = []
+    contDict={"qrcode": qrcode}
+    dao.addContainer(contDict)
     qrcode = "011"
-    val.append(qrcode)
-    dao.addContainer(val)
+    contDict={"qrcode": qrcode}
+    dao.addContainer(contDict)
     
     
 def testGetContainer():
     qrcode = "000"
-    print(dao.getContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.getContainer(contDict))
     qrcode = "001"
-    print(dao.getContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.getContainer(contDict))
     qrcode = "010"
-    print(dao.getContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.getContainer(contDict))
     qrcode = "011"
-    print(dao.getContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.getContainer(contDict))
 
 def testDeleteContainer():
     qrcode = "000"
-    print(dao.deleteContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.deleteContainer(contDict))
     qrcode = "001"
-    print(dao.deleteContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.deleteContainer(contDict))
     qrcode = "010"
-    print(dao.deleteContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.deleteContainer(contDict))
     qrcode = "011"
-    print(dao.deleteContainer(qrcode))
+    contDict={"qrcode": qrcode}
+    print(dao.deleteContainer(contDict))
 
 def testGetRelationship():
     email = "test@students.stonehill.edu"

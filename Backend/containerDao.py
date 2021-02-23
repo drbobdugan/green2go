@@ -34,8 +34,9 @@ class ContainerDao:
             #return self.addContainer(val)
     
     #Gets container based on qrcode 
-    def getContainer(self,qrcode):
+    def getContainer(self,qrcodeDict):
         try: 
+            qrcode=qrcodeDict['qrcode']
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM container WHERE qrcode = '" + qrcode + "'")
             myresult = mycursor.fetchall()
@@ -46,8 +47,9 @@ class ContainerDao:
             
     #Deletes container based on qrcode
     #Can't connect to MySQL server
-    def deleteContainer(self,qrcode):
+    def deleteContainer(self,qrcodeDict):
         try:
+            qrcode=qrcodeDict['qrcode']
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM container WHERE qrcode = '" + qrcode + "'")
             self.mydb.commit()
@@ -158,14 +160,14 @@ class ContainerDao:
         except Exception as e:
             print("Error in updateRelationship")
             return self.handleError(e)         
-    def containerExists(self, qrcode):
-        result = self.getContainer(qrcode)
+    def containerExists(self, qrcodeDict):
+        qrcode = qrcodeDict["qrcode"]
+        result = self.getContainer(qrcodeDict)
         if len(result["qrcode"]) > 1:
             return True
         else:
-            val = []
-            val.append(qrcode)
-            return self.addContainer(val)
+            contDict={"qrcode": qrcode}
+            return self.addContainer(contDict)
 
     def handleError(self,error):
         error = str(error)
