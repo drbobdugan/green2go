@@ -6,7 +6,7 @@ import '../static/user.dart';
 class UserService {
   Future postResponse(String path, dynamic params) async {
     Response response = await post(
-      "http://198.199.77.174:5000/${path}",
+      "http://198.199.77.174:5000/$path",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -17,8 +17,7 @@ class UserService {
   }
 
   Future getResponse(String path, String params) async {
-    Response response =
-        await get("http://198.199.77.174:5000/${path}${params}");
+    Response response = await get("http://198.199.77.174:5000/$path$params");
     return response.body;
   }
 

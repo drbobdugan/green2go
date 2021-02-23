@@ -77,7 +77,7 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   handleNewCode(BuildContext context) {
-    var response = widget.onSendCode();
+    //var response = widget.onSendCode();
   }
 
   @override
