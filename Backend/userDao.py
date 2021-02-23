@@ -72,7 +72,7 @@ class UserDao:
             sqlSet = "UPDATE user SET "
             sqlWhere = "WHERE email = '"+email + "'"
             for key in userDict:
-                if key == "email" or key=="authCode" or key=="authTime" or key=="classYear" or key=="lastLogIn":
+                if key == "email":
                     pass
                 elif userDict[key] is not None:
                     sqlSet = sqlSet + str(key) + " = '" + str(userDict[key]) + "', "
