@@ -260,7 +260,7 @@ def updateRelationship():
 def deleteRelationship():
     relationship = None
     try:
-        relationship = [request.json['email'],request.json['qrcode']]
+        relationship = [request.json['email'],request.json['qrcode'],request.json['status']]
     except Exception as e:
         return json.dumps({"error" : str(e).replace("'", '') + " field missing from request"})
     global dao2
