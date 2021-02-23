@@ -1,4 +1,4 @@
-package edu.stonehill.greenZgo
+package edu.stonehill.green2go
 
 import io.flutter.embedding.android.FlutterActivity
 
