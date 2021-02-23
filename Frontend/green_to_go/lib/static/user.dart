@@ -21,7 +21,7 @@ class NewUser {
 
   consoleLog() {
     print(
-        "email: ${email},\n password: ${password},\n confirmPassword: ${confirmPassword},\n firstName: ${firstName},\n lastName: ${lastName},\n middleName: ${middleName},\n phoneNum: ${phoneNum},\n classYear: ${classYear}");
+        "email: $email,\n password: $password,\n confirmPassword: $confirmPassword,\n firstName: $firstName,\n lastName: $lastName,\n middleName: $middleName,\n phoneNum: $phoneNum,\n classYear: $classYear}");
   }
 }
 
@@ -35,6 +35,6 @@ class ExistingUser {
   }
 
   consoleLog() {
-    print("email: ${email},\n password: ${password}");
+    print("email: $email,\n password: $password}");
   }
 }

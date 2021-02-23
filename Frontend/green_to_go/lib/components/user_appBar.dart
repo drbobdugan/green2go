@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../pages/login.dart';
 import '../pages/checkout.dart';
-import '../pages/home.dart';
 
 class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
