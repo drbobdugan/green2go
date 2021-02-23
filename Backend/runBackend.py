@@ -30,7 +30,7 @@ def extractKeysFromRequest(request, keys, required=None ,t="json"):
                 raise Exception(key)
         return dic
     elif t == "args":
-        dic = {key : request.get.args(key) for key in keys}
+        dic = {key : request.args.get(key) for key in keys}
         for key in required:
             if dic[key] is None:
                 raise Exception(key)
