@@ -101,7 +101,7 @@ def deleteUser():
         return json.dumps({"success" : True, "message" : ""})
     else:
         return json.dumps({"success" : False, "message" : "Database error"})
-@app.route('/validateCode', methods=['GET'])
+@app.route('/validateCode', methods=['POST'])
 def validateCode():
     f='%Y-%m-%d %H:%M:%S'
     code = None
