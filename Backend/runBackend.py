@@ -239,7 +239,7 @@ def getRelationship():
             raise Exception("relationship")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao3
+    global dao2
     res = None
     try:
         res = dao2.getRelationship(relationship)
@@ -267,8 +267,8 @@ def deleteRelationship():
         relationship = [request.json['email'],request.json['qrcode'],request.json['status']]
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao3
-    res = dao3.deleteRelationship(email)
+    global dao2
+    res = dao2.deleteRelationship(relationship)
     if res is True:
         return json.dumps({"success" : True, "message" : ""})
     else:
