@@ -66,7 +66,7 @@ def getUser():
     res=None
 
     try:
-        res = dao.getUser(email)
+        res = dao.getUser(dictOfUserAttrib)
     except:
         res = {"success" : False, "message" : "Database error"}
     return res
@@ -243,12 +243,13 @@ def updateContainer():
 @app.route('/addRelationship', methods=['POST'])
 def addRelationship():
     userContainer = None
+    keys=['email','qrcode','status','statusUpdateTime']
     try:
-        userContainer =[request.json['email'],request.json['qrcode'],request.json['status'],request.json['statusUpdateTime']]
+        userContainer = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao3
-    res = dao3.addRelationship([userContainer])
+    global dao2
+    res = dao2.addRelationship([userContainer])
     if res is True:
         return json.dumps({"success" : True, "message" : ""})
     else:
@@ -256,8 +257,9 @@ def addRelationship():
 @app.route('/getRelationship', methods = ['GET'])
 def getRelationship():
     relationship = None
+    keys=['email','qrcode']
     try:
-        relationship = [request.args.get('email'),request.args.get('qrcode')]
+        relationship = extractKeysFromRequest(request, keys, t="args")
         if relationship is None:
             raise Exception("relationship")
     except Exception as e:
@@ -272,10 +274,10 @@ def getRelationship():
 
 @app.route('/updateRelationship', methods=['PATCH'])
 def updateRelationship():
-    mockuser = None
+    dictOfUserAttrib = None
     keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
 
-    dictOfUserAttrib = {key : request.json[key] if key in request.json else None for key in keys}
+    dictOfUserAttrib = extractKeysFromRequest(request, keys)
     global dao2
     res = dao2.updateRelationship(dictOfUserAttrib)
     if res is True:
@@ -286,8 +288,9 @@ def updateRelationship():
 @app.route('/deleteRelationship', methods=['DELETE'])
 def deleteRelationship():
     relationship = None
+    keys=['email','qrcode','status']
     try:
-        relationship = [request.json['email'],request.json['qrcode'],request.json['status']]
+        relationship = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
