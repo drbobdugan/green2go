@@ -31,5 +31,12 @@ class ExistingUser {
   String email;
   String password;
 
-  ExistingUser() {}
+  ExistingUser() {
+    email = '';
+    password = '';
+  }
+
+  consoleLog() {
+    print("email: ${email},\n password: ${password}");
+  }
 }

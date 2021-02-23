@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
@@ -11,8 +12,8 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  bool onSignIn(user) {
-    return _userService.signIn(user);
+  Future<String> onLogIn(user) async {
+    return await _userService.logIn(user);
   }
 
   @override
@@ -21,13 +22,36 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   ExistingUser user = new ExistingUser();
+  String errorMessage = '';
 
-  handleSignIn(BuildContext context) {
-    var response = widget.onSignIn(user);
-    if (response) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => new HomePage()));
+  bool isValidLogin() {
+    if (user.email == '' || user.password == '') {
+      setState(() {
+        errorMessage = 'Please enter an email and password.';
+      });
+      return false;
     }
+    if (!EmailValidator.validate(user.email)) {
+      setState(() {
+        errorMessage = 'Please enter a valid email.';
+      });
+      return false;
+    }
+    return true;
+  }
+
+  handleLogIn(BuildContext context) {
+    widget.onLogIn(user).then((response) {
+      print(response);
+      // if (response) {
+      //   Navigator.of(context)
+      //       .push(MaterialPageRoute(builder: (context) => new HomePage()));
+      // } else {
+      //   setState(() {
+      //     errorMessage = 'An error occured, please try again later.';
+      //   });
+      // }
+    });
   }
 
   handleSignUp(BuildContext context) {
@@ -59,6 +83,7 @@ class _LoginPageState extends State<LoginPage> {
                     }),
                 CoolTextField(
                     text: "Password",
+                    obscureText: true,
                     onChanged: (value) {
                       setState(() {
                         user.password = value;
@@ -69,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: ElevatedButton(
                     child: Text('Sign In'),
                     onPressed: () {
-                      handleSignIn(context);
+                      handleLogIn(context);
                     },
                   ),
                 ),
@@ -81,6 +106,14 @@ class _LoginPageState extends State<LoginPage> {
                       handleSignUp(context);
                     },
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10.0),
+                  child: Center(
+                      child: Text(errorMessage,
+                          style: TextStyle(
+                              fontStyle: FontStyle.italic,
+                              color: Color(0xffff0000)))),
                 ),
               ],
             ),
