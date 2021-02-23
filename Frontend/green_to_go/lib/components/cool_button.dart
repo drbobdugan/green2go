@@ -4,6 +4,7 @@ class CoolButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double left, top, right, bottom;
+
   CoolButton({
     @required this.text,
     @required this.onPressed,

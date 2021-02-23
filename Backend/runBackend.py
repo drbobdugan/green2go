@@ -9,6 +9,7 @@ from containerDao import ContainerDao
 from datetime import datetime
 import sys
 import os
+import re
 sys.path.insert(0, os.getcwd()+'/Email/')
 from emailServer import EmailManager
 app = Flask(__name__)
@@ -21,6 +22,11 @@ emailServer = EmailManager()
 def sendEmail(email, code):
     global emailServer
     return emailServer.sendEmail(email, code)
+
+def validateEmail(email):
+    if not re.match("([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)", email):
+        return False
+    return True
     
 
 #----------------------------User Methods --------------------------------

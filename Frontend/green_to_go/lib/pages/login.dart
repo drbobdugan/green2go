@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:email_validator/email_validator.dart';
 
 import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
+import '../components/cool_errorMessage.dart';
 import '../services/userService.dart';
+import '../static/user.dart';
 import 'signup.dart';
 import 'home.dart';
 
@@ -10,8 +13,8 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  void handleSignIn() {
-    _userService.getUser('test1@students.stonehill.edu');
+  Future<bool> onLogIn(user) async {
+    return await _userService.logIn(user);
   }
 
   @override
@@ -19,10 +22,42 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  void handleSignIn(BuildContext context) {
-    widget.handleSignIn();
-    Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => new HomePage()));
+  ExistingUser user = new ExistingUser();
+  String errorMessage = '';
+
+  bool isValidLogin() {
+    if (user.email == '' || user.password == '') {
+      setState(() {
+        errorMessage = 'Please enter an email and password.';
+      });
+      return false;
+    }
+    if (!EmailValidator.validate(user.email)) {
+      setState(() {
+        errorMessage = 'Please enter a valid email.';
+      });
+      return false;
+    }
+    return true;
+  }
+
+  handleLogIn(BuildContext context) {
+    if (isValidLogin())
+      widget.onLogIn(user).then((response) {
+        if (response) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => new HomePage()));
+        } else {
+          setState(() {
+            errorMessage = 'Invalid email or password.';
+          });
+        }
+      });
+  }
+
+  handleSignUp(BuildContext context) {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => new SignUpPage()));
   }
 
   @override
@@ -41,17 +76,26 @@ class _LoginPageState extends State<LoginPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 CoolTextField(
-                  text: "Email",
-                ),
+                    text: "Email",
+                    onChanged: (value) {
+                      setState(() {
+                        user.email = value;
+                      });
+                    }),
                 CoolTextField(
-                  text: "Password",
-                ),
+                    text: "Password",
+                    obscureText: true,
+                    onChanged: (value) {
+                      setState(() {
+                        user.password = value;
+                      });
+                    }),
                 Padding(
                   padding: const EdgeInsets.only(top: 15.0),
                   child: ElevatedButton(
                     child: Text('Sign In'),
                     onPressed: () {
-                      handleSignIn(context);
+                      handleLogIn(context);
                     },
                   ),
                 ),
@@ -60,14 +104,11 @@ class _LoginPageState extends State<LoginPage> {
                   child: TextButton(
                     child: Text('Need an account? Sign up here!'),
                     onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => new SignUpPage(),
-                        ),
-                      );
+                      handleSignUp(context);
                     },
                   ),
                 ),
+                CoolErrorMessage(text: errorMessage),
               ],
             ),
           ),
@@ -76,32 +117,3 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 }
-
-//class MainPage extends StatefulWidget {
-// MainPage({Key key, this.title}) : super(key: key);
-
-// final String title;
-
-//@override
-///_MainPageState createState() => _MainPageState();
-//}
-
-//class _MainPageState extends State<MainPage> {
-// @override
-// Widget build(BuildContext context) {
-//   return Scaffold(
-//     appBar: AppBar(
-//         title: Text(widget.title),
-//       ),
-//      body: Center(
-//        child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//          children: <Widget>[
-//            Text(
-//              'Welcome!',
-//            )
-//           ],
-//        ),
-//      ));
-// }
-//}
