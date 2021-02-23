@@ -66,6 +66,7 @@ class ContainerDao:
             val.append(relDict['qrcode'])
             val.append(relDict['status'])
             mycursor = self.mydb.cursor()
+            mycursor = self.mydb.cursor(buffered=True)
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
             qrcode = val[1]
@@ -73,8 +74,9 @@ class ContainerDao:
             #    return self.containerExists(qrcode)
             
             #search for old email code(lots of potenatial issues here)
-            #myresult = mycursor.execute("SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime")
-            if(1==2):#myresult is not None):
+            myresult = mycursor.execute("SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime ASC")
+            print(str(myresult))
+            if(myresult is not None):
                 print("Dont be here")
                 oldEmail = myresult[0][0]
                 relDict={
@@ -84,12 +86,14 @@ class ContainerDao:
                    "statusUpdateTime": time}
                 self.updateRelationship(relDict)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
-            mycursor.execute(sql,val)
+            #print(str(val))
+            mycursor.execute(sql,val)  #could break in the future
             print("????")
             print(mycursor.rowcount, "record inserted.")
             self.mydb.commit()
             return True
         except Exception as e:
+            print(str(e))
             print("Error in addRelationship")
             return self.handleError(e)
 
@@ -107,7 +111,7 @@ class ContainerDao:
             mycursor.execute(sqlSet)
             myresult = mycursor.fetchall()
             print(myresult)
-            return True
+            return True, myresult
         except Exception as e:
             print("Error in getRelationship")
             return self.handleError(e)
