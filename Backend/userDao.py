@@ -48,10 +48,11 @@ class UserDao:
             print("Error in addUser")
             self.handleError(e)
     #Gets user based on their email
-    def getUser(self,email):
+    def getUser(self,emailDict):
         try:
+            email = emailDict["email"]
             mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT * FROM user where email like '" + email + "'")
+            mycursor.execute("SELECT * FROM user where email = '" + email + "'")
             myresult = mycursor.fetchall()
             myresult = myresult[0]
             userDict={
@@ -66,7 +67,7 @@ class UserDao:
                 "authCode": myresult[8],
                 "authTime": myresult[9],
                 "lastLogIn": myresult[10]}
-            return userDict
+            return True, userDict
         except Exception as e:
             print("Error in getUser")
             self.handleError(e)
@@ -93,10 +94,12 @@ class UserDao:
             #return self.deleteUser(email)
         
         
-    def deleteUser(self,email):
-        if(self.userExists(email) == False):
+    def deleteUser(self,emailDict):
+        email = emailDict["email"]
+        if(self.userExists(emailDict) == False):
             return False
         try:
+            email = emailDict['email']
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM user WHERE email = '" + email + "'")
             self.mydb.commit()
@@ -104,8 +107,9 @@ class UserDao:
         except Exception as e:
             print("Error in deleteUser")
             self.handleError(e)
-    def userExists(self,email):
+    def userExists(self,emailDict):
         try:
+            email = emailDict['email']
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM user where email like '" + email + "'")
             myresult = mycursor.fetchall()

@@ -4,7 +4,7 @@ def main():
     testAddUser()
     testGetUser()
     testUpdateUser()
-    #testDeleteUser()
+    testDeleteUser()
 
 def testAddUser():
     userDict={
@@ -28,31 +28,31 @@ def testAddUser():
     dao.addUser(userDict)
     
 def testGetUser():
-    email = "test@students.stonehill.edu"
-    userDict = dao.getUser(email)
+    emailDict={"email": "test@students.stonehill.edu"}
+    userDict = dao.getUser(emailDict)
     print("testGetUser: test0")
     #print(testUserDict(userDict,email))
-    email = "test1@students.stonehill.edu"
-    userDict = dao.getUser(email)
+    emailDict={"email": "test1@students.stonehill.edu"}
+    userDict = dao.getUser(emailDict)
     print("testGetUser: test1")
     #print(testUserDict(userDict,email))
-    email = "test2@students.stonehill.edu"
-    userDict = dao.getUser(email)
+    emailDict={"email": "test2@students.stonehill.edu"}
+    userDict = dao.getUser(emailDict)
     print("testGetUser: test2")
     #print(testUserDict(userDict,email))
-    email = "test3@students.stonehill.edu"
-    userDict= dao.getUser(email)
+    emailDict={"email": "test3@students.stonehill.edu"}
+    userDict = dao.getUser(emailDict)
     print("testGetUser: test3")
     #print(testUserDict(userDict,email))
 def testDeleteUser():
-    email = "test@students.stonehill.edu"
-    dao.deleteUser(email)
-    email = "test1@students.stonehill.edu"
-    dao.deleteUser(email)
-    email = "test2@students.stonehill.edu"
-    dao.deleteUser(email)
-    email = "test3@students.stonehill.edu"
-    dao.deleteUser(email)
+    emailDict={"email": "test@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+    emailDict={"email": "test1@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+    emailDict={"email": "test2@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+    emailDict={"email": "test3@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
 def testUserDict(userDict,email):
     return (userDict["email"] == email and userDict["password"] == "password" 
     and userDict["firstName"] == "Test" and userDict["lastName"] == "User"
