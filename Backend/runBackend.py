@@ -76,9 +76,10 @@ def addUser():
     dictOfUserAttrib = None
     # keys to scape from request
     keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
+    authCode=id_generator()
     try:
         dictOfUserAttrib = extractKeysFromRequest(request, keys)
-        dictOfUserAttrib["authCode"] = id_generator()
+        dictOfUserAttrib["authCode"] = authCode
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
          
@@ -147,7 +148,7 @@ def validateCode():
     authtime=res["authtime"]
     authtimets=datetime.strptime(authtime, f)
     timepassed=datetime.now()-authtimets
-    if (code==codefromtable and timepassed.total_seconds()<300):
+    if (dic['code']==codefromtable and timepassed.total_seconds()<300):
         return json.dumps({"success" : True, "message" : ""})
     else:
         return json.dumps({"success" : False, "message" : "Expired token"})
