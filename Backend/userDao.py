@@ -63,10 +63,10 @@ class UserDao:
                 "middleName": myresult[4],
                 "phoneNum": myresult[5],
                 "role": myresult[6],
-                "classYear": myresult[7],
+                "classYear": str(myresult[7]),
                 "authCode": myresult[8],
-                "authTime": myresult[9],
-                "lastLogIn": myresult[10]}
+                "authTime": str(myresult[9]),
+                "lastLogIn": str(myresult[10])}
             return True, userDict
         except Exception as e:
             print("Error in getUser")
