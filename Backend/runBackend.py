@@ -50,7 +50,7 @@ def validateEmail(email):
 
 @app.route('/testPull', methods=['GET'])
 def testPull():
-    return "Hello World Testing php!"
+    return "Hello World Testing ph1p!"
 
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
