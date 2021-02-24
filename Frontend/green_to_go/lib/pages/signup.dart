@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return true;
   }
 
-  handleSignUp(BuildContext context) {
+  void handleSignUp(BuildContext context) {
     if (isSignUpValid()) {
       widget.onSignUp(user).then((response) {
         if (response.success) {

@@ -41,7 +41,7 @@ class _ValidationPageState extends State<ValidationPage> {
     return true;
   }
 
-  handleVerify(BuildContext context) {
+  void handleVerify(BuildContext context) {
     if (isValidCode()) {
       widget.onVerify(code).then((response) {
         if (response.success) {
@@ -61,7 +61,7 @@ class _ValidationPageState extends State<ValidationPage> {
     }
   }
 
-  handleNewCode(BuildContext context) {
+  void handleNewCode(BuildContext context) {
     //var response = widget.onSendCode();
   }
 
