@@ -125,7 +125,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 text: "Class Year",
                 onChanged: (value) {
                   setState(() {
-                    user.classYear = value;
+                    user.classYear = int.parse(value);
                   });
                 },
                 keyboardType: TextInputType.number),

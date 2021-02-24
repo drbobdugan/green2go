@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../services/userService.dart';
+import '../services/user_service.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../static/user.dart';

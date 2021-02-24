@@ -2,8 +2,24 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
 import '../components/user_appBar.dart';
+import '../services/student_service.dart';
+import '../static/student.dart';
 
-class CheckoutPage extends StatelessWidget {
+class CheckoutPage extends StatefulWidget {
+  CheckoutPage({Key key}) : super(key: key);
+
+  final _studentService = StudentService();
+  Future<bool> onScanQR(user, qrCode) async {
+    return await _studentService.addContainer(user, qrCode);
+  }
+
+  @override
+  _CheckoutPageState createState() => _CheckoutPageState();
+}
+
+class _CheckoutPageState extends State<CheckoutPage> {
+  final Student user = new Student();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,7 +49,9 @@ class CheckoutPage extends StatelessWidget {
   }
 
   Future<void> scanQRCode() async {
-    final String qrCode = await FlutterBarcodeScanner.scanBarcode(
+    String qrCode = await FlutterBarcodeScanner.scanBarcode(
         '#FF2E856E', 'Cancel', true, ScanMode.QR);
+    print(qrCode);
+    widget.onScanQR(user, qrCode);
   }
 }

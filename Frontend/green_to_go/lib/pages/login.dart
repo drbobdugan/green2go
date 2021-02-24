@@ -4,7 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
-import '../services/userService.dart';
+import '../services/user_service.dart';
 import '../static/user.dart';
 import 'signup.dart';
 import 'home.dart';
