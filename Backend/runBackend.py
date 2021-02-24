@@ -61,12 +61,15 @@ def getUser():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao
+    
 
-    dao.getUser(dictOfUserAttrib)
+    res=dao.getUser(dictOfUserAttrib)
+    #print(res)
     if res[0] is True:
         res = {"success" : res[0], "data" : res[1]}
     else:
         res = {"success" : res[0], "message" : res[1]}
+    return json.dumps(res) 
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
@@ -85,12 +88,13 @@ def addUser():
 
     global dao
     res = dao.addUser(dictOfUserAttrib)
-    if res is True:
+    #print(res)
+    if res[0] is True:
         # send email
         sendEmail(request.json['email'], authCode)
-        return json.dumps({"success" : True, "message" : ""})
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 
 @app.route('/updateUser', methods=['PATCH'])
@@ -101,10 +105,11 @@ def updateUser():
     dictOfUserAttrib = extractKeysFromRequest(request, keys)
     global dao
     res = dao.updateUser(dictOfUserAttrib)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    print(res)
+    if res [0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 @app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
@@ -116,10 +121,10 @@ def deleteUser():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao
     res = dao.deleteUser(dictOfUserAttrib)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 
         
@@ -138,7 +143,7 @@ def validateCode():
 
     try:
         res = dao.getUser(dic)
-
+        print(res)
     except:
         res = {"success" : False, "message" : "Email does not correspond to user"}
     codefromtable=res["authCode"]
@@ -160,16 +165,18 @@ def login():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao
 
-    res=None
+    #res=None
 
     try:
         res = dao.getUser(dic)
+        print("res is",res)
+        #print(res[1]["password"]==dic["password"])
     except:
-        return json.dumps({"success" : False, "message" : "Database error"})
-    if "password" in res and dic["password"] == res["password"]:
-        return json.dumps({"success" : True, "message" : ""})
+        return json.dumps({"success" : res[0], "message" : res[1]})
+    if "password" in res[1] and dic["password"] == res[1]["password"]:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Incorrect password"})
+        return json.dumps({"success" : "False", "message" : "Incorrect password"})
 
 
 
