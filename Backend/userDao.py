@@ -99,21 +99,27 @@ class UserDao:
         if(self.userExists(emailDict) == False):
             return False
         try:
-            email = emailDict['email']
             mycursor = self.mydb.cursor()
-            mycursor.execute("DELETE FROM user WHERE email = '" + email + "'")
+            sql = "DELETE FROM user WHERE email like '" + email + "'"
+            print("SQL deleteUser ",sql)
+            mycursor.execute(sql)
             self.mydb.commit()
             return True
         except Exception as e:
             print("Error in deleteUser")
+            print(str(e))
             self.handleError(e)
     def userExists(self,emailDict):
         try:
             email = emailDict['email']
+            print(email)
             mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT * FROM user where email like '" + email + "'")
+            sql = "SELECT * FROM user where email = '" + email + "'"
+            print("SQL STATEMENT: ",sql)
+            mycursor.execute(sql)
             myresult = mycursor.fetchall()
             myresult = myresult[0]
+            print(myresult)
             userDict={
                 "email": myresult[0],
                 "password": myresult[1],
@@ -129,6 +135,7 @@ class UserDao:
             return True
         except Exception as e:
             print("Error in userExists")
+            print(str(e))
             self.handleError(e)
             
     def handleError(self,error):
