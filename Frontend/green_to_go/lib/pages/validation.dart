@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../services/api.dart';
 import '../services/user_service.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
@@ -12,12 +13,8 @@ class ValidationPage extends StatefulWidget {
   ValidationPage({Key key, @required this.user}) : super(key: key);
 
   final _userService = UserService();
-  Future<bool> onVerify(code) async {
+  Future<APIResponse> onVerify(code) async {
     return await _userService.validateCode(user, code);
-  }
-
-  Future<bool> onSignUp() async {
-    return await _userService.signUp(user);
   }
 
   Future<bool> onSendCode() async {
@@ -47,33 +44,21 @@ class _ValidationPageState extends State<ValidationPage> {
   handleVerify(BuildContext context) {
     if (isValidCode()) {
       widget.onVerify(code).then((response) {
-        if (response) {
-          handleSignUp(context);
+        if (response.success) {
+          Navigator.of(context).popUntil((route) => route.isFirst);
+          Navigator.of(context).pop();
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => new HomePage(),
+            ),
+          );
         } else {
           setState(() {
-            errorMessage = 'Invalid code.';
+            errorMessage = response.message;
           });
         }
       });
     }
-  }
-
-  handleSignUp(BuildContext context) {
-    widget.onSignUp().then((response) {
-      if (response) {
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => new HomePage(),
-          ),
-        );
-      } else {
-        setState(() {
-          errorMessage = 'An error occured, please try again later.';
-        });
-      }
-    });
   }
 
   handleNewCode(BuildContext context) {
@@ -108,7 +93,13 @@ class _ValidationPageState extends State<ValidationPage> {
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
-            CoolTextField(text: "Enter code here"),
+            CoolTextField(
+                text: "Enter code here",
+                onChanged: (value) {
+                  setState(() {
+                    code = value;
+                  });
+                }),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: ElevatedButton(

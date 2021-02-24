@@ -6,17 +6,17 @@ import 'api.dart';
 class UserService {
   final api = new API();
 
-  Future<bool> validateCode(NewUser user, String code) async {
+  Future<APIResponse> validateCode(NewUser user, String code) async {
     var resp = await api.postResponse(
         "validateCode",
         jsonEncode(<String, String>{
           'email': user.email,
           'code': code,
         }));
-    return resp == "Success";
+    return resp;
   }
 
-  Future<bool> signUp(NewUser user) async {
+  Future<APIResponse> signUp(NewUser user) async {
     var resp = await api.postResponse(
         "addUser",
         jsonEncode(<String, String>{
@@ -26,17 +26,18 @@ class UserService {
           'middleName': user.middleName,
           'lastName': user.lastName,
           'phoneNum': user.phoneNum,
-          'classYear': user.firstName
+          'classYear': user.firstName,
+          'role': "RegularUser"
         }));
-    return resp == "Success";
+    return resp;
   }
 
-  Future<bool> logIn(ExistingUser user) async {
+  Future<APIResponse> logIn(ExistingUser user) async {
     var resp = await api.postResponse(
         "login",
         jsonEncode(
             <String, String>{'email': user.email, 'password': user.password}));
-    return resp == "Success!";
+    return resp;
   }
 
   dynamic sendCode(Map params) async {

@@ -4,10 +4,17 @@ import 'package:flutter/material.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../static/user.dart';
+import '../services/api.dart';
+import '../services/user_service.dart';
 import 'validation.dart';
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key key}) : super(key: key);
+
+  final _userService = UserService();
+  Future<APIResponse> onSignUp(user) async {
+    return await _userService.signUp(user);
+  }
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
@@ -47,8 +54,16 @@ class _SignUpPageState extends State<SignUpPage> {
 
   handleSignUp(BuildContext context) {
     if (isSignUpValid()) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => new ValidationPage(user: user)));
+      widget.onSignUp(user).then((response) {
+        if (response.success) {
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => new ValidationPage(user: user)));
+        } else {
+          setState(() {
+            errorMessage = response.message;
+          });
+        }
+      });
     }
   }
 

@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 import 'package:http/http.dart';
 
 class API {
   final String baseURL = '198.199.77.174:5000';
   final String localURL = '127.0.0.1:5000';
 
-  Future postResponse(String path, dynamic params) async {
+  Future<APIResponse> postResponse(String path, dynamic params) async {
     Response response = await post(
       "http://$localURL/$path",
       headers: <String, String>{
@@ -12,12 +14,27 @@ class API {
       },
       body: params,
     );
-    print(response.body);
-    return response.body;
+    if (response != null && response.body != null) {
+      return APIResponse(jsonDecode(response.body));
+    }
+    return APIResponse({
+      'success': false,
+      'message': 'An error occured, please try again later.'
+    });
   }
 
   Future getResponse(String path, String params) async {
     Response response = await get("http://$localURL/$path$params");
     return response.body;
+  }
+}
+
+class APIResponse {
+  bool success;
+  String message;
+
+  APIResponse(Map<String, dynamic> value) {
+    success = value['success'];
+    message = value['message'];
   }
 }

@@ -4,6 +4,7 @@ import 'package:email_validator/email_validator.dart';
 import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
+import '../services/api.dart';
 import '../services/user_service.dart';
 import '../static/user.dart';
 import 'signup.dart';
@@ -13,7 +14,7 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  Future<bool> onLogIn(user) async {
+  Future<APIResponse> onLogIn(user) async {
     return await _userService.logIn(user);
   }
 
@@ -42,17 +43,18 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   handleLogIn(BuildContext context) {
-    if (isValidLogin())
+    if (isValidLogin()) {
       widget.onLogIn(user).then((response) {
-        if (response) {
+        if (response.success) {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => new HomePage()));
         } else {
           setState(() {
-            errorMessage = 'Invalid email or password.';
+            errorMessage = response.message;
           });
         }
       });
+    }
   }
 
   handleSignUp(BuildContext context) {

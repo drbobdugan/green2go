@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../components/cool_errorMessage.dart';
 import '../components/user_appBar.dart';
+import '../services/api.dart';
 import '../services/student_service.dart';
 import '../static/student.dart';
 import '../pages/home.dart';
@@ -11,7 +12,7 @@ class CheckoutPage extends StatefulWidget {
   CheckoutPage({Key key}) : super(key: key);
 
   final _studentService = StudentService();
-  Future<bool> onScanQR(user, qrCode) async {
+  Future<APIResponse> onScanQR(user, qrCode) async {
     return await _studentService.addContainer(user, qrCode);
   }
 
@@ -57,12 +58,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
             '#FF2E856E', 'Cancel', true, ScanMode.QR)
         .then((code) {
       widget.onScanQR(user, code).then((response) {
-        if (response) {
+        if (response.success) {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => new HomePage()));
         } else {
           setState(() {
-            errorMessage = 'Invalid QR code $code';
+            errorMessage = response.message;
           });
         }
       });
