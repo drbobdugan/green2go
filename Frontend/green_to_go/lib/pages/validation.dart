@@ -83,6 +83,7 @@ class _ValidationPageState extends State<ValidationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text('Green2Go'),
       ),

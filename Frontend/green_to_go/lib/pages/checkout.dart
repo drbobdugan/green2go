@@ -6,6 +6,7 @@ class CheckoutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.white,
         appBar: UserAppBar(),
         body: Padding(
             padding: const EdgeInsets.all(50.0),
