@@ -27,7 +27,7 @@ class ContainerDao:
              mycursor.execute(sql,val)
              print(mycursor.rowcount, "record inserted.")
              self.mydb.commit()
-             return True
+             return True, ""
         except Exception as e:
             print("Error in addContainer")
             return self.handleError(e)
@@ -40,7 +40,7 @@ class ContainerDao:
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM container WHERE qrcode = '" + qrcode + "'")
             myresult = mycursor.fetchall()
-            return {"qrcode" : myresult[0][0]}
+            return True, {"qrcode" : myresult[0][0]}
         except Exception as e:
             print("Error in getContainer")
             return self.handleError(e)
@@ -53,7 +53,7 @@ class ContainerDao:
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM container WHERE qrcode = '" + qrcode + "'")
             self.mydb.commit()
-            return True
+            return True, ""
         except Exception as e:
             print("Error in deleteContainer")
             return self.handleError(e)
@@ -93,7 +93,7 @@ class ContainerDao:
             print("????")
             print(mycursor.rowcount, "record inserted.")
             self.mydb.commit()
-            return True
+            return True, ""
         except Exception as e:
             print(str(e))
             print("Error in addRelationship")
@@ -133,7 +133,7 @@ class ContainerDao:
             mycursor = self.mydb.cursor()
             mycursor.execute("DELETE FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = '" + status + "'")
             self.mydb.commit()
-            return True
+            return True, ""
         except Exception as e:
             print("Error in deleteRelationship")
             return self.handleError(e)
@@ -168,12 +168,12 @@ class ContainerDao:
             return self.handleError(e)         
     def containerExists(self, qrcodeDict):
         qrcode = qrcodeDict["qrcode"]
-        result = self.getContainer(qrcodeDict)
+        result = self.getContainer(qrcodeDict)[1]
         if len(result["qrcode"]) > 1:
             return True
         else:
             contDict={"qrcode": qrcode}
-            return self.addContainer(contDict)
+            return self.addContainer(contDict)[0]
 
     def handleError(self,error):
         error = str(error)

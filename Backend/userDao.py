@@ -43,7 +43,7 @@ class UserDao:
             mycursor.execute(sql, val)
             print(mycursor.rowcount, "record inserted.")
             self.mydb.commit()
-            return True
+            return True, ""
         except Exception as e:
             print("Error in addUser")
             self.handleError(e)
@@ -87,7 +87,7 @@ class UserDao:
             sqlSet += sqlWhere
             mycursor.execute(sqlSet)
             self.mydb.commit()
-            return True
+            return True, ""
         except Exception as e:
             print("Error in updateUser")
             self.handleError(e)
@@ -132,7 +132,7 @@ class UserDao:
                 "authCode": myresult[8],
                 "authTime": myresult[9],
                 "lastLogIn": myresult[10]}
-            return True
+            return True, ""
         except Exception as e:
             print("Error in userExists")
             print(str(e))
