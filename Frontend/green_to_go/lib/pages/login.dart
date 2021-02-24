@@ -44,6 +44,7 @@ class _LoginPageState extends State<LoginPage> {
   handleLogIn(BuildContext context) {
     if (isValidLogin())
       widget.onLogIn(user).then((response) {
+        print(response);
         if (response) {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => new HomePage()));
@@ -66,53 +67,60 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: Text('Green2Go'),
       ),
-      body: Column(
-        children: [
-          ImageBanner("assets/images/green2go_logo.jpg"),
-          Padding(
-            padding: const EdgeInsets.only(left: 50.0, right: 50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                CoolTextField(
-                    text: "Email",
-                    onChanged: (value) {
-                      setState(() {
-                        user.email = value;
-                      });
-                    }),
-                CoolTextField(
-                    text: "Password",
-                    obscureText: true,
-                    onChanged: (value) {
-                      setState(() {
-                        user.password = value;
-                      });
-                    }),
-                Padding(
-                  padding: const EdgeInsets.only(top: 15.0),
-                  child: ElevatedButton(
-                    child: Text('Sign In'),
-                    onPressed: () {
-                      handleLogIn(context);
-                    },
-                  ),
+      body: Form(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ImageBanner("assets/images/green2go_logo.jpg"),
+              Padding(
+                padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+                child: Column(
+                  children: <Widget>[
+                    CoolTextField(
+                      text: "Email",
+                      onChanged: (value) {
+                        setState(() {
+                          user.email = value;
+                        });
+                      },
+                      autofillHints: [AutofillHints.email],
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                    CoolTextField(
+                      text: "Password",
+                      obscureText: true,
+                      onChanged: (value) {
+                        setState(() {
+                          user.password = value;
+                        });
+                      },
+                      autofillHints: [AutofillHints.password],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: ElevatedButton(
+                        child: Text('Sign In'),
+                        onPressed: () {
+                          handleLogIn(context);
+                        },
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 0.0),
+                      child: TextButton(
+                        child: Text('Need an account? Sign up here!'),
+                        onPressed: () {
+                          handleSignUp(context);
+                        },
+                      ),
+                    ),
+                    CoolErrorMessage(text: errorMessage),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 0.0),
-                  child: TextButton(
-                    child: Text('Need an account? Sign up here!'),
-                    onPressed: () {
-                      handleSignUp(context);
-                    },
-                  ),
-                ),
-                CoolErrorMessage(text: errorMessage),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
