@@ -48,6 +48,10 @@ def validateEmail(email):
     return True
     
 
+@app.route('/testPull', methods=['GET'])
+def testPull():
+    return "Hello World!"
+
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
 def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
