@@ -62,13 +62,11 @@ def getUser():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao
 
-    res=None
-
-    try:
-        res = dao.getUser(dictOfUserAttrib)
-    except:
-        res = {"success" : False, "message" : "Database error"}
-    return res
+    dao.getUser(dictOfUserAttrib)
+    if res[0] is True:
+        res = {"success" : res[0], "data" : res[1]}
+    else:
+        res = {"success" : res[0], "message" : res[1]}
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
