@@ -46,11 +46,6 @@ def validateEmail(email):
     if not re.match("([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)", email):
         return False
     return True
-    
-
-@app.route('/testPull', methods=['GET'])
-def testPull():
-    return "Hello World Testing ph1dfsdsffdfdsp!"
 
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
