@@ -46,8 +46,11 @@ class _LoginPageState extends State<LoginPage> {
     if (isValidLogin()) {
       widget.onLogIn(user).then((response) {
         if (response.success) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => new HomePage()));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => new HomePage(),
+            ),
+          );
         } else {
           setState(() {
             errorMessage = response.message;
