@@ -193,10 +193,10 @@ def addContainer():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
     res = dao2.addContainer(containerDic)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 @app.route('/getContainer', methods = ['GET'])
 def getContainer():
@@ -207,11 +207,11 @@ def getContainer():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
-    res = None
-    try:
-        res = json.dumps(dao2.getContainer(containerDic))
-    except:
-        res = json.dumps({"success" : False, "message" : "Database error"})
+    res = dao2.getContainer(containerDic)
+    if res[0] is True:
+        res = json.dumps({"success" : res[0], "data" : res[1]})
+    else:
+        res = json.dumps({"success" : res[0], "message" : res[1]})
     return res
 
 @app.route('/deleteContainer', methods = ['DELETE'])
@@ -224,10 +224,10 @@ def deleteContainer():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
     res = dao2.deleteContainer(containerDic)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 
 @app.route('/updateContainer', methods=['PATCH'])
@@ -237,10 +237,10 @@ def updateContainer():
     containerDic = extractKeysFromRequest(request, keys)
     global dao2
     res = dao2.updateContainer(containerDic)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 #----------------------------HasContainer Methods --------------------------------
 
@@ -255,10 +255,10 @@ def addRelationship():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
     res = dao2.addRelationship([userContainer])
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 @app.route('/getRelationship', methods = ['GET'])
 def getRelationship():
     relationship = None
@@ -270,11 +270,11 @@ def getRelationship():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
-    res = None
-    try:
-        res = dao2.getRelationship(relationship)
-    except:
-        res = json.dumps({"success" : False, "message" : "QRcode did not correspond to container"})
+    res = dao2.getRelationship(relationship)
+    if res[0] is True:
+        res = json.dumps({"success" : res[0], "message" : ""})
+    else:
+        res = json.dumps({"success" : res[0], "message" : res[1]})
     return res
 
 @app.route('/updateRelationship', methods=['PATCH'])
@@ -285,10 +285,10 @@ def updateRelationship():
     dictOfUserAttrib = extractKeysFromRequest(request, keys)
     global dao2
     res = dao2.updateRelationship(dictOfUserAttrib)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Databse error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 @app.route('/deleteRelationship', methods=['DELETE'])
 def deleteRelationship():
@@ -300,10 +300,10 @@ def deleteRelationship():
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
     res = dao2.deleteRelationship(relationship)
-    if res is True:
-        return json.dumps({"success" : True, "message" : ""})
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
     else:
-        return json.dumps({"success" : False, "message" : "Database error"})
+        return json.dumps({"success" : res[0], "message" : res[1]})
     
 
 if __name__ == '__main__':
