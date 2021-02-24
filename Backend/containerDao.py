@@ -112,8 +112,14 @@ class ContainerDao:
             #print(sqlSet)
             mycursor.execute(sqlSet)
             myresult = mycursor.fetchall()
-            print(myresult)
-            return True, myresult
+            myresult = myresult[0]
+            relDict={
+                "email": myresult[0],
+                "qrcode": myresult[1],
+                "status": myresult[2],
+                "statusUpdateTime": str(myresult[3])}
+            print(relDict)
+            return True, relDict
         except Exception as e:
             print("Error in getRelationship")
             return self.handleError(e)
