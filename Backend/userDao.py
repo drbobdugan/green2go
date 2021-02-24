@@ -96,15 +96,15 @@ class UserDao:
         
     def deleteUser(self,emailDict):
         email = emailDict["email"]
-        if(self.userExists(emailDict) == False):
-            return False
+        if(self.userExists(emailDict)[0] == False):
+            return False, "User does not exist"
         try:
             mycursor = self.mydb.cursor()
             sql = "DELETE FROM user WHERE email like '" + email + "'"
             print("SQL deleteUser ",sql)
             mycursor.execute(sql)
             self.mydb.commit()
-            return True
+            return True, ""
         except Exception as e:
             print("Error in deleteUser")
             print(str(e))
