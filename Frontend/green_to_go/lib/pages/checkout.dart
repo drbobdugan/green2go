@@ -1,9 +1,11 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
+import '../components/cool_errorMessage.dart';
 import '../components/user_appBar.dart';
 import '../services/student_service.dart';
 import '../static/student.dart';
+import '../pages/home.dart';
 
 class CheckoutPage extends StatefulWidget {
   CheckoutPage({Key key}) : super(key: key);
@@ -19,6 +21,7 @@ class CheckoutPage extends StatefulWidget {
 
 class _CheckoutPageState extends State<CheckoutPage> {
   final Student user = new Student();
+  String errorMessage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +47,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
                       child: Text('Scan QR Code'),
                       onPressed: () => scanQRCode(),
                     )),
+                CoolErrorMessage(text: errorMessage),
               ],
             )));
   }
 
   Future<void> scanQRCode() async {
-    String qrCode = await FlutterBarcodeScanner.scanBarcode(
-        '#FF2E856E', 'Cancel', true, ScanMode.QR);
-    print(qrCode);
-    widget.onScanQR(user, qrCode);
+    await FlutterBarcodeScanner.scanBarcode(
+            '#FF2E856E', 'Cancel', true, ScanMode.QR)
+        .then((code) {
+      widget.onScanQR(user, code).then((response) {
+        if (response) {
+          Navigator.of(context)
+              .push(MaterialPageRoute(builder: (context) => new HomePage()));
+        } else {
+          setState(() {
+            errorMessage = 'Invalid QR code $code';
+          });
+        }
+      });
+    });
   }
 }
