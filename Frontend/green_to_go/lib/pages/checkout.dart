@@ -1,3 +1,4 @@
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
 import '../components/user_appBar.dart';
@@ -25,9 +26,14 @@ class CheckoutPage extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 20.0),
                     child: ElevatedButton(
                       child: Text('Scan QR Code'),
-                      onPressed: () {},
+                      onPressed: () => scanQRCode(),
                     )),
               ],
             )));
+  }
+
+  Future<void> scanQRCode() async {
+    final String qrCode = await FlutterBarcodeScanner.scanBarcode(
+        '#FF2E856E', 'Cancel', true, ScanMode.QR);
   }
 }
