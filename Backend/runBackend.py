@@ -146,8 +146,8 @@ def validateCode():
         print(res)
     except:
         res = {"success" : False, "message" : "Email does not correspond to user"}
-    codefromtable=res["authCode"]
-    authtime=res["authtime"]
+    codefromtable=res[1]["authCode"]
+    authtime=res[1]["authTime"]
     authtimets=datetime.strptime(authtime, f)
     timepassed=datetime.now()-authtimets
     if (dic['code']==codefromtable and timepassed.total_seconds()<300):
