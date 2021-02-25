@@ -46,7 +46,8 @@ class UserDao:
             return True, ""
         except Exception as e:
             print("Error in addUser")
-            self.handleError(e)
+            print(str(e))
+            return self.handleError(e)
     #Gets user based on their email
     def getUser(self,emailDict):
         try:
@@ -70,7 +71,7 @@ class UserDao:
             return True, userDict
         except Exception as e:
             print("Error in getUser")
-            self.handleError(e)
+            return self.handleError(e)
     #Deletes user based on their email
     def updateUser(self,userDict):
         try:
@@ -90,7 +91,7 @@ class UserDao:
             return True, ""
         except Exception as e:
             print("Error in updateUser")
-            self.handleError(e)
+            return self.handleError(e)
             #return self.deleteUser(email)
         
         
@@ -108,7 +109,7 @@ class UserDao:
         except Exception as e:
             print("Error in deleteUser")
             print(str(e))
-            self.handleError(e)
+            return self.handleError(e)
     def userExists(self,emailDict):
         try:
             email = emailDict['email']
@@ -136,15 +137,17 @@ class UserDao:
         except Exception as e:
             print("Error in userExists")
             print(str(e))
-            self.handleError(e)
+            return self.handleError(e)
             
     def handleError(self,error):
         error = str(error)
         print(error)
         if "Duplicate entry" in error:
             return False,"Duplicate Entry"
-        if "Can't connect to MySQL server" in error:
+        elif "Can't connect to MySQL server" in error:
             self.reconnectSql()
             return False, "Could not connect to database please try again"
-        if "list index out of range" in error:
+        elif "list index out of range" in error:
             return False, "Entry could not be found"
+        else:
+            return False, error
