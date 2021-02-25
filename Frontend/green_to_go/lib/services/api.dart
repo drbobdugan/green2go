@@ -8,7 +8,7 @@ class API {
 
   Future<APIResponse> postResponse(String path, dynamic params) async {
     Response response = await post(
-      "http://$localURL/$path",
+      "http://$baseURL/$path",
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
@@ -24,7 +24,7 @@ class API {
   }
 
   Future getResponse(String path, String params) async {
-    Response response = await get("http://$localURL/$path$params");
+    Response response = await get("http://$baseURL/$path$params");
     return response.body;
   }
 }
