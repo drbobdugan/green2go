@@ -2,6 +2,8 @@ import mysql.connector
 from datetime import datetime
 class ContainerDao:
 
+    def __del__(self): 
+        self.mydb.shutdown()
     def __init__(self):
         
         self.mydb = mysql.connector.connect(
@@ -150,8 +152,13 @@ class ContainerDao:
             email = relDict["email"]
             qrcode = relDict["qrcode"]
             print("MADE IT HERE")
-            myresult = mycursor.execute("SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' ORDER BY statusUpdateTime")
+            #THIS DOES NOT WORK
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" 
+            print(sql)
+            mycursor.execute(sql)#ORDER BY statusUpdateTime")
+            myresult = mycursor.fetchall()
             print("MADE IT HERE")
+            print(myresult)
             statusUpdateTime = myresult[0][3]#Probably formatted wrong
             sqlSet = "UPDATE hascontainer SET "
             sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "'"

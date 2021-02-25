@@ -3,11 +3,15 @@ import json
 from datetime import datetime
 class UserDao:
 
-    mydb = mysql.connector.connect(
-            host="198.199.77.174",
-            user="root",
-            password="Capstone2021!",
-            database="sys") 
+    def __del__(self): 
+        self.mydb.shutdown()
+        test = "test"
+    def __init__(self):
+        self.mydb = mysql.connector.connect(
+                host="198.199.77.174",
+                user="root",
+                password="Capstone2021!",
+                database="sys") 
         
     def reconnectSql(self):
         self.mydb = mysql.connector.connect(
