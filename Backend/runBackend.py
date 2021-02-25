@@ -146,8 +146,8 @@ def validateCode():
         print(res)
     except:
         res = {"success" : False, "message" : "Email does not correspond to user"}
-    codefromtable=res["authCode"]
-    authtime=res["authtime"]
+    codefromtable=res[1]["authCode"]
+    authtime=res[1]["authTime"]
     authtimets=datetime.strptime(authtime, f)
     timepassed=datetime.now()-authtimets
     if (dic['code']==codefromtable and timepassed.total_seconds()<300):
@@ -248,13 +248,14 @@ def updateContainer():
 @app.route('/addRelationship', methods=['POST'])
 def addRelationship():
     userContainer = None
-    keys=['email','qrcode','status','statusUpdateTime']
+    keys=['email','qrcode','status']
     try:
         userContainer = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
-    res = dao2.addRelationship([userContainer])
+    res = dao2.addRelationship(userContainer)
+    print(res)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
