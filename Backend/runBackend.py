@@ -248,13 +248,14 @@ def updateContainer():
 @app.route('/addRelationship', methods=['POST'])
 def addRelationship():
     userContainer = None
-    keys=['email','qrcode','status','statusUpdateTime']
+    keys=['email','qrcode','status']
     try:
         userContainer = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
-    res = dao2.addRelationship([userContainer])
+    res = dao2.addRelationship(userContainer)
+    print(res)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
