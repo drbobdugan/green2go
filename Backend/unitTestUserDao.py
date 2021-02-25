@@ -43,19 +43,9 @@ class unitTestUserDao(unittest.TestCase):
         rc, msg = self.addTest42User()
         self.assertTrue(rc)
 
-        email={"email": "test42@students.stonehill.edu"}
-        dao = UserDao()
-        rc, getUser = dao.getUser(email)
-
-        self.assertTrue(rc)
-        self.assertEqual(email["email"],getUser["email"])
-
     def testAddUserTwice(self):
         """
         Test that we can't add a user twice
-        """
-        
-        """
         First add should work correctly
         """
         rc, msg = self.addTest42User()
@@ -67,6 +57,33 @@ class unitTestUserDao(unittest.TestCase):
         rc, msg = self.addTest42User()
         self.assertFalse(rc)
         self.assertEqual(msg,"Duplicate Entry")
+    
+    def testRegularSelectUser(self):
+        """
+        Test that we can select a user that exists in the database already
+        """
+        rc, msg = self.addTest42User()
+        self.assertTrue(rc)
+
+        email={"email": "test42@students.stonehill.edu"}
+        dao = UserDao()
+        rc, getUser = dao.getUser(email)
+
+        self.assertTrue(rc)
+        self.assertEqual(email["email"],getUser["email"])
+    
+    def testSelectUserDoesntExist(self):
+        """
+        Test that we can't select a user that doesnt exist in the database already
+        """
+        rc, msg = self.addTest42User()
+        self.assertTrue(rc)
+
+        email={"email": "test43@students.stonehill.edu"}
+        dao = UserDao()
+        rc, getUser = dao.getUser(email)
+
+        self.assertFalse(rc)
 
 if __name__ == '__main__':
     unittest.main()
