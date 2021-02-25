@@ -5,7 +5,7 @@ class UserDao:
 
     def __del__(self): 
         self.mydb.shutdown()
-        test = "test"
+        
     def __init__(self):
         self.mydb = mysql.connector.connect(
                 host="198.199.77.174",
@@ -14,6 +14,10 @@ class UserDao:
                 database="sys") 
         
     def reconnectSql(self):
+        try:
+            self.mydb.shutdown()
+        except:
+            print("Already disconnected")
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
             user="root",

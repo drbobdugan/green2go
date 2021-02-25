@@ -13,6 +13,11 @@ class ContainerDao:
             database="sys") 
 
     def reconnectSql(self):
+        try:
+            self.mydb.shutdown()
+        except:
+            print("Already disconnected")
+            
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
             user="root",
