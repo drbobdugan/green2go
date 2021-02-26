@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CoolTextField extends StatefulWidget {
   final String text;
+  final bool visible;
   final ValueChanged<String> onChanged;
   final bool obscureText;
   final dynamic autofillHints;
@@ -11,6 +12,7 @@ class CoolTextField extends StatefulWidget {
   CoolTextField(
       {Key key,
       @required this.text,
+      this.visible,
       this.onChanged,
       this.obscureText,
       this.autofillHints,
@@ -51,30 +53,32 @@ class _CoolTextFieldState extends State<CoolTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.only(bottom: 10.0),
-      child: TextFormField(
-          controller: _controller,
-          decoration: InputDecoration(
-              labelText: widget.text,
-              contentPadding: EdgeInsets.symmetric(vertical: 0.0),
-              suffixIcon: Padding(
-                padding: EdgeInsets.only(bottom: 0.0),
-                child: isValidInput()
-                    ? IconButton(
-                        onPressed: () => _controller.clear(),
-                        icon: Icon(Icons.clear, size: 16.0),
-                      )
-                    : null,
-              )),
-          obscureText: (widget.obscureText == true ? true : false),
-          autofillHints:
-              (widget.autofillHints == null ? [] : widget.autofillHints),
-          keyboardType: (widget.keyboardType == null
-              ? TextInputType.text
-              : widget.keyboardType),
-          textInputAction: TextInputAction.next,
-          onFieldSubmitted: widget.onFieldSubmitted),
-    );
+    return Visibility(
+        visible: (widget.visible != false),
+        child: Padding(
+          padding: EdgeInsets.only(bottom: 10.0),
+          child: TextFormField(
+              controller: _controller,
+              decoration: InputDecoration(
+                  labelText: widget.text,
+                  contentPadding: EdgeInsets.symmetric(vertical: 0.0),
+                  suffixIcon: Padding(
+                    padding: EdgeInsets.only(bottom: 0.0),
+                    child: isValidInput()
+                        ? IconButton(
+                            onPressed: () => _controller.clear(),
+                            icon: Icon(Icons.clear, size: 16.0),
+                          )
+                        : null,
+                  )),
+              obscureText: (widget.obscureText == true),
+              autofillHints:
+                  (widget.autofillHints == null ? [] : widget.autofillHints),
+              keyboardType: (widget.keyboardType == null
+                  ? TextInputType.text
+                  : widget.keyboardType),
+              textInputAction: TextInputAction.next,
+              onFieldSubmitted: widget.onFieldSubmitted),
+        ));
   }
 }

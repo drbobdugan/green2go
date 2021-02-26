@@ -28,6 +28,7 @@ class ValidationPage extends StatefulWidget {
 }
 
 class _ValidationPageState extends State<ValidationPage> {
+  String email = '';
   String code = '';
   String errorMessage = '';
 
@@ -67,6 +68,8 @@ class _ValidationPageState extends State<ValidationPage> {
 
   @override
   Widget build(BuildContext context) {
+    email = widget.user.email;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -93,6 +96,16 @@ class _ValidationPageState extends State<ValidationPage> {
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
+            CoolTextField(
+                visible: email == '',
+                text: "Email",
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
+                autofillHints: [AutofillHints.email],
+                keyboardType: TextInputType.emailAddress),
             CoolTextField(
                 text: "Enter code here",
                 onChanged: (value) {

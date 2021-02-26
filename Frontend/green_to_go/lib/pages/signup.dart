@@ -67,6 +67,11 @@ class _SignUpPageState extends State<SignUpPage> {
     }
   }
 
+  void handleValidation(BuildContext context) {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => new ValidationPage(user: user)));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,6 +175,15 @@ class _SignUpPageState extends State<SignUpPage> {
                     handleSignUp(context);
                   },
                 )),
+            Padding(
+              padding: const EdgeInsets.only(top: 0.0),
+              child: TextButton(
+                child: Text('Have a verification code? Enter it here!'),
+                onPressed: () {
+                  handleValidation(context);
+                },
+              ),
+            ),
             CoolErrorMessage(text: errorMessage),
           ],
         ),
