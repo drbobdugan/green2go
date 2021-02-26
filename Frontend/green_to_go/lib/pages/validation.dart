@@ -13,8 +13,8 @@ class ValidationPage extends StatefulWidget {
   ValidationPage({Key key, @required this.user}) : super(key: key);
 
   final _userService = UserService();
-  Future<APIResponse> onVerify(code) async {
-    return await _userService.validateCode(user, code);
+  Future<APIResponse> onVerify(email, code) async {
+    return await _userService.validateCode(email, code);
   }
 
   Future<bool> onSendCode() async {
@@ -28,6 +28,7 @@ class ValidationPage extends StatefulWidget {
 }
 
 class _ValidationPageState extends State<ValidationPage> {
+  String email = '';
   String code = '';
   String errorMessage = '';
 
@@ -43,7 +44,7 @@ class _ValidationPageState extends State<ValidationPage> {
 
   void handleVerify(BuildContext context) {
     if (isValidCode()) {
-      widget.onVerify(code).then((response) {
+      widget.onVerify(email, code).then((response) {
         if (response.success) {
           Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.of(context).pop();
@@ -62,15 +63,17 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   void handleNewCode(BuildContext context) {
-    //var response = widget.onSendCode();
+    Navigator.of(context).pop();
   }
 
   @override
   Widget build(BuildContext context) {
+    email = widget.user.email;
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Green2Go'),
+        title: Text('Choose2Reuse'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
@@ -93,6 +96,16 @@ class _ValidationPageState extends State<ValidationPage> {
                 style: TextStyle(fontSize: 20.0),
               ),
             ),
+            CoolTextField(
+                visible: widget.user.email == '',
+                text: "Email",
+                onChanged: (value) {
+                  setState(() {
+                    email = value;
+                  });
+                },
+                autofillHints: [AutofillHints.email],
+                keyboardType: TextInputType.emailAddress),
             CoolTextField(
                 text: "Enter code here",
                 onChanged: (value) {

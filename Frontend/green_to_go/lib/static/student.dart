@@ -4,8 +4,10 @@ class Student {
   String firstName;
   String middleName;
   String lastName;
-  int classYear;
+  String classYear;
   String phoneNum;
+  String role;
+  String authCode;
 
   Student() {
     email = '';
@@ -13,12 +15,21 @@ class Student {
     firstName = '';
     middleName = '';
     lastName = '';
-    classYear = 0;
+    classYear = '';
     phoneNum = '';
+    role = '';
+    authCode = '';
   }
 
-  consoleLog() {
-    print(
-        "email: $email,\n password: $password,\n firstName: $firstName,\n lastName: $lastName,\n middleName: $middleName,\n phoneNum: $phoneNum,\n classYear: $classYear}");
+  jsonToStudent(json) {
+    email = json['email'];
+    password = json['password'];
+    firstName = json['firstName'];
+    middleName = json['middleName'];
+    lastName = json['lastName'];
+    classYear = json['classYear'];
+    phoneNum = json['phoneNum'];
+    role = json['role'];
+    authCode = json['authCode'];
   }
 }

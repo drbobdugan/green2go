@@ -17,15 +17,15 @@ Map<int, Color> green = {
 
 void main() {
   runApp(
-    Green2GoApp(),
+    Choose2ReuseApp(),
   );
 }
 
-class Green2GoApp extends StatelessWidget {
+class Choose2ReuseApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Green2Go',
+      title: 'Choose2Reuse',
       theme: ThemeData(
           primarySwatch: MaterialColor(0xFF2E856E, green),
           visualDensity: VisualDensity.adaptivePlatformDensity,
