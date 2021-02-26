@@ -63,7 +63,7 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   void handleNewCode(BuildContext context) {
-    //var response = widget.onSendCode();
+    Navigator.of(context).pop();
   }
 
   @override

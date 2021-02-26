@@ -21,27 +21,29 @@ class API {
   }
 
   Future<APIResponse> postResponse(String path, dynamic params) async {
-    var url = await getURL();
-    Response response = await post(
-      "http://$url/$path",
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: params,
-    );
-    if (response != null && response.body != null) {
-      return APIResponse(jsonDecode(response.body));
-    }
-    return APIResponse({
-      'success': false,
-      'message': 'An error occured, please try again later.'
+    return getURL().then((url) async {
+      Response response = await post(
+        "http://$url/$path",
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: params,
+      );
+      if (response != null && response.body != null) {
+        return APIResponse(jsonDecode(response.body));
+      }
+      return APIResponse({
+        'success': false,
+        'message': 'An error occured, please try again later.'
+      });
     });
   }
 
   Future getResponse(String path, String params) async {
-    var url = await getURL();
-    Response response = await get("http://$url/$path$params");
-    return response.body;
+    return getURL().then((url) async {
+      Response response = await get("http://$url/$path$params");
+      return response.body;
+    });
   }
 }
 
@@ -50,7 +52,7 @@ class APIResponse {
   String message;
 
   APIResponse(Map<String, dynamic> value) {
-    success = (value['success'] == 'true');
+    success = value['success'];
     message = value['message'];
   }
 }
