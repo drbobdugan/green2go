@@ -78,7 +78,7 @@ class _SignUpPageState extends State<SignUpPage> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
-        title: Text('Green2Go'),
+        title: Text('Choose2Reuse'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(50.0),

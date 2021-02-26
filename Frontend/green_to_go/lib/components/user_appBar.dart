@@ -11,7 +11,7 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return Container(
       child: AppBar(
-        title: Text('Green2Go'),
+        title: Text('Choose2Reuse'),
         actions: <Widget>[
           PopupMenuButton(
             onSelected: (choice) {

@@ -72,15 +72,20 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Green2Go'),
+        title: Text('Choose2Reuse'),
       ),
       body: Form(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              ImageBanner("assets/images/green2go_logo.jpg"),
               Padding(
-                padding: const EdgeInsets.only(left: 50.0, right: 50.0),
+                  padding: EdgeInsets.only(top: 50.0, bottom: 30.0),
+                  child: FittedBox(
+                      fit: BoxFit.fill,
+                      child:
+                          Image.asset("assets/images/choose2reuse_logo.jpg"))),
+              Padding(
+                padding: EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
@@ -111,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                     Padding(
                       padding: const EdgeInsets.only(top: 15.0),
                       child: ElevatedButton(
-                        child: Text('Sign In'),
+                        child: Text('Log In'),
                         onPressed: () {
                           handleLogIn(context);
                         },

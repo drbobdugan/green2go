@@ -73,7 +73,7 @@ class _ValidationPageState extends State<ValidationPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Green2Go'),
+        title: Text('Choose2Reuse'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
