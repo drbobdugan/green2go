@@ -11,7 +11,8 @@ class UserDao:
                 host="198.199.77.174",
                 user="root",
                 password="Capstone2021!",
-                database="sys") 
+                database="sys",
+                buffered=True) 
         
     def reconnectSql(self):
         try:
@@ -22,7 +23,8 @@ class UserDao:
             host="198.199.77.174",
             user="root",
             password="Capstone2021!",
-            database="sys")
+            database="sys",
+            buffered=True)
     #Accepts list val in format  val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
     def addUser(self, userDict):
@@ -51,11 +53,13 @@ class UserDao:
             mycursor.execute(sql, val)
             print(mycursor.rowcount, "record inserted.")
             self.mydb.commit()
+            # close cursor 
+            mycursor.close()
             return True, ""
         except Exception as e:
             print("Error in addUser")
             print(str(e))
-            return self.handleError(e)
+            return self.handleError(e, mycursor)
     #Gets user based on their email
     def getUser(self,emailDict):
         try:
@@ -76,10 +80,12 @@ class UserDao:
                 "authCode": myresult[8],
                 "authTime": str(myresult[9]),
                 "lastLogIn": str(myresult[10])}
+            # close cursor 
+            mycursor.close()
             return True, userDict
         except Exception as e:
             print("Error in getUser")
-            return self.handleError(e)
+            return self.handleError(e, mycursor)
     #Deletes user based on their email
     def updateUser(self,userDict):
         try:
@@ -96,10 +102,12 @@ class UserDao:
             sqlSet += sqlWhere
             mycursor.execute(sqlSet)
             self.mydb.commit()
+            # close cursor 
+            mycursor.close()
             return True, ""
         except Exception as e:
             print("Error in updateUser")
-            return self.handleError(e)
+            return self.handleError(e, mycursor)
             #return self.deleteUser(email)
         
         
@@ -113,11 +121,13 @@ class UserDao:
             print("SQL deleteUser ",sql)
             mycursor.execute(sql)
             self.mydb.commit()
+            # close cursor 
+            mycursor.close()
             return True, ""
         except Exception as e:
             print("Error in deleteUser")
             print(str(e))
-            return self.handleError(e)
+            return self.handleError(e, mycursor)
     def userExists(self,emailDict):
         try:
             email = emailDict['email']
@@ -141,13 +151,17 @@ class UserDao:
                 "authCode": myresult[8],
                 "authTime": myresult[9],
                 "lastLogIn": myresult[10]}
+            # close cursor 
+            mycursor.close()
             return True, ""
         except Exception as e:
             print("Error in userExists")
             print(str(e))
-            return self.handleError(e)
+            return self.handleError(e, mycursor)
             
-    def handleError(self,error):
+    def handleError(self,error, cursor=None):
+        if cursor is not None:
+            cursor.close()
         error = str(error)
         print(error)
         if "Duplicate entry" in error:
