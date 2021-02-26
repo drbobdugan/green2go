@@ -6,11 +6,11 @@ import 'api.dart';
 class UserService {
   final api = new API();
 
-  Future<APIResponse> validateCode(NewUser user, String code) async {
+  Future<APIResponse> validateCode(String email, String code) async {
     var resp = await api.postResponse(
         "validateCode",
         jsonEncode(<String, String>{
-          'email': user.email,
+          'email': email,
           'code': code,
         }));
     return resp;

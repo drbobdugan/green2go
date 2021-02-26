@@ -13,8 +13,8 @@ class ValidationPage extends StatefulWidget {
   ValidationPage({Key key, @required this.user}) : super(key: key);
 
   final _userService = UserService();
-  Future<APIResponse> onVerify(code) async {
-    return await _userService.validateCode(user, code);
+  Future<APIResponse> onVerify(email, code) async {
+    return await _userService.validateCode(email, code);
   }
 
   Future<bool> onSendCode() async {
@@ -44,7 +44,7 @@ class _ValidationPageState extends State<ValidationPage> {
 
   void handleVerify(BuildContext context) {
     if (isValidCode()) {
-      widget.onVerify(code).then((response) {
+      widget.onVerify(email, code).then((response) {
         if (response.success) {
           Navigator.of(context).popUntil((route) => route.isFirst);
           Navigator.of(context).pop();
@@ -97,7 +97,7 @@ class _ValidationPageState extends State<ValidationPage> {
               ),
             ),
             CoolTextField(
-                visible: email == '',
+                visible: widget.user.email == '',
                 text: "Email",
                 onChanged: (value) {
                   setState(() {
