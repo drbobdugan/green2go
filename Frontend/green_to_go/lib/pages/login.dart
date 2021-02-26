@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
         if (response.success) {
           Navigator.of(context).push(
             MaterialPageRoute(
-              builder: (context) => new HomePage(),
+              builder: (context) => new HomePage(email: user.email),
             ),
           );
         } else {

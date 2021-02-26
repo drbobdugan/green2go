@@ -39,9 +39,9 @@ class API {
     });
   }
 
-  Future getResponse(String path, String params) async {
+  Future getResponse(String path) async {
     return getURL().then((url) async {
-      Response response = await get("http://$url/$path$params");
+      Response response = await get("http://$url/$path");
       return response.body;
     });
   }
