@@ -6,6 +6,7 @@ import random
 from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
+from authDao import AuthDao
 from datetime import datetime
 import sys
 import os
@@ -15,6 +16,7 @@ from emailServer import EmailManager
 app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
+authDao = AuthDao()
 
 emailServer = EmailManager()
 
@@ -37,6 +39,20 @@ def extractKeysFromRequest(request, keys, required=None ,t="json"):
         return dic
     return None
 
+def handleAuth(dic):
+    res = authDao.getAuth(dic)
+    if res[0] is True:
+        # make sure auth code actually exixts in dattabse
+        if res[1]["auth_token"] != dic["auth_token"]:
+            return False, "Invalid token"
+        # check that it's not expired
+        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+        if datetime.now() >= timeobj:
+            return False, "Expired token"
+        return True, ""
+    else:
+        return False, "No matching user with that authorization token"
+
 #----------------------------Email Methods --------------------------------
 def sendEmail(email, code):
     global emailServer
@@ -47,6 +63,98 @@ def validateEmail(email):
         return False
     return True
 
+#----------------------------Validity Methods --------------------------------
+@app.route('/validateCode', methods=['POST'])
+def validateCode():
+    f='%Y-%m-%d %H:%M:%S'
+    keys = ["code", "email"]
+    dic = None
+    try:
+        dic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+
+    res=None
+
+    try:
+        res = dao.getUser(dic)
+    except:
+        res = {"success" : False, "message" : "Email does not correspond to user"}
+    codefromtable=res[1]["authCode"]
+    authtime=res[1]["authTime"]
+    authtimets=datetime.strptime(authtime, f)
+    timepassed=datetime.now()-authtimets
+    if (dic['code']==codefromtable and timepassed.total_seconds()<300):
+        # delete previous auth
+        try:
+            authDao.deleteAuth(res[1])
+        except:
+            pass
+        # create new auth
+        res = authDao.addAuth(res[1])
+        # fix userAuth as well
+        dao.updateUser({"email" : dic["email"], "authorized" : 1})
+        # return it
+        return json.dumps({"success" : res[0], "data" : res[1]})
+    else:
+        return json.dumps({"success" : False, "message" : "Expired token"})
+
+@app.route('/login', methods=['POST'])
+def login():
+    dic = None
+    keys = ["email", "password"]
+    try:
+        dic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+    global dao
+
+    res = None
+    try:
+        res = dao.getUser(dic)
+    except:
+        return json.dumps({"success" : res[0], "message" : res[1]})
+
+    if "authorized" in res[1] and res[1]["authorized"] == 0:
+        return json.dumps({"success" : False, "message" : "Registration not complete"})
+
+    if "password" in res[1] and dic["password"] == res[1]["password"]:
+        # delete previous auth
+        try:
+            authDao.deleteAuth(dic)
+        except:
+            pass
+        # create new auth
+        res = authDao.addAuth(dic)
+        # return it
+        return json.dumps({"success" : res[0], "data" : res[1]})
+    else:
+        return json.dumps({"success" : "False", "message" : "Incorrect password"})
+
+@app.route('/auth/refresh', methods=['POST'])
+def refreshCode():
+    dic = None
+    keys = ["email", "refresh_token"]
+    try:
+        dic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+    res = authDao.getAuth(dic)
+    if res[0] is True:
+        # refresh token mismatch
+        if dic["refresh_token"] != res[1]["refresh_token"]:
+            return json.dumps({"success" : False, "mesage":"Invalid token"})
+        # handle is auth code is expired
+        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+        if datetime.now() >= timeobj:
+            return json.dumps({"success" : False, "message":"Expired token"})
+        # return normal response
+        updated = authDao.updateAuth(dic)
+        return json.dumps({"success" : True, "data": updated[1]})
+    else:
+        return json.dumps({"success" : False, "message" : "Invalid refresh token"})
+
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
 def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
@@ -55,13 +163,16 @@ def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.a
 @app.route('/getUser', methods=['GET'])
 def getUser():
     dictOfUserAttrib = None
-    keys = ["email"]
+    keys = ["email", "auth_token"]
     try:
         dictOfUserAttrib = extractKeysFromRequest(request, keys, t="args")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao
     
+    authCheck = handleAuth(dictOfUserAttrib)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
 
     res=dao.getUser(dictOfUserAttrib)
     #print(res)
@@ -99,11 +210,19 @@ def addUser():
 
 @app.route('/updateUser', methods=['PATCH'])
 def updateUser():
-    mockuser = None
-    keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'authTime', 'lastLogIn']
-
-    dictOfUserAttrib = extractKeysFromRequest(request, keys)
+    dictOfUserAttrib = None
+    keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
+    try:
+        dictOfUserAttrib = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao
+
+    authCheck = handleAuth(dictOfUserAttrib)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+    # take auth_token out of dict for database team
+    dictOfUserAttrib.pop('auth_token', None)
     res = dao.updateUser(dictOfUserAttrib)
     print(res)
     if res [0] is True:
@@ -114,70 +233,22 @@ def updateUser():
 @app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
     dictOfUserAttrib = None
-    keys = ['email']
+    keys = ['email', 'auth_token']
     try:
         dictOfUserAttrib = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+
+    authCheck = handleAuth(dictOfUserAttrib)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+
     global dao
     res = dao.deleteUser(dictOfUserAttrib)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
-
-
-        
-@app.route('/validateCode', methods=['POST'])
-def validateCode():
-    f='%Y-%m-%d %H:%M:%S'
-    keys = ["code", "email"]
-    dic = None
-    try:
-        dic = extractKeysFromRequest(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao
-
-    res=None
-
-    try:
-        res = dao.getUser(dic)
-        print(res)
-    except:
-        res = {"success" : False, "message" : "Email does not correspond to user"}
-    codefromtable=res[1]["authCode"]
-    authtime=res[1]["authTime"]
-    authtimets=datetime.strptime(authtime, f)
-    timepassed=datetime.now()-authtimets
-    if (dic['code']==codefromtable and timepassed.total_seconds()<300):
-        return json.dumps({"success" : True, "message" : ""})
-    else:
-        return json.dumps({"success" : False, "message" : "Expired token"})
-
-@app.route('/login', methods=['POST'])
-def login():
-    dic = None
-    keys = ["email", "password"]
-    try:
-        dic = extractKeysFromRequest(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao
-
-    #res=None
-
-    try:
-        res = dao.getUser(dic)
-        print("res is",res)
-        #print(res[1]["password"]==dic["password"])
-    except:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-    if "password" in res[1] and dic["password"] == res[1]["password"]:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : "False", "message" : "Incorrect password"})
-
 
 
 #----------------------------Container Methods --------------------------------
@@ -201,12 +272,17 @@ def addContainer():
 @app.route('/getContainer', methods = ['GET'])
 def getContainer():
     containerDic = None
-    keys = ["qrcode"]
+    keys = ["qrcode", "auth_token", "email"]
     try:
         containerDic = extractKeysFromRequest(request, keys, t="args")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
+
+    authCheck = handleAuth(containerDic)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+
     res = dao2.getContainer(containerDic)
     if res[0] is True:
         res = json.dumps({"success" : res[0], "data" : res[1]})
@@ -217,12 +293,17 @@ def getContainer():
 @app.route('/deleteContainer', methods = ['DELETE'])
 def deleteContainer():
     containerDic = None
-    keys = ["qrcode"]
+    keys = ["qrcode", "auth_token", "email"]
     try:
         containerDic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
+
+    authCheck = handleAuth(containerDic)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+
     res = dao2.deleteContainer(containerDic)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
@@ -233,8 +314,19 @@ def deleteContainer():
 @app.route('/updateContainer', methods=['PATCH'])
 def updateContainer():
     containerDic = None
-    keys = ['qrcode']
-    containerDic = extractKeysFromRequest(request, keys)
+    keys = ['qrcode', "auth_token", "email"]
+    try:
+        containerDic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+
+    authCheck = handleAuth(containerDic)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+
+    # take auth_token out of dict for database team
+    containerDic.pop('auth_token', None)
+
     global dao2
     res = dao2.updateContainer(containerDic)
     if res[0] is True:

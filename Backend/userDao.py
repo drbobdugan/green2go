@@ -79,7 +79,8 @@ class UserDao:
                 "classYear": str(myresult[7]),
                 "authCode": myresult[8],
                 "authTime": str(myresult[9]),
-                "lastLogIn": str(myresult[10])}
+                "lastLogIn": str(myresult[10]),
+                "authorized" : int(myresult[11])}
             # close cursor 
             mycursor.close()
             return True, userDict
