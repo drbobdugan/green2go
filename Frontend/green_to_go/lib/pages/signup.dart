@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 import '../components/cool_textField.dart';
@@ -24,47 +23,17 @@ class _SignUpPageState extends State<SignUpPage> {
   NewUser user = new NewUser();
   String errorMessage = '';
 
-  bool isSignUpValid() {
-    if (user.firstName == '' || user.lastName == '') {
-      setState(() {
-        errorMessage = 'Please enter a first and last name.';
-      });
-      return false;
-    }
-    if (user.email == '') {
-      setState(() {
-        errorMessage = 'Please enter an email.';
-      });
-      return false;
-    }
-    if (!EmailValidator.validate(user.email)) {
-      setState(() {
-        errorMessage = 'Please enter a valid email.';
-      });
-      return false;
-    }
-    if (user.password != user.confirmPassword) {
-      setState(() {
-        errorMessage = 'Please enter passwords that match.';
-      });
-      return false;
-    }
-    return true;
-  }
-
   void handleSignUp(BuildContext context) {
-    if (isSignUpValid()) {
-      widget.onSignUp(user).then((response) {
-        if (response.success) {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => new ValidationPage(user: user)));
-        } else {
-          setState(() {
-            errorMessage = response.message;
-          });
-        }
-      });
-    }
+    widget.onSignUp(user).then((response) {
+      if (response.success) {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => new ValidationPage(user: user)));
+      } else {
+        setState(() {
+          errorMessage = response.message;
+        });
+      }
+    });
   }
 
   void handleValidation(BuildContext context) {

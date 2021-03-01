@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:email_validator/email_validator.dart';
 
-import '../components/image_banner.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
+import '../services/student_service.dart';
 import '../static/user.dart';
+import '../static/student.dart';
 import 'signup.dart';
 import 'home.dart';
 
@@ -14,8 +14,13 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
+  final _studentService = StudentService();
   Future<APIResponse> onLogIn(user) async {
     return await _userService.logIn(user);
+  }
+
+  Future<Student> onGetUser(user) async {
+    return await _studentService.getStudent(user.email);
   }
 
   @override
@@ -26,39 +31,28 @@ class _LoginPageState extends State<LoginPage> {
   ExistingUser user = new ExistingUser();
   String errorMessage = '';
 
-  bool isValidLogin() {
-    if (user.email == '' || user.password == '') {
-      setState(() {
-        errorMessage = 'Please enter an email and password.';
-      });
-      return false;
-    }
-    if (!EmailValidator.validate(user.email)) {
-      setState(() {
-        errorMessage = 'Please enter a valid email.';
-      });
-      return false;
-    }
-    return true;
+  void handleLogIn(BuildContext context) {
+    widget.onLogIn(user).then((response) {
+      if (response.success) {
+        handleNavigateHome(context);
+      } else {
+        setState(() {
+          errorMessage = response.message;
+        });
+      }
+    });
   }
 
-  void handleLogIn(BuildContext context) {
-    if (isValidLogin()) {
-      widget.onLogIn(user).then((response) {
-        print(response.success);
-        if (response.success) {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => new HomePage(email: user.email),
-            ),
-          );
-        } else {
-          setState(() {
-            errorMessage = response.message;
-          });
-        }
-      });
-    }
+  void handleNavigateHome(BuildContext context) {
+    widget.onGetUser(user).then((response) {
+      if (response != null) {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => new HomePage(user: response),
+          ),
+        );
+      }
+    });
   }
 
   void handleSignUp(BuildContext context) {

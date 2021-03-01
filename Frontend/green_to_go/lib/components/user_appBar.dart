@@ -24,6 +24,14 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ),
                   );
                   break;
+                case 'Return Container':
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => new CheckoutPage(),
+                    ),
+                  );
+                  break;
                 case 'Logout':
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).pop();
@@ -38,11 +46,14 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
               }
             },
             itemBuilder: (BuildContext context) {
-              return {'Checkout Container', 'Logout'}.map((String choice) {
+              return {'Checkout Container', 'Return Container', 'Logout'}
+                  .map((String choice) {
                 return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
+                    value: choice,
+                    child: Text(choice,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF2E856E))));
               }).toList();
             },
           ),

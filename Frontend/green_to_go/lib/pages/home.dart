@@ -5,32 +5,17 @@ import '../components/user_appBar.dart';
 import '../static/student.dart';
 
 class HomePage extends StatefulWidget {
-  final String email;
+  final Student user;
 
-  HomePage({Key key, this.email}) : super(key: key);
-
-  final _studentService = StudentService();
-  Future<Student> getStudent() async {
-    return await _studentService.getStudent(email);
-  }
+  HomePage({Key key, this.user}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  Student user = new Student();
-
-  buildStudent() {
-    widget.getStudent().then((student) {
-      user = student;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    buildStudent();
-
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: UserAppBar(),
@@ -42,7 +27,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             Padding(
                 padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text('Hello ${user.firstName}!',
+                child: Text('Hello ${widget.user.firstName}!',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 20.0))),

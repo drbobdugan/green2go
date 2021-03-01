@@ -30,6 +30,7 @@ class API {
         body: params,
       );
       if (response != null && response.body != null) {
+        print(response.body);
         return APIResponse(jsonDecode(response.body));
       }
       return APIResponse({
@@ -42,6 +43,7 @@ class API {
   Future getResponse(String path) async {
     return getURL().then((url) async {
       Response response = await get("http://$url/$path");
+      print(response.body);
       return response.body;
     });
   }
