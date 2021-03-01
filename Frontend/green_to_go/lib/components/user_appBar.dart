@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../pages/login.dart';
-import '../pages/checkout.dart';
+import '../pages/checkoutContainer.dart';
+import '../pages/returnContainer.dart';
 
 class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
@@ -20,7 +21,7 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => new CheckoutPage(),
+                      builder: (context) => new CheckoutContainerPage(),
                     ),
                   );
                   break;
@@ -28,7 +29,7 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => new CheckoutPage(),
+                      builder: (context) => new ReturnContainerPage(),
                     ),
                   );
                   break;

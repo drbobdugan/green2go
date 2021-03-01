@@ -8,8 +8,8 @@ import '../services/student_service.dart';
 import '../static/student.dart';
 import '../pages/home.dart';
 
-class CheckoutPage extends StatefulWidget {
-  CheckoutPage({Key key}) : super(key: key);
+class CheckoutContainerPage extends StatefulWidget {
+  CheckoutContainerPage({Key key}) : super(key: key);
 
   final _studentService = StudentService();
   Future<APIResponse> onScanQR(user, qrCode) async {
@@ -17,10 +17,10 @@ class CheckoutPage extends StatefulWidget {
   }
 
   @override
-  _CheckoutPageState createState() => _CheckoutPageState();
+  _CheckoutContainerPageState createState() => _CheckoutContainerPageState();
 }
 
-class _CheckoutPageState extends State<CheckoutPage> {
+class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
   final Student user = new Student();
   String errorMessage = '';
 
