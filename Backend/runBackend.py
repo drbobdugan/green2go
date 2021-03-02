@@ -409,6 +409,24 @@ def deleteRelationship():
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
     
+@app.route('/selectLoction',methods=['POST'])
+def selectLoction():
+    loctionDic = None
+    keys = ["qrcode",'auth_token']
+    try:
+        loctionDic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+    global dao2
+    authCheck = handleAuth(loctionDic)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+    loctionDic.pop('auth_token', None)
+    res = dao2.checkLoction(loctionDic)  #need to get the method for database team 
+    if res[0] is True:
+        return json.dumps({"success" : res[0], "message" : ""})
+    else:
+        return json.dumps({"success" : res[0], "message" : res[1]})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

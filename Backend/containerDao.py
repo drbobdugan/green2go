@@ -3,10 +3,9 @@ from datetime import datetime
 import logging
 class ContainerDao:
 
-    def __del__(self): 
-        self.mydb.shutdown()
+    
     def __init__(self):
-        logging.basicConfig(filename='containerDao.log', encoding='utf-8', level=logging.DEBUG)
+        logging.basicConfig(filename='containerDao.log', level=logging.DEBUG)
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
             user="root",
@@ -113,7 +112,7 @@ class ContainerDao:
                 self.updateRelationship(relDict)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
             mycursor.execute(sql,val)  #could break in the future
-            temp - mycursor.rowcount
+            temp = mycursor.rowcount
             logging.info("updateRelationship inserted.")
             self.mydb.commit()
             # close cursor 
