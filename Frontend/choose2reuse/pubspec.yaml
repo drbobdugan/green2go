@@ -1,5 +1,5 @@
 name: Choose2Reuse
-description: A new Flutter project.
+description: Choose 2 Reuse
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
@@ -61,8 +61,6 @@ flutter:
   assets:
     - assets/images/choose2reuse_logo.jpg
     - assets/images/choose2reuse_icon.jpg
-  #   - images/a_dot_ham.jpeg
-
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
