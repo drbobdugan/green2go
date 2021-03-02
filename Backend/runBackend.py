@@ -19,7 +19,19 @@ dao2=ContainerDao()
 authDao = AuthDao()
 emailServer = EmailManager()
 
+
 #----------------------------Helper Methods --------------------------------
+
+# only called once dicOfValues has been verified by extractKeysFromRquest
+def ensureCorrectFormatting(dicOfValues, formats):
+    for key in dicOfValues:
+        if dicOfValues[key] is None:
+            pass
+        else:
+            if not re.match(formats[key], dicOfValues[key]):
+                raise Exception('')
+
+    return None
 
 def extractKeysFromRequest(request, keys, required=None ,t="json"):
     if required is None:
