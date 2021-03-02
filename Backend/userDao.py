@@ -1,12 +1,14 @@
 import mysql.connector
 import json
 from datetime import datetime
+import logging
 class UserDao:
 
     def __del__(self): 
         self.mydb.shutdown()
         
     def __init__(self):
+        logging.basicConfig(filename='userDao.log', encoding='utf-8', level=logging.DEBUG)
         self.mydb = mysql.connector.connect(
                 host="198.199.77.174",
                 user="root",
@@ -18,7 +20,7 @@ class UserDao:
         try:
             self.mydb.shutdown()
         except:
-            print("Already disconnected")
+            logging.error("Error closing connection: Already disconnected")
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
             user="root",
@@ -29,6 +31,7 @@ class UserDao:
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
     def addUser(self, userDict):
         try:
+            logging.info("Entering addUser")
             for key in userDict:
                 if key == "middleName" or key =="classYear":
                     pass
@@ -51,18 +54,20 @@ class UserDao:
             val.append(time)
             sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             mycursor.execute(sql, val)
-            print(mycursor.rowcount, "record inserted.")
-            self.mydb.commit()
+            tempRead = mycursor.rowcount
+            self.mydb.commit()            
             # close cursor 
             mycursor.close()
+            logging.info("addUser successful")
             return True, ""
         except Exception as e:
-            print("Error in addUser")
-            print(str(e))
+            logging.error("Error in addUser")
+            logging.error(str(e))
             return self.handleError(e, mycursor)
     #Gets user based on their email
     def getUser(self,emailDict):
         try:
+            logging.info("Entering getUser")
             email = emailDict["email"]
             mycursor = self.mydb.cursor()
             mycursor.execute("SELECT * FROM user where email = '" + email + "'")
@@ -83,13 +88,16 @@ class UserDao:
                 "authorized" : int(myresult[11])}
             # close cursor 
             mycursor.close()
+            logging.info("getUser successful")
             return True, userDict
         except Exception as e:
-            print("Error in getUser")
+            logging.error("Error in getUser")
+            logging.error(str(e))
             return self.handleError(e, mycursor)
     #Deletes user based on their email
     def updateUser(self,userDict):
         try:
+            logging.info("Entering updateUser")
             mycursor = self.mydb.cursor()
             email = userDict["email"]
             sqlSet = "UPDATE user SET "
@@ -105,9 +113,11 @@ class UserDao:
             self.mydb.commit()
             # close cursor 
             mycursor.close()
+            logging.info("updateUser successful")
             return True, ""
         except Exception as e:
-            print("Error in updateUser")
+            logging.error("Error in updateUser")
+            logging.error(str(e))
             return self.handleError(e, mycursor)
             #return self.deleteUser(email)
         
@@ -117,29 +127,28 @@ class UserDao:
         if(self.userExists(emailDict)[0] == False):
             return False, "User does not exist"
         try:
+            logging.info("Entering deleteUser")
             mycursor = self.mydb.cursor()
             sql = "DELETE FROM user WHERE email like '" + email + "'"
-            print("SQL deleteUser ",sql)
             mycursor.execute(sql)
             self.mydb.commit()
             # close cursor 
             mycursor.close()
+            logging.info("deleteUser successful")
             return True, ""
         except Exception as e:
-            print("Error in deleteUser")
-            print(str(e))
+            logging.error("Error in deleteUser")
+            logging.error(str(e))
             return self.handleError(e, mycursor)
     def userExists(self,emailDict):
         try:
+            logging.info("Entering userExists")
             email = emailDict['email']
-            print(email)
             mycursor = self.mydb.cursor()
             sql = "SELECT * FROM user where email = '" + email + "'"
-            print("SQL STATEMENT: ",sql)
             mycursor.execute(sql)
             myresult = mycursor.fetchall()
             myresult = myresult[0]
-            print(myresult)
             userDict={
                 "email": myresult[0],
                 "password": myresult[1],
@@ -154,17 +163,18 @@ class UserDao:
                 "lastLogIn": myresult[10]}
             # close cursor 
             mycursor.close()
+            logging.info("userExists successful")
             return True, ""
         except Exception as e:
-            print("Error in userExists")
-            print(str(e))
+            logging.error("Error in userExists")
+            logging.error(str(e))
             return self.handleError(e, mycursor)
             
     def handleError(self,error, cursor=None):
         if cursor is not None:
             cursor.close()
         error = str(error)
-        print(error)
+        logging.error(error)
         if "Duplicate entry" in error:
             return False,"Duplicate Entry"
         elif "Can't connect to MySQL server" in error:
