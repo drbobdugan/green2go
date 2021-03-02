@@ -113,7 +113,7 @@ class ContainerDao:
                 self.updateRelationship(relDict)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
             mycursor.execute(sql,val)  #could break in the future
-            temp - mycursor.rowcount
+            temp = mycursor.rowcount
             logging.info("updateRelationship inserted.")
             self.mydb.commit()
             # close cursor 
