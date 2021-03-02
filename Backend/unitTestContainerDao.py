@@ -2,10 +2,9 @@ import unittest
 from containerDao import ContainerDao
 class unitTestContainerDao(unittest.TestCase):
     """
-    Test the containerDao class methods using the unit test framework.  To run these tests:
-
+    Test the containerDao class methods using the unit test framework.  
+    To run these tests:
          python3 -m unittest unitTestContainerDao.py
-
     """
     def setUp(self):
         """
@@ -20,6 +19,7 @@ class unitTestContainerDao(unittest.TestCase):
         containerDict={"qrcode": "101010"}
         dao.deleteContainer(containerDict)
     
+    #container tests include: adding and getting // do we need deleting?
     def addTest42Container(self):
         container={"qrcode": "101010"}
         dao = ContainerDao()
@@ -73,6 +73,27 @@ class unitTestContainerDao(unittest.TestCase):
         rc, getContainer = dao.getContainer(qrcode)
 
         self.assertFalse(rc)
+
+    # hascontainer tests include: creating, reading, and updating
+    def addTest42Relationship(self):
+        rel={
+            "email": "test42@students.stonehill.edu",
+            "qrcode": "101010",
+            "status": "Checked Out";
+            "statusUpdateTime": "2021-01-01 01:01:01"
+            }
+        dao = ContainerDao()
+        return dao.addRelationship(rel)
+    
+    def testRegularAddRelationship(self):
+
+    def testAddRelationshipTwice(self):
+    
+    def testRegularSelectRelationship(self):
+    
+    def testSelectRelationshipDoesntExist(self):
+
+    def testUpdateRelationship(self):
 
 if __name__ == '__main__':
     unittest.main()
