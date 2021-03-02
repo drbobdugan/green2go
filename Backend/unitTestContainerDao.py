@@ -17,7 +17,14 @@ class unitTestContainerDao(unittest.TestCase):
         """
         dao = ContainerDao()
         containerDict={"qrcode": "101010"}
+        relDict={
+            "email": "test42@students.stonehill.edu",
+            "qrcode": "101010",
+            "status": "Checked Out",
+            "statusUpdateTime": None
+            }
         dao.deleteContainer(containerDict)
+        dao.deleteRelationship(relDict)
     
     #container tests include: creating and reading
     def addTest42Container(self):
@@ -70,7 +77,9 @@ class unitTestContainerDao(unittest.TestCase):
 
         container={"qrcode": "101010"}
         dao = ContainerDao()
-        rc, getContainer = dao.getContainer(qrcode)
+        rc, msg = dao.deleteContainer(container)
+        self.assertTrue(rc)
+        rc, getContainer = dao.getContainer(container)
 
         self.assertFalse(rc)
 
@@ -79,7 +88,7 @@ class unitTestContainerDao(unittest.TestCase):
         rel={
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
-            "status": "Checked Out";
+            "status": "Checked Out",
             "statusUpdateTime": "2021-01-01 01:01:01"
             }
         dao = ContainerDao()
@@ -101,11 +110,10 @@ class unitTestContainerDao(unittest.TestCase):
         self.assertTrue(rc)
 
         """
-        Second add should fail
+        Second add should not fail
         """
         rc, msg = self.addTest42Relationship()
-        self.assertFalse(rc)
-        self.assertEqual(msg,"Duplicate Entry")
+        self.assertTrue(rc)
 
     def testRegularSelectRelationship(self):
         """
@@ -117,14 +125,14 @@ class unitTestContainerDao(unittest.TestCase):
         rel={
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
-            "status": "Checked Out";
-            "statusUpdateTime": "2021-01-01 01:01:01"
+            "status": "Checked Out",
+            "statusUpdateTime": None
             }
         dao = ContainerDao()
         rc, getRelationship = dao.getRelationship(rel)
 
         self.assertTrue(rc)
-        #self.assertEqual(rel["email","qrcode"],getRelationship["email","qrcode"])
+        #self.assertDictEqual(rel,getRelationship(rel))
     
     def testSelectRelationshipDoesntExist(self):
         """
@@ -136,11 +144,13 @@ class unitTestContainerDao(unittest.TestCase):
         rel={
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
-            "status": "Checked Out";
-            "statusUpdateTime": "2021-01-01 01:01:01"
+            "status": "Checked Out",
+            "statusUpdateTime": None
             }
         dao = ContainerDao()
-        rc, getContainer = dao.getRelationship(email,qrcode)
+        rc, msg = dao.deleteRelationship(rel)
+        self.assertTrue(rc)
+        rc, getRelationship = dao.getRelationship(rel)
 
         self.assertFalse(rc)
 
