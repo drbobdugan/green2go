@@ -17,7 +17,6 @@ app = Flask(__name__)
 dao=UserDao()
 dao2=ContainerDao()
 authDao = AuthDao()
-
 emailServer = EmailManager()
 
 #----------------------------Helper Methods --------------------------------
