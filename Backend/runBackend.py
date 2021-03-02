@@ -29,9 +29,9 @@ def ensureCorrectFormatting(dicOfValues, formats):
             pass
         else:
             if not re.match(formats[key], dicOfValues[key]):
-                raise Exception('')
+                raise Exception(str(key) + " does not match specified format")
 
-    return None
+    return True
 
 def extractKeysFromRequest(request, keys, required=None ,t="json"):
     if required is None:
@@ -141,7 +141,7 @@ def login():
         # return it
         return json.dumps({"success" : res[0], "data" : res[1]})
     else:
-        return json.dumps({"success" : "False", "message" : "Incorrect password"})
+        return json.dumps({"success" : False, "message" : "Incorrect password"})
 
 @app.route('/auth/refresh', methods=['POST'])
 def refreshCode():
