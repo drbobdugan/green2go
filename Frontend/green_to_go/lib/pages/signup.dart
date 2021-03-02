@@ -46,6 +46,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('Choose2Reuse'),
       ),
@@ -120,6 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 keyboardType: TextInputType.number),
             CoolTextField(
                 text: "Password",
+                obscureText: true,
                 onChanged: (value) {
                   setState(() {
                     user.password = value;
@@ -129,6 +131,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 keyboardType: TextInputType.visiblePassword),
             CoolTextField(
                 text: "Confirm Password",
+                obscureText: true,
                 onChanged: (value) {
                   setState(() {
                     user.confirmPassword = value;

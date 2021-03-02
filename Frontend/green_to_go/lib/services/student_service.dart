@@ -20,7 +20,7 @@ class StudentService {
 
   Future<Student> getStudent(String email) async {
     Student student = new Student();
-    var resp = await api.getResponse('getUser?email=${email}');
+    var resp = await api.getResponse('getUser?email=$email');
     Map json = jsonDecode(resp);
     student.jsonToStudent(json['data']);
     return student;
