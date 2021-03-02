@@ -3,10 +3,9 @@ from datetime import datetime
 import logging
 class ContainerDao:
 
-    def __del__(self): 
-        self.mydb.shutdown()
+    
     def __init__(self):
-        logging.basicConfig(filename='containerDao.log', encoding='utf-8', level=logging.DEBUG)
+        logging.basicConfig(filename='containerDao.log', level=logging.DEBUG)
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
             user="root",
