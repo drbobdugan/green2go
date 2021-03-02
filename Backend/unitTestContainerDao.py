@@ -19,7 +19,7 @@ class unitTestContainerDao(unittest.TestCase):
         containerDict={"qrcode": "101010"}
         dao.deleteContainer(containerDict)
     
-    #container tests include: adding and getting // do we need deleting?
+    #container tests include: creating and reading
     def addTest42Container(self):
         container={"qrcode": "101010"}
         dao = ContainerDao()
@@ -74,7 +74,7 @@ class unitTestContainerDao(unittest.TestCase):
 
         self.assertFalse(rc)
 
-    # hascontainer tests include: creating, reading, and updating
+    # hascontainer tests include: creating and reading
     def addTest42Relationship(self):
         rel={
             "email": "test42@students.stonehill.edu",
@@ -86,14 +86,63 @@ class unitTestContainerDao(unittest.TestCase):
         return dao.addRelationship(rel)
     
     def testRegularAddRelationship(self):
+        """
+        Test that we can add a relationship that doesn't exist in the database
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertTrue(rc)
 
     def testAddRelationshipTwice(self):
-    
+        """
+        Test that we can't add a relationship twice
+        First add should work correctly
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertTrue(rc)
+
+        """
+        Second add should fail
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertFalse(rc)
+        self.assertEqual(msg,"Duplicate Entry")
+
     def testRegularSelectRelationship(self):
+        """
+        Test that we can select a relationship that exists in the database already
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertTrue(rc)
+
+        rel={
+            "email": "test42@students.stonehill.edu",
+            "qrcode": "101010",
+            "status": "Checked Out";
+            "statusUpdateTime": "2021-01-01 01:01:01"
+            }
+        dao = ContainerDao()
+        rc, getRelationship = dao.getRelationship(rel)
+
+        self.assertTrue(rc)
+        #self.assertEqual(rel["email","qrcode"],getRelationship["email","qrcode"])
     
     def testSelectRelationshipDoesntExist(self):
+        """
+        Test that we can't select a relationship that doesnt exist in the database already
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertTrue(rc)
 
-    def testUpdateRelationship(self):
+        rel={
+            "email": "test42@students.stonehill.edu",
+            "qrcode": "101010",
+            "status": "Checked Out";
+            "statusUpdateTime": "2021-01-01 01:01:01"
+            }
+        dao = ContainerDao()
+        rc, getContainer = dao.getRelationship(email,qrcode)
+
+        self.assertFalse(rc)
 
 if __name__ == '__main__':
     unittest.main()
