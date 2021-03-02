@@ -141,7 +141,7 @@ def login():
         # return it
         return json.dumps({"success" : res[0], "data" : res[1]})
     else:
-        return json.dumps({"success" : "False", "message" : "Incorrect password"})
+        return json.dumps({"success" : False, "message" : "Incorrect password"})
 
 @app.route('/auth/refresh', methods=['POST'])
 def refreshCode():
