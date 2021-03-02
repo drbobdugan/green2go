@@ -75,9 +75,15 @@ class _LoginPageState extends State<LoginPage> {
               Padding(
                   padding: EdgeInsets.only(top: 50.0, bottom: 30.0),
                   child: FittedBox(
-                      fit: BoxFit.fill,
-                      child:
-                          Image.asset("assets/images/choose2reuse_logo.jpg"))),
+              fit: BoxFit.fitWidth,
+              alignment: Alignment.bottomCenter,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minWidth: 1, minHeight: 1), // here
+                child: Image.asset(
+                  'assets/images/choose2reuse_logo.jpg',
+                ),
+              ),
+            ),),
               Padding(
                 padding: EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
