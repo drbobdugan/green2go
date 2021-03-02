@@ -29,9 +29,9 @@ def ensureCorrectFormatting(dicOfValues, formats):
             pass
         else:
             if not re.match(formats[key], dicOfValues[key]):
-                raise Exception('')
+                raise Exception(str(key) + " does not match specified format")
 
-    return None
+    return True
 
 def extractKeysFromRequest(request, keys, required=None ,t="json"):
     if required is None:
