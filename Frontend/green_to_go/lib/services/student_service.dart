@@ -13,7 +13,8 @@ class StudentService {
           'email': user.email,
           'qrcode': qrCode,
           'status': 'Checked out',
-          'statusUpdateTime': DateTime.now().toString()
+          'statusUpdateTime': DateTime.now().toString(),
+          'auth_token': user.authToken
         }));
     return resp;
   }

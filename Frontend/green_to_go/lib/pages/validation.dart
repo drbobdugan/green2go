@@ -91,7 +91,7 @@ class _ValidationPageState extends State<ValidationPage> {
             ),
             CoolLabel(
               text:
-                  "Thank you for signing up for the Green to Go App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
+                  "Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
               textStyle: CustomTheme.primaryLabelStyle(isBold: false),
               bottom: 15.0,
             ),
