@@ -29,22 +29,14 @@ class API {
         },
         body: params,
       );
-      if (response != null && response.body != null) {
-        print(response.body);
-        return APIResponse(jsonDecode(response.body));
-      }
-      return APIResponse({
-        'success': false,
-        'message': 'An error occured, please try again later.'
-      });
+      return APIResponse(jsonDecode(response.body));
     });
   }
 
-  Future getResponse(String path) async {
+  Future<APIResponse> getResponse(String path) async {
     return getURL().then((url) async {
       Response response = await get("http://$url/$path");
-      print(response.body);
-      return response.body;
+      return APIResponse(jsonDecode(response.body));
     });
   }
 }
@@ -52,9 +44,25 @@ class API {
 class APIResponse {
   bool success;
   String message;
+  dynamic data;
 
   APIResponse(Map<String, dynamic> value) {
     success = value['success'];
     message = value['message'];
+    data = value['data'];
+  }
+}
+
+class UserResponse {
+  String email;
+  String authToken;
+  String refreshToken;
+  String tokenExpiration;
+
+  UserResponse(Map<String, dynamic> value) {
+    email = value['user'];
+    authToken = value['auth_token'];
+    refreshToken = value['refresh_token'];
+    tokenExpiration = value['expires_at'];
   }
 }

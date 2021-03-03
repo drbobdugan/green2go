@@ -12,10 +12,12 @@ import '../static/student.dart';
 import '../pages/home.dart';
 
 class CheckoutContainerPage extends StatefulWidget {
-  CheckoutContainerPage({Key key}) : super(key: key);
+  final StudentDetails user;
+
+  CheckoutContainerPage({Key key, this.user}) : super(key: key);
 
   final _studentService = StudentService();
-  Future<APIResponse> onScanQR(user, qrCode) async {
+  Future<APIResponse> onScanQR(qrCode) async {
     return await _studentService.addContainer(user, qrCode);
   }
 
@@ -24,7 +26,6 @@ class CheckoutContainerPage extends StatefulWidget {
 }
 
 class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
-  final Student user = new Student();
   String errorMessage = '';
 
   @override
@@ -60,7 +61,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
     await FlutterBarcodeScanner.scanBarcode(
             '#FF2E856E', 'Cancel', true, ScanMode.QR)
         .then((code) {
-      widget.onScanQR(user, code).then((response) {
+      widget.onScanQR(code).then((response) {
         if (response.success) {
           Navigator.of(context).push(
             MaterialPageRoute(

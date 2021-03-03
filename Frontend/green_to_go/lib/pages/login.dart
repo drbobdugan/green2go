@@ -6,7 +6,6 @@ import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
-import '../services/student_service.dart';
 import '../static/user.dart';
 import '../static/student.dart';
 import 'signup.dart';
@@ -16,13 +15,8 @@ class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
 
   final _userService = UserService();
-  final _studentService = StudentService();
   Future<APIResponse> onLogIn(user) async {
     return await _userService.logIn(user);
-  }
-
-  Future<Student> onGetUser(user) async {
-    return await _studentService.getStudent(user.email);
   }
 
   @override
@@ -36,23 +30,16 @@ class _LoginPageState extends State<LoginPage> {
   void handleLogIn(BuildContext context) {
     widget.onLogIn(user).then((response) {
       if (response.success) {
-        handleNavigateHome(context);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                new HomePage(userAuth: StudentAuth(response.data)),
+          ),
+        );
       } else {
         setState(() {
           errorMessage = response.message;
         });
-      }
-    });
-  }
-
-  void handleNavigateHome(BuildContext context) {
-    widget.onGetUser(user).then((response) {
-      if (response != null) {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => new HomePage(user: response),
-          ),
-        );
       }
     });
   }

@@ -12,10 +12,12 @@ import '../static/student.dart';
 import '../pages/home.dart';
 
 class ReturnContainerPage extends StatefulWidget {
-  ReturnContainerPage({Key key}) : super(key: key);
+  final StudentDetails user;
+
+  ReturnContainerPage({Key key, this.user}) : super(key: key);
 
   final _studentService = StudentService();
-  Future<APIResponse> onScanQR(user, qrCode) async {
+  Future<APIResponse> onScanQR(qrCode) async {
     return await _studentService.addContainer(user, qrCode);
   }
 
@@ -24,7 +26,6 @@ class ReturnContainerPage extends StatefulWidget {
 }
 
 class _ReturnContainerPageState extends State<ReturnContainerPage> {
-  final Student user = new Student();
   String errorMessage = '';
 
   @override
@@ -59,7 +60,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
     await FlutterBarcodeScanner.scanBarcode(
             '#FF2E856E', 'Cancel', true, ScanMode.QR)
         .then((code) {
-      widget.onScanQR(user, code).then((response) {
+      widget.onScanQR(code).then((response) {
         if (response.success) {
           Navigator.of(context)
               .push(MaterialPageRoute(builder: (context) => new HomePage()));

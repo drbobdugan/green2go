@@ -3,17 +3,39 @@ import 'package:flutter/material.dart';
 import '../services/student_service.dart';
 import '../components/user_appBar.dart';
 import '../static/student.dart';
+import '../services/student_service.dart';
+import '../services/api.dart';
 
 class HomePage extends StatefulWidget {
-  final Student user;
+  final StudentAuth userAuth;
 
-  HomePage({Key key, this.user}) : super(key: key);
+  HomePage({Key key, this.userAuth}) : super(key: key);
+
+  final _studentService = StudentService();
+  Future<APIResponse> onGetUser() async {
+    return await _studentService.getStudent(userAuth);
+  }
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  StudentDetails user;
+
+  @override
+  void initState() {
+    widget.onGetUser().then((response) {
+      if (response.success) {
+        user = StudentDetails(response.data);
+        user.authToken = widget.userAuth.authToken;
+        user.refreshToken = widget.userAuth.refreshToken;
+        user.tokenExpiration = widget.userAuth.tokenExpiration;
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
-                'Hello ${widget.user.firstName}!',
+                'Hello !',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
