@@ -214,7 +214,7 @@ def addUser():
     if res[0] is True:
         # send email
         sendEmail(request.json['email'], authCode)
-        return json.dumps({"success" : res[0], "message" : ""})
+        return json.dumps({"success" : res[0], "data" : ""})
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
 
@@ -347,9 +347,11 @@ def updateContainer():
 
 #----------------------------HasContainer Methods --------------------------------
 
+#TODO: Need to update logic in all these methods
+
 #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
-@app.route('/addRelationship', methods=['POST'])
-def addRelationship():
+@app.route('/checkoutContainer', methods=['POST'])
+def checkoutContainer():
     userContainer = None
     keys=['email','qrcode','status']
     try:
@@ -363,8 +365,8 @@ def addRelationship():
         return json.dumps({"success" : res[0], "message" : ""})
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
-@app.route('/getRelationship', methods = ['GET'])
-def getRelationship():
+@app.route('/getContainersForUser', methods = ['GET'])
+def getContainersForUser():
     relationship = None
     keys=['email','qrcode']
     try:
@@ -381,8 +383,8 @@ def getRelationship():
         res = json.dumps({"success" : res[0], "message" : res[1]})
     return res
 
-@app.route('/updateRelationship', methods=['PATCH'])
-def updateRelationship():
+@app.route('/checkinContainer', methods=['POST'])
+def checkinContainer():
     dictOfUserAttrib = None
     keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
 
@@ -394,22 +396,9 @@ def updateRelationship():
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
 
-@app.route('/deleteRelationship', methods=['DELETE'])
-def deleteRelationship():
-    relationship = None
-    keys=['email','qrcode','status']
-    try:
-        relationship = extractKeysFromRequest(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
-    res = dao2.deleteRelationship(relationship)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
+#----------------------------Location Methods --------------------------------
     
-@app.route('/selectLoction',methods=['POST'])
+@app.route('/selectLocation',methods=['POST'])
 def selectLoction():
     loctionDic = None
     keys = ["qrcode",'auth_token']

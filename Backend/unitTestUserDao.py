@@ -19,6 +19,7 @@ class unitTestUserDao(unittest.TestCase):
         dao = UserDao()
         emailDict={"email": "test42@students.stonehill.edu"}
         dao.deleteUser(emailDict)
+        del dao
     
     def addTest42User(self):
         user={
