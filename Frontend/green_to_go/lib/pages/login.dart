@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/custom_theme.dart';
+import '../components/cool_button.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../services/api.dart';
@@ -73,17 +75,19 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Padding(
-                  padding: EdgeInsets.only(top: 50.0, bottom: 30.0),
-                  child: FittedBox(
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.bottomCenter,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(minWidth: 1, minHeight: 1), // here
-                child: Image.asset(
-                  'assets/images/choose2reuse_logo.jpg',
+                padding: EdgeInsets.only(top: 50.0, bottom: 30.0),
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  alignment: Alignment.bottomCenter,
+                  child: ConstrainedBox(
+                    constraints:
+                        BoxConstraints(minWidth: 1, minHeight: 1), // here
+                    child: Image.asset(
+                      'assets/images/choose2reuse_logo.jpg',
+                    ),
+                  ),
                 ),
               ),
-            ),),
               Padding(
                 padding: EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
@@ -113,23 +117,16 @@ class _LoginPageState extends State<LoginPage> {
                         onFieldSubmitted: (value) {
                           node.nextFocus();
                         }),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15.0),
-                      child: ElevatedButton(
-                        child: Text('Log In'),
-                        onPressed: () {
-                          handleLogIn(context);
-                        },
-                      ),
+                    CoolButton(
+                      text: "Log In",
+                      onPressed: () => handleLogIn(context),
+                      buttonStyle: CustomTheme.primaryButtonStyle(),
+                      top: 10.0,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 0.0),
-                      child: TextButton(
-                        child: Text('Need an account? Sign up here!'),
-                        onPressed: () {
-                          handleSignUp(context);
-                        },
-                      ),
+                    CoolButton(
+                      text: "Need an account? Sign up here!",
+                      onPressed: () => handleSignUp(context),
+                      buttonType: "text",
                     ),
                     CoolErrorMessage(text: errorMessage),
                   ],

@@ -26,11 +26,13 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Padding(
-                padding: const EdgeInsets.only(bottom: 10.0),
-                child: Text('Hello ${widget.user.firstName}!',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, fontSize: 20.0))),
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Text(
+                'Hello ${widget.user.firstName}!',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+              ),
+            ),
           ],
         ),
       ),

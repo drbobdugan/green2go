@@ -1,6 +1,9 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
+import '../components/cool_label.dart';
+import '../components/custom_theme.dart';
+import '../components/cool_button.dart';
 import '../components/cool_errorMessage.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
@@ -27,30 +30,29 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: UserAppBar(),
-        body: Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text("Return a container here...",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0)),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                      child: Text('Scan dropoff location\'s QR Code'),
-                      onPressed: () => scanQRCode(),
-                    )),
-                CoolErrorMessage(text: errorMessage),
-              ],
-            )));
+      backgroundColor: Colors.white,
+      appBar: UserAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CoolLabel(
+              text: "Please scan the QR code at the drop-off location:",
+              textStyle: CustomTheme.primaryLabelStyle(),
+            ),
+            CoolButton(
+              text: "Use Camera",
+              onPressed: () => scanQRCode(),
+              buttonStyle: CustomTheme.primaryButtonStyle(),
+              top: 20.0,
+            ),
+            CoolErrorMessage(text: errorMessage),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> scanQRCode() async {

@@ -1,5 +1,18 @@
 import 'package:flutter/material.dart';
 
+Map<int, Color> green = {
+  50: Color.fromRGBO(46, 133, 110, .1),
+  100: Color.fromRGBO(46, 133, 110, .2),
+  200: Color.fromRGBO(46, 133, 110, .3),
+  300: Color.fromRGBO(46, 133, 110, .4),
+  400: Color.fromRGBO(46, 133, 110, .5),
+  500: Color.fromRGBO(46, 133, 110, .6),
+  600: Color.fromRGBO(46, 133, 110, .7),
+  700: Color.fromRGBO(46, 133, 110, .8),
+  800: Color.fromRGBO(46, 133, 110, .9),
+  900: Color.fromRGBO(46, 133, 110, 1),
+};
+
 Map<String, Color> colors = {
   "primary": Color(0xFF2E856E),
   "darkPrimary": Color(0xFF006A4E),
@@ -9,18 +22,26 @@ Map<String, Color> colors = {
 };
 
 class CustomTheme {
-  static ThemeData get appTheme {
+  static ThemeData appTheme() {
     return ThemeData(
-      primarySwatch: colors["primary"],
+      primarySwatch: MaterialColor(0xFF2E856E, green),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       fontFamily: 'Raleway',
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          primary: colors["attention"],
-          onPrimary: Colors.white,
-          padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-        ),
-      ),
+    );
+  }
+
+  static ButtonStyle primaryButtonStyle() {
+    return ButtonStyle(
+      backgroundColor: MaterialStateProperty.all(colors["attention"]),
+      foregroundColor: MaterialStateProperty.all(Colors.white),
+    );
+  }
+
+  static TextStyle primaryLabelStyle(
+      {double fontSize = 20.0, bool isBold = true}) {
+    return TextStyle(
+      fontWeight: (isBold) ? FontWeight.bold : FontWeight.normal,
+      fontSize: fontSize,
     );
   }
 }

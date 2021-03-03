@@ -1,6 +1,9 @@
+import 'package:Choose2Reuse/components/cool_label.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
+import '../components/cool_button.dart';
+import '../components/custom_theme.dart';
 import '../components/cool_errorMessage.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
@@ -27,30 +30,30 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: UserAppBar(),
-        body: Padding(
-            padding: const EdgeInsets.all(50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text("Checkout a container here...",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 20.0)),
-                ),
-                Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
-                    child: ElevatedButton(
-                      child: Text('Scan QR Code'),
-                      onPressed: () => scanQRCode(),
-                    )),
-                CoolErrorMessage(text: errorMessage),
-              ],
-            )));
+      backgroundColor: Colors.white,
+      appBar: UserAppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(50.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CoolLabel(
+              text: "Please scan the QR code on the container:",
+              textStyle: CustomTheme.primaryLabelStyle(),
+              bottom: 10.0,
+            ),
+            CoolButton(
+              text: "Use Camera",
+              onPressed: () => scanQRCode(),
+              buttonStyle: CustomTheme.primaryButtonStyle(),
+              top: 20.0,
+            ),
+            CoolErrorMessage(text: errorMessage),
+          ],
+        ),
+      ),
+    );
   }
 
   Future<void> scanQRCode() async {
@@ -59,8 +62,11 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
         .then((code) {
       widget.onScanQR(user, code).then((response) {
         if (response.success) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => new HomePage()));
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => new HomePage(),
+            ),
+          );
         } else {
           setState(() {
             errorMessage = response.message;

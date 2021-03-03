@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/cool_button.dart';
+import '../components/custom_theme.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../static/user.dart';
@@ -56,16 +58,6 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
-                "Sign Up",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                ),
-              ),
-            ),
             CoolTextField(
                 text: "First Name",
                 onChanged: (value) {
@@ -139,22 +131,16 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.password],
                 keyboardType: TextInputType.visiblePassword),
-            Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: ElevatedButton(
-                  child: Text('Sign Up'),
-                  onPressed: () {
-                    handleSignUp(context);
-                  },
-                )),
-            Padding(
-              padding: const EdgeInsets.only(top: 0.0),
-              child: TextButton(
-                child: Text('Have a verification code? Enter it here!'),
-                onPressed: () {
-                  handleValidation(context);
-                },
-              ),
+            CoolButton(
+              text: "Sign Up",
+              onPressed: () => handleSignUp(context),
+              buttonStyle: CustomTheme.primaryButtonStyle(),
+              top: 20.0,
+            ),
+            CoolButton(
+              text: "Have a verification code? Enter it here!",
+              onPressed: () => handleValidation(context),
+              buttonType: "text",
             ),
             CoolErrorMessage(text: errorMessage),
           ],

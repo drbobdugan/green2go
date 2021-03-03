@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 
 import '../services/api.dart';
 import '../services/user_service.dart';
+import '../components/cool_button.dart';
+import '../components/custom_theme.dart';
+import '../components/cool_label.dart';
 import '../components/cool_textField.dart';
 import '../components/cool_errorMessage.dart';
 import '../static/user.dart';
@@ -81,20 +84,16 @@ class _ValidationPageState extends State<ValidationPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Text(
-                "Welcome!",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-              ),
+            CoolLabel(
+              text: "Welcome!",
+              textStyle: CustomTheme.primaryLabelStyle(),
+              bottom: 15.0,
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
-                "Thank you for signing up for the Green to Go App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
-                style: TextStyle(fontSize: 20.0),
-              ),
+            CoolLabel(
+              text:
+                  "Thank you for signing up for the Green to Go App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
+              textStyle: CustomTheme.primaryLabelStyle(isBold: false),
+              bottom: 15.0,
             ),
             CoolTextField(
                 visible: widget.user.email == '',
@@ -113,23 +112,16 @@ class _ValidationPageState extends State<ValidationPage> {
                     code = value;
                   });
                 }),
-            Padding(
-              padding: const EdgeInsets.only(top: 15.0),
-              child: ElevatedButton(
-                child: Text('Submit'),
-                onPressed: () {
-                  handleVerify(context);
-                },
-              ),
+            CoolButton(
+              text: "Submit",
+              onPressed: () => handleVerify(context),
+              buttonStyle: CustomTheme.primaryButtonStyle(),
+              top: 15.0,
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-              child: TextButton(
-                child: Text('Request a new code'),
-                onPressed: () {
-                  handleNewCode(context);
-                },
-              ),
+            CoolButton(
+              text: "Request a new code",
+              onPressed: () => handleNewCode(context),
+              buttonType: "text",
             ),
             CoolErrorMessage(text: errorMessage),
           ],
