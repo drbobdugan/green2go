@@ -8,6 +8,7 @@ class Student {
   String phoneNum;
   String role;
   String authCode;
+  String authToken;
 
   Student() {
     email = '';
@@ -19,6 +20,7 @@ class Student {
     phoneNum = '';
     role = '';
     authCode = '';
+    authToken = '';
   }
 
   jsonToStudent(json) {
@@ -31,5 +33,6 @@ class Student {
     phoneNum = json['phoneNum'];
     role = json['role'];
     authCode = json['authCode'];
+    authToken = json['auth_token'];
   }
 }
