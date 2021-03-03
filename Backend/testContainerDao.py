@@ -1,11 +1,13 @@
 from containerDao import ContainerDao
 dao = ContainerDao()
 def main():
-    testAddContainer()
+    #testAddContainer()
     testAddRelationship()
-    testGetRelationship()
-    testGetContainer()
-    testDeleteContainer()
+    #testGetRelationship()
+    #testGetContainer()
+    #testDeleteContainer()
+    testSelectAllByEmail()
+    testSelectCheckedOut()
 
 def testAddContainer():
     
@@ -80,20 +82,44 @@ def testAddRelationship():
                 "qrcode": qrcode,
                 "status": status,
                 "statusUpdateTime": None}
+    
     dao.addRelationship(relDict)
-    email = "test1@students.stonehill.edu"
+    email = "test@students.stonehill.edu"
     qrcode = "000"
-    status = "Checked out"
+    status = "Pending Return"
     authTime= "2021-01-01 01:01:01"
-    val = [email,qrcode,status,authTime]
+    relDict={
+                "email": email,
+                "qrcode": qrcode,
+                "status": status,
+                "statusUpdateTime": None}
+    dao.addRelationship(relDict)
     email = "test@students.stonehill.edu"
     qrcode = "001"
-    status = "Checked out"
+    status = "Verified Return"
     authTime= "2021-01-01 01:01:01"
-    val = [email,qrcode,status]
-    #dao.addRelationship(val)
+    relDict={
+                "email": email,
+                "qrcode": qrcode,
+                "status": status,
+                "statusUpdateTime": None}
+    dao.addRelationship(relDict)
+
 def testUpdateRelationship():
     email = "test@students.stonehill.edu"
     status = ""
-    
+
+def testSelectAllByEmail():
+    emailDict={
+                "email": "test@students.stonehill.edu"
+            }
+    dao.selectAllByEmail(emailDict)
+
+def testSelectCheckedOut():
+    relDict={
+                "email": "test@students.stonehill.edu",
+                "status": "Checked out"
+            }
+    dao.selectCheckedOut(relDict)
+
 main()

@@ -82,6 +82,8 @@ class ContainerDao:
             logging.error("Error in deleteContainer")
             logging.error(str(e))
             return self.handleError(e, mycursor)
+
+    
 # ____________________________________________________________________________________________________ #
 
     #Accepts list val in format  val = (email, qrcode, status)
@@ -94,6 +96,7 @@ class ContainerDao:
             val.append(relDict['status'])
             mycursor = self.mydb.cursor()
             mycursor = self.mydb.cursor(buffered=True)
+            print("test1")
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
             qrcode = val[1]
@@ -197,7 +200,56 @@ class ContainerDao:
         except Exception as e:
             logging.error("Error in updateRelationship")
             logging.error(str(e))
-            return self.handleError(e, mycursor)         
+            return self.handleError(e, mycursor)  
+
+    def selectAllByEmail(self,emailDict):
+        try:
+            #select all containers from one user
+            mycursor = self.mydb.cursor()
+            email = emailDict["email"]
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "'"
+            mycursor.execute(sql)#ORDER BY statusUpdateTime")
+            myresult = mycursor.fetchall()
+            mycursor.close()
+            temp = []
+            for x in myresult:
+                relDict={
+                "email": x[0],
+                "qrcode": x[1],
+                "status": x[2],
+                "statusUpdateTime": str(x[3])}
+                temp.append(relDict)
+            return True, myresult
+        except Exception as e:
+            logging.error("Error in selectAllByEmail")
+            logging.error(str(e))
+            return self.handleError(e, mycursor)  
+
+    def selectCheckedOut(self,relDict): 
+        try:
+            #select all containers from one user
+            mycursor = self.mydb.cursor()
+            email = relDict["email"]
+            status = relDict["status"]
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and status = '" + status + "'"
+            mycursor.execute(sql)#ORDER BY statusUpdateTime")
+            myresult = mycursor.fetchall()
+            mycursor.close()
+            temp = []
+            for x in myresult:
+                relDict={
+                "email": x[0],
+                "qrcode": x[1],
+                "status": x[2],
+                "statusUpdateTime": str(x[3])}
+                temp.append(relDict)
+            return True, myresult
+        except Exception as e:
+            logging.error("Error in selectAllByEmail")
+            logging.error(str(e))
+            return self.handleError(e, mycursor)
+
+
     def containerExists(self, qrcodeDict):
         qrcode = qrcodeDict["qrcode"]
         result = self.getContainer(qrcodeDict)[1]
