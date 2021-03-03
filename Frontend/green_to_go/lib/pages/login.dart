@@ -30,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
   void handleLogIn(BuildContext context) {
     widget.onLogIn(user).then((response) {
       if (response.success) {
+        Navigator.of(context).popUntil((route) => route.isFirst);
+        Navigator.of(context).pop();
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) =>

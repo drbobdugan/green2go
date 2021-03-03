@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  StudentDetails user;
+  StudentDetails user = new StudentDetails({});
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 10.0),
               child: Text(
-                'Hello !',
+                'Hello ${user.firstName}!',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
               ),
