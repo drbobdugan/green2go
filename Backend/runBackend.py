@@ -353,14 +353,14 @@ def updateContainer():
 @app.route('/checkoutContainer', methods=['POST'])
 def checkoutContainer():
     userContainer = None
-    keys=['email','qrcode','status']
+    keys=['email','qrcode','status'] # ask the database team if they are check for pendings that will switch to returned for older user
     try:
         userContainer = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
     global dao2
     res = dao2.addRelationship(userContainer)
-    print(res)
+    #print(res)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -368,13 +368,18 @@ def checkoutContainer():
 @app.route('/getContainersForUser', methods = ['GET'])
 def getContainersForUser():
     relationship = None
-    keys=['email','qrcode']
+    keys=['email','auth_token']
     try:
         relationship = extractKeysFromRequest(request, keys, t="args")
         if relationship is None:
             raise Exception("relationship")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+
+    authCheck = handleAuth(relationship)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+    relationship.pop('auth_token', None)
     global dao2
     res = dao2.getRelationship(relationship)
     if res[0] is True:
@@ -430,7 +435,7 @@ def selectContainer():
     authCheck = handleAuth(containerDic)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
-    containerdic.pop('auth_token', None)
+    containerDic.pop('auth_token', None)
     res = dao2.selectContainer(containerDic)
     if res[0] is True:
         res = json.dumps({"success" : res[0], "data" : res[1]})
