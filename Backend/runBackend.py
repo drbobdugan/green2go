@@ -416,6 +416,26 @@ def selectLoction():
         return json.dumps({"success" : res[0], "message" : ""})
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
+        
+@app.route('/selectContainer', methods=['POST'])
+def selectContainer():
+    containerDic = None
+    keys = ["qrcode", "auth_token"]
+    try:
+        containerDic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+    global dao2
+
+    authCheck = handleAuth(containerDic)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+    containerdic.pop('auth_token', None)
+    res = dao2.selectContainer(containerDic)
+    if res[0] is True:
+        res = json.dumps({"success" : res[0], "data" : res[1]})
+    else:
+        res = json.dumps({"success" : res[0], "message" : res[1]})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
