@@ -27,10 +27,12 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     widget.onGetUser().then((response) {
       if (response.success) {
-        user = StudentDetails(response.data);
-        user.authToken = widget.userAuth.authToken;
-        user.refreshToken = widget.userAuth.refreshToken;
-        user.tokenExpiration = widget.userAuth.tokenExpiration;
+        setState(() {
+          user = StudentDetails(response.data);
+          user.authToken = widget.userAuth.authToken;
+          user.refreshToken = widget.userAuth.refreshToken;
+          user.tokenExpiration = widget.userAuth.tokenExpiration;
+        });
       }
     });
     super.initState();
