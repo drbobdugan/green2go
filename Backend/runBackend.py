@@ -7,6 +7,7 @@ from flask import request
 from userDao import UserDao
 from containerDao import ContainerDao
 from authDao import AuthDao
+from locationDao import LocationDao
 from datetime import datetime
 import sys
 import os
@@ -14,9 +15,10 @@ import re
 sys.path.insert(0, os.getcwd()+'/Email/')
 from emailServer import EmailManager
 app = Flask(__name__)
-dao=UserDao()
-dao2=ContainerDao()
+userDao=UserDao()
+containerDao=ContainerDao()
 authDao = AuthDao()
+locationDao=LocationDao()
 emailServer = EmailManager()
 
 
@@ -84,12 +86,12 @@ def validateCode():
         dic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao
+    global userDao
 
     res=None
 
     try:
-        res = dao.getUser(dic)
+        res = userDao.getUser(dic)
     except:
         res = {"success" : False, "message" : "Email does not correspond to user"}
     codefromtable=res[1]["authCode"]
@@ -105,7 +107,7 @@ def validateCode():
         # create new auth
         res = authDao.addAuth(res[1])
         # fix userAuth as well
-        dao.updateUser({"email" : dic["email"], "authorized" : 1})
+        userDao.updateUser({"email" : dic["email"], "authorized" : 1})
         # return it
         return json.dumps({"success" : res[0], "data" : res[1]})
     else:
@@ -119,11 +121,11 @@ def login():
         dic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao
+    global userDao
 
     res = None
     try:
-        res = dao.getUser(dic)
+        res = userDao.getUser(dic)
     except:
         return json.dumps({"success" : res[0], "message" : res[1]})
 
@@ -179,16 +181,16 @@ def getUser():
         dictOfUserAttrib = extractKeysFromRequest(request, keys, t="args")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao
+    global userDao
     
     authCheck = handleAuth(dictOfUserAttrib)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
 
-    res=dao.getUser(dictOfUserAttrib)
+    res=userDao.getUser(dictOfUserAttrib)
     #print(res)
     if res[0] is True:
-        response = dao2.selectAllByEmail(dictOfUserAttrib)
+        response = containerDao.selectAllByEmail(dictOfUserAttrib)
         if response[0] is True:
             res = {"success" : res[0], "data" : {"user" : res[1], "containers" : response[1]}}
         else:
@@ -212,8 +214,8 @@ def addUser():
     if validateEmail(dictOfUserAttrib["email"]) is False:
         return json.dumps({"success" : False, "message" : "Invalid email format"})
 
-    global dao
-    res = dao.addUser(dictOfUserAttrib)
+    global userDao
+    res = userDao.addUser(dictOfUserAttrib)
     #print(res)
     if res[0] is True:
         # send email
@@ -231,14 +233,14 @@ def updateUser():
         dictOfUserAttrib = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao
+    global userDao
 
     authCheck = handleAuth(dictOfUserAttrib)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
     # take auth_token out of dict for database team
     dictOfUserAttrib.pop('auth_token', None)
-    res = dao.updateUser(dictOfUserAttrib)
+    res = userDao.updateUser(dictOfUserAttrib)
     print(res)
     if res [0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
@@ -258,8 +260,8 @@ def deleteUser():
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
 
-    global dao
-    res = dao.deleteUser(dictOfUserAttrib)
+    global userDao
+    res = userDao.deleteUser(dictOfUserAttrib)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -277,8 +279,8 @@ def addContainer():
         containerDic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
-    res = dao2.addContainer(containerDic)
+    global containerDao
+    res = containerDao.addContainer(containerDic)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -292,13 +294,13 @@ def getContainer():
         containerDic = extractKeysFromRequest(request, keys, t="args")
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
+    global containerDao
 
     authCheck = handleAuth(containerDic)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
 
-    res = dao2.getContainer(containerDic)
+    res = containerDao.getContainer(containerDic)
     if res[0] is True:
         res = json.dumps({"success" : res[0], "data" : res[1]})
     else:
@@ -313,13 +315,13 @@ def deleteContainer():
         containerDic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
+    global containerDao
 
     authCheck = handleAuth(containerDic)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
 
-    res = dao2.deleteContainer(containerDic)
+    res = containerDao.deleteContainer(containerDic)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -342,8 +344,8 @@ def updateContainer():
     # take auth_token out of dict for database team
     containerDic.pop('auth_token', None)
 
-    global dao2
-    res = dao2.updateContainer(containerDic)
+    global containerDao
+    res = containerDao.updateContainer(containerDic)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -362,8 +364,8 @@ def checkoutContainer():
         userContainer = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
-    res = dao2.addRelationship(userContainer)
+    global containerDao
+    res = containerDao.addRelationship(userContainer)
     #print(res)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
@@ -384,8 +386,8 @@ def getContainersForUser():
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
     relationship.pop('auth_token', None)
-    global dao2
-    res = dao2.getRelationship(relationship)
+    global containerDao
+    res = containerDao.getRelationship(relationship)
     if res[0] is True:
         res = json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -398,8 +400,8 @@ def checkinContainer():
     keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
 
     dictOfUserAttrib = extractKeysFromRequest(request, keys)
-    global dao2
-    res = dao2.updateRelationship(dictOfUserAttrib)
+    global containerDao
+    res = containerDao.updateRelationship(dictOfUserAttrib)
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -409,18 +411,18 @@ def checkinContainer():
     
 @app.route('/selectLocation',methods=['POST'])
 def selectLoction():
-    loctionDic = None
-    keys = ["qrcode",'auth_token']
+    locationDic = None
+    keys = ["qrcode",'email','auth_token']
     try:
-        loctionDic = extractKeysFromRequest(request, keys)
+        locationDic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
-    authCheck = handleAuth(loctionDic)
+    global containerDao
+    authCheck = handleAuth(locationDic)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
-    loctionDic.pop('auth_token', None)
-    res = dao2.checkLoction(loctionDic)  #need to get the method for database team 
+    locationDic.pop('auth_token', None)
+    res = locationDao.selectLocation(locationDic)  #need to get the method for database team 
     if res[0] is True:
         return json.dumps({"success" : res[0], "message" : ""})
     else:
@@ -429,18 +431,18 @@ def selectLoction():
 @app.route('/selectContainer', methods=['POST'])
 def selectContainer():
     containerDic = None
-    keys = ["qrcode", "auth_token"]
+    keys = ["qrcode",'email', "auth_token"]
     try:
         containerDic = extractKeysFromRequest(request, keys)
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
-    global dao2
+    global containerDao
 
     authCheck = handleAuth(containerDic)
     if authCheck[0] is False:
         return json.dumps({"success" : False, "message" : authCheck[1]})
     containerDic.pop('auth_token', None)
-    res = dao2.selectContainer(containerDic)
+    res = containerDao.selectContainer(containerDic)
     if res[0] is True:
         res = json.dumps({"success" : res[0], "data" : res[1]})
     else:
