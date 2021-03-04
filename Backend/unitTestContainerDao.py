@@ -6,6 +6,9 @@ class unitTestContainerDao(unittest.TestCase):
     To run these tests:
          python3 -m unittest unitTestContainerDao.py
     """
+
+    # make sure to use TEMP database for testing
+
     def setUp(self):
         """
         Setup a temporary database
@@ -26,7 +29,7 @@ class unitTestContainerDao(unittest.TestCase):
         dao.deleteContainer(containerDict)
         dao.deleteRelationship(relDict)
     
-    #container tests include: creating and reading
+    #container tests include: creating, reading, and deleting
     def addTest42Container(self):
         container={"qrcode": "101010"}
         dao = ContainerDao()
@@ -82,14 +85,27 @@ class unitTestContainerDao(unittest.TestCase):
         rc, getContainer = dao.getContainer(container)
 
         self.assertFalse(rc)
+    
+    def testDeleteContainer(self):
+        """
+        Test that we can delete a container from the database
+        """
+        rc, msg = self.addTest42Container()
+        self.assertTrue(rc)
 
-    # hascontainer tests include: creating and reading
+        container={"qrcode": "101010"}
+        dao = ContainerDao()
+        rc, deleteContainer = dao.deleteContainer(container)
+
+        self.assertTrue(rc)
+
+    # hascontainer tests include: creating, reading, updating, and deleting
     def addTest42Relationship(self):
         rel={
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Checked Out",
-            "statusUpdateTime": "2021-01-01 01:01:01"
+            "statusUpdateTime": None
             }
         dao = ContainerDao()
         return dao.addRelationship(rel)
@@ -103,7 +119,7 @@ class unitTestContainerDao(unittest.TestCase):
 
     def testAddRelationshipTwice(self):
         """
-        Test that we can't add a relationship twice
+        Test that we can add a relationship twice
         First add should work correctly
         """
         rc, msg = self.addTest42Relationship()
@@ -132,7 +148,6 @@ class unitTestContainerDao(unittest.TestCase):
         rc, getRelationship = dao.getRelationship(rel)
 
         self.assertTrue(rc)
-        #self.assertDictEqual(rel,getRelationship(rel))
     
     def testSelectRelationshipDoesntExist(self):
         """
@@ -153,6 +168,42 @@ class unitTestContainerDao(unittest.TestCase):
         rc, getRelationship = dao.getRelationship(rel)
 
         self.assertFalse(rc)
+
+    def testUpdateRelationship(self):
+        """
+        Test that we can update a relationship that exists in the database already
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertTrue(rc)
+
+        rel={
+            "email": "test42@students.stonehill.edu",
+            "qrcode": "101010",
+            "status": "Pending Return",
+            "statusUpdateTime": None
+            }
+        dao = ContainerDao()
+        rc, updateRelationship = dao.updateRelationship(rel)
+
+        self.assertTrue(rc)
+
+    def testDeleteRelationship(self):
+        """
+        Test that we can delete a relationship that exists in the database already
+        """
+        rc, msg = self.addTest42Relationship()
+        self.assertTrue(rc)
+
+        rel={
+            "email": "test42@students.stonehill.edu",
+            "qrcode": "101010",
+            "status": "Pending Return",
+            "statusUpdateTime": None
+            }
+        dao = ContainerDao()
+        rc, deleteRelationship = dao.deleteRelationship(rel)
+
+        self.assertTrue(rc)
 
 if __name__ == '__main__':
     unittest.main()
