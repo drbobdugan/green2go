@@ -1,7 +1,9 @@
-language: python
 os: linux
+language: python
 
+python:
+  - 3.8
 
 script: 
-  - python3 -m unittest unitTestUserDao.py
+  - python3 -m unittest backend/unitTestUserDao.py
   
