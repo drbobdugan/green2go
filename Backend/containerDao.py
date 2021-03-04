@@ -219,7 +219,7 @@ class ContainerDao:
                 "status": x[2],
                 "statusUpdateTime": str(x[3])}
                 temp.append(relDict)
-            return True, myresult
+            return True, temp
         except Exception as e:
             logging.error("Error in selectAllByEmail")
             logging.error(str(e))
@@ -243,7 +243,7 @@ class ContainerDao:
                 "status": x[2],
                 "statusUpdateTime": str(x[3])}
                 temp.append(relDict)
-            return True, myresult
+            return True, temp
         except Exception as e:
             logging.error("Error in selectAllByEmail")
             logging.error(str(e))

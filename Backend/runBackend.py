@@ -188,7 +188,11 @@ def getUser():
     res=dao.getUser(dictOfUserAttrib)
     #print(res)
     if res[0] is True:
-        res = {"success" : res[0], "data" : res[1]}
+        response = dao2.selectAllByEmail(dictOfUserAttrib)
+        if response[0] is True:
+            res = {"success" : res[0], "data" : {"user" : res[1], "containers" : response[1]}}
+        else:
+            res = {"success" : response[0], "message" : response[1]}
     else:
         res = {"success" : res[0], "message" : res[1]}
     return json.dumps(res) 
