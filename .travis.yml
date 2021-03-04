@@ -1,8 +1,7 @@
 language: python
+os: linux
 
-install:
-  - pip install -r requirements-travis.txt
-  
-scripts: 
+
+script: 
   - python3 -m unittest unitTestUserDao.py
   
