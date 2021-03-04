@@ -1,0 +1,10 @@
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+INFO:werkzeug: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO:root:Entering getUser
+INFO:root:getUser successful
+INFO:werkzeug:127.0.0.1 - - [04/Mar/2021 13:17:20] "[37mPOST /login HTTP/1.1[0m" 200 -
+INFO:root:Entering getUser
+INFO:root:getUser successful
+INFO:werkzeug:127.0.0.1 - - [04/Mar/2021 13:17:50] "[37mGET /getUser?email=test9@students.stonehill.edu&auth_token=0M647nrREWo10NvuNp0JmL2pWOfm0x2NQBwh9XVw0Ksi3 HTTP/1.1[0m" 200 -
