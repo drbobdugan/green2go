@@ -16,8 +16,8 @@ Map<int, Color> green = {
 Map<String, Color> colors = {
   "primary": Color(0xFF2E856E),
   "darkPrimary": Color(0xFF006A4E),
-  "attention": Color(0xFF03CD3B),
-  "light": Color(0xFFD2FFCC),
+  "attention": Color(0xFF6ACB8C),
+  "light": Color(0xFF53DC98),
   "disabled": Colors.grey,
 };
 
@@ -42,6 +42,13 @@ class CustomTheme {
     return TextStyle(
       fontWeight: (isBold) ? FontWeight.bold : FontWeight.normal,
       fontSize: fontSize,
+    );
+  }
+
+  static TextStyle errorMessageStyle() {
+    return TextStyle(
+      fontStyle: FontStyle.italic,
+      color: Color(0xffff0000),
     );
   }
 }

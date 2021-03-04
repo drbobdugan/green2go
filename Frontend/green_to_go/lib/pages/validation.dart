@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../services/api.dart';
 import '../services/user_service.dart';
-import '../components/cool_button.dart';
+import '../components/reuse_button.dart';
 import '../components/custom_theme.dart';
-import '../components/cool_label.dart';
-import '../components/cool_textField.dart';
-import '../components/cool_errorMessage.dart';
+import '../components/reuse_label.dart';
+import '../components/reuse_textField.dart';
+import '../components/reuse_errorMessage.dart';
 import '../static/user.dart';
 import 'home.dart';
 
@@ -84,18 +84,18 @@ class _ValidationPageState extends State<ValidationPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CoolLabel(
+            ReuseLabel(
               text: "Welcome!",
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 15.0,
             ),
-            CoolLabel(
+            ReuseLabel(
               text:
                   "Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
               textStyle: CustomTheme.primaryLabelStyle(isBold: false),
               bottom: 15.0,
             ),
-            CoolTextField(
+            ReuseTextField(
                 visible: widget.user.email == '',
                 text: "Email",
                 onChanged: (value) {
@@ -105,25 +105,25 @@ class _ValidationPageState extends State<ValidationPage> {
                 },
                 autofillHints: [AutofillHints.email],
                 keyboardType: TextInputType.emailAddress),
-            CoolTextField(
+            ReuseTextField(
                 text: "Enter code here",
                 onChanged: (value) {
                   setState(() {
                     code = value;
                   });
                 }),
-            CoolButton(
+            ReuseButton(
               text: "Submit",
               onPressed: () => handleVerify(context),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 15.0,
             ),
-            CoolButton(
+            ReuseButton(
               text: "Request a new code",
               onPressed: () => handleNewCode(context),
               buttonType: "text",
             ),
-            CoolErrorMessage(text: errorMessage),
+            ReuseErrorMessage(text: errorMessage),
           ],
         ),
       ),

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/custom_theme.dart';
+import '../components/reuse_label.dart';
 import '../services/student_service.dart';
 import '../components/user_appBar.dart';
 import '../static/student.dart';
@@ -49,14 +51,19 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
-              child: Text(
-                'Hello ${user.firstName}!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-              ),
+            ReuseLabel(
+              text: "Hello ${user.firstName}!",
+              textStyle: CustomTheme.primaryLabelStyle(),
+              bottom: 10.0,
             ),
+            // Padding(
+            //   padding: const EdgeInsets.only(bottom: 10.0),
+            //   child: Text(
+            //     'Hello ${user.firstName}!',
+            //     textAlign: TextAlign.center,
+            //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
+            //   ),
+            // ),
           ],
         ),
       ),

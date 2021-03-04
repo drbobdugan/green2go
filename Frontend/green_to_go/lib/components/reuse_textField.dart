@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CoolTextField extends StatefulWidget {
+class ReuseTextField extends StatefulWidget {
   final String text;
   final bool visible;
   final ValueChanged<String> onChanged;
@@ -9,7 +9,7 @@ class CoolTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final Function onFieldSubmitted;
 
-  CoolTextField(
+  ReuseTextField(
       {Key key,
       @required this.text,
       this.visible,
@@ -25,10 +25,10 @@ class CoolTextField extends StatefulWidget {
   }
 
   @override
-  _CoolTextFieldState createState() => _CoolTextFieldState();
+  _ReuseTextFieldState createState() => _ReuseTextFieldState();
 }
 
-class _CoolTextFieldState extends State<CoolTextField> {
+class _ReuseTextFieldState extends State<ReuseTextField> {
   final _controller = TextEditingController();
 
   bool isValidInput() {

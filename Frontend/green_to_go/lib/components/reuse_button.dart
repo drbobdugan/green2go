@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class CoolButton extends StatelessWidget {
+class ReuseButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final double left, top, right, bottom;
   final ButtonStyle buttonStyle;
   final String buttonType;
 
-  CoolButton({
+  ReuseButton({
     @required this.text,
     @required this.onPressed,
     this.buttonStyle,

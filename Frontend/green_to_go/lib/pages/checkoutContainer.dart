@@ -1,10 +1,10 @@
-import 'package:Choose2Reuse/components/cool_label.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
-import '../components/cool_button.dart';
+import '../components/reuse_label.dart';
+import '../components/reuse_button.dart';
 import '../components/custom_theme.dart';
-import '../components/cool_errorMessage.dart';
+import '../components/reuse_errorMessage.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
 import '../services/student_service.dart';
@@ -39,18 +39,18 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CoolLabel(
+            ReuseLabel(
               text: "Please scan the QR code on the container:",
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 10.0,
             ),
-            CoolButton(
+            ReuseButton(
               text: "Use Camera",
               onPressed: () => scanQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
             ),
-            CoolErrorMessage(text: errorMessage),
+            ReuseErrorMessage(text: errorMessage),
           ],
         ),
       ),

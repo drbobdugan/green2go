@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../components/cool_button.dart';
+import '../components/reuse_button.dart';
 import '../components/custom_theme.dart';
-import '../components/cool_textField.dart';
-import '../components/cool_errorMessage.dart';
+import '../components/reuse_textField.dart';
+import '../components/reuse_errorMessage.dart';
 import '../static/user.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
@@ -58,7 +58,7 @@ class _SignUpPageState extends State<SignUpPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CoolTextField(
+            ReuseTextField(
                 text: "First Name",
                 onChanged: (value) {
                   setState(() {
@@ -67,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.givenName],
                 keyboardType: TextInputType.name),
-            CoolTextField(
+            ReuseTextField(
                 text: "Middle Name",
                 onChanged: (value) {
                   setState(() {
@@ -76,7 +76,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.middleName],
                 keyboardType: TextInputType.name),
-            CoolTextField(
+            ReuseTextField(
                 text: "Last Name",
                 onChanged: (value) {
                   setState(() {
@@ -85,7 +85,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.familyName],
                 keyboardType: TextInputType.name),
-            CoolTextField(
+            ReuseTextField(
                 text: "Phone Number",
                 onChanged: (value) {
                   setState(() {
@@ -94,7 +94,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.telephoneNumber],
                 keyboardType: TextInputType.phone),
-            CoolTextField(
+            ReuseTextField(
                 text: "Email",
                 onChanged: (value) {
                   setState(() {
@@ -103,7 +103,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.email],
                 keyboardType: TextInputType.emailAddress),
-            CoolTextField(
+            ReuseTextField(
                 text: "Class Year",
                 onChanged: (value) {
                   setState(() {
@@ -111,7 +111,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   });
                 },
                 keyboardType: TextInputType.number),
-            CoolTextField(
+            ReuseTextField(
                 text: "Password",
                 obscureText: true,
                 onChanged: (value) {
@@ -121,7 +121,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.password],
                 keyboardType: TextInputType.visiblePassword),
-            CoolTextField(
+            ReuseTextField(
                 text: "Confirm Password",
                 obscureText: true,
                 onChanged: (value) {
@@ -131,18 +131,18 @@ class _SignUpPageState extends State<SignUpPage> {
                 },
                 autofillHints: [AutofillHints.password],
                 keyboardType: TextInputType.visiblePassword),
-            CoolButton(
+            ReuseButton(
               text: "Sign Up",
               onPressed: () => handleSignUp(context),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
             ),
-            CoolButton(
+            ReuseButton(
               text: "Have a verification code? Enter it here!",
               onPressed: () => handleValidation(context),
               buttonType: "text",
             ),
-            CoolErrorMessage(text: errorMessage),
+            ReuseErrorMessage(text: errorMessage),
           ],
         ),
       ),

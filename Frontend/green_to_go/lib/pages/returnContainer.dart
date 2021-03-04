@@ -1,10 +1,10 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
-import '../components/cool_label.dart';
+import '../components/reuse_label.dart';
 import '../components/custom_theme.dart';
-import '../components/cool_button.dart';
-import '../components/cool_errorMessage.dart';
+import '../components/reuse_button.dart';
+import '../components/reuse_errorMessage.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
 import '../services/student_service.dart';
@@ -39,17 +39,17 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            CoolLabel(
+            ReuseLabel(
               text: "Please scan the QR code at the drop-off location:",
               textStyle: CustomTheme.primaryLabelStyle(),
             ),
-            CoolButton(
+            ReuseButton(
               text: "Use Camera",
               onPressed: () => scanQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
             ),
-            CoolErrorMessage(text: errorMessage),
+            ReuseErrorMessage(text: errorMessage),
           ],
         ),
       ),

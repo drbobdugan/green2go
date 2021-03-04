@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../components/custom_theme.dart';
-import '../components/cool_button.dart';
-import '../components/cool_textField.dart';
-import '../components/cool_errorMessage.dart';
+import '../components/reuse_button.dart';
+import '../components/reuse_textField.dart';
+import '../components/reuse_errorMessage.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
 import '../static/user.dart';
@@ -82,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
-                    CoolTextField(
+                    ReuseTextField(
                         text: "Email",
                         onChanged: (value) {
                           setState(() {
@@ -94,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                         onFieldSubmitted: (value) {
                           node.nextFocus();
                         }),
-                    CoolTextField(
+                    ReuseTextField(
                         text: "Password",
                         obscureText: true,
                         onChanged: (value) {
@@ -106,18 +106,18 @@ class _LoginPageState extends State<LoginPage> {
                         onFieldSubmitted: (value) {
                           node.nextFocus();
                         }),
-                    CoolButton(
+                    ReuseButton(
                       text: "Log In",
                       onPressed: () => handleLogIn(context),
                       buttonStyle: CustomTheme.primaryButtonStyle(),
                       top: 10.0,
                     ),
-                    CoolButton(
+                    ReuseButton(
                       text: "Need an account? Sign up here!",
                       onPressed: () => handleSignUp(context),
                       buttonType: "text",
                     ),
-                    CoolErrorMessage(text: errorMessage),
+                    ReuseErrorMessage(text: errorMessage),
                   ],
                 ),
               ),
