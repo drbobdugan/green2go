@@ -22,6 +22,10 @@ Map<String, Color> colors = {
 };
 
 class CustomTheme {
+  static Color getColor(String id) {
+    return colors[id];
+  }
+
   static ThemeData appTheme() {
     return ThemeData(
       primarySwatch: MaterialColor(0xFF2E856E, green),

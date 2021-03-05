@@ -20,6 +20,13 @@ class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _UserAppBarState extends State<UserAppBar> {
+  Map<String, IconData> icons = {
+    'Home': Icons.home,
+    'Checkout Container': Icons.rotate_right_rounded,
+    'Return Container': Icons.rotate_left_rounded,
+    'Logout': Icons.logout
+  };
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,9 +36,9 @@ class _UserAppBarState extends State<UserAppBar> {
           PopupMenuButton(
             icon: Container(
                 child: Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: EdgeInsets.all(3.0),
                     child: Icon(Icons.menu_rounded,
-                        size: 24.0, color: Colors.blue)),
+                        size: 24.0, color: CustomTheme.getColor('attention'))),
                 decoration:
                     BoxDecoration(color: Colors.white, shape: BoxShape.circle)),
             onSelected: (choice) {
@@ -83,10 +90,17 @@ class _UserAppBarState extends State<UserAppBar> {
               }.map((String choice) {
                 return PopupMenuItem<String>(
                     value: choice,
-                    child: Text(choice,
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF2E856E))));
+                    child: Row(children: <Widget>[
+                      Padding(
+                          padding: EdgeInsets.only(right: 5.0, bottom: 2.0),
+                          child: Icon(icons[choice],
+                              size: 24.0,
+                              color: CustomTheme.getColor('attention'))),
+                      Text(choice,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: CustomTheme.getColor('darkPrimary')))
+                    ]));
               }).toList();
             },
           ),
