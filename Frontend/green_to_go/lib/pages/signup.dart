@@ -4,6 +4,7 @@ import '../components/reuse_button.dart';
 import '../components/custom_theme.dart';
 import '../components/reuse_textField.dart';
 import '../components/reuse_errorMessage.dart';
+import '../components/reuse_label.dart';
 import '../static/user.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
@@ -22,6 +23,15 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+  final FocusNode firstNameNode = FocusNode();
+  final FocusNode middleNameNode = FocusNode();
+  final FocusNode lastNameNode = FocusNode();
+  final FocusNode emailNode = FocusNode();
+  final FocusNode phoneNumNode = FocusNode();
+  final FocusNode classYearNode = FocusNode();
+  final FocusNode passwordNode = FocusNode();
+  final FocusNode confirmPasswordNode = FocusNode();
+
   NewUser user = new NewUser();
   String errorMessage = '';
 
@@ -43,6 +53,12 @@ class _SignUpPageState extends State<SignUpPage> {
         builder: (context) => new ValidationPage(user: user)));
   }
 
+  fieldNextFocus(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,66 +77,102 @@ class _SignUpPageState extends State<SignUpPage> {
             }
           },
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(50.0),
+            padding: const EdgeInsets.only(top: 30.0, left: 50.0, right: 50.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                ReuseLabel(
+                  text: "Sign Up",
+                  textStyle: CustomTheme.primaryLabelStyle(),
+                  bottom: 20.0,
+                ),
                 ReuseTextField(
                     text: "First Name",
+                    node: firstNameNode,
                     onChanged: (value) {
                       setState(() {
                         user.firstName = value;
                       });
                     },
                     autofillHints: [AutofillHints.givenName],
-                    keyboardType: TextInputType.name),
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, firstNameNode, middleNameNode);
+                    }),
                 ReuseTextField(
                     text: "Middle Name",
+                    node: middleNameNode,
                     onChanged: (value) {
                       setState(() {
                         user.middleName = value;
                       });
                     },
                     autofillHints: [AutofillHints.middleName],
-                    keyboardType: TextInputType.name),
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, middleNameNode, lastNameNode);
+                    }),
                 ReuseTextField(
                     text: "Last Name",
+                    node: lastNameNode,
                     onChanged: (value) {
                       setState(() {
                         user.lastName = value;
                       });
                     },
                     autofillHints: [AutofillHints.familyName],
-                    keyboardType: TextInputType.name),
-                ReuseTextField(
-                    text: "Phone Number",
-                    onChanged: (value) {
-                      setState(() {
-                        user.phoneNum = value;
-                      });
-                    },
-                    autofillHints: [AutofillHints.telephoneNumber],
-                    keyboardType: TextInputType.phone),
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, lastNameNode, emailNode);
+                    }),
                 ReuseTextField(
                     text: "Email",
+                    node: emailNode,
                     onChanged: (value) {
                       setState(() {
                         user.email = value;
                       });
                     },
                     autofillHints: [AutofillHints.email],
-                    keyboardType: TextInputType.emailAddress),
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, emailNode, phoneNumNode);
+                    }),
+                ReuseTextField(
+                    text: "Phone Number",
+                    node: phoneNumNode,
+                    onChanged: (value) {
+                      setState(() {
+                        user.phoneNum = value;
+                      });
+                    },
+                    autofillHints: [AutofillHints.telephoneNumber],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.phone,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, phoneNumNode, classYearNode);
+                    }),
                 ReuseTextField(
                     text: "Class Year",
+                    node: classYearNode,
                     onChanged: (value) {
                       setState(() {
                         user.classYear = value;
                       });
                     },
-                    keyboardType: TextInputType.number),
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, classYearNode, passwordNode);
+                    }),
                 ReuseTextField(
                     text: "Password",
+                    node: passwordNode,
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
@@ -128,9 +180,15 @@ class _SignUpPageState extends State<SignUpPage> {
                       });
                     },
                     autofillHints: [AutofillHints.password],
-                    keyboardType: TextInputType.visiblePassword),
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(
+                          context, passwordNode, confirmPasswordNode);
+                    }),
                 ReuseTextField(
                     text: "Confirm Password",
+                    node: confirmPasswordNode,
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
@@ -138,7 +196,11 @@ class _SignUpPageState extends State<SignUpPage> {
                       });
                     },
                     autofillHints: [AutofillHints.password],
-                    keyboardType: TextInputType.visiblePassword),
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: (value) {
+                      fieldNextFocus(context, confirmPasswordNode, null);
+                    }),
                 ReuseButton(
                   text: "Sign Up",
                   onPressed: () => handleSignUp(context),

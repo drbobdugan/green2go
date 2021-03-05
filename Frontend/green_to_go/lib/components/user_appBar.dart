@@ -38,7 +38,8 @@ class _UserAppBarState extends State<UserAppBar> {
                 child: Padding(
                     padding: EdgeInsets.all(3.0),
                     child: Icon(Icons.menu_rounded,
-                        size: 24.0, color: CustomTheme.getColor('attention'))),
+                        size: 24.0,
+                        color: CustomTheme.getColor('darkPrimary'))),
                 decoration:
                     BoxDecoration(color: Colors.white, shape: BoxShape.circle)),
             onSelected: (choice) {

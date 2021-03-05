@@ -24,6 +24,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final FocusNode emailNode = FocusNode();
+  final FocusNode passwordNode = FocusNode();
+
   ExistingUser user = new ExistingUser();
   String errorMessage = '';
 
@@ -46,6 +49,12 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
+  fieldNextFocus(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
+  }
+
   void handleSignUp(BuildContext context) {
     Navigator.of(context)
         .push(MaterialPageRoute(builder: (context) => new SignUpPage()));
@@ -53,7 +62,6 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final node = FocusScope.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -84,6 +92,7 @@ class _LoginPageState extends State<LoginPage> {
                   children: <Widget>[
                     ReuseTextField(
                         text: "Email",
+                        node: emailNode,
                         onChanged: (value) {
                           setState(() {
                             user.email = value;
@@ -91,8 +100,9 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         autofillHints: [AutofillHints.email],
                         keyboardType: TextInputType.emailAddress,
+                        textInputAction: TextInputAction.next,
                         onFieldSubmitted: (value) {
-                          node.nextFocus();
+                          fieldNextFocus(context, emailNode, passwordNode);
                         }),
                     ReuseTextField(
                         text: "Password",
@@ -103,8 +113,9 @@ class _LoginPageState extends State<LoginPage> {
                           });
                         },
                         autofillHints: [AutofillHints.password],
+                        textInputAction: TextInputAction.done,
                         onFieldSubmitted: (value) {
-                          node.nextFocus();
+                          fieldNextFocus(context, passwordNode, null);
                         }),
                     ReuseButton(
                       text: "Log In",
