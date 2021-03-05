@@ -6,6 +6,7 @@ import '../components/reuse_button.dart';
 import '../components/reuse_textField.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_loading.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
 import '../static/user.dart';
@@ -30,7 +31,7 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode passwordNode = FocusNode();
 
   ExistingUser user = new ExistingUser();
-  bool isLoggedIn = false;
+  bool isLoggedIn;
   bool rememberMe = false;
   String errorMessage = '';
 
@@ -50,6 +51,10 @@ class _LoginPageState extends State<LoginPage> {
         isLoggedIn = true;
         user.email = email;
         user.password = password;
+      });
+    } else {
+      setState(() {
+        isLoggedIn = false;
       });
     }
   }
@@ -92,7 +97,8 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     if (isLoggedIn) handleLogIn(context);
-
+    if (isLoggedIn != false) return Scaffold(backgroundColor: Colors.white, body: ReuseLoading());
+      
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
