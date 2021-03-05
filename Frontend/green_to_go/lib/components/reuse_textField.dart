@@ -8,6 +8,8 @@ class ReuseTextField extends StatefulWidget {
   final dynamic autofillHints;
   final TextInputType keyboardType;
   final Function onFieldSubmitted;
+  final TextInputAction textInputAction;
+  final FocusNode node;
 
   ReuseTextField(
       {Key key,
@@ -17,7 +19,9 @@ class ReuseTextField extends StatefulWidget {
       this.obscureText,
       this.autofillHints,
       this.keyboardType,
-      this.onFieldSubmitted})
+      this.onFieldSubmitted,
+      this.textInputAction,
+      this.node})
       : super(key: key);
 
   onTextChange(value) {
@@ -59,6 +63,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
           padding: EdgeInsets.only(bottom: 10.0),
           child: TextFormField(
               controller: _controller,
+              focusNode: widget.node,
               decoration: InputDecoration(
                   labelText: widget.text,
                   contentPadding: EdgeInsets.symmetric(vertical: 0.0),
@@ -77,7 +82,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
               keyboardType: (widget.keyboardType == null
                   ? TextInputType.text
                   : widget.keyboardType),
-              textInputAction: TextInputAction.next,
+              textInputAction: widget.textInputAction,
               onFieldSubmitted: widget.onFieldSubmitted),
         ));
   }
