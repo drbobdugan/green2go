@@ -75,58 +75,68 @@ class _ValidationPageState extends State<ValidationPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomPadding: false,
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text('Choose2Reuse'),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ReuseLabel(
-              text: "Welcome!",
-              textStyle: CustomTheme.primaryLabelStyle(),
-              bottom: 15.0,
+      body: GestureDetector(
+          onTap: () {
+            FocusScopeNode currentFocus = FocusScope.of(context);
+
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(50.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                ReuseLabel(
+                  text: "Welcome!",
+                  textStyle: CustomTheme.primaryLabelStyle(),
+                  bottom: 15.0,
+                ),
+                ReuseLabel(
+                  text:
+                      "Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
+                  textStyle: CustomTheme.primaryLabelStyle(isBold: false),
+                  bottom: 15.0,
+                ),
+                ReuseTextField(
+                    visible: widget.user.email == '',
+                    text: "Email",
+                    onChanged: (value) {
+                      setState(() {
+                        email = value;
+                      });
+                    },
+                    autofillHints: [AutofillHints.email],
+                    keyboardType: TextInputType.emailAddress),
+                ReuseTextField(
+                    text: "Enter code here",
+                    onChanged: (value) {
+                      setState(() {
+                        code = value;
+                      });
+                    }),
+                ReuseButton(
+                  text: "Submit",
+                  onPressed: () => handleVerify(context),
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 15.0,
+                ),
+                ReuseButton(
+                  text: "Request a new code",
+                  onPressed: () => handleNewCode(context),
+                  buttonType: "text",
+                ),
+                ReuseErrorMessage(text: errorMessage),
+              ],
             ),
-            ReuseLabel(
-              text:
-                  "Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.",
-              textStyle: CustomTheme.primaryLabelStyle(isBold: false),
-              bottom: 15.0,
-            ),
-            ReuseTextField(
-                visible: widget.user.email == '',
-                text: "Email",
-                onChanged: (value) {
-                  setState(() {
-                    email = value;
-                  });
-                },
-                autofillHints: [AutofillHints.email],
-                keyboardType: TextInputType.emailAddress),
-            ReuseTextField(
-                text: "Enter code here",
-                onChanged: (value) {
-                  setState(() {
-                    code = value;
-                  });
-                }),
-            ReuseButton(
-              text: "Submit",
-              onPressed: () => handleVerify(context),
-              buttonStyle: CustomTheme.primaryButtonStyle(),
-              top: 15.0,
-            ),
-            ReuseButton(
-              text: "Request a new code",
-              onPressed: () => handleNewCode(context),
-              buttonType: "text",
-            ),
-            ReuseErrorMessage(text: errorMessage),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

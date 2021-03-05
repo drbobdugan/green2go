@@ -45,6 +45,14 @@ class CustomTheme {
     );
   }
 
+  static TextStyle secondaryLabelStyle(
+      {double fontSize = 13.0, bool isBold = false}) {
+    return TextStyle(
+      fontWeight: (isBold) ? FontWeight.bold : FontWeight.normal,
+      fontSize: fontSize,
+    );
+  }
+
   static TextStyle errorMessageStyle() {
     return TextStyle(
       fontStyle: FontStyle.italic,

@@ -61,6 +61,7 @@ flutter:
   assets:
     - assets/images/choose2reuse_logo.jpg
     - assets/images/choose2reuse_icon.jpg
+    - assets/images/c2r_labelBackground.jpg
   #   - images/a_dot_ham.jpeg
 
 

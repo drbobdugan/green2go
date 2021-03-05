@@ -1,11 +1,10 @@
+import 'package:Choose2Reuse/components/reuse_containerCounts.dart';
 import 'package:flutter/material.dart';
-
 import '../components/custom_theme.dart';
 import '../components/reuse_label.dart';
 import '../services/student_service.dart';
 import '../components/user_appBar.dart';
 import '../static/student.dart';
-import '../services/student_service.dart';
 import '../services/api.dart';
 
 class HomePage extends StatefulWidget {
@@ -46,10 +45,10 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       appBar: UserAppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(50.0),
+        padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ReuseLabel(
               text: "Hello ${user.firstName}!",
@@ -64,6 +63,59 @@ class _HomePageState extends State<HomePage> {
             //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             //   ),
             // ),
+            Row(
+              children: [
+                ContainerCounts(
+                    text: "0",
+                    textStyle: CustomTheme.primaryLabelStyle(),
+                    backgroundName: 'assets/images/c2r_labelBackground.jpg',
+                    backgroundHeight: 100.0,
+                    backgroundWidth: 100.0,
+                    right: 17.0),
+                ContainerCounts(
+                    text: "0",
+                    textStyle: CustomTheme.primaryLabelStyle(),
+                    backgroundName: 'assets/images/c2r_labelBackground.jpg',
+                    backgroundHeight: 100.0,
+                    backgroundWidth: 100.0,
+                    right: 17.0),
+                ContainerCounts(
+                    text: "0",
+                    textStyle: CustomTheme.primaryLabelStyle(),
+                    backgroundName: 'assets/images/c2r_labelBackground.jpg',
+                    backgroundHeight: 100.0,
+                    backgroundWidth: 100.0,
+                    right: 17.0)
+              ],
+            ),
+            Row(
+              children: [
+                Flexible(
+                    child: ReuseLabel(
+                  text: "Currently Checked Out Containers",
+                  textStyle: CustomTheme.secondaryLabelStyle(),
+                  top: 15.0,
+                  right: 17.0,
+                  backgroundWidth: 100,
+                )),
+                Flexible(
+                    child: ReuseLabel(
+                  text: "Unverified Returned Containers",
+                  textStyle: CustomTheme.secondaryLabelStyle(),
+                  top: 15.0,
+                  right: 17.0,
+                  backgroundWidth: 100,
+                )),
+                Flexible(
+                    child: ReuseLabel(
+                  text: "Verified Returned Containers",
+                  textStyle: CustomTheme.secondaryLabelStyle(),
+                  top: 15.0,
+                  right: 17.0,
+                  backgroundWidth: 100,
+                )),
+              ],
+            )
           ],
         ),
       ),
