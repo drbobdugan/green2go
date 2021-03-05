@@ -15,6 +15,7 @@ import re
 sys.path.insert(0, os.getcwd()+'/Email/')
 from emailServer import EmailManager
 app = Flask(__name__)
+app.debug = True
 userDao=UserDao()
 containerDao=ContainerDao()
 authDao = AuthDao()
