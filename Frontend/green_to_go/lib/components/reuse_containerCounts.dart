@@ -37,11 +37,13 @@ class ContainerCounts extends StatelessWidget {
               alignment: Alignment.center,
               height: backgroundHeight,
               width: backgroundWidth,
-              child: Text(
-                text,
-                textAlign: (isCenter) ? TextAlign.center : TextAlign.left,
-                style: textStyle,
-              ),
+              child: Padding(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  child: Text(
+                    text,
+                    textAlign: (isCenter) ? TextAlign.center : TextAlign.left,
+                    style: textStyle,
+                  )),
             )
           ],
         ));

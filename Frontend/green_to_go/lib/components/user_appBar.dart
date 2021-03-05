@@ -5,6 +5,7 @@ import '../pages/checkoutContainer.dart';
 import '../pages/returnContainer.dart';
 import '../pages/home.dart';
 import '../static/student.dart';
+import '../components/custom_theme.dart';
 
 class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
   final StudentAuth auth;
@@ -26,6 +27,13 @@ class _UserAppBarState extends State<UserAppBar> {
         title: Text('Choose2Reuse'),
         actions: <Widget>[
           PopupMenuButton(
+            icon: Container(
+                child: Padding(
+                    padding: EdgeInsets.all(5.0),
+                    child: Icon(Icons.menu_rounded,
+                        size: 24.0, color: Colors.blue)),
+                decoration:
+                    BoxDecoration(color: Colors.white, shape: BoxShape.circle)),
             onSelected: (choice) {
               switch (choice) {
                 case 'Home':

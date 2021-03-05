@@ -30,7 +30,6 @@ class _HomePageState extends State<HomePage> {
       if (response.success) {
         setState(() {
           user = StudentDetails(response.data);
-          print(response.data);
           user.authToken = widget.userAuth.authToken;
           user.refreshToken = widget.userAuth.refreshToken;
           user.tokenExpiration = widget.userAuth.tokenExpiration;
@@ -59,9 +58,7 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ReuseLabel(
-              text: user.firstName != null
-                  ? "Hello ${user.firstName}!"
-                  : "Hello!",
+              text: "My Containers",
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 20.0,
             ),
@@ -71,24 +68,25 @@ class _HomePageState extends State<HomePage> {
               children: [
                 ContainerCounts(
                     text: "${containerCount("Checked out")}",
-                    textStyle: CustomTheme.primaryLabelStyle(),
-                    backgroundName: 'assets/images/c2r_labelBackground.jpg',
+                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
+                    backgroundName: 'assets/images/c2r_reuseIcon_attention.jpg',
                     backgroundHeight: 100.0,
                     backgroundWidth: 100.0,
                     right: 10.0,
                     left: 10.0),
                 ContainerCounts(
                     text: "${containerCount("Unverified Return")}",
-                    textStyle: CustomTheme.primaryLabelStyle(),
-                    backgroundName: 'assets/images/c2r_labelBackground.jpg',
+                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
+                    backgroundName: 'assets/images/c2r_reuseIcon_primary.jpg',
                     backgroundHeight: 100.0,
                     backgroundWidth: 100.0,
                     right: 10.0,
                     left: 10.0),
                 ContainerCounts(
                     text: "${containerCount("Verified Return")}",
-                    textStyle: CustomTheme.primaryLabelStyle(),
-                    backgroundName: 'assets/images/c2r_labelBackground.jpg',
+                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
+                    backgroundName:
+                        'assets/images/c2r_reuseIcon_darkPrimary.jpg',
                     backgroundHeight: 100.0,
                     backgroundWidth: 100.0,
                     right: 10.0,
@@ -102,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                 Flexible(
                   child: ReuseLabel(
                     text: "Currently Checked Out Containers",
-                    textStyle: CustomTheme.secondaryLabelStyle(),
+                    textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
                     top: 15.0,
                     right: 0.0,
                     backgroundWidth: 100,
@@ -111,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                 Flexible(
                   child: ReuseLabel(
                     text: "Unverified Returned Containers",
-                    textStyle: CustomTheme.secondaryLabelStyle(),
+                    textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
                     top: 15.0,
                     right: 0.0,
                     backgroundWidth: 100,
@@ -120,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                 Flexible(
                   child: ReuseLabel(
                     text: "Verified Returned Containers",
-                    textStyle: CustomTheme.secondaryLabelStyle(),
+                    textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
                     top: 15.0,
                     right: 0.0,
                     backgroundWidth: 100,
