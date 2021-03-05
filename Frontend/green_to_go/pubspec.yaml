@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  countdown_flutter: ^0.1.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -62,6 +63,7 @@ flutter:
     - assets/images/choose2reuse_logo.jpg
     - assets/images/choose2reuse_icon.jpg
     - assets/images/c2r_labelBackground.jpg
+    - assets/images/sample_qr_code.png
   #   - images/a_dot_ham.jpeg
 
 

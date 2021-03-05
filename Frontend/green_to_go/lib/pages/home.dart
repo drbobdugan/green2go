@@ -55,14 +55,6 @@ class _HomePageState extends State<HomePage> {
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 10.0,
             ),
-            // Padding(
-            //   padding: const EdgeInsets.only(bottom: 10.0),
-            //   child: Text(
-            //     'Hello ${user.firstName}!',
-            //     textAlign: TextAlign.center,
-            //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-            //   ),
-            // ),
             Row(
               children: [
                 ContainerCounts(
@@ -91,29 +83,32 @@ class _HomePageState extends State<HomePage> {
             Row(
               children: [
                 Flexible(
-                    child: ReuseLabel(
-                  text: "Currently Checked Out Containers",
-                  textStyle: CustomTheme.secondaryLabelStyle(),
-                  top: 15.0,
-                  right: 17.0,
-                  backgroundWidth: 100,
-                )),
+                  child: ReuseLabel(
+                    text: "Currently Checked Out Containers",
+                    textStyle: CustomTheme.secondaryLabelStyle(),
+                    top: 15.0,
+                    right: 17.0,
+                    backgroundWidth: 100,
+                  ),
+                ),
                 Flexible(
-                    child: ReuseLabel(
-                  text: "Unverified Returned Containers",
-                  textStyle: CustomTheme.secondaryLabelStyle(),
-                  top: 15.0,
-                  right: 17.0,
-                  backgroundWidth: 100,
-                )),
+                  child: ReuseLabel(
+                    text: "Unverified Returned Containers",
+                    textStyle: CustomTheme.secondaryLabelStyle(),
+                    top: 15.0,
+                    right: 17.0,
+                    backgroundWidth: 100,
+                  ),
+                ),
                 Flexible(
-                    child: ReuseLabel(
-                  text: "Verified Returned Containers",
-                  textStyle: CustomTheme.secondaryLabelStyle(),
-                  top: 15.0,
-                  right: 17.0,
-                  backgroundWidth: 100,
-                )),
+                  child: ReuseLabel(
+                    text: "Verified Returned Containers",
+                    textStyle: CustomTheme.secondaryLabelStyle(),
+                    top: 15.0,
+                    right: 17.0,
+                    backgroundWidth: 100,
+                  ),
+                ),
               ],
             )
           ],

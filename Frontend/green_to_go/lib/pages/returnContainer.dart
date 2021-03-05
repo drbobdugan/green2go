@@ -1,5 +1,6 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
+import 'package:countdown_flutter/countdown_flutter.dart';
 
 import '../components/reuse_label.dart';
 import '../components/custom_theme.dart';
@@ -27,6 +28,7 @@ class ReturnContainerPage extends StatefulWidget {
 
 class _ReturnContainerPageState extends State<ReturnContainerPage> {
   String errorMessage = '';
+  bool containerScanActive = false;
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +42,38 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             ReuseLabel(
-              text: "Please scan the QR code at the drop-off location:",
+              text: (containerScanActive)
+                  ? "Please scan the QR code on the container before the timer runs out:"
+                  : "Please scan the QR code at the drop-off location. Here is a sample QR code:",
               textStyle: CustomTheme.primaryLabelStyle(),
+              isCenter: false,
             ),
+            if (containerScanActive)
+              CountdownFormatted(
+                duration: Duration(minutes: 5),
+                onFinish: () {
+                  setState(() {
+                    containerScanActive = false;
+                    errorMessage = "Timer has ran out.";
+                  });
+                },
+                builder: (BuildContext ctx, String remaining) {
+                  return ReuseLabel(
+                    text: remaining,
+                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 35),
+                    top: 25,
+                    bottom: 15,
+                  );
+                },
+              ),
+            if (!containerScanActive)
+              Image(
+                image: AssetImage("assets/images/sample_qr_code.png"),
+              ),
             ReuseButton(
-              text: "Use Camera",
+              text: (containerScanActive)
+                  ? "Scan container QR code"
+                  : "Scan location QR code",
               onPressed: () => scanQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
@@ -62,8 +91,17 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
         .then((code) {
       widget.onScanQR(code).then((response) {
         if (response.success) {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => new HomePage()));
+          if (!containerScanActive) {
+            setState(() {
+              containerScanActive = true;
+            });
+          } else {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => new HomePage(),
+              ),
+            );
+          }
         } else {
           setState(() {
             errorMessage = response.message;
