@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_textField.dart';
 import '../components/reuse_errorMessage.dart';
+import '../components/reuse_label.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
 import '../static/user.dart';
@@ -28,11 +30,38 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode passwordNode = FocusNode();
 
   ExistingUser user = new ExistingUser();
+  bool isLoggedIn = false;
+  bool rememberMe = false;
   String errorMessage = '';
 
-  void handleLogIn(BuildContext context) {
+  @override
+  void initState() {
+    super.initState();
+    autoLogIn();
+  }
+
+  void autoLogIn() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String email = prefs.getString('email');
+    final String password = prefs.getString('password');
+
+    if (email != null && password != null) {
+      setState(() {
+        isLoggedIn = true;
+        user.email = email;
+        user.password = password;
+      });
+    }
+  }
+
+  Future<Null> handleLogIn(BuildContext context) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     widget.onLogIn(user).then((response) {
       if (response.success) {
+        if (rememberMe) {
+          prefs.setString('email', user.email);
+          prefs.setString('password', user.password);
+        }
         Navigator.of(context).popUntil((route) => route.isFirst);
         Navigator.of(context).pop();
         Navigator.of(context).push(
@@ -62,6 +91,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    if (isLoggedIn) handleLogIn(context);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -72,7 +103,7 @@ class _LoginPageState extends State<LoginPage> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 50.0, bottom: 30.0),
+                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.bottomCenter,
@@ -123,6 +154,30 @@ class _LoginPageState extends State<LoginPage> {
                       buttonStyle: CustomTheme.primaryButtonStyle(),
                       top: 10.0,
                     ),
+                    Align(
+                        alignment: Alignment.bottomRight,
+                        child: Container(
+                            width: 155.0,
+                            height: 40.0,
+                            child: Row(children: <Widget>[
+                              ReuseLabel(
+                                text: "Remember me",
+                                textStyle: CustomTheme.secondaryLabelStyle(),
+                                right: 5.0,
+                              ),
+                              Switch(
+                                value: rememberMe,
+                                onChanged: (value) {
+                                  setState(() {
+                                    rememberMe = value;
+                                  });
+                                },
+                                activeTrackColor:
+                                    CustomTheme.getColor('attention'),
+                                activeColor:
+                                    CustomTheme.getColor('darkPrimary'),
+                              ),
+                            ]))),
                     ReuseButton(
                       text: "Need an account? Sign up here!",
                       onPressed: () => handleSignUp(context),

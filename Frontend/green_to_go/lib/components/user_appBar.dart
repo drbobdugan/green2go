@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../pages/login.dart';
 import '../pages/checkoutContainer.dart';
@@ -26,6 +27,12 @@ class _UserAppBarState extends State<UserAppBar> {
     'Return Container': Icons.rotate_left_rounded,
     'Logout': Icons.logout
   };
+
+  Future<Null> removeLocalLoginStorage() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('email', null);
+    prefs.setString('password', null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,6 +77,7 @@ class _UserAppBarState extends State<UserAppBar> {
                   );
                   break;
                 case 'Logout':
+                  removeLocalLoginStorage();
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).pop();
                   Navigator.of(context).push(
