@@ -396,7 +396,7 @@ def getContainersForUser():
     return res
 
 @app.route('/checkinContainer', methods=['POST'])
-def checkinContainer():
+def checkinContainer():  # we are going to do loction than the container so get loction for the front end here
     dictOfUserAttrib = None
     keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
 

@@ -32,125 +32,113 @@ class ContainerDao:
             logging.info("Entering addContainer")
             val = []
             val.append(contDict['qrcode'])
-            mycursor = self.mydb.cursor()
             sql = "INSERT INTO container (qrcode) VALUE (%s)"
-            mycursor.execute(sql,val)
-            temp = mycursor.rowcount
-            logging.info("Container inserted.")
-            self.mydb.commit()
-            # close cursor 
-            mycursor.close()
+            myresult = self.handleSQL(sql,False,val)
+            if(myresult[0] == False):
+                return myresult
             logging.info("addContainer successful")
             return True, ""
         except Exception as e:
             logging.error("Error in addContainer")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
-            #return self.addContainer(val)
+            return self.handleError(e)
     
-    #Gets container based on qrcode 
+    #Accepts dictionary that holds QR code
     def getContainer(self,qrcodeDict):
         try: 
             logging.info("Entering getContainer")
             qrcode=qrcodeDict['qrcode']
-            mycursor = self.mydb.cursor()
-            mycursor.execute("SELECT * FROM container WHERE qrcode = '" + qrcode + "'")
-            myresult = mycursor.fetchall()
-            # close cursor 
-            mycursor.close()
+            sql = "SELECT * FROM container WHERE qrcode = '" + qrcode + "'"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
             logging.info("getContainer successful")
             return True, {"qrcode" : myresult[0][0]}
         except Exception as e:
             logging.error("Error in getContainer")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
+            return self.handleError(e)
             
-    #Deletes container based on qrcode
-    #Can't connect to MySQL server
+    #Accepts dictionary that holds qrcode
     def deleteContainer(self,qrcodeDict):
         try:
             logging.info("Entering deleteContainer")
             qrcode=qrcodeDict['qrcode']
-            mycursor = self.mydb.cursor()
-            mycursor.execute("DELETE FROM container WHERE qrcode = '" + qrcode + "'")
-            self.mydb.commit()
-            # close cursor 
-            mycursor.close()
+            sql = "DELETE FROM container WHERE qrcode = '" + qrcode + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
             logging.info("deleteContainer successful")
             return True, ""
         except Exception as e:
             logging.error("Error in deleteContainer")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
+            return self.handleError(e)
 
     
 # ____________________________________________________________________________________________________ #
 
-    #Accepts list val in format  val = (email, qrcode, status)
     #accepts dictionary with email qrcode and status
+
     def addRelationship(self, relDict):  
         try:
             val = []
             val.append(relDict['email'])
             val.append(relDict['qrcode'])
             val.append(relDict['status'])
-            mycursor = self.mydb.cursor()
-            mycursor = self.mydb.cursor(buffered=True)
-            print("test1")
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
             qrcode = val[1]
             #if(self.containerExists(qrcode)!=True):
             #    return self.containerExists(qrcode)
-            
-            #search for old email code(lots of potenatial issues here)
-            myresult = mycursor.execute("SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime ASC")
-            if(myresult is not None):
-                oldEmail = myresult[0][0]
-                relDict={
-                   "email": oldEmail,
-                   "qrcode": val[1],
-                   "status": "Verified Return",
-                   "statusUpdateTime": time}
-                self.updateRelationship(relDict)
+            readyforthis = False
+            if(readyforthis == True):
+                sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime ASC"
+                myresult = self.handleSQL(sql,True,None)
+                if(myresult[0] == False):
+                    return myresult
+                if(myresult[1] is not None): # Check to make sure this is none
+                    oldEmail = myresult[0][0]
+                    relDict={
+                       "email": oldEmail,
+                       "qrcode": val[1],
+                       "status": "Verified Return",
+                       "statusUpdateTime": time}
+                    self.updateRelationship(relDict)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
-            mycursor.execute(sql,val)  #could break in the future
-            temp = mycursor.rowcount
+            myresult = self.handleSQL(sql,False,val)  #could break in the future
+            if(myresult[0] == False):
+                return myresult
             logging.info("updateRelationship inserted.")
-            self.mydb.commit()
-            # close cursor 
-            mycursor.close()
             return True, ""
         except Exception as e:
             logging.error("Error in addRelationship")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
+            return self.handleError(e)
 
     #Gets relationship based on email and qrcode 
     def getRelationship(self,relDict): #backend passes a dict to database / some fields will be null
         try: 
-            mycursor = self.mydb.cursor()
             sqlSet = "SELECT * FROM hascontainer WHERE "  #email/email+qrcode/email+status/qrcode/qrcode+status/ or all three
             for key in relDict:
                 if relDict[key] is not None:
                     sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' and "
                     #
             sqlSet = sqlSet[:-4]
-            mycursor.execute(sqlSet)
-            myresult = mycursor.fetchall()
+            myresult = self.handleSQL(sqlSet,True,None)
+            if(myresult[0] == False):
+                return myresult
             myresult = myresult[0]
             relDict={
                 "email": myresult[0],
                 "qrcode": myresult[1],
                 "status": myresult[2],
                 "statusUpdateTime": str(myresult[3])}
-            # close cursor 
-            mycursor.close()
             return True, relDict
         except Exception as e:
             logging.error("Error in getRelationship")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
+            return self.handleError(e)
             
     #Deletes relationship based on email, qrcode, and status
     def deleteRelationship(self,relDict):
@@ -158,16 +146,15 @@ class ContainerDao:
             email = relDict["email"]
             qrcode = relDict["qrcode"]
             status = relDict["status"]
-            mycursor = self.mydb.cursor()
-            mycursor.execute("DELETE FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = '" + status + "'")
-            self.mydb.commit()
-            # close cursor 
-            mycursor.close()
+            sql = "DELETE FROM hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = '" + status + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
             return True, ""
         except Exception as e:
             logging.error("Error in deleteRelationship")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
+            return self.handleError(e)
 
     # Update relationship (for when status changes)
     #IMPORTANT NEED EMAIL AND QRCODE
@@ -177,14 +164,14 @@ class ContainerDao:
         try:
             #get all interaction sorted by time
             #extract newest entry time
-            mycursor = self.mydb.cursor()
             email = relDict["email"]
             qrcode = relDict["qrcode"]
             #THIS DOES NOT WORK
             sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" 
-            mycursor.execute(sql)#ORDER BY statusUpdateTime")
-            myresult = mycursor.fetchall()
-            statusUpdateTime = myresult[0][3]#Probably formatted wrong
+            myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
+            if(myresult[0] == False):
+                return myresult
+            statusUpdateTime = str(myresult[0][3])
             sqlSet = "UPDATE hascontainer SET "
             sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "'"
             for key in relDict:
@@ -192,25 +179,23 @@ class ContainerDao:
                         sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' , "
             sqlSet = sqlSet[:-2]
             sqlSet += sqlWhere
-            mycursor.execute(sqlSet)
-            self.mydb.commit()
-            # close cursor 
-            mycursor.close()
+            myresult = self.handleSQL(sqlSet,False,None)
+            if(myresult[0] == False):
+                return myresult
             return True, ""
         except Exception as e:
             logging.error("Error in updateRelationship")
             logging.error(str(e))
-            return self.handleError(e, mycursor)  
+            return self.handleError(e)  
 
     def selectAllByEmail(self,emailDict):
         try:
             #select all containers from one user
-            mycursor = self.mydb.cursor()
             email = emailDict["email"]
             sql = "SELECT * from hascontainer WHERE email = '" + email + "'"
-            mycursor.execute(sql)#ORDER BY statusUpdateTime")
-            myresult = mycursor.fetchall()
-            mycursor.close()
+            myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
+            if(myresult[0] == False):
+                return myresult
             temp = []
             for x in myresult:
                 relDict={
@@ -223,18 +208,17 @@ class ContainerDao:
         except Exception as e:
             logging.error("Error in selectAllByEmail")
             logging.error(str(e))
-            return self.handleError(e, mycursor)  
+            return self.handleError(e)  
 
     def selectCheckedOut(self,relDict): 
         try:
             #select all containers from one user
-            mycursor = self.mydb.cursor()
             email = relDict["email"]
             status = relDict["status"]
             sql = "SELECT * from hascontainer WHERE email = '" + email + "' and status = '" + status + "'"
-            mycursor.execute(sql)#ORDER BY statusUpdateTime")
-            myresult = mycursor.fetchall()
-            mycursor.close()
+            myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
+            if(myresult[0] == False):
+                return myresult
             temp = []
             for x in myresult:
                 relDict={
@@ -247,7 +231,7 @@ class ContainerDao:
         except Exception as e:
             logging.error("Error in selectAllByEmail")
             logging.error(str(e))
-            return self.handleError(e, mycursor)
+            return self.handleError(e)
 
 
     def containerExists(self, qrcodeDict):
@@ -259,6 +243,29 @@ class ContainerDao:
             contDict={"qrcode": qrcode}
             return self.addContainer(contDict)
 
+                 #  command , boolean for if you get something back, data to send to sql
+    def handleSQL(self, sql, isReturn, package):
+        try:
+            mycursor = self.mydb.cursor()
+            mycursor = self.mydb.cursor(buffered=True)
+            if package is None:
+                mycursor.execute(sql)
+            else:
+                mycursor.execute(sql, package)
+            if(isReturn == True):
+                temp = mycursor.fetchall()
+                mycursor.close()
+                return temp
+            else:
+                self.mydb.commit()
+                mycursor.close()
+                return True, ""
+        except Exception as e:
+            logging.error("Error in handleSQL")
+            logging.error(str(e))
+            return self.handleError(e, mycursor)
+
+            
     def handleError(self,error, cursor=None):
         if cursor is not None:
             cursor.close()
