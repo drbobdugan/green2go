@@ -1,3 +1,5 @@
+import 'container.dart';
+
 class StudentAuth {
   String email;
   String authToken;
@@ -25,16 +27,25 @@ class StudentDetails {
   String authToken;
   String refreshToken;
   String tokenExpiration;
+  List<Container> containers;
 
-  StudentDetails(Map<String, dynamic> value) {
-    email = value['email'];
-    password = value['password'];
-    firstName = value['firstName'];
-    middleName = value['middleName'];
-    lastName = value['lastName'];
-    classYear = value['classYear'];
-    phoneNum = value['phoneNum'];
-    role = value['role'];
-    authCode = value['authCode'];
+  StudentDetails([Map<String, dynamic> value]) {
+    if (value != null) {
+      Map<String, dynamic> user = value['user'];
+      List<dynamic> myContainers = value['containers'];
+      email = user['email'];
+      password = user['password'];
+      firstName = user['firstName'];
+      middleName = user['middleName'];
+      lastName = user['lastName'];
+      classYear = user['classYear'];
+      phoneNum = user['phoneNum'];
+      role = user['role'];
+      authCode = user['authCode'];
+      containers = new List();
+      myContainers.forEach((element) {
+        containers.add(Container(element));
+      });
+    }
   }
 }

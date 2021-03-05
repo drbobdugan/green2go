@@ -3,11 +3,22 @@ import 'package:flutter/material.dart';
 import '../pages/login.dart';
 import '../pages/checkoutContainer.dart';
 import '../pages/returnContainer.dart';
+import '../pages/home.dart';
+import '../static/student.dart';
 
-class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
+class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
+  final StudentAuth auth;
+
+  UserAppBar({Key key, this.auth}) : super(key: key);
+
   @override
   Size get preferredSize => const Size.fromHeight(50);
 
+  @override
+  _UserAppBarState createState() => _UserAppBarState();
+}
+
+class _UserAppBarState extends State<UserAppBar> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -17,6 +28,15 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
           PopupMenuButton(
             onSelected: (choice) {
               switch (choice) {
+                case 'Home':
+                  Navigator.of(context).popUntil((route) => route.isFirst);
+                  Navigator.of(context).pop();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => new HomePage(userAuth: widget.auth),
+                    ),
+                  );
+                  break;
                 case 'Checkout Container':
                   Navigator.of(context).popUntil((route) => route.isFirst);
                   Navigator.of(context).push(
@@ -47,8 +67,12 @@ class UserAppBar extends StatelessWidget implements PreferredSizeWidget {
               }
             },
             itemBuilder: (BuildContext context) {
-              return {'Checkout Container', 'Return Container', 'Logout'}
-                  .map((String choice) {
+              return {
+                'Home',
+                'Checkout Container',
+                'Return Container',
+                'Logout'
+              }.map((String choice) {
                 return PopupMenuItem<String>(
                     value: choice,
                     child: Text(choice,

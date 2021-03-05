@@ -22,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  StudentDetails user = new StudentDetails({});
+  StudentDetails user = new StudentDetails();
 
   @override
   void initState() {
@@ -30,6 +30,7 @@ class _HomePageState extends State<HomePage> {
       if (response.success) {
         setState(() {
           user = StudentDetails(response.data);
+          print(response.data);
           user.authToken = widget.userAuth.authToken;
           user.refreshToken = widget.userAuth.refreshToken;
           user.tokenExpiration = widget.userAuth.tokenExpiration;
@@ -39,11 +40,18 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
+  int containerCount(String filterBy) {
+    if (user.containers != null) {
+      return user.containers.where((c) => c.status == filterBy).toList().length;
+    }
+    return 0;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: UserAppBar(),
+      appBar: UserAppBar(auth: widget.userAuth),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
@@ -51,43 +59,52 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ReuseLabel(
-              text: "Hello ${user.firstName}!",
+              text: user.firstName != null
+                  ? "Hello ${user.firstName}!"
+                  : "Hello!",
               textStyle: CustomTheme.primaryLabelStyle(),
-              bottom: 10.0,
+              bottom: 20.0,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ContainerCounts(
-                    text: "0",
+                    text: "${containerCount("Checked out")}",
                     textStyle: CustomTheme.primaryLabelStyle(),
                     backgroundName: 'assets/images/c2r_labelBackground.jpg',
                     backgroundHeight: 100.0,
                     backgroundWidth: 100.0,
-                    right: 17.0),
+                    right: 10.0,
+                    left: 10.0),
                 ContainerCounts(
-                    text: "0",
+                    text: "${containerCount("Unverified Return")}",
                     textStyle: CustomTheme.primaryLabelStyle(),
                     backgroundName: 'assets/images/c2r_labelBackground.jpg',
                     backgroundHeight: 100.0,
                     backgroundWidth: 100.0,
-                    right: 17.0),
+                    right: 10.0,
+                    left: 10.0),
                 ContainerCounts(
-                    text: "0",
+                    text: "${containerCount("Verified Return")}",
                     textStyle: CustomTheme.primaryLabelStyle(),
                     backgroundName: 'assets/images/c2r_labelBackground.jpg',
                     backgroundHeight: 100.0,
                     backgroundWidth: 100.0,
-                    right: 17.0)
+                    right: 10.0,
+                    left: 10.0)
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Flexible(
                   child: ReuseLabel(
                     text: "Currently Checked Out Containers",
                     textStyle: CustomTheme.secondaryLabelStyle(),
                     top: 15.0,
-                    right: 17.0,
+                    right: 0.0,
                     backgroundWidth: 100,
                   ),
                 ),
@@ -96,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                     text: "Unverified Returned Containers",
                     textStyle: CustomTheme.secondaryLabelStyle(),
                     top: 15.0,
-                    right: 17.0,
+                    right: 0.0,
                     backgroundWidth: 100,
                   ),
                 ),
@@ -105,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                     text: "Verified Returned Containers",
                     textStyle: CustomTheme.secondaryLabelStyle(),
                     top: 15.0,
-                    right: 17.0,
+                    right: 0.0,
                     backgroundWidth: 100,
                   ),
                 ),
