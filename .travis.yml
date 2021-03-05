@@ -1,0 +1,22 @@
+os: osx
+osx_image: xcode11.2
+language: shell
+
+python:
+  - 3.6
+
+install:
+  - pip3 install --upgrade pip
+  - pip install mysql-connector-python
+  - pip install -r requirements.txt
+
+script: 
+  - cd Backend/
+  - ls
+  - python3 -m unittest unitTestUserDao.py
+  - python3 -m unittest unitTestContainerDao.py
+
+
+notifications:
+  slack: csc400a-sp21:NFRJA3Yrzv6TnIBprGZlpYWd
+  
