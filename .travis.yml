@@ -1,11 +1,12 @@
-language: python
+os: osx
+osx_image: xcode11.0 
+language: shell
 
-python:
-  - 3.6
-
-install:
-  - pip install -r requirements.txt
-
+before_install:
+  - python3 --version
+  - pip3 install -U pip
+  - pip3 install -U pytest
+  
 script: 
   - python3 -m unittest unitTestUserDao.py
   
