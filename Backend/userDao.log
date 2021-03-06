@@ -78,3 +78,11 @@ DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
 DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
 INFO:werkzeug:127.0.0.1 - - [05/Mar/2021 18:31:16] "[37mGET /getContainersForUser?email=test0@students.stonehill.edu&auth_token=DuMe5bvoRu3B9Gp2Xvd5PeUqPdp927BlnVb02RMFRHgVZ HTTP/1.1[0m" 200 -
 INFO:werkzeug:127.0.0.1 - - [05/Mar/2021 19:09:48] "[37mGET /getContainersForUser?email=test0@students.stonehill.edu&auth_token=DuMe5bvoRu3B9Gp2Xvd5PeUqPdp927BlnVb02RMFRHgVZ HTTP/1.1[0m" 200 -
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
+DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
