@@ -2,12 +2,8 @@ import 'package:flutter/material.dart';
 
 //will make StatefulWidget with container data later
 class ContainerCounts extends StatelessWidget {
-  final String text, backgroundName;
-  final double left, top, right, bottom, backgroundHeight, backgroundWidth;
-  final TextStyle textStyle;
-  final bool isCenter;
-
-  ContainerCounts({
+  const ContainerCounts({
+    Key key,
     @required this.text,
     @required this.textStyle,
     this.left = 0.0,
@@ -18,7 +14,12 @@ class ContainerCounts extends StatelessWidget {
     @required this.backgroundName,
     @required this.backgroundHeight,
     @required this.backgroundWidth,
-  });
+  }) : super(key: key);
+
+  final String text, backgroundName;
+  final double left, top, right, bottom, backgroundHeight, backgroundWidth;
+  final TextStyle textStyle;
+  final bool isCenter;
 
   @override
   Widget build(BuildContext context) {
@@ -38,10 +39,10 @@ class ContainerCounts extends StatelessWidget {
               height: backgroundHeight,
               width: backgroundWidth,
               child: Padding(
-                  padding: EdgeInsets.only(bottom: 10.0),
+                  padding: const EdgeInsets.only(bottom: 10.0),
                   child: Text(
                     text,
-                    textAlign: (isCenter) ? TextAlign.center : TextAlign.left,
+                    textAlign: isCenter ? TextAlign.center : TextAlign.left,
                     style: textStyle,
                   )),
             )

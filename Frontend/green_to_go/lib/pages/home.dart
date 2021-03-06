@@ -1,20 +1,20 @@
 import 'package:Choose2Reuse/components/reuse_containerCounts.dart';
 import 'package:flutter/material.dart';
+
 import '../components/custom_theme.dart';
 import '../components/reuse_label.dart';
-import '../services/student_service.dart';
 import '../components/user_appBar.dart';
-import '../static/student.dart';
 import '../services/api.dart';
+import '../services/student_service.dart';
+import '../static/student.dart';
 
 class HomePage extends StatefulWidget {
-  final StudentAuth userAuth;
+  const HomePage({Key key, this.user}) : super(key: key);
 
-  HomePage({Key key, this.userAuth}) : super(key: key);
+  final StudentDetails user;
 
-  final _studentService = StudentService();
   Future<APIResponse> onGetUser() async {
-    return await _studentService.getStudent(userAuth);
+    return await StudentService.getStudent(user.auth);
   }
 
   @override
@@ -22,26 +22,28 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  StudentDetails user = new StudentDetails();
+  StudentDetails detailedUser;
 
   @override
   void initState() {
-    widget.onGetUser().then((response) {
-      if (response.success) {
-        setState(() {
-          user = StudentDetails(response.data);
-          user.authToken = widget.userAuth.authToken;
-          user.refreshToken = widget.userAuth.refreshToken;
-          user.tokenExpiration = widget.userAuth.tokenExpiration;
-        });
-      }
-    });
     super.initState();
+    // widget.onGetUser().then((APIResponse response) {
+    //   if (response.success) {
+    //     print(response.data);
+    //     setState(() {
+    //       detailedUser = StudentDetails(
+    //           response.data as Map<String, dynamic>, widget.user.auth);
+    //     });
+    //   }
+    // });
   }
 
   int containerCount(String filterBy) {
-    if (user.containers != null) {
-      return user.containers.where((c) => c.status == filterBy).toList().length;
+    if (detailedUser != null && detailedUser.containers != null) {
+      return detailedUser.containers
+          .where((dynamic c) => c.status == filterBy)
+          .toList()
+          .length;
     }
     return 0;
   }
@@ -50,24 +52,24 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: UserAppBar(auth: widget.userAuth),
+      appBar: UserAppBar(user: detailedUser),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: <Widget>[
             ReuseLabel(
-              text: "My Containers",
+              text: 'My Containers',
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 20.0,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 ContainerCounts(
-                    text: "${containerCount("Checked out")}",
+                    text: '${containerCount('Checked out')}',
                     textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
                     backgroundName: 'assets/images/c2r_reuseIcon_attention.jpg',
                     backgroundHeight: 100.0,
@@ -75,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                     right: 10.0,
                     left: 10.0),
                 ContainerCounts(
-                    text: "${containerCount("Unverified Return")}",
+                    text: '${containerCount('Unverified Return')}',
                     textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
                     backgroundName: 'assets/images/c2r_reuseIcon_primary.jpg',
                     backgroundHeight: 100.0,
@@ -83,7 +85,7 @@ class _HomePageState extends State<HomePage> {
                     right: 10.0,
                     left: 10.0),
                 ContainerCounts(
-                    text: "${containerCount("Verified Return")}",
+                    text: '${containerCount('Verified Return')}',
                     textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
                     backgroundName:
                         'assets/images/c2r_reuseIcon_darkPrimary.jpg',
@@ -96,10 +98,10 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: <Widget>[
                 Flexible(
                   child: ReuseLabel(
-                    text: "Currently Checked Out Containers",
+                    text: 'Currently Checked Out Containers',
                     textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
                     top: 15.0,
                     right: 0.0,
@@ -108,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                   child: ReuseLabel(
-                    text: "Unverified Returned Containers",
+                    text: 'Unverified Returned Containers',
                     textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
                     top: 15.0,
                     right: 0.0,
@@ -117,7 +119,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Flexible(
                   child: ReuseLabel(
-                    text: "Verified Returned Containers",
+                    text: 'Verified Returned Containers',
                     textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
                     top: 15.0,
                     right: 0.0,

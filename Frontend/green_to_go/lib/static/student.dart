@@ -1,38 +1,23 @@
 import 'container.dart';
 
 class StudentAuth {
-  String email;
-  String authToken;
-  String refreshToken;
-  String tokenExpiration;
-
   StudentAuth(Map<String, dynamic> value) {
-    email = value['user'];
-    authToken = value['auth_token'];
-    refreshToken = value['refresh_token'];
-    tokenExpiration = value['expires_at'];
+    email = value['user'] as String;
+    token = value['auth_token'] as String;
+    refresh = value['refresh_token'] as String;
+    expiration = value['expires_at'] as String;
   }
+
+  String email;
+  String token;
+  String refresh;
+  String expiration;
 }
 
 class StudentDetails {
-  String email;
-  String password;
-  String firstName;
-  String middleName;
-  String lastName;
-  String classYear;
-  String phoneNum;
-  String role;
-  String authCode;
-  String authToken;
-  String refreshToken;
-  String tokenExpiration;
-  List<Container> containers;
-
-  StudentDetails([Map<String, dynamic> value]) {
+  StudentDetails(Map<String, dynamic> value, this.auth) {
     if (value != null) {
-      Map<String, dynamic> user = value['user'];
-      List<dynamic> myContainers = value['containers'];
+      final Map<String, String> user = value['user'] as Map<String, String>;
       email = user['email'];
       password = user['password'];
       firstName = user['firstName'];
@@ -41,11 +26,23 @@ class StudentDetails {
       classYear = user['classYear'];
       phoneNum = user['phoneNum'];
       role = user['role'];
-      authCode = user['authCode'];
-      containers = new List();
-      myContainers.forEach((element) {
+
+      final List<Map<String, String>> myContainers =
+          value['containers'] as List<Map<String, String>>;
+      for (final Map<String, String> element in myContainers) {
         containers.add(Container(element));
-      });
+      }
     }
   }
+
+  String email;
+  String password;
+  String firstName;
+  String middleName;
+  String lastName;
+  String classYear;
+  String phoneNum;
+  String role;
+  StudentAuth auth;
+  List<Container> containers;
 }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Map<int, Color> green = {
+const Map<int, Color> green = <int, Color>{
   50: Color.fromRGBO(46, 133, 110, .1),
   100: Color.fromRGBO(46, 133, 110, .2),
   200: Color.fromRGBO(46, 133, 110, .3),
@@ -13,12 +13,12 @@ Map<int, Color> green = {
   900: Color.fromRGBO(46, 133, 110, 1),
 };
 
-Map<String, Color> colors = {
-  "primary": Color(0xFF2E856E),
-  "darkPrimary": Color(0xFF006A4E),
-  "attention": Color(0xFF6ACB8C),
-  "light": Color(0xFF53DC98),
-  "disabled": Colors.grey,
+Map<String, Color> colors = <String, Color>{
+  'primary': const Color(0xFF2E856E),
+  'darkPrimary': const Color(0xFF006A4E),
+  'attention': const Color(0xFF6ACB8C),
+  'light': const Color(0xFF53DC98),
+  'disabled': Colors.grey,
 };
 
 class CustomTheme {
@@ -28,7 +28,7 @@ class CustomTheme {
 
   static ThemeData appTheme() {
     return ThemeData(
-      primarySwatch: MaterialColor(0xFF2E856E, green),
+      primarySwatch: const MaterialColor(0xFF2E856E, green),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       fontFamily: 'Raleway',
     );
@@ -36,7 +36,7 @@ class CustomTheme {
 
   static ButtonStyle primaryButtonStyle() {
     return ButtonStyle(
-      backgroundColor: MaterialStateProperty.all(colors["attention"]),
+      backgroundColor: MaterialStateProperty.all(colors['attention']),
       foregroundColor: MaterialStateProperty.all(Colors.white),
     );
   }
@@ -44,7 +44,7 @@ class CustomTheme {
   static TextStyle primaryLabelStyle(
       {double fontSize = 20.0, bool isBold = true}) {
     return TextStyle(
-      fontWeight: (isBold) ? FontWeight.bold : FontWeight.normal,
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       fontSize: fontSize,
     );
   }
@@ -52,13 +52,13 @@ class CustomTheme {
   static TextStyle secondaryLabelStyle(
       {double fontSize = 13.0, bool isBold = false}) {
     return TextStyle(
-      fontWeight: (isBold) ? FontWeight.bold : FontWeight.normal,
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       fontSize: fontSize,
     );
   }
 
   static TextStyle errorMessageStyle() {
-    return TextStyle(
+    return const TextStyle(
       fontStyle: FontStyle.italic,
       color: Color(0xffff0000),
     );

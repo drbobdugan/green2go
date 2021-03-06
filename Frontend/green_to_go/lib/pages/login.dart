@@ -1,25 +1,23 @@
+import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
-import '../components/reuse_textField.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
+import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
-import '../static/user.dart';
 import '../static/student.dart';
-import 'signup.dart';
-import 'home.dart';
+import '../static/user.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+  const LoginPage({Key key}) : super(key: key);
 
-  final _userService = UserService();
-  Future<APIResponse> onLogIn(user) async {
-    return await _userService.logIn(user);
+  Future<APIResponse> onLogIn(ExistingUser user) async {
+    return await UserService.logIn(user);
   }
 
   @override
@@ -30,7 +28,7 @@ class _LoginPageState extends State<LoginPage> {
   final FocusNode emailNode = FocusNode();
   final FocusNode passwordNode = FocusNode();
 
-  ExistingUser user = new ExistingUser();
+  ExistingUser user = ExistingUser();
   bool isLoggedIn;
   bool rememberMe = false;
   String errorMessage = '';
@@ -59,22 +57,17 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<Null> handleLogIn(BuildContext context) async {
+  Future<void> handleLogIn(BuildContext context) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    widget.onLogIn(user).then((response) {
+    widget.onLogIn(user).then((APIResponse response) {
       if (response.success) {
         if (rememberMe) {
           prefs.setString('email', user.email);
           prefs.setString('password', user.password);
         }
-        Navigator.of(context).popUntil((route) => route.isFirst);
-        Navigator.of(context).pop();
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) =>
-                new HomePage(userAuth: StudentAuth(response.data)),
-          ),
-        );
+
+        NavigationService(context: context).goHome(StudentDetails(
+            null, StudentAuth(response.data as Map<String, dynamic>)));
       } else {
         setState(() {
           errorMessage = response.message;
@@ -83,39 +76,45 @@ class _LoginPageState extends State<LoginPage> {
     });
   }
 
-  fieldNextFocus(
+  void fieldNextFocus(
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
-    if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
+    if (nextFocus != null) {
+      FocusScope.of(context).requestFocus(nextFocus);
+    }
   }
 
   void handleSignUp(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => new SignUpPage()));
+    NavigationService(context: context).goToPage(C2RPages.signup, user);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isLoggedIn) handleLogIn(context);
-    if (isLoggedIn != false) return Scaffold(backgroundColor: Colors.white, body: ReuseLoading());
-      
+    if (isLoggedIn == true) {
+      handleLogIn(context);
+    }
+    if (isLoggedIn != false) {
+      return const Scaffold(
+          backgroundColor: Colors.white, body: ReuseLoading());
+    }
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Choose2Reuse'),
+        title: const Text('Choose2Reuse'),
       ),
       body: Form(
         child: SingleChildScrollView(
           child: Column(
-            children: [
+            children: <Widget>[
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
+                padding: const EdgeInsets.symmetric(
+                    vertical: 30.0, horizontal: 10.0),
                 child: FittedBox(
                   fit: BoxFit.fitWidth,
                   alignment: Alignment.bottomCenter,
                   child: ConstrainedBox(
                     constraints:
-                        BoxConstraints(minWidth: 1, minHeight: 1), // here
+                        const BoxConstraints(minWidth: 1, minHeight: 1), // here
                     child: Image.asset(
                       'assets/images/choose2reuse_logo.jpg',
                     ),
@@ -123,57 +122,57 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(left: 50.0, right: 50.0),
+                padding: const EdgeInsets.only(left: 50.0, right: 50.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     ReuseTextField(
-                        text: "Email",
+                        text: 'Email',
                         node: emailNode,
-                        onChanged: (value) {
+                        onChanged: (String value) {
                           setState(() {
                             user.email = value;
                           });
                         },
-                        autofillHints: [AutofillHints.email],
+                        autofillHints: const <String>[AutofillHints.email],
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (value) {
+                        onFieldSubmitted: () {
                           fieldNextFocus(context, emailNode, passwordNode);
                         }),
                     ReuseTextField(
-                        text: "Password",
+                        text: 'Password',
                         obscureText: true,
-                        onChanged: (value) {
+                        onChanged: (String value) {
                           setState(() {
                             user.password = value;
                           });
                         },
-                        autofillHints: [AutofillHints.password],
+                        autofillHints: const <String>[AutofillHints.password],
                         textInputAction: TextInputAction.done,
-                        onFieldSubmitted: (value) {
+                        onFieldSubmitted: () {
                           fieldNextFocus(context, passwordNode, null);
                         }),
                     ReuseButton(
-                      text: "Log In",
+                      text: 'Log In',
                       onPressed: () => handleLogIn(context),
                       buttonStyle: CustomTheme.primaryButtonStyle(),
                       top: 10.0,
                     ),
                     Align(
                         alignment: Alignment.bottomRight,
-                        child: Container(
+                        child: SizedBox(
                             width: 155.0,
                             height: 40.0,
                             child: Row(children: <Widget>[
                               ReuseLabel(
-                                text: "Remember me",
+                                text: 'Remember me',
                                 textStyle: CustomTheme.secondaryLabelStyle(),
                                 right: 5.0,
                               ),
                               Switch(
                                 value: rememberMe,
-                                onChanged: (value) {
+                                onChanged: (bool value) {
                                   setState(() {
                                     rememberMe = value;
                                   });
@@ -185,9 +184,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ]))),
                     ReuseButton(
-                      text: "Need an account? Sign up here!",
+                      text: 'Need an account? Sign up here!',
                       onPressed: () => handleSignUp(context),
-                      buttonType: "text",
+                      buttonType: 'text',
                     ),
                     ReuseErrorMessage(text: errorMessage),
                   ],

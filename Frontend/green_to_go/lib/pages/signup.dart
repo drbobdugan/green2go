@@ -1,21 +1,20 @@
+import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 
-import '../components/reuse_button.dart';
 import '../components/custom_theme.dart';
-import '../components/reuse_textField.dart';
+import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
-import '../static/user.dart';
+import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
-import 'validation.dart';
+import '../static/user.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key key}) : super(key: key);
 
-  final _userService = UserService();
-  Future<APIResponse> onSignUp(user) async {
-    return await _userService.signUp(user);
+  Future<APIResponse> onSignUp(NewUser user) async {
+    return await UserService.signUp(user);
   }
 
   @override
@@ -32,14 +31,13 @@ class _SignUpPageState extends State<SignUpPage> {
   final FocusNode passwordNode = FocusNode();
   final FocusNode confirmPasswordNode = FocusNode();
 
-  NewUser user = new NewUser();
+  NewUser user = NewUser();
   String errorMessage = '';
 
   void handleSignUp(BuildContext context) {
-    widget.onSignUp(user).then((response) {
+    widget.onSignUp(user).then((APIResponse response) {
       if (response.success) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => new ValidationPage(user: user)));
+        NavigationService(context: context).goToPage(C2RPages.validation, user);
       } else {
         setState(() {
           errorMessage = response.message;
@@ -49,14 +47,15 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void handleValidation(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => new ValidationPage(user: user)));
+    NavigationService(context: context).goToPage(C2RPages.validation, user);
   }
 
-  fieldNextFocus(
+  void fieldNextFocus(
       BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
     currentFocus.unfocus();
-    if (nextFocus != null) FocusScope.of(context).requestFocus(nextFocus);
+    if (nextFocus != null) {
+      FocusScope.of(context).requestFocus(nextFocus);
+    }
   }
 
   @override
@@ -66,12 +65,11 @@ class _SignUpPageState extends State<SignUpPage> {
       resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text('Choose2Reuse'),
+        title: const Text('Choose2Reuse'),
       ),
       body: GestureDetector(
           onTap: () {
-            FocusScopeNode currentFocus = FocusScope.of(context);
-
+            final FocusScopeNode currentFocus = FocusScope.of(context);
             if (!currentFocus.hasPrimaryFocus) {
               currentFocus.unfocus();
             }
@@ -81,136 +79,138 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
+              children: <Widget>[
                 ReuseLabel(
-                  text: "Sign Up",
+                  text: 'Sign Up',
                   textStyle: CustomTheme.primaryLabelStyle(),
                   bottom: 20.0,
                 ),
                 ReuseTextField(
-                    text: "First Name",
+                    text: 'First Name',
                     node: firstNameNode,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.firstName = value;
                       });
                     },
-                    autofillHints: [AutofillHints.givenName],
+                    autofillHints: const <String>[AutofillHints.givenName],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.name,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, firstNameNode, middleNameNode);
                     }),
                 ReuseTextField(
-                    text: "Middle Name",
+                    text: 'Middle Name',
                     node: middleNameNode,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.middleName = value;
                       });
                     },
-                    autofillHints: [AutofillHints.middleName],
+                    autofillHints: const <String>[AutofillHints.middleName],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.name,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, middleNameNode, lastNameNode);
                     }),
                 ReuseTextField(
-                    text: "Last Name",
+                    text: 'Last Name',
                     node: lastNameNode,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.lastName = value;
                       });
                     },
-                    autofillHints: [AutofillHints.familyName],
+                    autofillHints: const <String>[AutofillHints.familyName],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.name,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, lastNameNode, emailNode);
                     }),
                 ReuseTextField(
-                    text: "Email",
+                    text: 'Email',
                     node: emailNode,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.email = value;
                       });
                     },
-                    autofillHints: [AutofillHints.email],
+                    autofillHints: const <String>[AutofillHints.email],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.emailAddress,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, emailNode, phoneNumNode);
                     }),
                 ReuseTextField(
-                    text: "Phone Number",
+                    text: 'Phone Number',
                     node: phoneNumNode,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.phoneNum = value;
                       });
                     },
-                    autofillHints: [AutofillHints.telephoneNumber],
+                    autofillHints: const <String>[
+                      AutofillHints.telephoneNumber
+                    ],
                     textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.phone,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, phoneNumNode, classYearNode);
                     }),
                 ReuseTextField(
-                    text: "Class Year",
+                    text: 'Class Year',
                     node: classYearNode,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.classYear = value;
                       });
                     },
                     keyboardType: TextInputType.number,
                     textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, classYearNode, passwordNode);
                     }),
                 ReuseTextField(
-                    text: "Password",
+                    text: 'Password',
                     node: passwordNode,
                     obscureText: true,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.password = value;
                       });
                     },
-                    autofillHints: [AutofillHints.password],
+                    autofillHints: const <String>[AutofillHints.password],
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.next,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(
                           context, passwordNode, confirmPasswordNode);
                     }),
                 ReuseTextField(
-                    text: "Confirm Password",
+                    text: 'Confirm Password',
                     node: confirmPasswordNode,
                     obscureText: true,
-                    onChanged: (value) {
+                    onChanged: (String value) {
                       setState(() {
                         user.confirmPassword = value;
                       });
                     },
-                    autofillHints: [AutofillHints.password],
+                    autofillHints: const <String>[AutofillHints.password],
                     keyboardType: TextInputType.visiblePassword,
                     textInputAction: TextInputAction.done,
-                    onFieldSubmitted: (value) {
+                    onFieldSubmitted: () {
                       fieldNextFocus(context, confirmPasswordNode, null);
                     }),
                 ReuseButton(
-                  text: "Sign Up",
+                  text: 'Sign Up',
                   onPressed: () => handleSignUp(context),
                   buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),
                 ReuseButton(
-                  text: "Have a verification code? Enter it here!",
+                  text: 'Have a verification code? Enter it here!',
                   onPressed: () => handleValidation(context),
-                  buttonType: "text",
+                  buttonType: 'text',
                 ),
                 ReuseErrorMessage(text: errorMessage),
               ],
