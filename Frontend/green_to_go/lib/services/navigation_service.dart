@@ -17,17 +17,21 @@ class NavigationService {
 
   final BuildContext context;
 
+  void toRoot() {
+    Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
+    Navigator.pop(context);
+  }
+
   Future<void> logout() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setString('email', null);
     prefs.setString('password', null);
-    Navigator.popUntil(context, (Route<dynamic> route) => route.isFirst);
-    Navigator.pop(context);
+    toRoot();
     goToPage(C2RPages.login, null);
   }
 
   void goHome(StudentDetails user) {
-    Navigator.pop(context);
+    toRoot();
     goToPage(C2RPages.home, user);
   }
 

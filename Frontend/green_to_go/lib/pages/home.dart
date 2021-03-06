@@ -8,6 +8,26 @@ import '../services/api.dart';
 import '../services/student_service.dart';
 import '../static/student.dart';
 
+enum ContainerStatus { CheckedOut, Verified, Unverified }
+
+const List<ContainerStatus> items = <ContainerStatus>[
+  ContainerStatus.CheckedOut,
+  ContainerStatus.Verified,
+  ContainerStatus.Unverified,
+];
+
+const Map<ContainerStatus, String> iconColor = <ContainerStatus, String>{
+  ContainerStatus.CheckedOut: 'attention',
+  ContainerStatus.Verified: 'primary',
+  ContainerStatus.Unverified: 'darkPrimary',
+};
+
+const Map<ContainerStatus, String> labels = <ContainerStatus, String>{
+  ContainerStatus.CheckedOut: 'Checked Out',
+  ContainerStatus.Verified: 'Pending Return',
+  ContainerStatus.Unverified: 'Verified Return',
+};
+
 class HomePage extends StatefulWidget {
   const HomePage({Key key, this.user}) : super(key: key);
 
@@ -24,28 +44,45 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   StudentDetails detailedUser;
 
-  @override
-  void initState() {
-    super.initState();
-    // widget.onGetUser().then((APIResponse response) {
-    //   if (response.success) {
-    //     print(response.data);
-    //     setState(() {
-    //       detailedUser = StudentDetails(
-    //           response.data as Map<String, dynamic>, widget.user.auth);
-    //     });
-    //   }
-    // });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   widget.onGetUser().then((APIResponse response) {
+  //     if (response.success) {
+  //       print(response.data);
+  //       setState(() {
+  //         detailedUser = StudentDetails(
+  //             response.data as Map<String, dynamic>, widget.user.auth);
+  //       });
+  //     }
+  //   });
+  // }
 
-  int containerCount(String filterBy) {
-    if (detailedUser != null && detailedUser.containers != null) {
-      return detailedUser.containers
-          .where((dynamic c) => c.status == filterBy)
-          .toList()
-          .length;
-    }
-    return 0;
+  List<Widget> getContainerDataSmall() {
+    return items.map((ContainerStatus status) {
+      return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ContainerCounts(
+                text: '0',
+                textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
+                backgroundName:
+                    'assets/images/c2r_reuseIcon_${iconColor[status]}.jpg',
+                backgroundHeight: 100.0,
+                backgroundWidth: 100.0,
+                right: 12.0,
+                left: 12.0),
+            ReuseLabel(
+              text: labels[status],
+              textStyle: CustomTheme.secondaryLabelStyle(fontSize: 16.0),
+              top: 15.0,
+              left: 8.0,
+              right: 8.0,
+              backgroundWidth: 100,
+            )
+          ]);
+    }).toList();
   }
 
   @override
@@ -53,83 +90,22 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: UserAppBar(user: detailedUser),
-      body: Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ReuseLabel(
-              text: 'My Containers',
-              textStyle: CustomTheme.primaryLabelStyle(),
-              bottom: 20.0,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                ContainerCounts(
-                    text: '${containerCount('Checked out')}',
-                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
-                    backgroundName: 'assets/images/c2r_reuseIcon_attention.jpg',
-                    backgroundHeight: 100.0,
-                    backgroundWidth: 100.0,
-                    right: 10.0,
-                    left: 10.0),
-                ContainerCounts(
-                    text: '${containerCount('Unverified Return')}',
-                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
-                    backgroundName: 'assets/images/c2r_reuseIcon_primary.jpg',
-                    backgroundHeight: 100.0,
-                    backgroundWidth: 100.0,
-                    right: 10.0,
-                    left: 10.0),
-                ContainerCounts(
-                    text: '${containerCount('Verified Return')}',
-                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
-                    backgroundName:
-                        'assets/images/c2r_reuseIcon_darkPrimary.jpg',
-                    backgroundHeight: 100.0,
-                    backgroundWidth: 100.0,
-                    right: 10.0,
-                    left: 10.0)
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                Flexible(
-                  child: ReuseLabel(
-                    text: 'Currently Checked Out Containers',
-                    textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
-                    top: 15.0,
-                    right: 0.0,
-                    backgroundWidth: 100,
-                  ),
-                ),
-                Flexible(
-                  child: ReuseLabel(
-                    text: 'Unverified Returned Containers',
-                    textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
-                    top: 15.0,
-                    right: 0.0,
-                    backgroundWidth: 100,
-                  ),
-                ),
-                Flexible(
-                  child: ReuseLabel(
-                    text: 'Verified Returned Containers',
-                    textStyle: CustomTheme.secondaryLabelStyle(fontSize: 15.0),
-                    top: 15.0,
-                    right: 0.0,
-                    backgroundWidth: 100,
-                  ),
-                ),
-              ],
-            )
-          ],
-        ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          ReuseLabel(
+            text: 'My Containers',
+            textStyle: CustomTheme.primaryLabelStyle(),
+            top: 20.0,
+            bottom: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: getContainerDataSmall(),
+          ),
+        ],
       ),
     );
   }

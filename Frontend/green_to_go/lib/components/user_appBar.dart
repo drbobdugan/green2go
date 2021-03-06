@@ -4,6 +4,29 @@ import 'package:flutter/material.dart';
 import '../components/custom_theme.dart';
 import '../static/student.dart';
 
+enum AppBarItems { Home, Checkout, Return, Logout }
+
+const List<AppBarItems> items = <AppBarItems>[
+  AppBarItems.Home,
+  AppBarItems.Checkout,
+  AppBarItems.Return,
+  AppBarItems.Logout
+];
+
+const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
+  AppBarItems.Home: Icons.home,
+  AppBarItems.Checkout: Icons.rotate_left_rounded,
+  AppBarItems.Return: Icons.rotate_right_rounded,
+  AppBarItems.Logout: Icons.logout
+};
+
+const Map<AppBarItems, String> labels = <AppBarItems, String>{
+  AppBarItems.Home: 'Dashboard',
+  AppBarItems.Checkout: 'Check Out Container',
+  AppBarItems.Return: 'Return Container',
+  AppBarItems.Logout: 'Log Out'
+};
+
 class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
   const UserAppBar({Key key, this.user}) : super(key: key);
 
@@ -17,14 +40,19 @@ class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _UserAppBarState extends State<UserAppBar> {
-  Map<String, IconData> icons = <String, IconData>{
-    'Home': Icons.home,
-    'Checkout Container': Icons.rotate_right_rounded,
-    'Return Container': Icons.rotate_left_rounded,
-    'Logout': Icons.logout
-  };
-
-  void navigateTo(BuildContext context, String path) {}
+  void handleSelection(String choice) {
+    if (choice == labels[AppBarItems.Home]) {
+      NavigationService(context: context).goHome(widget.user);
+    } else if (choice == labels[AppBarItems.Checkout]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.checkoutContainer, widget.user);
+    } else if (choice == labels[AppBarItems.Return]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.returnContainer, widget.user);
+    } else if (choice == labels[AppBarItems.Logout]) {
+      NavigationService(context: context).logout();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,42 +67,18 @@ class _UserAppBarState extends State<UserAppBar> {
                       size: 24.0, color: CustomTheme.getColor('darkPrimary'))),
               decoration: const BoxDecoration(
                   color: Colors.white, shape: BoxShape.circle)),
-          onSelected: (String choice) {
-            switch (choice) {
-              case 'Home':
-                NavigationService(context: context).goHome(widget.user);
-                break;
-              case 'Checkout Container':
-                NavigationService(context: context)
-                    .goToPage(C2RPages.checkoutContainer, widget.user);
-                break;
-              case 'Return Container':
-                NavigationService(context: context)
-                    .goToPage(C2RPages.returnContainer, widget.user);
-                break;
-              case 'Logout':
-                NavigationService(context: context).logout();
-                break;
-              default:
-                break;
-            }
-          },
+          onSelected: handleSelection,
           itemBuilder: (BuildContext context) {
-            return <String>{
-              'Home',
-              'Checkout Container',
-              'Return Container',
-              'Logout'
-            }.map((String choice) {
+            return items.map((AppBarItems choice) {
               return PopupMenuItem<String>(
-                  value: choice,
+                  value: labels[choice],
                   child: Row(children: <Widget>[
                     Padding(
                         padding: const EdgeInsets.only(right: 5.0, bottom: 2.0),
                         child: Icon(icons[choice],
                             size: 24.0,
                             color: CustomTheme.getColor('attention'))),
-                    Text(choice,
+                    Text(labels[choice],
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: CustomTheme.getColor('darkPrimary')))
