@@ -372,6 +372,7 @@ def checkoutContainer():
         return json.dumps({"success" : res[0], "message" : ""})
     else:
         return json.dumps({"success" : res[0], "message" : res[1]})
+
 @app.route('/getContainersForUser', methods = ['GET'])
 def getContainersForUser():
     relationship = None
@@ -388,9 +389,9 @@ def getContainersForUser():
         return json.dumps({"success" : False, "message" : authCheck[1]})
     relationship.pop('auth_token', None)
     global containerDao
-    res = containerDao.getRelationship(relationship)
+    res = containerDao.selectAllByEmail(relationship)
     if res[0] is True:
-        res = json.dumps({"success" : res[0], "message" : ""})
+        res = json.dumps({"success" : res[0], "data" : res[1]})
     else:
         res = json.dumps({"success" : res[0], "message" : res[1]})
     return res
