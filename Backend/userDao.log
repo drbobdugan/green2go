@@ -53,3 +53,9 @@ DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
 DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
 DEBUG:mysql.connector.connection:new_auth_plugin: mysql_native_password
 INFO:werkzeug:127.0.0.1 - - [06/Mar/2021 21:56:29] "[37mGET /getContainersForUser?email=test0@students.stonehill.edu&auth_token=A3BryiantFLkXTQEImaKgGtEc62D7fKgdItNkERkRkSeZ HTTP/1.1[0m" 200 -
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 201-578-557
+INFO:werkzeug: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO:werkzeug: * Restarting with stat
+WARNING:werkzeug: * Debugger is active!
+INFO:werkzeug: * Debugger PIN: 201-578-557
