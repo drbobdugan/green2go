@@ -5,8 +5,7 @@ language: shell
 python:
   - 3.6
 
-before_install:
-  - brew update
+
 install:
   - pip3 install --upgrade pip
   - pip install mysql-connector-python
