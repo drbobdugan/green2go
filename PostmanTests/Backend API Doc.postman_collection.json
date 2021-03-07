@@ -1010,6 +1010,32 @@
 							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
 						}
 					]
+				},
+				{
+					"name": "Resend Auth Code",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/resendAuthCode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"resendAuthCode"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "<p>The User Tests folder will be used to fully test out the user routes. Since we needed to add an auth_token to most of the fields. We have set up this folder to ensure successful results and there should be no need to worry about expired tokens. \nSo test0@students.stonehill.edu will be the account that is going to be used to preform each request.</p> \n<p>To ensure everything goes very well while testing in Postman and also once CI starts test0@students.stonehill.edu should <strong>always</strong> be inside of the database. This allows us to update the auth_token(login) so that each request in Postman will be able to update the environment variables.</p>\n<p>There are three environment variables that will get update after certain requests which include: <strong>authCodeLoginTest0, authTokenLoginTest0, refreshTokenLoginTest0</strong>  <br>\nSince there is a dependency on some methods being executed before others can be successfully run I ask if you are testing something that only involves one specific request that you copy the request and test there to have minimal errors when we start running the collection after each push of new code.</p>\n\n"
@@ -1875,9 +1901,7 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"pm.test(\"Successful Post Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -1955,32 +1979,6 @@
 							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>"
 						}
 					]
-				},
-				{
-					"name": "Select Container",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"0010\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/selectContainer",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"selectContainer"
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		}
