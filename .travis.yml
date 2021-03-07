@@ -5,17 +5,26 @@ language: shell
 python:
   - 3.6
 
+before_install:
+  - brew update
 install:
   - pip3 install --upgrade pip
   - pip install mysql-connector-python
   - pip install -r requirements.txt
+  - brew install node
+  - npm install -g newman
+  
 
-script: 
+script:
+  - node -v
   - cd Backend/
   - ls
   - python3 -m unittest unitTestUserDao.py
   - python3 -m unittest unitTestContainerDao.py
-
+  - cd ../PostmanTests
+  - newman run Choose2Reuse.postman_environment.json
+  
+  
 
 notifications:
   slack: csc400a-sp21:NFRJA3Yrzv6TnIBprGZlpYWd
