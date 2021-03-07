@@ -34,7 +34,7 @@ matrix:
         - node_modules/.bin/newman --version
       
       script: 
-        - node_modules/.bin/newman run PostmanTests/Backend\ APIDoc.postman_collection.json
+        - node_modules/.bin/newman run PostmanTests/Backend API Doc.postman_collection.json
         - node_modules/.bin/newman run PostmanTests/Choose2Reuse.postman_environment.json
         
       
