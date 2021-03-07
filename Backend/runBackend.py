@@ -199,11 +199,10 @@ def resendAuthCode():
     authtimets=datetime.strptime(authtime, f)
     timepassed=datetime.now()-authtimets
     if(timepassed.total_seconds()<300):
-        #sendEmail(user[1]['email'], user[1]['authCode'])
+        sendEmail(user[1]['email'], user[1]['authCode'])
         return json.dumps({"success" : True, "data": ""})
     else:
         authCode=id_generator()
-        print(authCode)
         sendEmail(user[1]['email'], authCode)
         user[1]["authCode"]=authCode
         user[1]["authTime"]=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
