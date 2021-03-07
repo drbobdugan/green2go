@@ -174,6 +174,48 @@ def refreshCode():
 def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
     return ''.join(random.choice(chars) for _ in range(size))
 
+@app.route('/resendAuthCode',methods=['POST'])
+def resendAuthCode():
+    f='%Y-%m-%d %H:%M:%S'
+    authCode=None
+    dictOfUserAttrib = None
+    keys = ["email","auth_token"]
+    dic=None
+    try:
+         dic = extractKeysFromRequest(request, keys)
+    except Exception as e:
+        return json.dumps({"success" : False, "message" : str(e).replace("'", '') + " field missing from request"})
+    authCheck = handleAuth(dic)
+    if authCheck[0] is False:
+        return json.dumps({"success" : False, "message" : authCheck[1]})
+    global userDao
+    user=None
+    try:
+        user = userDao.getUser(dic)
+    except:
+        user = {"success" : False, "message" : "Email does not correspond to user"}
+    #print(user[1]['authTime'])
+    authtime=user[1]["authTime"]
+    authtimets=datetime.strptime(authtime, f)
+    timepassed=datetime.now()-authtimets
+    if(timepassed.total_seconds()<300):
+        #sendEmail(user[1]['email'], user[1]['authCode'])
+        return json.dumps({"success" : True, "data": ""})
+    else:
+        authCode=id_generator()
+        print(authCode)
+        sendEmail(user[1]['email'], authCode)
+        user[1]["authCode"]=authCode
+        user[1]["authTime"]=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        res = userDao.updateUser(user[1])
+        if res [0] is True:
+            return json.dumps({"success" : res[0], "message" : ""})
+        else:
+            return json.dumps({"success" : res[0], "message" : res[1]})
+
+
+
+
 @app.route('/getUser', methods=['GET'])
 def getUser():
     dictOfUserAttrib = None
