@@ -53,7 +53,7 @@ class ContainerDao:
             if(myresult[0] == False):
                 return myresult
             logging.info("getContainer successful")
-            return True, {"qrcode" : myresult[0][0]}
+            return True, {"qrcode" : myresult[1][0][0]}
         except Exception as e:
             logging.error("Error in getContainer")
             logging.error(str(e))
@@ -91,14 +91,11 @@ class ContainerDao:
             qrcode = val[1]
             #if(self.containerExists(qrcode)!=True):
             #    return self.containerExists(qrcode)
-            readyforthis = False
-            if(readyforthis == True):
-                sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime ASC"
-                myresult = self.handleSQL(sql,True,None)
-                if(myresult[0] == False):
-                    return myresult
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime DESC"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[1] != []):
                 if(myresult[1] is not None): # Check to make sure this is none
-                    oldEmail = myresult[0][0]
+                    oldEmail = myresult[1][0]
                     relDict={
                        "email": oldEmail,
                        "qrcode": val[1],
@@ -128,7 +125,7 @@ class ContainerDao:
             myresult = self.handleSQL(sqlSet,True,None)
             if(myresult[0] == False):
                 return myresult
-            myresult = myresult[0]
+            myresult = myresult[1][0]
             relDict={
                 "email": myresult[0],
                 "qrcode": myresult[1],
@@ -167,11 +164,14 @@ class ContainerDao:
             email = relDict["email"]
             qrcode = relDict["qrcode"]
             #THIS DOES NOT WORK
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" 
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" +"ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
             if(myresult[0] == False):
                 return myresult
-            statusUpdateTime = str(myresult[0][3])
+            if(type(myresult[1]) is list):
+                statusUpdateTime = str(myresult[1][0][3])
+            else:
+                statusUpdateTime = str(myresult[1][3])
             sqlSet = "UPDATE hascontainer SET "
             sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "'"
             for key in relDict:
@@ -197,7 +197,7 @@ class ContainerDao:
             if(myresult[0] == False):
                 return myresult
             temp = []
-            for x in myresult:
+            for x in myresult[1]:
                 relDict={
                 "email": x[0],
                 "qrcode": x[1],
@@ -220,7 +220,7 @@ class ContainerDao:
             if(myresult[0] == False):
                 return myresult
             temp = []
-            for x in myresult:
+            for x in myresult[1]:
                 relDict={
                 "email": x[0],
                 "qrcode": x[1],
@@ -255,7 +255,7 @@ class ContainerDao:
             if(isReturn == True):
                 temp = mycursor.fetchall()
                 mycursor.close()
-                return temp
+                return True, temp
             else:
                 self.mydb.commit()
                 mycursor.close()
