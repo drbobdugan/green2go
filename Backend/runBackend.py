@@ -57,30 +57,29 @@ def handleRequestAndAuth(request, keys, required=None ,t="json", formats=None, h
 # only called once dicOfValues has been verified by extractKeysFromRquest
 def ensureCorrectFormatting(dicOfValues, formats):
     for key in dicOfValues:
-        if dicOfValues[key] is None:
-            pass
-        else:
-            if not re.match(formats[key], dicOfValues[key]):
-                raise Exception(str(key) + " does not match specified format")
-
+        if dicOfValues[key] is not None and (not re.match(formats[key], dicOfValues[key])):
+            raise Exception(str(key) + " does not match specified format")
     return True
 
 def extractKeysFromRequest(request, keys, required=None ,t="json"):
+    dic = None
     if required is None:
         required = keys
     if t == "json":
-        dic = {key : request.json[key] if key in request.json else None for key in keys}
-        for key in required:
-            if dic[key] is None:
-                raise Exception(key)
-        return dic
+        dic = {}
+        for key in keys:
+            if key in request.json:
+                dic[key] = request.json[key]
+            else:
+                dic[key] = None
     elif t == "args":
-        dic = {key : request.args.get(key) for key in keys}
-        for key in required:
-            if dic[key] is None:
-                raise Exception(key)
-        return dic
-    return None
+        dic = {}
+        for key in keys:
+            dic[key] = request.args.get(key)
+    for key in required:
+        if dic[key] is None:
+            raise Exception(key)
+    return dic
 
 def handleAuth(dic):
     res = authDao.getAuth(dic)
