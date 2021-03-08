@@ -62,19 +62,15 @@ def ensureCorrectFormatting(dicOfValues, formats):
     return True
 
 def extractKeysFromRequest(request, keys, required=None ,t="json"):
-    dic = None
+    dic = {}
     if required is None:
         required = keys
-    if t == "json":
-        dic = {}
-        for key in keys:
+    for key in keys:
+        dic[key] = None
+        if t == "json":
             if key in request.json:
                 dic[key] = request.json[key]
-            else:
-                dic[key] = None
-    elif t == "args":
-        dic = {}
-        for key in keys:
+        elif t == "args":
             dic[key] = request.args.get(key)
     for key in required:
         if dic[key] is None:
@@ -109,7 +105,7 @@ def validateCode():
     try:
         dic = handleRequestAndAuth(request, keys)
     except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e))
+        return json.dumps({"success" : False, "message" : str(e)})
     global userDao
 
     res=None
@@ -144,7 +140,7 @@ def login():
     try:
         dic = handleRequestAndAuth(request, keys)
     except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e))
+        return json.dumps({"success" : False, "message" : str(e)})
     global userDao
 
     res = None
@@ -176,7 +172,7 @@ def refreshCode():
     try:
         dic = handleRequestAndAuth(request, keys)
     except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e))
+        return json.dumps({"success" : False, "message" : str(e)})
     res = authDao.getAuth(dic)
     if res[0] is True:
         # refresh token mismatch
@@ -203,7 +199,7 @@ def resendAuthCode():
     try:
          dic = handleRequestAndAuth(request, keys)
     except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e))
+        return json.dumps({"success" : False, "message" : str(e)})
     global userDao
     user=None
     try:
@@ -429,7 +425,7 @@ def selectLoction():
     try:
         locationDic = handleRequestAndAuth(request, keys)
     except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e))
+        return json.dumps({"success" : False, "message" : str(e)})
     global containerDao
     res = locationDao.selectLocation(locationDic)  #need to get the method for database team 
     if res[0] is True:
