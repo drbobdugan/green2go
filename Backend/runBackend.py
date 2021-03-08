@@ -160,15 +160,18 @@ def refreshCode():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e)})
     res = authDao.getAuth(dic)
+    message = None
     if res[0] is False:
-        return json.dumps({"success" : False, "message" : "Invalid refresh token"})
+        message = "Invalid refresh token"
     # refresh token mismatch
     if dic["refresh_token"] != res[1]["refresh_token"]:
-        return json.dumps({"success" : False, "mesage":"Invalid token"})
+        message = "Invalid token"
     # handle is auth code is expired
     timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
     if datetime.now() >= timeobj:
-        return json.dumps({"success" : False, "message":"Expired token"})
+        message = "Expired token"
+    if message is not None:
+        return json.dumps({"success" : False, "message": message})
     # return normal response
     updated = authDao.updateAuth(dic)
     return json.dumps({"success" : True, "data": updated[1]})
