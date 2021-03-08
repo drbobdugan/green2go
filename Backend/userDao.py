@@ -63,6 +63,7 @@ class UserDao:
             return self.handleError(e, mycursor)
     #Gets user based on their email
     def getUser(self,emailDict):
+        mycursor = None
         try:
             logging.info("Entering getUser")
             email = emailDict["email"]

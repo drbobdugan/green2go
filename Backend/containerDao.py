@@ -245,6 +245,7 @@ class ContainerDao:
 
                  #  command , boolean for if you get something back, data to send to sql
     def handleSQL(self, sql, isReturn, package):
+        mycursor = None
         try:
             mycursor = self.mydb.cursor()
             mycursor = self.mydb.cursor(buffered=True)
