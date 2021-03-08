@@ -77,8 +77,7 @@ class ContainerDao(dao):
                         relDict={
                          "email": oldEmail[0],
                          "qrcode": oldEmail[1],
-                         "status": "Verified Return",
-                          "statusUpdateTime": time}
+                         "status": "Verified Return"}
                         print("here")
                         self.updateRelationship(relDict)
                     elif (oldEmail[2]=="Checked out"):
