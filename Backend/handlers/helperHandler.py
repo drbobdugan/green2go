@@ -12,6 +12,10 @@ class HelperHandler:
     def __init__(self, emailServer):
         self.emailServer = emailServer
 
+    # this crates the unique code for the user 
+    def id_generator(self, size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
+        return ''.join(random.choice(chars) for _ in range(size))
+
     #returns [true|false, ""|exception]
     def handleRequestAndAuth(self, request, keys, required=None ,t="json", formats=None, hasAuth=True):
         # format dictionary from request correctly

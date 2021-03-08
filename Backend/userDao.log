@@ -723,3 +723,6 @@ INFO:werkzeug: * Debugger PIN: 158-575-265
 INFO:werkzeug: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 INFO:werkzeug: * Detected change in 'C:\\Users\\Patrick\\Desktop\\green2go\\Backend\\userDao.py', reloading
 INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
+INFO:werkzeug: * Restarting with stat
