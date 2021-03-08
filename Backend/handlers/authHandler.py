@@ -34,6 +34,8 @@ class AuthHandler:
         except:
             pass
         # create new auth
+        res[1]["auth_token"] = self.helperHandler.id_generator(size=45)
+        res[1]["refresh_token"] = self.helperHandler.id_generator(size=45)
         res = authDao.addAuth(res[1])
         # fix userAuth as well
         userDao.updateUser({"email" : dic["email"], "authorized" : 1})
@@ -58,6 +60,8 @@ class AuthHandler:
         except:
             pass
         # create new auth
+        dic["auth_token"] = self.helperHandler.id_generator(size=45)
+        dic["refresh_token"] = self.helperHandler.id_generator(size=45)
         res = authDao.addAuth(dic)
         # return it
         return json.dumps({"success" : res[0], "data" : res[1]})
@@ -83,6 +87,7 @@ class AuthHandler:
         if message is not None:
             return json.dumps({"success" : False, "message": message})
         # return normal response
+        dic["token"] = self.helperHandler.id_generator(size=45)
         updated = authDao.updateAuth(dic)
         return json.dumps({"success" : True, "data": updated[1]})
             

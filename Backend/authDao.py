@@ -15,9 +15,6 @@ class AuthDao:
                 password="Capstone2021!",
                 database="sys",
                 buffered=True) 
-
-    def id_generator(self, size=45, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
-        return ''.join(random.choice(chars) for _ in range(size))
         
     def reconnectSql(self):
         try:
@@ -37,8 +34,8 @@ class AuthDao:
             #user and primary key
             val.append(dic['email'])
             # auth and refresh codes
-            val.append(self.id_generator())
-            val.append(self.id_generator())
+            val.append(dic["auth_token"])
+            val.append(dic["refresh_token"])
             time = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
             val.append(time)
             mycursor = self.mydb.cursor()
@@ -80,7 +77,7 @@ class AuthDao:
         try:
             mycursor = self.mydb.cursor()
             email = dic["email"]
-            token = self.id_generator()
+            token = dic["token"]
             timeV = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
             sql = "UPDATE auth set auth_token='" + str(token) +"', expires_at='" + str(timeV) + "' where user='" +str(email)+ "'"
             mycursor.execute(sql)
