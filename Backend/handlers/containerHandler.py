@@ -74,7 +74,7 @@ class ContainerHandler:
 
     def checkinContainer(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
         dictOfUserAttrib = None
-        keys = ['email', 'qrcode', 'status', 'statusUpdateTime','auth_token']
+        keys = ['email', 'qrcode', 'status','auth_token']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
         except Exception as e:
