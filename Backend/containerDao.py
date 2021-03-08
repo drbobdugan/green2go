@@ -74,14 +74,18 @@ class ContainerDao(dao):
             if(myresult[1] != []):
                 if(myresult[1] is not None): # Check to make sure this is none
                     oldEmail = myresult[1][0]
-                    relDict={
-                       "email": oldEmail,
-                       "qrcode": val[1],
-                       "status": "Verified Return",
-                       "statusUpdateTime": time}
-                    self.updateRelationship(relDict)
+                    if (oldEmail[2]=="Pending Return"):
+                        relDict={
+                         "email": oldEmail[0],
+                         "qrcode": oldEmail[1],
+                         "status": "Verified Return",
+                          "statusUpdateTime": time}
+                        self.updateRelationship(relDict)
+                    elif (oldEmail[2]=="Checked out"):
+                        return("False", "Container already checked out")
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,val)  #could break in the future
+            print(myresult)
             if(myresult[0] == False):
                 return myresult
             logging.info("updateRelationship inserted.")
@@ -141,6 +145,7 @@ class ContainerDao(dao):
             #extract newest entry time
             email = relDict["email"]
             qrcode = relDict["qrcode"]
+            status = relDict["status"]
             #THIS DOES NOT WORK
             sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" +"ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
@@ -153,18 +158,20 @@ class ContainerDao(dao):
             sqlSet = "UPDATE hascontainer SET "
             sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "'"
             for key in relDict:
-                    if relDict[key] is not None:
+                    if relDict[key] is not None and key!="auth_token":
                         sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' , "
             sqlSet = sqlSet[:-2]
             sqlSet += sqlWhere
+            print(sqlSet)
             myresult = self.handleSQL(sqlSet,False,None)
+            print(myresult)
             if(myresult[0] == False):
                 return myresult
             return True, ""
         except Exception as e:
             logging.error("Error in updateRelationship")
             logging.error(str(e))
-            return self.handleError(e)  
+            return self.handleError(e)
 
     def selectAllByEmail(self,emailDict):
         try:
