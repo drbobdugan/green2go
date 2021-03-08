@@ -14,7 +14,13 @@ import os
 import re
 import logging
 sys.path.insert(0, os.getcwd()+'/Email/')
+sys.path.insert(0, os.getcwd()+'/handlers/')
 from emailServer import EmailManager
+from authHandler import AuthHandler
+from helperHandler import HelperHandler
+from userHandler import UserHandler
+from containerHandler import ContainerHandler
+from locationHandler import LocationHandler
 
 #app methods
 app = Flask(__name__)
@@ -27,391 +33,80 @@ authDao = AuthDao()
 locationDao=LocationDao()
 emailServer = EmailManager()
 
-#----------------------------Helper Methods --------------------------------
+#handlers
+helperHandler = HelperHandler(emailServer)
+authHandler = AuthHandler(helperHandler)
+userHandler = UserHandler(helperHandler)
+containerHandler = ContainerHandler(helperHandler)
+locationHandler = LocationHandler(helperHandler)
 
-#returns [true|false, ""|exception]
-def handleRequestAndAuth(request, keys, required=None ,t="json", formats=None, hasAuth=True):
-    # format dictionary from request correctly
-    dic = None
-    try:
-        dic = extractKeysFromRequest(request, keys, required ,t)
-    except Exception as e:
-        raise Exception(str(e).replace("'", '') + " field missing from request")
-    # Ensure correct formatting
-    try:
-        ensureCorrectFormatting(dic, formats)
-    except Exception as e:
-        raise Exception(str(e).replace("'", ''))
-    if hasAuth is False:
-        return dic
-    # Ensure Authorized Request
-    authCheck = handleAuth(dic)
-    if authCheck[0] is False:
-        raise Exception(authCheck[1])
-    return dic
+#----------------------------User Methods --------------------------------
+@app.route('/getUser', methods=['GET'])
+def getUser():
+    return userHandler.getUser(request, userDao, containerDao)
 
-    
-# only called once dicOfValues has been verified by extractKeysFromRquest
-def ensureCorrectFormatting(dicOfValues, formats):
-    for key in dicOfValues:
-        if dicOfValues[key] is not None and (not re.match(formats[key], dicOfValues[key])):
-            raise Exception(str(key) + " does not match specified format")
-    return True
+@app.route('/addUser', methods=['POST'])
+def addUser():
+    return userHandler.addUser(request, userDao)
 
-def extractKeysFromRequest(request, keys, required=None ,t="json"):
-    dic = {}
-    if required is None:
-        required = keys
-    for key in keys:
-        dic[key] = None
-        if t == "json":
-            if key in request.json:
-                dic[key] = request.json[key]
-        elif t == "args":
-            dic[key] = request.args.get(key)
-    for key in required:
-        if dic[key] is None:
-            raise Exception(key)
-    return dic
+@app.route('/updateUser', methods=['PATCH'])
+def updateUser():
+    return userHandler.updateUser(request, userDao)
 
-def handleAuth(dic):
-    res = authDao.getAuth(dic)
-    if res[0] is False:
-        return False, "No matching user with that authorization token"
-    # make sure auth code actually exixts in dattabse
-    if res[1]["auth_token"] != dic["auth_token"]:
-        return False, "Invalid token"
-    # check that it's not expired
-    timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
-    if datetime.now() >= timeobj:
-        return False, "Expired token"
-    return True, ""
+@app.route('/deleteUser', methods=['DELETE'])
+def deleteUser():
+    return userHandler.deleteUser(request, userDao)
 
-#----------------------------Email Methods --------------------------------
-def sendEmail(email, code):
-    global emailServer
-    return emailServer.sendEmail(email, code)
+#----------------------------Container Methods --------------------------------
+@app.route('/addContainer', methods=['POST'])
+def addContainer():
+    return containerHandler.addContainer(request, containerDao)
+
+@app.route('/getContainer', methods = ['GET'])
+def getContainer():
+    return containerHandler.getContainer(request, containerDao)
+
+@app.route('/deleteContainer', methods = ['DELETE'])
+def deleteContainer():
+    return containerHandler.deleteContainer(request, containerDao)
+
+@app.route('/updateContainer', methods=['PATCH'])
+def updateContainer():
+    return containerHandler.updateContainer(request, containerDao)
+
+@app.route('/checkoutContainer', methods=['POST'])
+def checkoutContainer():
+    return containerHandler.checkoutContainer(request, containerDao)
+
+@app.route('/getContainersForUser', methods = ['GET'])
+def getContainersForUser():
+    return containerHandler.getContainersForUser(request, containerDao)
+
+@app.route('/checkinContainer', methods=['POST'])
+def checkinContainer():
+    return containerHandler.checkinContainer(request, containerDao)
 
 #----------------------------Validity Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
-    f='%Y-%m-%d %H:%M:%S'
-    keys = ["code", "email"]
-    dic = None
-    try:
-        dic = handleRequestAndAuth(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    res=None
-    try:
-        res = userDao.getUser(dic)
-    except:
-        res = {"success" : False, "message" : "Email does not correspond to user"}
-    codefromtable=res[1]["authCode"]
-    authtime=res[1]["authTime"]
-    authtimets=datetime.strptime(authtime, f)
-    timepassed=datetime.now()-authtimets
-    if (dic['code']!=codefromtable or timepassed.total_seconds()>=300):
-        return json.dumps({"success" : False, "message" : "Expired token"})
-    # delete previous auth
-    try:
-        authDao.deleteAuth(res[1])
-    except:
-        pass
-    # create new auth
-    res = authDao.addAuth(res[1])
-    # fix userAuth as well
-    userDao.updateUser({"email" : dic["email"], "authorized" : 1})
-    # return it
-    return json.dumps({"success" : res[0], "data" : res[1]})
-        
+    return authHandler.validateCode(request, userDao, authDao)
+
 @app.route('/login', methods=['POST'])
 def login():
-    dic = None
-    keys = ["email", "password"]
-    try:
-        dic = handleRequestAndAuth(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    res = userDao.getUser(dic)
-    if "authorized" in res[1] and res[1]["authorized"] == 0:
-        return json.dumps({"success" : False, "message" : "Registration not complete"})
-    if "password" in res[1] and dic["password"] != res[1]["password"]:
-        return json.dumps({"success" : False, "message" : "Incorrect password"})
-    # delete previous auth
-    try:
-        authDao.deleteAuth(dic)
-    except:
-        pass
-    # create new auth
-    res = authDao.addAuth(dic)
-    # return it
-    return json.dumps({"success" : res[0], "data" : res[1]})
-        
+    return authHandler.login(request, userDao, authDao)
 
 @app.route('/auth/refresh', methods=['POST'])
 def refreshCode():
-    dic = None
-    keys = ["email", "refresh_token"]
-    try:
-        dic = handleRequestAndAuth(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    res = authDao.getAuth(dic)
-    message = None
-    if res[0] is False:
-        message = "Invalid refresh token"
-    # refresh token mismatch
-    if dic["refresh_token"] != res[1]["refresh_token"]:
-        message = "Invalid token"
-    # handle is auth code is expired
-    timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
-    if datetime.now() >= timeobj:
-        message = "Expired token"
-    if message is not None:
-        return json.dumps({"success" : False, "message": message})
-    # return normal response
-    updated = authDao.updateAuth(dic)
-    return json.dumps({"success" : True, "data": updated[1]})
-        
-
+    return authHandler.refreshCode(request, authDao)
 
 @app.route('/resendAuthCode',methods=['POST'])
 def resendAuthCode():
-    f='%Y-%m-%d %H:%M:%S'
-    authCode=None
-    dictOfUserAttrib = None
-    keys = ["email","auth_token"]
-    dic=None
-    try:
-         dic = handleRequestAndAuth(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    user=None
-    try:
-        user = userDao.getUser(dic)
-    except:
-        user = {"success" : False, "message" : "Email does not correspond to user"}
-    authtime=user[1]["authTime"]
-    authtimets=datetime.strptime(authtime, f)
-    timepassed=datetime.now()-authtimets
-    if(timepassed.total_seconds()<300):
-        sendEmail(user[1]['email'], user[1]['authCode'])
-        return json.dumps({"success" : True, "data": ""})
-    return json.dumps({"success" : res[0], "message" : res[1]})
-
-#----------------------------User Methods --------------------------------
-# this crates the unique code for the user 
-def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
-    return ''.join(random.choice(chars) for _ in range(size))
-
-@app.route('/getUser', methods=['GET'])
-def getUser():
-    #TODO split up errors
-    dictOfUserAttrib = None
-    keys = ["email", "auth_token"]
-    try:
-        dictOfUserAttrib = handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    res=userDao.getUser(dictOfUserAttrib)
-    if res[0] is False:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-    response = containerDao.selectAllByEmail(dictOfUserAttrib)
-    if response[0] is True:
-        res = {"success" : res[0], "data" : {"user" : res[1], "containers" : response[1]}}
-    else:
-        res = {"success" : response[0], "message" : response[1]}    
-    return json.dumps(res) 
-
-@app.route('/addUser', methods=['POST'])
-def addUser():
-    dictOfUserAttrib = None
-    # keys to scape from request
-    keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
-    formats = {'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)"}
-    #generate authCode
-    authCode=id_generator()
-    try:
-        dictOfUserAttrib = handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
-        dictOfUserAttrib["authCode"] = authCode
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    res = userDao.addUser(dictOfUserAttrib)
-    if res[0] is True:
-        sendEmail(request.json['email'], authCode)
-        return json.dumps({"success" : res[0], "data" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-
-@app.route('/updateUser', methods=['PATCH'])
-def updateUser():
-    dictOfUserAttrib = None
-    keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
-    try:
-        dictOfUserAttrib = handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    res = userDao.updateUser(dictOfUserAttrib)
-    print(res)
-    if res [0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-@app.route('/deleteUser', methods=['DELETE'])
-def deleteUser():
-    dictOfUserAttrib = None
-    keys = ['email', 'auth_token']
-    try:
-        dictOfUserAttrib = handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global userDao
-    res = userDao.deleteUser(dictOfUserAttrib)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-
-#----------------------------Container Methods --------------------------------
-
-#currently wrap the container qrcode in list because that's how db handles is in  DAO
-@app.route('/addContainer', methods=['POST'])
-def addContainer():
-    containerDic = None
-    keys = ["qrcode"]
-    try:
-        containerDic = handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.addContainer(containerDic)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-@app.route('/getContainer', methods = ['GET'])
-def getContainer():
-    containerDic = None
-    keys = ["qrcode", "auth_token", "email"]
-    try:
-        containerDic = handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.getContainer(containerDic)
-    if res[0] is True:
-        res = json.dumps({"success" : res[0], "data" : res[1]})
-    else:
-        res = json.dumps({"success" : res[0], "message" : res[1]})
-    return res
-
-@app.route('/deleteContainer', methods = ['DELETE'])
-def deleteContainer():
-    containerDic = None
-    keys = ["qrcode", "auth_token", "email"]
-    try:
-        containerDic = handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.deleteContainer(containerDic)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-
-@app.route('/updateContainer', methods=['PATCH'])
-def updateContainer():
-    containerDic = None
-    keys = ['qrcode', "auth_token", "email"]
-    try:
-        containerDic = handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.updateContainer(containerDic)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-#----------------------------HasContainer Methods --------------------------------
-
-#Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
-@app.route('/checkoutContainer', methods=['POST'])
-def checkoutContainer():
-    userContainer = None
-    keys=['email','qrcode','status'] # ask the database team if they are check for pendings that will switch to returned for older user
-    try:
-        userContainer = handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.addRelationship(userContainer)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
-
-@app.route('/getContainersForUser', methods = ['GET'])
-def getContainersForUser():
-    relationship = None
-    keys=['email','auth_token']
-    try:
-        relationship = handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=True)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.selectAllByEmail(relationship)
-    if res[0] is True:
-        res = json.dumps({"success" : res[0], "data" : res[1]})
-    else:
-        res = json.dumps({"success" : res[0], "message" : res[1]})
-    return res
-
-@app.route('/checkinContainer', methods=['POST'])
-def checkinContainer():  # we are going to do loction than the container so get loction for the front end here
-    dictOfUserAttrib = None
-    keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
-    try:
-        dictOfUserAttrib = handleRequestAndAuth(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = containerDao.updateRelationship(dictOfUserAttrib)
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
+    return authHandler.resendAuthCode(request, userDao, authDao)
 
 #----------------------------Location Methods --------------------------------
-    
 @app.route('/selectLocation',methods=['POST'])
-def selectLoction():
-    locationDic = None
-    keys = ["qrcode",'email','auth_token']
-    try:
-        locationDic = handleRequestAndAuth(request, keys)
-    except Exception as e:
-        return json.dumps({"success" : False, "message" : str(e)})
-    global containerDao
-    res = locationDao.selectLocation(locationDic)  #need to get the method for database team 
-    if res[0] is True:
-        return json.dumps({"success" : res[0], "message" : ""})
-    else:
-        return json.dumps({"success" : res[0], "message" : res[1]})
+def selectLocation():
+    return locationHandler.selectLocation(request, locationDao)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
