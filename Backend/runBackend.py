@@ -103,9 +103,7 @@ def validateCode():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e)})
     global userDao
-
     res=None
-
     try:
         res = userDao.getUser(dic)
     except:
@@ -114,21 +112,20 @@ def validateCode():
     authtime=res[1]["authTime"]
     authtimets=datetime.strptime(authtime, f)
     timepassed=datetime.now()-authtimets
-    if (dic['code']==codefromtable and timepassed.total_seconds()<300):
-        # delete previous auth
-        try:
-            authDao.deleteAuth(res[1])
-        except:
-            pass
-        # create new auth
-        res = authDao.addAuth(res[1])
-        # fix userAuth as well
-        userDao.updateUser({"email" : dic["email"], "authorized" : 1})
-        # return it
-        return json.dumps({"success" : res[0], "data" : res[1]})
-    else:
+    if (dic['code']!=codefromtable or timepassed.total_seconds()>=300):
         return json.dumps({"success" : False, "message" : "Expired token"})
-
+    # delete previous auth
+    try:
+        authDao.deleteAuth(res[1])
+    except:
+        pass
+    # create new auth
+    res = authDao.addAuth(res[1])
+    # fix userAuth as well
+    userDao.updateUser({"email" : dic["email"], "authorized" : 1})
+    # return it
+    return json.dumps({"success" : res[0], "data" : res[1]})
+        
 @app.route('/login', methods=['POST'])
 def login():
     dic = None
@@ -138,28 +135,25 @@ def login():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e)})
     global userDao
-
     res = None
     try:
         res = userDao.getUser(dic)
     except:
         return json.dumps({"success" : res[0], "message" : res[1]})
-
     if "authorized" in res[1] and res[1]["authorized"] == 0:
         return json.dumps({"success" : False, "message" : "Registration not complete"})
-
-    if "password" in res[1] and dic["password"] == res[1]["password"]:
-        # delete previous auth
-        try:
-            authDao.deleteAuth(dic)
-        except:
-            pass
-        # create new auth
-        res = authDao.addAuth(dic)
-        # return it
-        return json.dumps({"success" : res[0], "data" : res[1]})
-    else:
+    if "password" in res[1] and dic["password"] != res[1]["password"]:
         return json.dumps({"success" : False, "message" : "Incorrect password"})
+    # delete previous auth
+    try:
+        authDao.deleteAuth(dic)
+    except:
+        pass
+    # create new auth
+    res = authDao.addAuth(dic)
+    # return it
+    return json.dumps({"success" : res[0], "data" : res[1]})
+        
 
 @app.route('/auth/refresh', methods=['POST'])
 def refreshCode():
@@ -170,19 +164,19 @@ def refreshCode():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e)})
     res = authDao.getAuth(dic)
-    if res[0] is True:
-        # refresh token mismatch
-        if dic["refresh_token"] != res[1]["refresh_token"]:
-            return json.dumps({"success" : False, "mesage":"Invalid token"})
-        # handle is auth code is expired
-        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
-        if datetime.now() >= timeobj:
-            return json.dumps({"success" : False, "message":"Expired token"})
-        # return normal response
-        updated = authDao.updateAuth(dic)
-        return json.dumps({"success" : True, "data": updated[1]})
-    else:
+    if res[0] is False:
         return json.dumps({"success" : False, "message" : "Invalid refresh token"})
+    # refresh token mismatch
+    if dic["refresh_token"] != res[1]["refresh_token"]:
+        return json.dumps({"success" : False, "mesage":"Invalid token"})
+    # handle is auth code is expired
+    timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+    if datetime.now() >= timeobj:
+        return json.dumps({"success" : False, "message":"Expired token"})
+    # return normal response
+    updated = authDao.updateAuth(dic)
+    return json.dumps({"success" : True, "data": updated[1]})
+        
 
 
 @app.route('/resendAuthCode',methods=['POST'])
