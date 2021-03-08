@@ -216,14 +216,13 @@ def getUser():
         return json.dumps({"success" : False, "message" : str(e)})
     global userDao
     res=userDao.getUser(dictOfUserAttrib)
-    if res[0] is True:
-        response = containerDao.selectAllByEmail(dictOfUserAttrib)
-        if response[0] is True:
-            res = {"success" : res[0], "data" : {"user" : res[1], "containers" : response[1]}}
-        else:
-            res = {"success" : response[0], "message" : response[1]}
+    if res[0] is False:
+        return json.dumps({"success" : res[0], "message" : res[1]})
+    response = containerDao.selectAllByEmail(dictOfUserAttrib)
+    if response[0] is True:
+        res = {"success" : res[0], "data" : {"user" : res[1], "containers" : response[1]}}
     else:
-        res = {"success" : res[0], "message" : res[1]}
+        res = {"success" : response[0], "message" : response[1]}    
     return json.dumps(res) 
 
 @app.route('/addUser', methods=['POST'])
