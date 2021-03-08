@@ -3,7 +3,7 @@ from datetime import datetime
 import logging
 class dao:
     def __init__(self):
-        logging.basicConfig(filename='containerDao.log', level=logging.DEBUG)
+        logging.basicConfig(filename='dao.log', level=logging.DEBUG)
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
             user="root",
