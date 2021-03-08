@@ -67,7 +67,7 @@ class ContainerHandler:
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
     def checkoutContainer(self, request, containerDao):
         userContainer = None
-        keys=['email','qrcode','status'] # ask the database team if they are check for pendings that will switch to returned for older user
+        keys=['email','qrcode','status','auth_token'] # ask the database team if they are check for pendings that will switch to returned for older user
         try:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
         except Exception as e:
@@ -94,7 +94,7 @@ class ContainerHandler:
 
     def checkinContainer(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
         dictOfUserAttrib = None
-        keys = ['email', 'qrcode', 'status', 'statusUpdateTime']
+        keys = ['email', 'qrcode', 'status', 'statusUpdateTime','auth_token']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
         except Exception as e:
