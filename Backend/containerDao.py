@@ -67,8 +67,6 @@ class ContainerDao(dao):
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
             qrcode = val[1]
-            #if(self.containerExists(qrcode)!=True):
-            #    return self.containerExists(qrcode)
             sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[1] != []):
@@ -100,9 +98,8 @@ class ContainerDao(dao):
         try: 
             sqlSet = "SELECT * FROM hascontainer WHERE "  #email/email+qrcode/email+status/qrcode/qrcode+status/ or all three
             for key in relDict:
-                if relDict[key] is not None:
+                if relDict[key] is not None and key != "auth_token":
                     sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' and "
-                    #
             sqlSet = sqlSet[:-4]
             myresult = self.handleSQL(sqlSet,True,None)
             if(myresult[0] == False):
@@ -217,13 +214,3 @@ class ContainerDao(dao):
             logging.error("Error in selectAllByEmail")
             logging.error(str(e))
             return self.handleError(e)
-
-
-    def containerExists(self, qrcodeDict):
-        qrcode = qrcodeDict["qrcode"]
-        result = self.getContainer(qrcodeDict)[1]
-        if len(result["qrcode"]) > 1:
-            return True, ""
-        else:
-            contDict={"qrcode": qrcode}
-            return self.addContainer(contDict)
