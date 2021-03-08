@@ -27,7 +27,6 @@ authDao = AuthDao()
 locationDao=LocationDao()
 emailServer = EmailManager()
 
-
 #----------------------------Helper Methods --------------------------------
 
 #returns [true|false, ""|exception]
@@ -39,18 +38,16 @@ def handleRequestAndAuth(request, keys, required=None ,t="json", formats=None, h
     except Exception as e:
         raise Exception(str(e).replace("'", '') + " field missing from request")
     # Ensure correct formatting
-    if formats is None:
-        pass
-    else:
-        try:
-            ensureCorrectFormatting(dic, formats)
-        except Exception as e:
-            raise Exception(str(e).replace("'", ''))
-    if hasAuth is True:
+    try:
+        ensureCorrectFormatting(dic, formats)
+    except Exception as e:
+        raise Exception(str(e).replace("'", ''))
+    if hasAuth is False:
+        return dic
     # Ensure Authorized Request
-        authCheck = handleAuth(dic)
-        if authCheck[0] is False:
-            raise Exception(authCheck[1])
+    authCheck = handleAuth(dic)
+    if authCheck[0] is False:
+        raise Exception(authCheck[1])
     return dic
 
     
@@ -79,17 +76,16 @@ def extractKeysFromRequest(request, keys, required=None ,t="json"):
 
 def handleAuth(dic):
     res = authDao.getAuth(dic)
-    if res[0] is True:
-        # make sure auth code actually exixts in dattabse
-        if res[1]["auth_token"] != dic["auth_token"]:
-            return False, "Invalid token"
-        # check that it's not expired
-        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
-        if datetime.now() >= timeobj:
-            return False, "Expired token"
-        return True, ""
-    else:
+    if res[0] is False:
         return False, "No matching user with that authorization token"
+    # make sure auth code actually exixts in dattabse
+    if res[1]["auth_token"] != dic["auth_token"]:
+        return False, "Invalid token"
+    # check that it's not expired
+    timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+    if datetime.now() >= timeobj:
+        return False, "Expired token"
+    return True, ""
 
 #----------------------------Email Methods --------------------------------
 def sendEmail(email, code):
@@ -230,6 +226,7 @@ def id_generator(size=12, chars=string.ascii_uppercase + string.digits +string.a
 
 @app.route('/getUser', methods=['GET'])
 def getUser():
+    #TODO split up errors
     dictOfUserAttrib = None
     keys = ["email", "auth_token"]
     try:
