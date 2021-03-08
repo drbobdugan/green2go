@@ -135,11 +135,7 @@ def login():
     except Exception as e:
         return json.dumps({"success" : False, "message" : str(e)})
     global userDao
-    res = None
-    try:
-        res = userDao.getUser(dic)
-    except:
-        return json.dumps({"success" : res[0], "message" : res[1]})
+    res = userDao.getUser(dic)
     if "authorized" in res[1] and res[1]["authorized"] == 0:
         return json.dumps({"success" : False, "message" : "Registration not complete"})
     if "password" in res[1] and dic["password"] != res[1]["password"]:
@@ -202,16 +198,7 @@ def resendAuthCode():
     if(timepassed.total_seconds()<300):
         sendEmail(user[1]['email'], user[1]['authCode'])
         return json.dumps({"success" : True, "data": ""})
-    else:
-        authCode=id_generator()
-        sendEmail(user[1]['email'], authCode)
-        user[1]["authCode"]=authCode
-        user[1]["authTime"]=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        res = userDao.updateUser(user[1])
-        if res [0] is True:
-            return json.dumps({"success" : res[0], "message" : ""})
-        else:
-            return json.dumps({"success" : res[0], "message" : res[1]})
+    return json.dumps({"success" : res[0], "message" : res[1]})
 
 #----------------------------User Methods --------------------------------
 # this crates the unique code for the user 
