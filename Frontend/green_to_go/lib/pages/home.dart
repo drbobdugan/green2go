@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../components/custom_theme.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_listItem.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
 import '../services/student_service.dart';
@@ -58,6 +59,30 @@ class _HomePageState extends State<HomePage> {
   //   });
   // }
 
+  //
+  int countContainers(ContainerStatus status) {
+    int count = 0;
+    if (detailedUser != null && detailedUser.containers != null) {
+      if (status == items[0]) {
+        count = detailedUser.containers
+            .where((dynamic c) => c.status == 'Checked Out')
+            .toList()
+            .length;
+      } else if (status == items[1]) {
+        count = detailedUser.containers
+            .where((dynamic c) => c.status == 'Verified Return')
+            .toList()
+            .length;
+      } else if (status == items[2]) {
+        count = detailedUser.containers
+            .where((dynamic c) => c.status == 'Pending Return')
+            .toList()
+            .length;
+      }
+    }
+    return count;
+  }
+
   List<Widget> getContainerDataSmall() {
     return items.map((ContainerStatus status) {
       return Column(
@@ -65,10 +90,9 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ContainerCounts(
-                text: '0',
+                text: '${countContainers(status)}',
                 textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
-                backgroundName:
-                    'assets/images/c2r_reuseIcon_${iconColor[status]}.jpg',
+                backgroundName: 'assets/images/c2r_reuseIcon_attention.jpg',
                 backgroundHeight: 100.0,
                 backgroundWidth: 100.0,
                 right: 12.0,
@@ -104,6 +128,26 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: getContainerDataSmall(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  padding: const EdgeInsets.only(top: 50),
+                  height: MediaQuery.of(context).size.height / 2,
+                  width: MediaQuery.of(context).size.width,
+                  child: ListView.builder(
+                    itemCount: 1,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListItem(
+                        text1: 'Checked Out\n#11111111',
+                        text2: '3/9/2021 5:00PM\nShields Science Center',
+                        textStyle: CustomTheme.rightListStyle(),
+                      );
+                    },
+                  ))
+            ],
           ),
         ],
       ),

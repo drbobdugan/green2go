@@ -57,6 +57,21 @@ class CustomTheme {
     );
   }
 
+  static TextStyle leftListStyle({double fontSize = 16.0, bool isBold = true}) {
+    return TextStyle(
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        fontSize: fontSize,
+        color: Color(0xffffffff));
+  }
+
+  static TextStyle rightListStyle(
+      {double fontSize = 16.0, bool isBold = true}) {
+    return TextStyle(
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontSize: fontSize,
+    );
+  }
+
   static TextStyle errorMessageStyle() {
     return const TextStyle(
       fontStyle: FontStyle.italic,
