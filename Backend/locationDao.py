@@ -36,7 +36,7 @@ class LocationDao(dao):
             locDict={
                 "qrcode": myresult[0],
                 "description": myresult[1],
-                "lastPickup": myresult[2]}
+                "lastPickup": str(myresult[2])}
             logging.info("selectLocation successful")
             return True, locDict
         except Exception as e:
