@@ -51,10 +51,15 @@ class AuthHandler:
         except:
             return json.dumps({"success" : False, "message" : "Please enter an email and password."})
         res = userDao.getUser(dic)
-        if "authorized" in res[1] and res[1]["authorized"] == 0:
-            return json.dumps({"success" : False, "message" :"Email not found, please try signing up." })
-        if "password" in res[1] and dic["password"] != res[1]["password"]:
-            return json.dumps({"success" : False, "message" : "Incorrect password."})
+        if res[0] is False:
+            return json.dumps({"success" : res[0], "message" : res[1]})
+        message = None
+        if message is None and "authorized" in res[1] and res[1]["authorized"] == 0:
+            message = "Email not found, please try signing up."
+        if message is None and "password" in res[1] and dic["password"] != res[1]["password"]:
+            message = "Incorrect password."
+        if message is not None:
+            return json.dumps({"success" : res[0], "message" : message})
         # delete previous auth
         try:
             authDao.deleteAuth(dic)
@@ -114,4 +119,3 @@ class AuthHandler:
             self.helperHandler.sendEmail(user[1]['email'], user[1]['authCode'])
             return json.dumps({"success" : True, "data": ""})
         return json.dumps({"success" : res[0], "message" : res[1]})
-        
