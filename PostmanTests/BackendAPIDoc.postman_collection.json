@@ -1210,7 +1210,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"001\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"email\" : \"test0@students.stonehill.edu\"\n}",
+							"raw": "{\n    \"qrcode\" : \"0001\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"email\" : \"test0@students.stonehill.edu\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1301,7 +1301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"qrcode\" : \"0001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1455,7 +1455,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/getContainer?qrcode=001&auth_token={{authTokenLoginTest0}}&email=test0@students.stonehill.edu",
+							"raw": "{{baseUrl}}/getContainer?qrcode=0001&auth_token={{authTokenLoginTest0}}&email=test0@students.stonehill.edu",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1465,7 +1465,7 @@
 							"query": [
 								{
 									"key": "qrcode",
-									"value": "001"
+									"value": "0001"
 								},
 								{
 									"key": "auth_token",
@@ -1758,7 +1758,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"001\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L001\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"0001\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L001\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2011,7 +2011,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"qrcode\" : \"001\",\n    \"status\" : \"Pending Return\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L002\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"qrcode\" : \"0001\",\n    \"status\" : \"Pending Return\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L002\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
