@@ -114,3 +114,4 @@ class AuthHandler:
             self.helperHandler.sendEmail(user[1]['email'], user[1]['authCode'])
             return json.dumps({"success" : True, "data": ""})
         return json.dumps({"success" : res[0], "message" : res[1]})
+        
