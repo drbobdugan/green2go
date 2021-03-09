@@ -9,64 +9,15 @@
 			"name": "User Tests",
 			"item": [
 				{
-					"name": "Run this login first to update auth_tokens",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Login Successful Request\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});",
-									"var jsonData = JSON.parse(responseBody).data;",
-									"",
-									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
-									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Delete user account",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"// ",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Successful Delete Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
 								],
 								"type": "text/javascript"
@@ -78,7 +29,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -86,12 +37,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/deleteUser",
+							"raw": "{{baseUrl}}/secretDeleteUser",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"deleteUser"
+								"secretDeleteUser"
 							]
 						}
 					},
@@ -344,6 +295,436 @@
 					]
 				},
 				{
+					"name": "GetAuthCode[testing]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = JSON.parse(responseBody).data;",
+									"",
+									"pm.environment.set(\"authCodeLoginTest0\", jsonData[\"authCode\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "javascript"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/secretGetUser?email=test0@students.stonehill.edu",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"secretGetUser"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Sucess",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/secretGetUser?email=test0@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretGetUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test0@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "337"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 18:53:42 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": true, \"data\": {\"email\": \"test0@students.stonehill.edu\", \"password\": \"password\", \"firstName\": \"Test\", \"lastName\": \"User\", \"middleName\": \"\", \"phoneNum\": \"1234567890\", \"role\": \"RegularUser\", \"classYear\": \"2021\", \"authCode\": \"OxuZHQ4Shksh\", \"authTime\": \"2021-03-09 18:48:45\", \"lastLogIn\": \"2021-03-09 18:48:45\", \"authorized\": 0}}"
+						}
+					]
+				},
+				{
+					"name": "Validate Code That was Emailed",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody).data;",
+									"console.log(jsonData);",
+									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
+									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"{{authCodeLoginTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/validateCode",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"validateCode"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Expired Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"zdmdLvqvBXqF\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/validateCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"validateCode"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "46"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 25 Feb 2021 00:07:28 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Expired token\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"wg9HCCkf5Ay2\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/validateCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"validateCode"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "233"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Mar 2021 23:37:53 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"jQDgCmqI0o5SyM73sVKXEwaaR5Wyu6vybxkLKXPZmKtVN\",\n        \"refresh_token\": \"0awWHpzjw5UUY7ztrj0cATlf2FhGKmTlwKUZC8p7ei5VR\",\n        \"expires_at\": \"2021-03-03 00:37:53\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Login Successful Request\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
+									"var jsonData = JSON.parse(responseBody).data;",
+									"",
+									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
+									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Incorrect Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"passwordwrong\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:16:19 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": false, \"message\": \"Incorrect password.\"}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "233"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:07:27 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"GertCXbYWFJwVMdISuumIQ3THdlC25XjURVCleZjpm2XI\",\n        \"refresh_token\": \"gO2ATkprtAU4Wez37k9MDFydPAk71TzsCjQTtfEMvLWGK\",\n        \"expires_at\": \"2021-03-09 17:07:27\"\n    }\n}"
+						},
+						{
+							"name": "User Login Attempt W/O Completing Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:07:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Email not found, please try signing up.\"\n}"
+						}
+					]
+				},
+				{
 					"name": "Get User",
 					"event": [
 						{
@@ -362,11 +743,7 @@
 									"pm.test(\"Email matches\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"test0@students.stonehill.edu\");",
 									"});",
-									"",
-									"var jsonData = JSON.parse(responseBody).data;",
-									"console.log(jsonData);",
-									"console.log(jsonData[\"authCode\"]);",
-									"pm.environment.set(\"authCodeLoginTest0\", jsonData[\"authCode\"]);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -577,342 +954,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
-						}
-					]
-				},
-				{
-					"name": "Validate Code That was Emailed",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Successful Post Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});",
-									"",
-									"var jsonData = JSON.parse(responseBody).data;",
-									"console.log(jsonData);",
-									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
-									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"{{authCodeLoginTest0}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/validateCode",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"validateCode"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Expired Token",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"zdmdLvqvBXqF\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "46"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 25 Feb 2021 00:07:28 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Expired token\"\n}"
-						},
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"wg9HCCkf5Ay2\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "233"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:37:53 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"jQDgCmqI0o5SyM73sVKXEwaaR5Wyu6vybxkLKXPZmKtVN\",\n        \"refresh_token\": \"0awWHpzjw5UUY7ztrj0cATlf2FhGKmTlwKUZC8p7ei5VR\",\n        \"expires_at\": \"2021-03-03 00:37:53\"\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "User Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Login Successful Request\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});",
-									"var jsonData = JSON.parse(responseBody).data;",
-									"console.log(jsonData);",
-									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
-									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"login"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Incorrect Password",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"passwordwrong\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "52"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 16:16:19 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": false, \"message\": \"Incorrect password.\"}"
-						},
-						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "233"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 16:07:27 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"GertCXbYWFJwVMdISuumIQ3THdlC25XjURVCleZjpm2XI\",\n        \"refresh_token\": \"gO2ATkprtAU4Wez37k9MDFydPAk71TzsCjQTtfEMvLWGK\",\n        \"expires_at\": \"2021-03-09 17:07:27\"\n    }\n}"
-						},
-						{
-							"name": "User Login Attempt W/O Completing Registration",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "72"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 16:07:56 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Email not found, please try signing up.\"\n}"
 						}
 					]
 				},
