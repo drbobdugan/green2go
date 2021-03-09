@@ -4,12 +4,6 @@ import logging
 class dao:
     def __init__(self):
         logging.basicConfig(filename='dao.log', level=logging.DEBUG)
-        self.mydb = mysql.connector.connect(
-            host="198.199.77.174",
-            user="root",
-            password="Capstone2021!",
-            database="sys",
-            buffered=True) 
 
     def reconnectSql(self):
         try:
@@ -23,10 +17,16 @@ class dao:
             password="Capstone2021!",
             database="sys",
             buffered=True)
+    def disconnectedSql(self):
+        try:
+            self.mydb.shutdown()
+        except:
+            logging.error("Failed closing connection: Already disconnected")
 
     #  command , boolean for if you get something back, data to send to sql
     def handleSQL(self, sql, isReturn, package):
         try:
+            self.reconnectSql()
             mycursor = self.mydb.cursor()
             mycursor = self.mydb.cursor(buffered=True)
             if package is None:
@@ -36,10 +36,12 @@ class dao:
             if(isReturn == True):
                 temp = mycursor.fetchall()
                 mycursor.close()
+                self.disconnectedSql()
                 return True, temp
             else:
                 self.mydb.commit()
                 mycursor.close()
+                self.disconnectedSql()
                 return True, ""
         except Exception as e:
             logging.error("Error in handleSQL")

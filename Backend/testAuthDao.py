@@ -2,7 +2,12 @@ from authDao import AuthDao
 
 def test_add():
     a = AuthDao()
-    assert a.addAuth({"email" : "patTestUser@students.stonehill.edu"})[0] == True, 'Add auth code'
+    dic = {"email" : "patTestUser@students.stonehill.edu",
+            "auth_token" : "Ggpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL",
+            "refresh_token" : "l9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9"}
+    myresult = a.addAuth(dic)
+    print(myresult)
+    assert myresult[0] == True
     del a
 
 def get_auth():
@@ -19,7 +24,11 @@ def del_auth():
 
 def update_auth(t):
     a = AuthDao()
-    call = a.updateAuth({"email" : "patTestUser@students.stonehill.edu", "refresh_token" : t})
+    dic = {"email" : "patTestUser@students.stonehill.edu",
+            "token" : "Ggpmy1lEbwaNoIqZmnjBkkzOtskzYquyL11ISH5ij9iRL",
+            "refresh_token" : "l9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9"}
+    call = a.updateAuth(dic)
+    print("Call of 0",call[0])
     assert call[0], 'Get auth code'
     del a
     return call[1]
