@@ -13,12 +13,13 @@ import '../services/student_service.dart';
 import '../static/student.dart';
 
 class ReturnContainerPage extends StatefulWidget {
-  const ReturnContainerPage({Key key, @required this.user}) : super(key: key);
+  const ReturnContainerPage({Key key, @required this.userAuth})
+      : super(key: key);
 
-  final StudentDetails user;
+  final StudentAuth userAuth;
 
   Future<APIResponse> onScanQR(String qrCode) async {
-    return await StudentService.returnContainer(user, qrCode);
+    return await StudentService.returnContainer(userAuth, qrCode);
   }
 
   @override
@@ -33,7 +34,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: UserAppBar(user: widget.user),
+      appBar: UserAppBar(userAuth: widget.userAuth),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(
@@ -95,7 +96,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
               containerScanActive = true;
             });
           } else {
-            NavigationService(context: context).goHome(widget.user);
+            NavigationService(context: context).goHome(widget.userAuth);
           }
         } else {
           setState(() {

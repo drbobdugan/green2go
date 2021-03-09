@@ -50,8 +50,8 @@ class _ValidationPageState extends State<ValidationPage> {
     if (isValidCode()) {
       widget.onVerify(email, code).then((APIResponse response) {
         if (response.success) {
-          NavigationService(context: context).goHome(StudentDetails(
-              null, StudentAuth(response.data as Map<String, dynamic>)));
+          NavigationService(context: context)
+              .goHome(StudentAuth(response.data as Map<String, dynamic>));
         } else {
           setState(() {
             errorMessage = response.message;

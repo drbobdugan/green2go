@@ -30,7 +30,7 @@ class NavigationService {
     goToPage(C2RPages.login, null);
   }
 
-  void goHome(StudentDetails user) {
+  void goHome(StudentAuth user) {
     toRoot();
     goToPage(C2RPages.home, user);
   }

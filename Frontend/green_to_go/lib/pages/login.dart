@@ -66,8 +66,8 @@ class _LoginPageState extends State<LoginPage> {
           prefs.setString('password', user.password);
         }
 
-        NavigationService(context: context).goHome(StudentDetails(
-            null, StudentAuth(response.data as Map<String, dynamic>)));
+        NavigationService(context: context)
+            .goHome(StudentAuth(response.data as Map<String, dynamic>));
       } else {
         setState(() {
           errorMessage = response.message;

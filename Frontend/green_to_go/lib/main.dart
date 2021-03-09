@@ -34,7 +34,7 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
         return MaterialPageRoute<dynamic>(builder: (BuildContext context) {
           switch (settings.name) {
             case '/home':
-              return HomePage(user: settings.arguments as StudentDetails);
+              return HomePage(userAuth: settings.arguments as StudentAuth);
             case '/login':
               return const LoginPage();
             case '/signup':
@@ -43,10 +43,10 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
               return ValidationPage(user: settings.arguments as NewUser);
             case '/checkoutContainer':
               return CheckoutContainerPage(
-                  user: settings.arguments as StudentDetails);
+                  userAuth: settings.arguments as StudentAuth);
             case '/returnContainer':
               return ReturnContainerPage(
-                  user: settings.arguments as StudentDetails);
+                  userAuth: settings.arguments as StudentAuth);
             default:
               break;
           }

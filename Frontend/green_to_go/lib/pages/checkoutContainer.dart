@@ -12,12 +12,13 @@ import '../services/student_service.dart';
 import '../static/student.dart';
 
 class CheckoutContainerPage extends StatefulWidget {
-  const CheckoutContainerPage({Key key, @required this.user}) : super(key: key);
+  const CheckoutContainerPage({Key key, @required this.userAuth})
+      : super(key: key);
 
-  final StudentDetails user;
+  final StudentAuth userAuth;
 
   Future<APIResponse> onScanQR(String qrCode) async {
-    return await StudentService.checkoutContainer(user, qrCode);
+    return await StudentService.checkoutContainer(userAuth, qrCode);
   }
 
   @override
@@ -31,7 +32,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: UserAppBar(user: widget.user),
+      appBar: UserAppBar(userAuth: widget.userAuth),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(
@@ -62,7 +63,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
         .then((String code) {
       widget.onScanQR(code).then((APIResponse response) {
         if (response.success) {
-          NavigationService(context: context).goHome(widget.user);
+          NavigationService(context: context).goHome(widget.userAuth);
         } else {
           setState(() {
             errorMessage = response.message;
