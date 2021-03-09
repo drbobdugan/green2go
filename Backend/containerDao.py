@@ -70,7 +70,6 @@ class ContainerDao(dao):
             qrcode = val[1]
             sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
-            print(myresult)
             if(myresult[1] != []):
                 if(myresult[1] is not None): # Check to make sure this is none
                     oldEmail = myresult[1][0]
@@ -78,8 +77,8 @@ class ContainerDao(dao):
                         relDict={
                          "email": oldEmail[0],
                          "qrcode": oldEmail[1],
-                         "status": "Verified Return"}
-                        print("here")
+                         "status": "Verified Return",
+                         "location_qrcode": oldEmail[4]}
                         self.updateRelationship(relDict)
                     elif (oldEmail[2]=="Checked out"):
                         return("False", "Container already checked out")
@@ -151,7 +150,6 @@ class ContainerDao(dao):
             sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status <> 'Verified Return'" +"ORDER BY statusUpdateTime DESC"
             #print(sql)
             myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
-            #print (myresult)
             if(myresult[0] == False):
                 return myresult
             if(type(myresult[1]) is list):
