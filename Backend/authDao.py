@@ -33,6 +33,7 @@ class AuthDao:
     #accept dict of {email}
     def addAuth(self, dic):
         try:
+            mycursor = self.mydb.cursor()
             val = []
             #user and primary key
             val.append(dic['email'])
@@ -41,7 +42,6 @@ class AuthDao:
             val.append(self.id_generator())
             time = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
             val.append(time)
-            mycursor = self.mydb.cursor()
             sql = "INSERT INTO auth (user, auth_token, refresh_token, expires_at) VALUES (%s,%s,%s,%s)"
             mycursor.execute(sql, val)
             print(mycursor.rowcount, "record inserted.")
@@ -56,8 +56,8 @@ class AuthDao:
     #Gets user based on their email
     def getAuth(self,dic):
         try:
-            email = dic["email"]
             mycursor = self.mydb.cursor()
+            email = dic["email"]
             mycursor.execute("SELECT * FROM auth where user = '" + email + "'")
             myresult = mycursor.fetchall()
             if len(myresult) == 0:
@@ -96,10 +96,10 @@ class AuthDao:
         
     def deleteAuth(self,dic):
         try:
+            mycursor = self.mydb.cursor()
             email = dic["email"]
             if(self.getAuth(dic)[0] == False):
                 return False, "No matching primary key"
-            mycursor = self.mydb.cursor()
             sql = "DELETE FROM auth WHERE user like '" + email + "'"
             mycursor.execute(sql)
             self.mydb.commit()
