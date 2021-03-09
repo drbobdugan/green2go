@@ -45,15 +45,41 @@ class API {
         },
         body: params,
       );
-      print(response.body);
-      return APIResponse(jsonDecode(response.body) as Map<String, dynamic>);
+      return formatResponse(response);
     });
   }
 
   static Future<APIResponse> getResponse(String path) async {
     return getURL().then((String url) async {
       final Response response = await get('http://$url/$path');
-      return APIResponse(jsonDecode(response.body) as Map<String, dynamic>);
+      return formatResponse(response);
     });
+  }
+
+  static APIResponse formatResponse(Response response) {
+    switch (response.statusCode) {
+      case 200:
+        return APIResponse(jsonDecode(response.body) as Map<String, dynamic>);
+      case 400:
+        return APIResponse(<String, dynamic>{
+          'success': false,
+          'message':
+              '** 400: Bad Request Exception **' + response.body.toString()
+        });
+      case 401:
+      case 403:
+        return APIResponse(<String, dynamic>{
+          'success': false,
+          'message':
+              '** 401/403: Unauthorized Exception **' + response.body.toString()
+        });
+      case 500:
+      default:
+        throw APIResponse(<String, dynamic>{
+          'success': false,
+          'message':
+              '** Fetch Data Exception - Error occured while Communication with Server with StatusCode: ${response.statusCode}'
+        });
+    }
   }
 }

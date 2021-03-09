@@ -17,7 +17,7 @@ class CheckoutContainerPage extends StatefulWidget {
   final StudentDetails user;
 
   Future<APIResponse> onScanQR(String qrCode) async {
-    return await StudentService.addContainer(user, qrCode);
+    return await StudentService.checkoutContainer(user, qrCode);
   }
 
   @override
