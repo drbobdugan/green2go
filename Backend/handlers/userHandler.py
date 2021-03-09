@@ -37,7 +37,7 @@ class UserHandler:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
             dictOfUserAttrib["authCode"] = authCode
         except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
+            return json.dumps({"success" : False, "message" :"Please complete all fields to sign up."})
         res = userDao.addUser(dictOfUserAttrib)
         return self.handleResponse(res)
 
