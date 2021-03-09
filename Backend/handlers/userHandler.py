@@ -63,7 +63,7 @@ class UserHandler:
 
     def handleResponse(self, res):
         if res[0] is True:
-            return json.dumps({"success" : res[0], "message" : ""})
+            return json.dumps({"success" : res[0], "data" : res[1]})
         else:
             return json.dumps({"success" : res[0], "message" : res[1]})
 
