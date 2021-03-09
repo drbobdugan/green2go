@@ -45,7 +45,6 @@ class HelperHandler:
         
     # only called once dicOfValues has been verified by extractKeysFromRquest
     def ensureCorrectFormatting(self, dicOfValues, formats):
-        print(formats)
         if formats is None:
             return True
         for key in formats:
