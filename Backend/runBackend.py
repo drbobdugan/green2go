@@ -55,7 +55,11 @@ def updateUser():
 
 @app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
-    return userHandler.deleteUser(request, userDao)
+    return userHandler.deleteUser(request, userDao, True)
+
+@app.route('/secretDeleteUser', methods=['DELETE'])
+def secretDeleteUser():
+    return userHandler.deleteUser(request, userDao, False) 
 
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
