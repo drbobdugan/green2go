@@ -10,7 +10,7 @@ class LocationDao:
             host="198.199.77.174",
             user="root",
             password="Capstone2021!",
-            database="temp",
+            database="sys",
             buffered=True) 
 
     def reconnectSql(self):
@@ -23,7 +23,7 @@ class LocationDao:
             host="198.199.77.174",
             user="root",
             password="Capstone2021!",
-            database="temp",
+            database="sys",
             buffered=True)
 
     #Adds Location with attributes: qrcode of location, description of location, last pickup date at location
