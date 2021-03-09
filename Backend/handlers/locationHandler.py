@@ -21,6 +21,6 @@ class LocationHandler:
             return json.dumps({"success" : False, "message" : str(e)})
         res = locationDao.selectLocation(locationDic)  #need to get the method for database team 
         if res[0] is True:
-            return json.dumps({"success" : res[0], "message" : ""})
+            return json.dumps({"success" : res[0], "data" : res[1]})
         else:
             return json.dumps({"success" : res[0], "message" : res[1]})
