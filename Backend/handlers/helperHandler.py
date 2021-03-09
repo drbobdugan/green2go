@@ -50,7 +50,7 @@ class HelperHandler:
             return True
         for key in formats:
             if dicOfValues[key] is not None and (not re.match(formats[key], dicOfValues[key])):
-                raise Exception(str(key) + " does not match specified format")
+                raise Exception("Please enter a valid "+str(key)+".")
         return True
 
     def extractKeysFromRequest(self, request, keys, required=None ,t="json"):
