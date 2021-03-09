@@ -12,7 +12,7 @@ class LocationHandler:
         self.helperHandler = helperHandler
 
 
-    def selectLoction(self, locationDao):
+    def selectLocation(self, request,locationDao):
         locationDic = None
         keys = ["qrcode",'email','auth_token']
         try:
