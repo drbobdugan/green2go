@@ -5,6 +5,7 @@ import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_strings.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
@@ -40,12 +41,12 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ReuseLabel(
-              text: 'Please scan the QR code on the container:',
+              text: ReuseStrings.scanContainerMessage(),
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 10.0,
             ),
             ReuseButton(
-              text: 'Use Camera',
+              text: ReuseStrings.useCamera(),
               onPressed: () => scanQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
@@ -59,7 +60,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
 
   Future<void> scanQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
-            '#FF2E856E', 'Cancel', true, ScanMode.QR)
+            '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR)
         .then((String code) {
       widget.onScanQR(code).then((APIResponse response) {
         if (response.success) {

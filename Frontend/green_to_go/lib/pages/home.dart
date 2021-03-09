@@ -6,6 +6,7 @@ import '../components/reuse_containerCounts.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
+import '../components/reuse_strings.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
 import '../services/student_service.dart';
@@ -79,26 +80,27 @@ class _HomePageState extends State<HomePage> {
   List<Widget> getContainerDataSmall() {
     return items.map((ContainerStatus status) {
       return Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ContainerCounts(
-                text: '${containerCounts[status]}',
-                textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
-                backgroundName: 'assets/images/c2r_reuseIcon_attention.jpg',
-                backgroundHeight: 100.0,
-                backgroundWidth: 100.0,
-                right: 12.0,
-                left: 12.0),
-            ReuseLabel(
-              text: labels[status],
-              textStyle: CustomTheme.secondaryLabelStyle(fontSize: 16.0),
-              top: 15.0,
-              left: 8.0,
-              right: 8.0,
-              backgroundWidth: 100,
-            )
-          ]);
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          ContainerCounts(
+              text: '${containerCounts[status]}',
+              textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
+              backgroundName: 'assets/images/c2r_reuseIcon_attention.jpg',
+              backgroundHeight: 100.0,
+              backgroundWidth: 100.0,
+              right: 12.0,
+              left: 12.0),
+          ReuseLabel(
+            text: labels[status],
+            textStyle: CustomTheme.secondaryLabelStyle(fontSize: 16.0),
+            top: 15.0,
+            left: 8.0,
+            right: 8.0,
+            backgroundWidth: 100,
+          )
+        ],
+      );
     }).toList();
   }
 
@@ -108,13 +110,14 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (BuildContext context, int index) {
         final ReusableContainer container = user.containers[index];
         return Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: ListItem(
-              text1: '${container.status}\n#${container.qrCode}',
-              text2:
-                  '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
-              textStyle: CustomTheme.rightListStyle(),
-            ));
+          padding: const EdgeInsets.only(top: 30.0),
+          child: ListItem(
+            text1: '${container.status}\n#${container.qrCode}',
+            text2:
+                '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
+            textStyle: CustomTheme.rightListStyle(),
+          ),
+        );
       },
     );
   }
@@ -128,35 +131,38 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     if (user.containers == null) {
       return const Scaffold(
-          backgroundColor: Colors.white, body: ReuseLoading());
+        backgroundColor: Colors.white,
+        body: ReuseLoading(),
+      );
     }
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: UserAppBar(userAuth: widget.userAuth),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ReuseLabel(
-                text: 'My Containers',
-                textStyle: CustomTheme.primaryLabelStyle(),
-                top: 20.0,
-                bottom: 20.0,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: getContainerDataSmall(),
-              ),
-              Expanded(
-                child: getContainerDataLarge(),
-              )
-            ],
-          ),
-        ));
+      backgroundColor: Colors.white,
+      appBar: UserAppBar(userAuth: widget.userAuth),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ReuseLabel(
+              text: ReuseStrings.homepageTitle(),
+              textStyle: CustomTheme.primaryLabelStyle(),
+              top: 20.0,
+              bottom: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: getContainerDataSmall(),
+            ),
+            Expanded(
+              child: getContainerDataLarge(),
+            )
+          ],
+        ),
+      ),
+    );
   }
 }

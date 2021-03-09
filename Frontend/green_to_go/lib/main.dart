@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'components/custom_theme.dart';
+import 'components/reuse_strings.dart';
 import 'pages/checkoutContainer.dart';
 import 'pages/home.dart';
 import 'pages/login.dart';
@@ -27,7 +28,7 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Choose2Reuse',
+      title: ReuseStrings.appName(),
       theme: CustomTheme.appTheme(),
       home: const LoginPage(),
       onGenerateRoute: (RouteSettings settings) {
