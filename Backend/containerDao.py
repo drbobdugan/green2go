@@ -66,8 +66,9 @@ class ContainerDao(dao):
             val.append(relDict['status'])
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
+            val.append(relDict['location_qrcode'])
             qrcode = val[1]
-            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime DESC"
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[1] != []):
                 if(myresult[1] is not None): # Check to make sure this is none
@@ -77,13 +78,12 @@ class ContainerDao(dao):
                          "email": oldEmail[0],
                          "qrcode": oldEmail[1],
                          "status": "Verified Return",
-                          "statusUpdateTime": time}
+                         "location_qrcode": oldEmail[4]}
                         self.updateRelationship(relDict)
                     elif (oldEmail[2]=="Checked out"):
                         return("False", "Container already checked out")
-            sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
+            sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode) VALUES (%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,val)  #could break in the future
-            print(myresult)
             if(myresult[0] == False):
                 return myresult
             logging.info("updateRelationship inserted.")
@@ -109,7 +109,8 @@ class ContainerDao(dao):
                 "email": myresult[0],
                 "qrcode": myresult[1],
                 "status": myresult[2],
-                "statusUpdateTime": str(myresult[3])}
+                "statusUpdateTime": str(myresult[3]),
+                "location_qrcode":myresult[4]}
             return True, relDict
         except Exception as e:
             logging.error("Error in getRelationship")
@@ -143,8 +144,11 @@ class ContainerDao(dao):
             email = relDict["email"]
             qrcode = relDict["qrcode"]
             status = relDict["status"]
+            relDict["statusUpdateTime"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            location = relDict["location_qrcode"]
             #THIS DOES NOT WORK
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" +"ORDER BY statusUpdateTime DESC"
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status <> 'Verified Return'" +"ORDER BY statusUpdateTime DESC"
+            #print(sql)
             myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
             if(myresult[0] == False):
                 return myresult
@@ -153,15 +157,14 @@ class ContainerDao(dao):
             else:
                 statusUpdateTime = str(myresult[1][3])
             sqlSet = "UPDATE hascontainer SET "
-            sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "'"
+            sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "' and status <> 'Verified Return'"
             for key in relDict:
                     if relDict[key] is not None and key!="auth_token":
                         sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' , "
             sqlSet = sqlSet[:-2]
             sqlSet += sqlWhere
-            print(sqlSet)
+            #print(sqlSet)
             myresult = self.handleSQL(sqlSet,False,None)
-            print(myresult)
             if(myresult[0] == False):
                 return myresult
             return True, ""
@@ -184,7 +187,8 @@ class ContainerDao(dao):
                 "email": x[0],
                 "qrcode": x[1],
                 "status": x[2],
-                "statusUpdateTime": str(x[3])}
+                "statusUpdateTime": str(x[3]),
+                "location_qrcode": x[4]}
                 temp.append(relDict)
             return True, temp
         except Exception as e:
@@ -207,7 +211,8 @@ class ContainerDao(dao):
                 "email": x[0],
                 "qrcode": x[1],
                 "status": x[2],
-                "statusUpdateTime": str(x[3])}
+                "statusUpdateTime": str(x[3]),
+                "location_qrcode": x[4]}
                 temp.append(relDict)
             return True, temp
         except Exception as e:
