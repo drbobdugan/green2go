@@ -3,6 +3,7 @@ from userDao import UserDao
 from containerDao import ContainerDao
 from authDao import AuthDao
 from locationDao import LocationDao
+from datetime import datetime
 
 class AuthHandler:
 
@@ -15,8 +16,8 @@ class AuthHandler:
         dic = None
         try:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
+        except :
+            return json.dumps({"success" : False, "message" : "Please enter a valid code."})
         res=None
         try:
             res = userDao.getUser(dic)
@@ -27,7 +28,7 @@ class AuthHandler:
         authtimets=datetime.strptime(authtime, f)
         timepassed=datetime.now()-authtimets
         if (dic['code']!=codefromtable or timepassed.total_seconds()>=300):
-            return json.dumps({"success" : False, "message" : "Expired token"})
+            return json.dumps({"success" : False, "message" : "Invalid verification code."})
         # delete previous auth
         try:
             authDao.deleteAuth(res[1])
@@ -47,13 +48,13 @@ class AuthHandler:
         keys = ["email", "password"]
         try:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
+        except:
+            return json.dumps({"success" : False, "message" : "Please enter an email and password."})
         res = userDao.getUser(dic)
         if "authorized" in res[1] and res[1]["authorized"] == 0:
-            return json.dumps({"success" : False, "message" : "Registration not complete"})
+            return json.dumps({"success" : False, "message" :"Email not found, please try signing up." })
         if "password" in res[1] and dic["password"] != res[1]["password"]:
-            return json.dumps({"success" : False, "message" : "Incorrect password"})
+            return json.dumps({"success" : False, "message" : "Incorrect password."})
         # delete previous auth
         try:
             authDao.deleteAuth(dic)
