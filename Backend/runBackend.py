@@ -43,7 +43,7 @@ locationHandler = LocationHandler(helperHandler)
 #----------------------------User Methods --------------------------------
 @app.route('/getUser', methods=['GET'])
 def getUser():
-    return userHandler.getUser(request, userDao, containerDao)
+    return userHandler.getUser(request, userDao, containerDao, True)
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
@@ -55,7 +55,7 @@ def updateUser():
 
 @app.route('/deleteUser', methods=['DELETE'])
 def deleteUser():
-    return userHandler.deleteUser(request, userDao)
+    return userHandler.deleteUser(request, userDao, True)
 
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
@@ -107,6 +107,16 @@ def resendAuthCode():
 @app.route('/selectLocation',methods=['POST'])
 def selectLocation():
     return locationHandler.selectLocation(request, locationDao)
+
+#----------------------------Secret Methods --------------------------------
+
+@app.route('/secretDeleteUser', methods=['DELETE'])
+def secretDeleteUser():
+    return userHandler.deleteUser(request, userDao, False)
+
+@app.route('/secretGetUser', methods=['GET'])
+def secretGetUser():
+    return userHandler.getUser(request, userDao, containerDao, False)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

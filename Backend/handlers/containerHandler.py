@@ -13,7 +13,7 @@ class ContainerHandler:
 
     def addContainer(self, request, containerDao):
         containerDic = None
-        keys = ["qrcode"]
+        keys = ["qrcode","auth_token", "email"]
         try:
             containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
         except Exception as e:
