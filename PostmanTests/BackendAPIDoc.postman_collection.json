@@ -917,6 +917,98 @@
 					]
 				},
 				{
+					"name": "Update user infomation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Successful Patch Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/updateUser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"updateUser"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Update user infomation",
+							"originalRequest": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"updatedpassword\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"reus\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"43523\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updateUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updateUser"
+									]
+								}
+							},
+							"status": "INTERNAL SERVER ERROR",
+							"code": 500,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "290"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 24 Feb 2021 23:49:39 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+						}
+					]
+				},
+				{
 					"name": "Refresh Token",
 					"event": [
 						{
@@ -1011,98 +1103,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"auth_token\": \"uBBL28a92BPTvNPNVGdUGUp76dDV5By909dqIbSHjmFP1\",\n        \"refresh_token\": \"I2X5HJUvmzN9ZSUxn79Hz80hFdjJ5M0f5V6FmGNaNJlJn\",\n        \"expires_at\": \"2021-03-01 19:22:14\"\n    }\n}"
-						}
-					]
-				},
-				{
-					"name": "Update user infomation",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.test(\"Successful Patch Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/updateUser",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updateUser"
-							]
-						}
-					},
-					"response": [
-						{
-							"name": "Update user infomation",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"updatedpassword\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"reus\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"43523\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/updateUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"updateUser"
-									]
-								}
-							},
-							"status": "INTERNAL SERVER ERROR",
-							"code": 500,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "290"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 24 Feb 2021 23:49:39 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
 						}
 					]
 				},
@@ -1301,7 +1301,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"001\"\n}",
+							"raw": "{\n    \"qrcode\" : \"001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1758,7 +1758,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"001\",\n    \"status\" : \"Checked out\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"001\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L001\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2011,7 +2011,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"qrcode\" : \"001\",\n    \"status\" : \"Pending Return\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"qrcode\" : \"001\",\n    \"status\" : \"Pending Return\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L002\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
