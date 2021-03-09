@@ -19,7 +19,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.addContainer(containerDic)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
   
     def getContainer(self, request, containerDao):
         containerDic = None
@@ -29,7 +29,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.getContainer(containerDic)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def deleteContainer(self, request, containerDao):
         containerDic = None
@@ -39,7 +39,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.deleteContainer(containerDic)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def updateContainer(self, request, containerDao):
         containerDic = None
@@ -49,7 +49,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.updateContainer(containerDic)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
     def checkoutContainer(self, request, containerDao):
@@ -60,7 +60,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.addRelationship(userContainer)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao):
         relationship = None
@@ -70,7 +70,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.selectAllByEmail(relationship)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def checkinContainer(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
         dictOfUserAttrib = None
@@ -80,10 +80,4 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.updateRelationship(dictOfUserAttrib)
-        return self.handleResponse(res)
-
-    def handleResponse(self, res):
-        if res[0] is True:
-            return json.dumps({"success" : res[0], "data" : res[1]})
-        else:
-            return json.dumps({"success" : res[0], "message" : res[1]})
+        return self.helperHandler.handleResponse(res)

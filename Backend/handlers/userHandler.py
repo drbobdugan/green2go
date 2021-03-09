@@ -24,7 +24,7 @@ class UserHandler:
         if res[0] is False:
             return json.dumps({"success" : res[0], "message" : res[1]})
         response = containerDao.selectAllByEmail(dictOfUserAttrib)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def addUser(self, request, userDao):
         dictOfUserAttrib = None
@@ -39,7 +39,7 @@ class UserHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" :"Please complete all fields to sign up."})
         res = userDao.addUser(dictOfUserAttrib)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def updateUser(self, request, userDao):
         dictOfUserAttrib = None
@@ -49,7 +49,7 @@ class UserHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = userDao.updateUser(dictOfUserAttrib)
-        return self.handleResponse(res)
+        return self.helperHandler.handleResponse(res)
 
     def deleteUser(self, request, userDao):
         dictOfUserAttrib = None
@@ -59,11 +59,5 @@ class UserHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = userDao.deleteUser(dictOfUserAttrib)
-        return self.handleResponse(res)
-
-    def handleResponse(self, res):
-        if res[0] is True:
-            return json.dumps({"success" : res[0], "data" : res[1]})
-        else:
-            return json.dumps({"success" : res[0], "message" : res[1]})
+        return self.helperHandler.handleResponse(res)
 

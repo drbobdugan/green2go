@@ -82,3 +82,10 @@ class HelperHandler:
         if datetime.now() >= timeobj:
             return False, "Expired token"
         return True, ""
+
+        
+    def handleResponse(self, res):
+        if res[0] is True:
+            return json.dumps({"success" : res[0], "data" : res[1]})
+        else:
+            return json.dumps({"success" : res[0], "message" : res[1]})
