@@ -37,11 +37,15 @@ class UserHandler:
         authCode=self.helperHandler.id_generator()
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
-            dictOfUserAttrib["authCode"] = authCode
+            dictOfUserAttrib['authCode'] = authCode
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)})
         res = userDao.addUser(dictOfUserAttrib)
+        print(res)
+        if(res[0]):
+            self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
+
 
     def updateUser(self, request, userDao):
         dictOfUserAttrib = None
