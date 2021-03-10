@@ -118,4 +118,13 @@ class AuthHandler:
         if(timepassed.total_seconds()<300):
             self.helperHandler.sendEmail(user[1]['email'], user[1]['authCode'])
             return json.dumps({"success" : True, "data": ""})
-        return json.dumps({"success" : res[0], "message" : res[1]})
+        if (timepassed.total_seconds()>300):
+            authCode=self.helperHandler.id_generator()
+            user[1]["authCode"]=authCode
+            user[1]["authTime"]=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            userDao.updateUser(user[1])
+            self.helperHandler.sendEmail(user[1]['email'], authCode)
+            return json.dumps({"success" : True, "data": ""})
+
+
+        return json.dumps({"success" : False, "message" : "Error in resendAuthCode."})
