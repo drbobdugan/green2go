@@ -24,6 +24,7 @@ from locationHandler import LocationHandler
 
 #app methods
 app = Flask(__name__)
+logging.basicConfig(filename='demo.log', level=logging.DEBUG)
 app.debug = True
 
 #daos and objects
