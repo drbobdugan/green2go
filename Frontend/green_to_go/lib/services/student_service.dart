@@ -12,20 +12,34 @@ class StudentService {
           'email': auth.email,
           'qrcode': qrCode,
           'status': 'Checked out',
-          'auth_token': auth.token
+          'auth_token': auth.token,
+          'location_qr': 'None'
+        }));
+    return resp;
+  }
+
+  static Future<APIResponse> checkLocation(
+      StudentAuth auth, String locationqrCode) async {
+    final APIResponse resp = await API.postResponse(
+        'selectLocation',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'qrcode': locationqrCode,
+          'auth_token': auth.token,
         }));
     return resp;
   }
 
   static Future<APIResponse> returnContainer(
-      StudentAuth auth, String qrCode) async {
+      StudentAuth auth, String qrCode, String locationqrCode) async {
     final APIResponse resp = await API.postResponse(
         'checkinContainer',
         jsonEncode(<String, String>{
           'email': auth.email,
           'qrcode': qrCode,
           'status': 'Unverified return',
-          'auth_token': auth.token
+          'auth_token': auth.token,
+          'location_qr': locationqrCode
         }));
     return resp;
   }

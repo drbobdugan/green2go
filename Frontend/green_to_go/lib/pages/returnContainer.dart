@@ -19,8 +19,14 @@ class ReturnContainerPage extends StatefulWidget {
 
   final StudentAuth userAuth;
 
-  Future<APIResponse> onScanQR(String qrCode) async {
-    return await StudentService.returnContainer(userAuth, qrCode);
+  Future<APIResponse> onScanLocationQR(String locationqrCode) async {
+    return await StudentService.checkLocation(userAuth, locationqrCode);
+  }
+
+  Future<APIResponse> onScanContainerQR(
+      String qrCode, String locationqrCode) async {
+    return await StudentService.returnContainer(
+        userAuth, qrCode, locationqrCode);
   }
 
   @override
@@ -30,6 +36,7 @@ class ReturnContainerPage extends StatefulWidget {
 class _ReturnContainerPageState extends State<ReturnContainerPage> {
   String errorMessage = '';
   bool containerScanActive = false;
+  String locationQR = '';
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +82,9 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
               text: containerScanActive
                   ? ReuseStrings.scanContainerButtonText()
                   : ReuseStrings.scanLocationButtonText(),
-              onPressed: () => scanQRCode(),
+              onPressed: () => containerScanActive
+                  ? scanContainerQRCode()
+                  : scanLocationQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
             ),
@@ -86,19 +95,32 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
     );
   }
 
-  Future<void> scanQRCode() async {
+  Future<void> scanLocationQRCode() async {
+    locationQR = await FlutterBarcodeScanner.scanBarcode(
+        '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR);
+
+    widget.onScanLocationQR(locationQR).then((APIResponse response) {
+      if (response.success) {
+        if (!containerScanActive) {
+          setState(() {
+            containerScanActive = true;
+          });
+        }
+      } else {
+        setState(() {
+          errorMessage = response.message;
+        });
+      }
+    });
+  }
+
+  Future<void> scanContainerQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
             '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR)
         .then((String code) {
-      widget.onScanQR(code).then((APIResponse response) {
+      widget.onScanContainerQR(code, locationQR).then((APIResponse response) {
         if (response.success) {
-          if (!containerScanActive) {
-            setState(() {
-              containerScanActive = true;
-            });
-          } else {
-            NavigationService(context: context).goHome(widget.userAuth);
-          }
+          NavigationService(context: context).goHome(widget.userAuth);
         } else {
           setState(() {
             errorMessage = response.message;
