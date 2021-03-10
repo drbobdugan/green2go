@@ -8,29 +8,19 @@ matrix:
       python:
         - 3.6
 
-
-<<<<<<< HEAD
-script: 
-  - cd Backend/
-  - ls
-  - python3 -m unittest unitTestUserDao.py
-  - python3 -m unittest unitTestContainerDao.py
-  - python3 -m unittest unitTestLocationDao.py
-  - python3 -m unittest testAuthDao.py
-
-=======
-      install:
+  
+      install: 
         - pip3 install --upgrade pip
         - pip install mysql-connector-python
         - pip install -r requirements.txt
-  
->>>>>>> 3ebf104e77018dafc304cb6d43672acbfa0b3a99
 
       script:
         - cd Backend/
         - ls
         - python3 -m unittest unitTestUserDao.py
         - python3 -m unittest unitTestContainerDao.py
+        - python3 -m unittest unitTestLocationDao.py
+        - python3 -m unittest testAuthDao.py
   
 
     - language: node_js
