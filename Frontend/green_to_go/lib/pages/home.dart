@@ -115,7 +115,11 @@ class _HomePageState extends State<HomePage> {
             text1: '${container.status}\n#${container.qrCode}',
             text2:
                 '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
-            textStyle: CustomTheme.rightListStyle(),
+            colorID: container.status.contains('Checked')
+                ? 'attention'
+                : (container.status.contains('Pending')
+                    ? 'primary'
+                    : 'darkPrimary'),
           ),
         );
       },

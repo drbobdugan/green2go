@@ -6,13 +6,10 @@ class ListItem extends StatelessWidget {
     Key key,
     @required this.text1,
     @required this.text2,
-    @required this.textStyle,
-    this.color,
+    @required this.colorID,
   }) : super(key: key);
 
-  final String text1, text2;
-  final TextStyle textStyle;
-  final Color color;
+  final String text1, text2, colorID;
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +20,9 @@ class ListItem extends StatelessWidget {
             alignment: Alignment.centerLeft,
             width: MediaQuery.of(context).size.width / 2.5,
             height: 60,
-            decoration: const BoxDecoration(
-                color: Color(0xFF2E856E),
-                borderRadius: BorderRadius.only(
+            decoration: BoxDecoration(
+                color: CustomTheme.getColor(colorID),
+                borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(25),
                     bottomRight: Radius.circular(25))),
             child: Text(text1,
