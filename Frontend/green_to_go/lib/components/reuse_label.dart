@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ReuseLabel extends StatelessWidget {
-  final String text, backgroundName;
-  final double left, top, right, bottom, backgroundHeight, backgroundWidth;
-  final TextStyle textStyle;
-  final bool isCenter, hasBackground;
-
-  ReuseLabel({
+  const ReuseLabel({
+    Key key,
     @required this.text,
     @required this.textStyle,
     this.left = 0.0,
@@ -18,13 +14,18 @@ class ReuseLabel extends StatelessWidget {
     this.backgroundName,
     this.backgroundHeight,
     this.backgroundWidth,
-  });
+  }) : super(key: key);
+
+  final String text, backgroundName;
+  final double left, top, right, bottom, backgroundHeight, backgroundWidth;
+  final TextStyle textStyle;
+  final bool isCenter, hasBackground;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.fromLTRB(left, top, right, bottom),
-      child: (hasBackground)
+      child: hasBackground
           ? Stack(
               children: <Widget>[
                 Container(
@@ -42,7 +43,7 @@ class ReuseLabel extends StatelessWidget {
                   width: backgroundWidth,
                   child: Text(
                     text,
-                    textAlign: (isCenter) ? TextAlign.center : TextAlign.left,
+                    textAlign: isCenter ? TextAlign.center : TextAlign.left,
                     style: textStyle,
                   ),
                 )
@@ -50,7 +51,7 @@ class ReuseLabel extends StatelessWidget {
             )
           : Text(
               text,
-              textAlign: (isCenter) ? TextAlign.center : TextAlign.left,
+              textAlign: isCenter ? TextAlign.center : TextAlign.left,
               style: textStyle,
             ),
     );

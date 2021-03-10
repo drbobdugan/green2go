@@ -3,66 +3,83 @@ import 'package:device_info/device_info.dart';
 
 import 'package:http/http.dart';
 
-class API {
-  final String remoteURL = '198.199.77.174:5000';
-  final String localURL = '127.0.0.1:5000';
+class APIResponse {
+  APIResponse(Map<String, dynamic> value) {
+    success = value['success'] as bool;
+    message = value['message'] as String;
+    data = value['data'];
+  }
 
-  Future<String> getURL() async {
-    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  bool success;
+  String message;
+  dynamic data;
+}
+
+class API {
+  static Future<String> getURL() async {
+    const String remoteURL = '198.199.77.174:5000';
+    const String localURL = '127.0.0.1:5000';
+
+    final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     try {
-      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-      if (androidInfo.isPhysicalDevice) return remoteURL;
+      final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.isPhysicalDevice) {
+        return remoteURL;
+      }
       return localURL;
     } catch (error) {
-      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-      if (iosInfo.isPhysicalDevice) return remoteURL;
+      final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      if (iosInfo.isPhysicalDevice) {
+        return remoteURL;
+      }
       return localURL;
     }
   }
 
-  Future<APIResponse> postResponse(String path, dynamic params) async {
-    return getURL().then((url) async {
-      Response response = await post(
-        "http://$url/$path",
+  static Future<APIResponse> postResponse(String path, dynamic params) async {
+    return getURL().then((String url) async {
+      final Response response = await post(
+        'http://$url/$path',
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: params,
       );
-      return APIResponse(jsonDecode(response.body));
+      return formatResponse(response);
     });
   }
 
-  Future<APIResponse> getResponse(String path) async {
-    return getURL().then((url) async {
-      Response response = await get("http://$url/$path");
-      return APIResponse(jsonDecode(response.body));
+  static Future<APIResponse> getResponse(String path) async {
+    return getURL().then((String url) async {
+      final Response response = await get('http://$url/$path');
+      return formatResponse(response);
     });
   }
-}
 
-class APIResponse {
-  bool success;
-  String message;
-  dynamic data;
-
-  APIResponse(Map<String, dynamic> value) {
-    success = value['success'];
-    message = value['message'];
-    data = value['data'];
-  }
-}
-
-class UserResponse {
-  String email;
-  String authToken;
-  String refreshToken;
-  String tokenExpiration;
-
-  UserResponse(Map<String, dynamic> value) {
-    email = value['user'];
-    authToken = value['auth_token'];
-    refreshToken = value['refresh_token'];
-    tokenExpiration = value['expires_at'];
+  static APIResponse formatResponse(Response response) {
+    switch (response.statusCode) {
+      case 200:
+        return APIResponse(jsonDecode(response.body) as Map<String, dynamic>);
+      case 400:
+        return APIResponse(<String, dynamic>{
+          'success': false,
+          'message':
+              '** 400: Bad Request Exception **' + response.body.toString()
+        });
+      case 401:
+      case 403:
+        return APIResponse(<String, dynamic>{
+          'success': false,
+          'message':
+              '** 401/403: Unauthorized Exception **' + response.body.toString()
+        });
+      case 500:
+      default:
+        throw APIResponse(<String, dynamic>{
+          'success': false,
+          'message':
+              '** Fetch Data Exception - Error occured while Communication with Server with StatusCode: ${response.statusCode}'
+        });
+    }
   }
 }

@@ -4,24 +4,35 @@ import '../static/student.dart';
 import 'api.dart';
 
 class StudentService {
-  final api = new API();
-
-  Future<APIResponse> addContainer(StudentDetails user, String qrCode) async {
-    var resp = await api.postResponse(
-        "addContainer",
+  static Future<APIResponse> checkoutContainer(
+      StudentAuth auth, String qrCode) async {
+    final APIResponse resp = await API.postResponse(
+        'checkoutContainer',
         jsonEncode(<String, String>{
-          'email': user.email,
+          'email': auth.email,
           'qrcode': qrCode,
           'status': 'Checked out',
-          'statusUpdateTime': DateTime.now().toString(),
-          'auth_token': user.authToken
+          'auth_token': auth.token
         }));
     return resp;
   }
 
-  Future<APIResponse> getStudent(StudentAuth userResponse) async {
-    var resp = await api.getResponse(
-        'getUser?email=${userResponse.email}&auth_token=${userResponse.authToken}');
+  static Future<APIResponse> returnContainer(
+      StudentAuth auth, String qrCode) async {
+    final APIResponse resp = await API.postResponse(
+        'checkinContainer',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'qrcode': qrCode,
+          'status': 'Unverified return',
+          'auth_token': auth.token
+        }));
+    return resp;
+  }
+
+  static Future<APIResponse> getContainers(StudentAuth auth) async {
+    final APIResponse resp = await API.getResponse(
+        'getContainersForUser?email=${auth.email}&auth_token=${auth.token}');
     return resp;
   }
 }

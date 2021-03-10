@@ -4,11 +4,9 @@ import '../static/user.dart';
 import 'api.dart';
 
 class UserService {
-  final api = new API();
-
-  Future<APIResponse> validateCode(String email, String code) async {
-    var resp = await api.postResponse(
-        "validateCode",
+  static Future<APIResponse> validateCode(String email, String code) async {
+    final APIResponse resp = await API.postResponse(
+        'validateCode',
         jsonEncode(<String, String>{
           'email': email,
           'code': code,
@@ -16,9 +14,9 @@ class UserService {
     return resp;
   }
 
-  Future<APIResponse> signUp(NewUser user) async {
-    var resp = await api.postResponse(
-        "addUser",
+  static Future<APIResponse> signUp(NewUser user) async {
+    final APIResponse resp = await API.postResponse(
+        'addUser',
         jsonEncode(<String, String>{
           'email': user.email,
           'password': user.password,
@@ -27,20 +25,20 @@ class UserService {
           'lastName': user.lastName,
           'phoneNum': user.phoneNum,
           'classYear': user.classYear,
-          'role': "RegularUser"
+          'role': 'RegularUser'
         }));
     return resp;
   }
 
-  Future<APIResponse> logIn(ExistingUser user) async {
-    var resp = await api.postResponse(
-        "login",
+  static Future<APIResponse> logIn(ExistingUser user) async {
+    final APIResponse resp = await API.postResponse(
+        'login',
         jsonEncode(
             <String, String>{'email': user.email, 'password': user.password}));
     return resp;
   }
 
-  dynamic sendCode(Map params) async {
+  static dynamic sendCode(dynamic params) async {
     return null;
   }
 }

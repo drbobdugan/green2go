@@ -6,6 +6,7 @@ def main():
     testUpdateUser()
     testDeleteUser()
 
+#user test include creating, reading, updating, and deleting
 def testAddUser():
     userDict={
                 "email": "test@students.stonehill.edu",
@@ -44,23 +45,6 @@ def testGetUser():
     userDict = dao.getUser(emailDict)
     print("testGetUser: test3")
     #print(testUserDict(userDict,email))
-def testDeleteUser():
-    emailDict={"email": "test@students.stonehill.edu"}
-    dao.deleteUser(emailDict)
-    emailDict={"email": "test1@students.stonehill.edu"}
-    dao.deleteUser(emailDict)
-    emailDict={"email": "test2@students.stonehill.edu"}
-    dao.deleteUser(emailDict)
-    emailDict={"email": "test3@students.stonehill.edu"}
-    dao.deleteUser(emailDict)
-def testUserDict(userDict,email):
-    return (userDict["email"] == email and userDict["password"] == "password" 
-    and userDict["firstName"] == "Test" and userDict["lastName"] == "User"
-    and userDict["middleName"] == "Example" and userDict["phoneNum"] == "7817817811"
-    and userDict["role"] == "reus" and userDict["classYear"] == "2021"
-    and userDict["authCode"] == "111111" and userDict["authTime"] == "2021-01-01 01:01:01"
-    and userDict["lastLogIn"] == "2021-01-01 01:01:01")
-
 
 def testUpdateUser():
     userDict={
@@ -76,4 +60,23 @@ def testUpdateUser():
                 "authTime": None,
                 "lastLogIn": None}
     dao.updateUser(userDict)
+
+def testDeleteUser():
+    emailDict={"email": "test@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+    emailDict={"email": "test1@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+    emailDict={"email": "test2@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+    emailDict={"email": "test3@students.stonehill.edu"}
+    dao.deleteUser(emailDict)
+
+def testUserDict(userDict,email):
+    return (userDict["email"] == email and userDict["password"] == "password" 
+    and userDict["firstName"] == "Test" and userDict["lastName"] == "User"
+    and userDict["middleName"] == "Example" and userDict["phoneNum"] == "7817817811"
+    and userDict["role"] == "reus" and userDict["classYear"] == "2021"
+    and userDict["authCode"] == "111111" and userDict["authTime"] == "2021-01-01 01:01:01"
+    and userDict["lastLogIn"] == "2021-01-01 01:01:01")
+
 main()

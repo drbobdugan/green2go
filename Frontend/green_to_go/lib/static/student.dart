@@ -1,18 +1,40 @@
-class StudentAuth {
-  String email;
-  String authToken;
-  String refreshToken;
-  String tokenExpiration;
+import 'container.dart';
 
+class StudentAuth {
   StudentAuth(Map<String, dynamic> value) {
-    email = value['user'];
-    authToken = value['auth_token'];
-    refreshToken = value['refresh_token'];
-    tokenExpiration = value['expires_at'];
+    email = value['user'] as String;
+    token = value['auth_token'] as String;
+    refresh = value['refresh_token'] as String;
+    expiration = value['expires_at'] as String;
   }
+
+  String email;
+  String token;
+  String refresh;
+  String expiration;
 }
 
 class StudentDetails {
+  StudentDetails(this.auth);
+
+  void setDetails(Map<String, dynamic> details) {
+    final Map<String, String> user = details['user'] as Map<String, String>;
+    email = user['email'];
+    password = user['password'];
+    firstName = user['firstName'];
+    middleName = user['middleName'];
+    lastName = user['lastName'];
+    classYear = user['classYear'];
+    phoneNum = user['phoneNum'];
+    role = user['role'];
+  }
+
+  void setContainers(List<dynamic> myContainers) {
+    print(myContainers);
+    containers =
+        myContainers.map((dynamic item) => ReusableContainer(item)).toList();
+  }
+
   String email;
   String password;
   String firstName;
@@ -21,20 +43,6 @@ class StudentDetails {
   String classYear;
   String phoneNum;
   String role;
-  String authCode;
-  String authToken;
-  String refreshToken;
-  String tokenExpiration;
-
-  StudentDetails(Map<String, dynamic> value) {
-    email = value['email'];
-    password = value['password'];
-    firstName = value['firstName'];
-    middleName = value['middleName'];
-    lastName = value['lastName'];
-    classYear = value['classYear'];
-    phoneNum = value['phoneNum'];
-    role = value['role'];
-    authCode = value['authCode'];
-  }
+  StudentAuth auth;
+  List<ReusableContainer> containers;
 }

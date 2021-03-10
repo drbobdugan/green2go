@@ -1,15 +1,15 @@
-os: osx
-osx_image: xcode11.2
-language: shell
+matrix:
+  include:
+    
+    - language: shell
+      os: osx
+      osx_image: xcode11.2
 
-python:
-  - 3.6
+      python:
+        - 3.6
 
-install:
-  - pip3 install --upgrade pip
-  - pip install mysql-connector-python
-  - pip install -r requirements.txt
 
+<<<<<<< HEAD
 script: 
   - cd Backend/
   - ls
@@ -18,7 +18,38 @@ script:
   - python3 -m unittest unitTestLocationDao.py
   - python3 -m unittest testAuthDao.py
 
+=======
+      install:
+        - pip3 install --upgrade pip
+        - pip install mysql-connector-python
+        - pip install -r requirements.txt
+  
+>>>>>>> 3ebf104e77018dafc304cb6d43672acbfa0b3a99
 
+      script:
+        - cd Backend/
+        - ls
+        - python3 -m unittest unitTestUserDao.py
+        - python3 -m unittest unitTestContainerDao.py
+  
+
+    - language: node_js
+      node_js: 
+        - node
+      
+      install:
+        - npm install newman
+      before_script:
+        - node --version
+        - npm --version
+        - node_modules/.bin/newman --version
+      
+      script: 
+        - node_modules/.bin/newman run PostmanTests/Choose2Reuse.postman_environment.json
+        - node_modules/.bin/newman run PostmanTests/BackendAPIDoc.postman_collection.json
+        
+      
+  
 
 notifications:
   slack: csc400a-sp21:NFRJA3Yrzv6TnIBprGZlpYWd

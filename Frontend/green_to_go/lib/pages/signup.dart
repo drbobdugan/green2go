@@ -1,20 +1,21 @@
+import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 
-import '../components/reuse_button.dart';
 import '../components/custom_theme.dart';
-import '../components/reuse_textField.dart';
+import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
-import '../static/user.dart';
+import '../components/reuse_label.dart';
+import '../components/reuse_strings.dart';
+import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
-import 'validation.dart';
+import '../static/user.dart';
 
 class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key}) : super(key: key);
+  const SignUpPage({Key key}) : super(key: key);
 
-  final _userService = UserService();
-  Future<APIResponse> onSignUp(user) async {
-    return await _userService.signUp(user);
+  Future<APIResponse> onSignUp(NewUser user) async {
+    return await UserService.signUp(user);
   }
 
   @override
@@ -22,14 +23,23 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  NewUser user = new NewUser();
+  final FocusNode firstNameNode = FocusNode();
+  final FocusNode middleNameNode = FocusNode();
+  final FocusNode lastNameNode = FocusNode();
+  final FocusNode emailNode = FocusNode();
+  final FocusNode phoneNumNode = FocusNode();
+  final FocusNode classYearNode = FocusNode();
+  final FocusNode passwordNode = FocusNode();
+  final FocusNode confirmPasswordNode = FocusNode();
+
+  NewUser user = NewUser();
   String errorMessage = '';
 
   void handleSignUp(BuildContext context) {
-    widget.onSignUp(user).then((response) {
+    widget.onSignUp(user).then((APIResponse response) {
+      print(response.data);
       if (response.success) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => new ValidationPage(user: user)));
+        NavigationService(context: context).goToPage(C2RPages.validation, user);
       } else {
         setState(() {
           errorMessage = response.message;
@@ -39,8 +49,15 @@ class _SignUpPageState extends State<SignUpPage> {
   }
 
   void handleValidation(BuildContext context) {
-    Navigator.of(context).push(MaterialPageRoute(
-        builder: (context) => new ValidationPage(user: user)));
+    NavigationService(context: context).goToPage(C2RPages.validation, user);
+  }
+
+  void fieldNextFocus(
+      BuildContext context, FocusNode currentFocus, FocusNode nextFocus) {
+    currentFocus.unfocus();
+    if (nextFocus != null) {
+      FocusScope.of(context).requestFocus(nextFocus);
+    }
   }
 
   @override
@@ -50,102 +67,157 @@ class _SignUpPageState extends State<SignUpPage> {
       resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text('Choose2Reuse'),
+        title: Text(ReuseStrings.appName()),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ReuseTextField(
-                text: "First Name",
-                onChanged: (value) {
-                  setState(() {
-                    user.firstName = value;
-                  });
-                },
-                autofillHints: [AutofillHints.givenName],
-                keyboardType: TextInputType.name),
-            ReuseTextField(
-                text: "Middle Name",
-                onChanged: (value) {
-                  setState(() {
-                    user.middleName = value;
-                  });
-                },
-                autofillHints: [AutofillHints.middleName],
-                keyboardType: TextInputType.name),
-            ReuseTextField(
-                text: "Last Name",
-                onChanged: (value) {
-                  setState(() {
-                    user.lastName = value;
-                  });
-                },
-                autofillHints: [AutofillHints.familyName],
-                keyboardType: TextInputType.name),
-            ReuseTextField(
-                text: "Phone Number",
-                onChanged: (value) {
-                  setState(() {
-                    user.phoneNum = value;
-                  });
-                },
-                autofillHints: [AutofillHints.telephoneNumber],
-                keyboardType: TextInputType.phone),
-            ReuseTextField(
-                text: "Email",
-                onChanged: (value) {
-                  setState(() {
-                    user.email = value;
-                  });
-                },
-                autofillHints: [AutofillHints.email],
-                keyboardType: TextInputType.emailAddress),
-            ReuseTextField(
-                text: "Class Year",
-                onChanged: (value) {
-                  setState(() {
-                    user.classYear = value;
-                  });
-                },
-                keyboardType: TextInputType.number),
-            ReuseTextField(
-                text: "Password",
-                obscureText: true,
-                onChanged: (value) {
-                  setState(() {
-                    user.password = value;
-                  });
-                },
-                autofillHints: [AutofillHints.password],
-                keyboardType: TextInputType.visiblePassword),
-            ReuseTextField(
-                text: "Confirm Password",
-                obscureText: true,
-                onChanged: (value) {
-                  setState(() {
-                    user.confirmPassword = value;
-                  });
-                },
-                autofillHints: [AutofillHints.password],
-                keyboardType: TextInputType.visiblePassword),
-            ReuseButton(
-              text: "Sign Up",
-              onPressed: () => handleSignUp(context),
-              buttonStyle: CustomTheme.primaryButtonStyle(),
-              top: 20.0,
+      body: GestureDetector(
+          onTap: () {
+            final FocusScopeNode currentFocus = FocusScope.of(context);
+            if (!currentFocus.hasPrimaryFocus) {
+              currentFocus.unfocus();
+            }
+          },
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.only(top: 30.0, left: 50.0, right: 50.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                ReuseLabel(
+                  text: ReuseStrings.signUpPageTitle(),
+                  textStyle: CustomTheme.primaryLabelStyle(),
+                  bottom: 20.0,
+                ),
+                ReuseTextField(
+                    text: ReuseStrings.firstNameField(),
+                    node: firstNameNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.firstName = value;
+                      });
+                    },
+                    autofillHints: const <String>[AutofillHints.givenName],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, firstNameNode, middleNameNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.middleNameField(),
+                    node: middleNameNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.middleName = value;
+                      });
+                    },
+                    autofillHints: const <String>[AutofillHints.middleName],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, middleNameNode, lastNameNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.lastNameField(),
+                    node: lastNameNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.lastName = value;
+                      });
+                    },
+                    autofillHints: const <String>[AutofillHints.familyName],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, lastNameNode, emailNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.emailField(),
+                    node: emailNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.email = value;
+                      });
+                    },
+                    autofillHints: const <String>[AutofillHints.email],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.emailAddress,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, emailNode, phoneNumNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.phoneNumberField(),
+                    node: phoneNumNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.phoneNum = value;
+                      });
+                    },
+                    autofillHints: const <String>[
+                      AutofillHints.telephoneNumber
+                    ],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.phone,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, phoneNumNode, classYearNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.classYearField(),
+                    node: classYearNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.classYear = value;
+                      });
+                    },
+                    keyboardType: TextInputType.number,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, classYearNode, passwordNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.passwordField(),
+                    node: passwordNode,
+                    obscureText: true,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.password = value;
+                      });
+                    },
+                    autofillHints: const <String>[AutofillHints.password],
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.next,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(
+                          context, passwordNode, confirmPasswordNode);
+                    }),
+                ReuseTextField(
+                    text: ReuseStrings.confirmPasswordField(),
+                    node: confirmPasswordNode,
+                    obscureText: true,
+                    onChanged: (String value) {
+                      setState(() {
+                        user.confirmPassword = value;
+                      });
+                    },
+                    autofillHints: const <String>[AutofillHints.password],
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, confirmPasswordNode, null);
+                    }),
+                ReuseButton(
+                  text: ReuseStrings.signUpButtonText(),
+                  onPressed: () => handleSignUp(context),
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 20.0,
+                ),
+                ReuseButton(
+                  text: ReuseStrings.goToValidationPageText(),
+                  onPressed: () => handleValidation(context),
+                  buttonType: 'text',
+                ),
+                ReuseErrorMessage(text: errorMessage),
+              ],
             ),
-            ReuseButton(
-              text: "Have a verification code? Enter it here!",
-              onPressed: () => handleValidation(context),
-              buttonType: "text",
-            ),
-            ReuseErrorMessage(text: errorMessage),
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

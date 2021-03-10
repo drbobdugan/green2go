@@ -24,7 +24,8 @@ class unitTestContainerDao(unittest.TestCase):
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Checked Out",
-            "statusUpdateTime": None
+            "statusUpdateTime": None,
+            "location_qrcode": None
             }
         dao.deleteContainer(containerDict)
         dao.deleteRelationship(relDict)
@@ -105,7 +106,8 @@ class unitTestContainerDao(unittest.TestCase):
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Checked Out",
-            "statusUpdateTime": None
+            "statusUpdateTime": None,
+            "location_qrcode": None
             }
         dao = ContainerDao()
         return dao.addRelationship(rel)
@@ -142,7 +144,8 @@ class unitTestContainerDao(unittest.TestCase):
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Checked Out",
-            "statusUpdateTime": None
+            "statusUpdateTime": None,
+            "location_qrcode": None
             }
         dao = ContainerDao()
         rc, getRelationship = dao.getRelationship(rel)
@@ -160,7 +163,8 @@ class unitTestContainerDao(unittest.TestCase):
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Checked Out",
-            "statusUpdateTime": None
+            "statusUpdateTime": None,
+            "location_qrcode": None
             }
         dao = ContainerDao()
         rc, msg = dao.deleteRelationship(rel)
@@ -180,7 +184,8 @@ class unitTestContainerDao(unittest.TestCase):
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Pending Return",
-            "statusUpdateTime": None
+            "statusUpdateTime": None,
+            "location_qrcode": "L002"
             }
         dao = ContainerDao()
         rc, updateRelationship = dao.updateRelationship(rel)
@@ -198,7 +203,8 @@ class unitTestContainerDao(unittest.TestCase):
             "email": "test42@students.stonehill.edu",
             "qrcode": "101010",
             "status": "Pending Return",
-            "statusUpdateTime": None
+            "statusUpdateTime": None,
+            "location_qrcode": "L002"
             }
         dao = ContainerDao()
         rc, deleteRelationship = dao.deleteRelationship(rel)

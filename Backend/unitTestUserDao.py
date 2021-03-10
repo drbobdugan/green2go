@@ -2,8 +2,8 @@ import unittest
 from userDao import UserDao
 class unitTestUserDao(unittest.TestCase):
     """
-    Test the userDao class methods using the unit test framework.  To run these tests:
-
+    Test the userDao class methods using the unit test framework.  
+    To run these tests:
          python3 -m unittest unitTestUserDao.py
 
     """
