@@ -15,6 +15,9 @@ script:
   - ls
   - python3 -m unittest unitTestUserDao.py
   - python3 -m unittest unitTestContainerDao.py
+  - python3 -m unittest unitTestLocationDao.py
+  - python3 -m unittest testAuthDao.py
+
 
 
 notifications:
