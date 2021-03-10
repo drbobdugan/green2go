@@ -4,6 +4,10 @@ import logging
 class dao:
     def __init__(self):
         logging.basicConfig(filename='dao.log', level=logging.DEBUG)
+        self.database = "sys"
+
+    def changeDatabase(self,database):
+        self.database = database
 
     def reconnectSql(self):
         try:
@@ -15,7 +19,7 @@ class dao:
             host="198.199.77.174",
             user="root",
             password="Capstone2021!",
-            database="sys",
+            database=self.database,
             buffered=True)
     def disconnectedSql(self):
         try:
