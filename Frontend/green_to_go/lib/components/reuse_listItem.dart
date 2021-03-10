@@ -6,10 +6,11 @@ class ListItem extends StatelessWidget {
     Key key,
     @required this.text1,
     @required this.text2,
+    @required this.text3,
     @required this.colorID,
   }) : super(key: key);
 
-  final String text1, text2, colorID;
+  final String text1, text2, text3, colorID;
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +26,17 @@ class ListItem extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(25),
                     bottomRight: Radius.circular(25))),
-            child: Text(text1,
-                textAlign: TextAlign.center,
-                style: CustomTheme.leftListStyle())),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(text1,
+                    textAlign: TextAlign.center,
+                    style: CustomTheme.leftListStyle()),
+                Text(text3,
+                    textAlign: TextAlign.center,
+                    style: CustomTheme.leftIDStyle())
+              ],
+            )),
         Container(
             alignment: Alignment.centerRight,
             width: MediaQuery.of(context).size.width / 2,

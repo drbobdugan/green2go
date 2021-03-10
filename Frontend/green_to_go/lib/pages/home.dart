@@ -112,7 +112,8 @@ class _HomePageState extends State<HomePage> {
         return Padding(
           padding: const EdgeInsets.only(top: 30.0),
           child: ListItem(
-            text1: '${container.status}\n#${container.qrCode}',
+            text1: '${container.status}',
+            text3: '#${container.qrCode}',
             text2:
                 '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
             colorID: container.status.contains('Checked')
