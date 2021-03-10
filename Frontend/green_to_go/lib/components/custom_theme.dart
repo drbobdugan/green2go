@@ -15,7 +15,7 @@ const Map<int, Color> green = <int, Color>{
 
 Map<String, Color> colors = <String, Color>{
   'primary': const Color(0xFF2E856E),
-  'darkPrimary': const Color(0xFF006A4E),
+  'darkPrimary': const Color(0xFF005E45),
   'attention': const Color(0xFF6ACB8C),
   'light': const Color(0xFF53DC98),
   'disabled': Colors.grey,
@@ -51,6 +51,28 @@ class CustomTheme {
 
   static TextStyle secondaryLabelStyle(
       {double fontSize = 13.0, bool isBold = false}) {
+    return TextStyle(
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontSize: fontSize,
+    );
+  }
+
+  static TextStyle leftListStyle({double fontSize = 16.0, bool isBold = true}) {
+    return TextStyle(
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        fontSize: fontSize,
+        color: const Color(0xffffffff));
+  }
+
+  static TextStyle leftIDStyle({double fontSize = 14.0, bool isBold = false}) {
+    return TextStyle(
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        fontSize: fontSize,
+        color: const Color(0xffffffff));
+  }
+
+  static TextStyle rightListStyle(
+      {double fontSize = 16.0, bool isBold = true}) {
     return TextStyle(
       fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       fontSize: fontSize,

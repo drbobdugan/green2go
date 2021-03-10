@@ -3,11 +3,12 @@ dao = ContainerDao()
 def main():
     #testAddContainer()
     testAddRelationship()
+    #testUpdateRelationship()
     #testGetRelationship()
     #testGetContainer()
     #testDeleteContainer()
     testSelectAllByEmail()
-    testSelectCheckedOut()
+    #testSelectCheckedOut()
 
 def testAddContainer():
     
@@ -73,27 +74,33 @@ def testGetRelationship():
 
 
 def testAddRelationship():
-    email = "test@students.stonehill.edu"
-    qrcode = "000"
-    status = "Checked out"
+    email = "shai@stonehill.edu"
+    qrcode = "000000001"
+    status = "Pending Return"
     authTime= "2021-01-01 01:01:01"
+    location_qrcode="L003"
     relDict={
                 "email": email,
                 "qrcode": qrcode,
                 "status": status,
-                "statusUpdateTime": None}
-    
+                "statusUpdateTime": None,
+                "location_qrcode": location_qrcode}
     dao.addRelationship(relDict)
+
+    """
     email = "test@students.stonehill.edu"
     qrcode = "000"
     status = "Pending Return"
     authTime= "2021-01-01 01:01:01"
+    location_qrcode = "L001"
     relDict={
                 "email": email,
                 "qrcode": qrcode,
                 "status": status,
-                "statusUpdateTime": None}
+                "statusUpdateTime": None,
+                "location_qrcode": location_qrcode}
     dao.addRelationship(relDict)
+
     email = "test@students.stonehill.edu"
     qrcode = "001"
     status = "Verified Return"
@@ -102,12 +109,25 @@ def testAddRelationship():
                 "email": email,
                 "qrcode": qrcode,
                 "status": status,
-                "statusUpdateTime": None}
+                "statusUpdateTime": None,
+                "location_qrcode": None}
     dao.addRelationship(relDict)
-
+"""
 def testUpdateRelationship():
+    #email = "test@students.stonehill.edu"
+    #status = ""
     email = "test@students.stonehill.edu"
-    status = ""
+    qrcode = "000"
+    status = "Pending Return"
+    authTime= "2021-01-01 01:01:01"
+    location_qrcode = "L002"
+    relDict={
+                "email": email,
+                "qrcode": qrcode,
+                "status": status,
+                "statusUpdateTime": None,
+                "location_qrcode": location_qrcode}
+    dao.updateRelationship(relDict)
 
 def testSelectAllByEmail():
     emailDict={

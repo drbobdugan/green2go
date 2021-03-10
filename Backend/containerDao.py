@@ -1,30 +1,8 @@
 import mysql.connector
 from datetime import datetime
 import logging
-class ContainerDao:
-
-    
-    def __init__(self):
-        logging.basicConfig(filename='containerDao.log', level=logging.DEBUG)
-        self.mydb = mysql.connector.connect(
-            host="198.199.77.174",
-            user="root",
-            password="Capstone2021!",
-            database="sys",
-            buffered=True) 
-
-    def reconnectSql(self):
-        try:
-            self.mydb.shutdown()
-        except:
-            logging.error("Error closing connection: Already disconnected")
-            
-        self.mydb = mysql.connector.connect(
-            host="198.199.77.174",
-            user="root",
-            password="Capstone2021!",
-            database="sys",
-            buffered=True)
+from dao import dao
+class ContainerDao(dao):
 
     #Accepts dictionary that holds qr code
     def addContainer(self, contDict):  
@@ -88,21 +66,23 @@ class ContainerDao:
             val.append(relDict['status'])
             time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             val.append(str(time))
+            val.append(relDict['location_qrcode'])
             qrcode = val[1]
-            #if(self.containerExists(qrcode)!=True):
-            #    return self.containerExists(qrcode)
-            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' ORDER BY statusUpdateTime DESC"
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[1] != []):
                 if(myresult[1] is not None): # Check to make sure this is none
                     oldEmail = myresult[1][0]
-                    relDict={
-                       "email": oldEmail,
-                       "qrcode": val[1],
-                       "status": "Verified Return",
-                       "statusUpdateTime": time}
-                    self.updateRelationship(relDict)
-            sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime) VALUES (%s,%s,%s,%s)"
+                    if (oldEmail[2]=="Pending Return"):
+                        relDict={
+                         "email": oldEmail[0],
+                         "qrcode": oldEmail[1],
+                         "status": "Verified Return",
+                         "location_qrcode": oldEmail[4]}
+                        self.updateRelationship(relDict)
+                    elif (oldEmail[2]=="Checked out"):
+                        return("False", "Container already checked out")
+            sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode) VALUES (%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,val)  #could break in the future
             if(myresult[0] == False):
                 return myresult
@@ -118,9 +98,8 @@ class ContainerDao:
         try: 
             sqlSet = "SELECT * FROM hascontainer WHERE "  #email/email+qrcode/email+status/qrcode/qrcode+status/ or all three
             for key in relDict:
-                if relDict[key] is not None:
+                if relDict[key] is not None and key != "auth_token":
                     sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' and "
-                    #
             sqlSet = sqlSet[:-4]
             myresult = self.handleSQL(sqlSet,True,None)
             if(myresult[0] == False):
@@ -130,7 +109,8 @@ class ContainerDao:
                 "email": myresult[0],
                 "qrcode": myresult[1],
                 "status": myresult[2],
-                "statusUpdateTime": str(myresult[3])}
+                "statusUpdateTime": str(myresult[3]),
+                "location_qrcode":myresult[4]}
             return True, relDict
         except Exception as e:
             logging.error("Error in getRelationship")
@@ -163,8 +143,12 @@ class ContainerDao:
             #extract newest entry time
             email = relDict["email"]
             qrcode = relDict["qrcode"]
+            status = relDict["status"]
+            relDict["statusUpdateTime"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            location = relDict["location_qrcode"]
             #THIS DOES NOT WORK
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "'" +"ORDER BY statusUpdateTime DESC"
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status <> 'Verified Return'" +"ORDER BY statusUpdateTime DESC"
+            #print(sql)
             myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
             if(myresult[0] == False):
                 return myresult
@@ -173,12 +157,13 @@ class ContainerDao:
             else:
                 statusUpdateTime = str(myresult[1][3])
             sqlSet = "UPDATE hascontainer SET "
-            sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "'"
+            sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "' and status <> 'Verified Return'"
             for key in relDict:
-                    if relDict[key] is not None:
+                    if relDict[key] is not None and key!="auth_token":
                         sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' , "
             sqlSet = sqlSet[:-2]
             sqlSet += sqlWhere
+            #print(sqlSet)
             myresult = self.handleSQL(sqlSet,False,None)
             if(myresult[0] == False):
                 return myresult
@@ -186,7 +171,7 @@ class ContainerDao:
         except Exception as e:
             logging.error("Error in updateRelationship")
             logging.error(str(e))
-            return self.handleError(e)  
+            return self.handleError(e)
 
     def selectAllByEmail(self,emailDict):
         try:
@@ -202,7 +187,8 @@ class ContainerDao:
                 "email": x[0],
                 "qrcode": x[1],
                 "status": x[2],
-                "statusUpdateTime": str(x[3])}
+                "statusUpdateTime": str(x[3]),
+                "location_qrcode": x[4]}
                 temp.append(relDict)
             return True, temp
         except Exception as e:
@@ -225,55 +211,11 @@ class ContainerDao:
                 "email": x[0],
                 "qrcode": x[1],
                 "status": x[2],
-                "statusUpdateTime": str(x[3])}
+                "statusUpdateTime": str(x[3]),
+                "location_qrcode": x[4]}
                 temp.append(relDict)
             return True, temp
         except Exception as e:
             logging.error("Error in selectAllByEmail")
             logging.error(str(e))
             return self.handleError(e)
-
-
-    def containerExists(self, qrcodeDict):
-        qrcode = qrcodeDict["qrcode"]
-        result = self.getContainer(qrcodeDict)[1]
-        if len(result["qrcode"]) > 1:
-            return True, ""
-        else:
-            contDict={"qrcode": qrcode}
-            return self.addContainer(contDict)
-
-                 #  command , boolean for if you get something back, data to send to sql
-    def handleSQL(self, sql, isReturn, package):
-        try:
-            mycursor = self.mydb.cursor()
-            mycursor = self.mydb.cursor(buffered=True)
-            if package is None:
-                mycursor.execute(sql)
-            else:
-                mycursor.execute(sql, package)
-            if(isReturn == True):
-                temp = mycursor.fetchall()
-                mycursor.close()
-                return True, temp
-            else:
-                self.mydb.commit()
-                mycursor.close()
-                return True, ""
-        except Exception as e:
-            logging.error("Error in handleSQL")
-            logging.error(str(e))
-            return self.handleError(e, mycursor)
-
-            
-    def handleError(self,error, cursor=None):
-        if cursor is not None:
-            cursor.close()
-        error = str(error)
-        if "Duplicate entry" in error:
-            return False,"Duplicate Entry"
-        if "Can't connect to MySQL server" in error:
-            self.reconnectSql()
-            return False, "Could not connect to database please try again"
-        if "list index out of range" in error:
-            return False, "Entry could not be found"

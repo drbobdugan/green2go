@@ -5,6 +5,7 @@ import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_strings.dart';
 import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
@@ -66,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
       resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: const Text('Choose2Reuse'),
+        title: Text(ReuseStrings.appName()),
       ),
       body: GestureDetector(
           onTap: () {
@@ -82,12 +83,12 @@ class _SignUpPageState extends State<SignUpPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 ReuseLabel(
-                  text: 'Sign Up',
+                  text: ReuseStrings.signUpPageTitle(),
                   textStyle: CustomTheme.primaryLabelStyle(),
                   bottom: 20.0,
                 ),
                 ReuseTextField(
-                    text: 'First Name',
+                    text: ReuseStrings.firstNameField(),
                     node: firstNameNode,
                     onChanged: (String value) {
                       setState(() {
@@ -101,7 +102,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, firstNameNode, middleNameNode);
                     }),
                 ReuseTextField(
-                    text: 'Middle Name',
+                    text: ReuseStrings.middleNameField(),
                     node: middleNameNode,
                     onChanged: (String value) {
                       setState(() {
@@ -115,7 +116,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, middleNameNode, lastNameNode);
                     }),
                 ReuseTextField(
-                    text: 'Last Name',
+                    text: ReuseStrings.lastNameField(),
                     node: lastNameNode,
                     onChanged: (String value) {
                       setState(() {
@@ -129,7 +130,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, lastNameNode, emailNode);
                     }),
                 ReuseTextField(
-                    text: 'Email',
+                    text: ReuseStrings.emailField(),
                     node: emailNode,
                     onChanged: (String value) {
                       setState(() {
@@ -143,7 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, emailNode, phoneNumNode);
                     }),
                 ReuseTextField(
-                    text: 'Phone Number',
+                    text: ReuseStrings.phoneNumberField(),
                     node: phoneNumNode,
                     onChanged: (String value) {
                       setState(() {
@@ -159,7 +160,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, phoneNumNode, classYearNode);
                     }),
                 ReuseTextField(
-                    text: 'Class Year',
+                    text: ReuseStrings.classYearField(),
                     node: classYearNode,
                     onChanged: (String value) {
                       setState(() {
@@ -172,7 +173,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, classYearNode, passwordNode);
                     }),
                 ReuseTextField(
-                    text: 'Password',
+                    text: ReuseStrings.passwordField(),
                     node: passwordNode,
                     obscureText: true,
                     onChanged: (String value) {
@@ -188,7 +189,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           context, passwordNode, confirmPasswordNode);
                     }),
                 ReuseTextField(
-                    text: 'Confirm Password',
+                    text: ReuseStrings.confirmPasswordField(),
                     node: confirmPasswordNode,
                     obscureText: true,
                     onChanged: (String value) {
@@ -203,13 +204,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, confirmPasswordNode, null);
                     }),
                 ReuseButton(
-                  text: 'Sign Up',
+                  text: ReuseStrings.signUpButtonText(),
                   onPressed: () => handleSignUp(context),
                   buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),
                 ReuseButton(
-                  text: 'Have a verification code? Enter it here!',
+                  text: ReuseStrings.goToValidationPageText(),
                   onPressed: () => handleValidation(context),
                   buttonType: 'text',
                 ),

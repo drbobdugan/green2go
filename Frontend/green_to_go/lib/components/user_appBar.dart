@@ -28,9 +28,9 @@ const Map<AppBarItems, String> labels = <AppBarItems, String>{
 };
 
 class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
-  const UserAppBar({Key key, this.user}) : super(key: key);
+  const UserAppBar({Key key, this.userAuth}) : super(key: key);
 
-  final StudentDetails user;
+  final StudentAuth userAuth;
 
   @override
   Size get preferredSize => const Size.fromHeight(50);
@@ -42,13 +42,13 @@ class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
 class _UserAppBarState extends State<UserAppBar> {
   void handleSelection(String choice) {
     if (choice == labels[AppBarItems.Home]) {
-      NavigationService(context: context).goHome(widget.user);
+      NavigationService(context: context).goHome(widget.userAuth);
     } else if (choice == labels[AppBarItems.Checkout]) {
       NavigationService(context: context)
-          .goToPage(C2RPages.checkoutContainer, widget.user);
+          .goToPage(C2RPages.checkoutContainer, widget.userAuth);
     } else if (choice == labels[AppBarItems.Return]) {
       NavigationService(context: context)
-          .goToPage(C2RPages.returnContainer, widget.user);
+          .goToPage(C2RPages.returnContainer, widget.userAuth);
     } else if (choice == labels[AppBarItems.Logout]) {
       NavigationService(context: context).logout();
     }

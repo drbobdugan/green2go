@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-//will make StatefulWidget with container data later
 class ContainerCounts extends StatelessWidget {
   const ContainerCounts({
     Key key,

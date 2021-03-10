@@ -7,6 +7,7 @@ import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
+import '../components/reuse_strings.dart';
 import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
@@ -66,8 +67,8 @@ class _LoginPageState extends State<LoginPage> {
           prefs.setString('password', user.password);
         }
 
-        NavigationService(context: context).goHome(StudentDetails(
-            null, StudentAuth(response.data as Map<String, dynamic>)));
+        NavigationService(context: context)
+            .goHome(StudentAuth(response.data as Map<String, dynamic>));
       } else {
         setState(() {
           errorMessage = response.message;
@@ -100,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: const Text('Choose2Reuse'),
+        title: Text(ReuseStrings.appName()),
       ),
       body: Form(
         child: SingleChildScrollView(
@@ -127,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     ReuseTextField(
-                        text: 'Email',
+                        text: ReuseStrings.emailField(),
                         node: emailNode,
                         onChanged: (String value) {
                           setState(() {
@@ -141,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                           fieldNextFocus(context, emailNode, passwordNode);
                         }),
                     ReuseTextField(
-                        text: 'Password',
+                        text: ReuseStrings.passwordField(),
                         obscureText: true,
                         onChanged: (String value) {
                           setState(() {
@@ -154,37 +155,40 @@ class _LoginPageState extends State<LoginPage> {
                           fieldNextFocus(context, passwordNode, null);
                         }),
                     ReuseButton(
-                      text: 'Log In',
+                      text: ReuseStrings.loginButtonText(),
                       onPressed: () => handleLogIn(context),
                       buttonStyle: CustomTheme.primaryButtonStyle(),
                       top: 10.0,
                     ),
                     Align(
-                        alignment: Alignment.bottomRight,
-                        child: SizedBox(
-                            width: 155.0,
-                            height: 40.0,
-                            child: Row(children: <Widget>[
-                              ReuseLabel(
-                                text: 'Remember me',
-                                textStyle: CustomTheme.secondaryLabelStyle(),
-                                right: 5.0,
-                              ),
-                              Switch(
-                                value: rememberMe,
-                                onChanged: (bool value) {
-                                  setState(() {
-                                    rememberMe = value;
-                                  });
-                                },
-                                activeTrackColor:
-                                    CustomTheme.getColor('attention'),
-                                activeColor:
-                                    CustomTheme.getColor('darkPrimary'),
-                              ),
-                            ]))),
+                      alignment: Alignment.bottomRight,
+                      child: SizedBox(
+                        width: 155.0,
+                        height: 40.0,
+                        child: Row(
+                          children: <Widget>[
+                            ReuseLabel(
+                              text: ReuseStrings.rememberPassword(),
+                              textStyle: CustomTheme.secondaryLabelStyle(),
+                              right: 5.0,
+                            ),
+                            Switch(
+                              value: rememberMe,
+                              onChanged: (bool value) {
+                                setState(() {
+                                  rememberMe = value;
+                                });
+                              },
+                              activeTrackColor:
+                                  CustomTheme.getColor('attention'),
+                              activeColor: CustomTheme.getColor('darkPrimary'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                     ReuseButton(
-                      text: 'Need an account? Sign up here!',
+                      text: ReuseStrings.goToSignUpPageText(),
                       onPressed: () => handleSignUp(context),
                       buttonType: 'text',
                     ),

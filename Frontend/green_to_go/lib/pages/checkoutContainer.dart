@@ -5,6 +5,7 @@ import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_strings.dart';
 import '../components/user_appBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
@@ -12,12 +13,13 @@ import '../services/student_service.dart';
 import '../static/student.dart';
 
 class CheckoutContainerPage extends StatefulWidget {
-  const CheckoutContainerPage({Key key, @required this.user}) : super(key: key);
+  const CheckoutContainerPage({Key key, @required this.userAuth})
+      : super(key: key);
 
-  final StudentDetails user;
+  final StudentAuth userAuth;
 
   Future<APIResponse> onScanQR(String qrCode) async {
-    return await StudentService.addContainer(user, qrCode);
+    return await StudentService.checkoutContainer(userAuth, qrCode);
   }
 
   @override
@@ -31,7 +33,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: UserAppBar(user: widget.user),
+      appBar: UserAppBar(userAuth: widget.userAuth),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Column(
@@ -39,12 +41,12 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ReuseLabel(
-              text: 'Please scan the QR code on the container:',
+              text: ReuseStrings.scanContainerMessage(),
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 10.0,
             ),
             ReuseButton(
-              text: 'Use Camera',
+              text: ReuseStrings.useCamera(),
               onPressed: () => scanQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
@@ -58,11 +60,11 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
 
   Future<void> scanQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
-            '#FF2E856E', 'Cancel', true, ScanMode.QR)
+            '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR)
         .then((String code) {
       widget.onScanQR(code).then((APIResponse response) {
         if (response.success) {
-          NavigationService(context: context).goHome(widget.user);
+          NavigationService(context: context).goHome(widget.userAuth);
         } else {
           setState(() {
             errorMessage = response.message;

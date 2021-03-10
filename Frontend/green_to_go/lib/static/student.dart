@@ -15,24 +15,24 @@ class StudentAuth {
 }
 
 class StudentDetails {
-  StudentDetails(Map<String, dynamic> value, this.auth) {
-    if (value != null) {
-      final Map<String, String> user = value['user'] as Map<String, String>;
-      email = user['email'];
-      password = user['password'];
-      firstName = user['firstName'];
-      middleName = user['middleName'];
-      lastName = user['lastName'];
-      classYear = user['classYear'];
-      phoneNum = user['phoneNum'];
-      role = user['role'];
+  StudentDetails(this.auth);
 
-      final List<Map<String, String>> myContainers =
-          value['containers'] as List<Map<String, String>>;
-      for (final Map<String, String> element in myContainers) {
-        containers.add(Container(element));
-      }
-    }
+  void setDetails(Map<String, dynamic> details) {
+    final Map<String, String> user = details['user'] as Map<String, String>;
+    email = user['email'];
+    password = user['password'];
+    firstName = user['firstName'];
+    middleName = user['middleName'];
+    lastName = user['lastName'];
+    classYear = user['classYear'];
+    phoneNum = user['phoneNum'];
+    role = user['role'];
+  }
+
+  void setContainers(List<dynamic> myContainers) {
+    print(myContainers);
+    containers =
+        myContainers.map((dynamic item) => ReusableContainer(item)).toList();
   }
 
   String email;
@@ -44,5 +44,5 @@ class StudentDetails {
   String phoneNum;
   String role;
   StudentAuth auth;
-  List<Container> containers;
+  List<ReusableContainer> containers;
 }
