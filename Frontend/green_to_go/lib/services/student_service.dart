@@ -37,7 +37,7 @@ class StudentService {
         jsonEncode(<String, String>{
           'email': auth.email,
           'qrcode': qrCode,
-          'status': 'Unverified return',
+          'status': 'Pending Return',
           'auth_token': auth.token,
           'location_qrcode': locationqrCode
         }));
