@@ -17,10 +17,10 @@ class ListItem extends StatelessWidget {
     return Row(
       children: <Widget>[
         Container(
-            padding: const EdgeInsets.only(left: 25),
+            //padding: const EdgeInsets.only(left: 10),
             alignment: Alignment.centerLeft,
             width: MediaQuery.of(context).size.width / 2.5,
-            height: 60,
+            height: 65,
             decoration: BoxDecoration(
                 color: CustomTheme.getColor(colorID),
                 borderRadius: const BorderRadius.only(
@@ -40,7 +40,7 @@ class ListItem extends StatelessWidget {
         Container(
             alignment: Alignment.centerRight,
             width: MediaQuery.of(context).size.width / 2,
-            height: 60,
+            height: 65,
             child: Text(text2,
                 textAlign: TextAlign.center,
                 style: CustomTheme.rightListStyle()))

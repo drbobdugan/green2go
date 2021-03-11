@@ -114,8 +114,9 @@ class _HomePageState extends State<HomePage> {
           child: ListItem(
             text1: '${container.status}',
             text3: '#${container.qrCode}',
-            text2:
-                '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
+            text2: '${container.status}' == 'Checked out'
+                ? '${formatDate(container.statusUpdateTime)}'
+                : '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
             colorID: container.status.contains('Checked')
                 ? 'attention'
                 : (container.status.contains('Pending')

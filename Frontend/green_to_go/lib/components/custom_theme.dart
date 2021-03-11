@@ -64,7 +64,7 @@ class CustomTheme {
         color: const Color(0xffffffff));
   }
 
-  static TextStyle leftIDStyle({double fontSize = 14.0, bool isBold = false}) {
+  static TextStyle leftIDStyle({double fontSize = 12.0, bool isBold = false}) {
     return TextStyle(
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
         fontSize: fontSize,
