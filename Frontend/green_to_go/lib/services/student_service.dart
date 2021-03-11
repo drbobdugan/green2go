@@ -13,7 +13,7 @@ class StudentService {
           'qrcode': qrCode,
           'status': 'Checked out',
           'auth_token': auth.token,
-          'location_qr': 'None'
+          'location_qrcode': 'None'
         }));
     return resp;
   }
@@ -39,7 +39,7 @@ class StudentService {
           'qrcode': qrCode,
           'status': 'Unverified return',
           'auth_token': auth.token,
-          'location_qr': locationqrCode
+          'location_qrcode': locationqrCode
         }));
     return resp;
   }
