@@ -62,11 +62,7 @@ class unitTestAuthDao(unittest.TestCase):
         rc, getAuth = dao.getAuth(auth)
 
         self.assertTrue(rc)
-        #print()
-        #print("auth[email] =", auth["email"])
-        #print("getAuth[email] =", getAuth["email"]) # something wrong with getAuth["email"]
-        #print()
-        #self.assertEqual(auth["email"],getAuth["email"])
+        self.assertEqual(auth["email"],getAuth["email"])
     
     def testSelectAuthDoesntExist(self):
         """

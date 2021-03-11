@@ -40,6 +40,7 @@ class AuthDao(dao):
             logging.debug(myresult)
             myresult = myresult[1][0]
             res={
+                "email": myresult[0],
                 "auth_token": myresult[1],
                 "refresh_token": myresult[2],
                 "expires_at": myresult[3].strftime('%Y-%m-%d %H:%M:%S'),
