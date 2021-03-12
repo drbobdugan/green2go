@@ -14,6 +14,16 @@ class UserService {
     return resp;
   }
 
+  static Future<APIResponse> resendCode(String email) async {
+    final APIResponse resp = await API.postResponse(
+        'resendAuthCode',
+        jsonEncode(<String, String>{
+          'email': email,
+          'auth_token': 'None',
+        }));
+    return resp;
+  }
+
   static Future<APIResponse> signUp(NewUser user) async {
     final APIResponse resp = await API.postResponse(
         'addUser',

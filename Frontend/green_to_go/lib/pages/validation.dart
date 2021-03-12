@@ -26,6 +26,10 @@ class ValidationPage extends StatefulWidget {
     return false;
   }
 
+  Future<APIResponse> onResend(String email) async {
+    return await UserService.resendCode(email);
+  }
+
   NewUser getUser() => user;
 
   @override
@@ -63,7 +67,18 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   void handleNewCode(BuildContext context) {
-    Navigator.pop(context);
+    //Navigator.pop(context);
+    widget.onResend(email);
+    /*.then((APIResponse response) {
+        if (response.success) {
+          NavigationService(context: context)
+              .goHome(StudentAuth(response.data as Map<String, dynamic>));
+        } else {
+          setState(() {
+            errorMessage = response.message;
+          });
+        }
+      });*/
   }
 
   @override
