@@ -26,16 +26,19 @@ class ListItem extends StatelessWidget {
                 borderRadius: const BorderRadius.only(
                     topRight: Radius.circular(25),
                     bottomRight: Radius.circular(25))),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(text1,
-                    textAlign: TextAlign.center,
-                    style: CustomTheme.leftListStyle()),
-                Text(text3,
-                    textAlign: TextAlign.center,
-                    style: CustomTheme.leftIDStyle())
-              ],
+            child: Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(text1,
+                      textAlign: TextAlign.center,
+                      style: CustomTheme.leftListStyle()),
+                  Text(text3,
+                      textAlign: TextAlign.center,
+                      style: CustomTheme.leftIDStyle())
+                ],
+              ),
             )),
         Container(
             alignment: Alignment.centerRight,

@@ -45,8 +45,6 @@ flutter:
     - assets/images/choose2reuse_logo.jpg
     - assets/images/choose2reuse_icon.jpg
     - assets/images/c2r_reuseIcon_primary.jpg
-    - assets/images/c2r_reuseIcon_darkPrimary.jpg
-    - assets/images/c2r_reuseIcon_attention.jpg
     - assets/images/c2r_loading.gif
     - assets/images/sample_qr_code.png
 
