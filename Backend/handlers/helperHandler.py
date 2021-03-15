@@ -18,6 +18,14 @@ class HelperHandler:
     def id_generator(self, size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
         return ''.join(random.choice(chars) for _ in range(size))
 
+    def genAuthcode(self):
+        authcode=""
+        for i in range (0,6):
+            authcode= authcode + random.choice(string.digits)
+        return authcode
+            
+
+
     #returns [true|false, ""|exception]
     def handleRequestAndAuth(self, request, keys, required=None ,t="json", formats=None, hasAuth=True):
         # format dictionary from request correctly

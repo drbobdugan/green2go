@@ -34,7 +34,7 @@ class UserHandler:
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
         formats = {'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)"}
         #generate authCode
-        authCode=self.helperHandler.id_generator()
+        authCode=self.helperHandler.genAuthcode()
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
             dictOfUserAttrib['authCode'] = authCode
