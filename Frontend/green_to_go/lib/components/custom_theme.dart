@@ -1,23 +1,23 @@
 import 'package:flutter/material.dart';
 
 const Map<int, Color> green = <int, Color>{
-  50: Color.fromRGBO(70, 154, 45, .1),
-  100: Color.fromRGBO(70, 154, 45, .2),
-  200: Color.fromRGBO(70, 154, 45, .3),
-  300: Color.fromRGBO(70, 154, 45, .4),
-  400: Color.fromRGBO(70, 154, 45, .5),
-  500: Color.fromRGBO(70, 154, 45, .6),
-  600: Color.fromRGBO(70, 154, 45, .7),
-  700: Color.fromRGBO(70, 154, 45, .8),
-  800: Color.fromRGBO(70, 154, 45, .9),
-  900: Color.fromRGBO(70, 154, 45, 1),
+  50: Color.fromRGBO(46, 133, 110, .1),
+  100: Color.fromRGBO(46, 133, 110, .2),
+  200: Color.fromRGBO(46, 133, 110, .3),
+  300: Color.fromRGBO(46, 133, 110, .4),
+  400: Color.fromRGBO(46, 133, 110, .5),
+  500: Color.fromRGBO(46, 133, 110, .6),
+  600: Color.fromRGBO(46, 133, 110, .7),
+  700: Color.fromRGBO(46, 133, 110, .8),
+  800: Color.fromRGBO(46, 133, 110, .9),
+  900: Color.fromRGBO(46, 133, 110, 1),
 };
 
 Map<String, Color> colors = <String, Color>{
-  'primary': const Color(0xFF469A2D),
-  'darkPrimary': const Color(0xFF469A2D),
-  'attention': const Color(0xFF469A2D),
-  'light': const Color(0xFF469A2D),
+  'primary': const Color(0xFF2E856E),
+  'darkPrimary': const Color(0xFF005E45),
+  'attention': const Color(0xFF6ACB8C),
+  'light': const Color(0xFF53DC98),
   'disabled': Colors.grey,
 };
 
@@ -28,7 +28,7 @@ class CustomTheme {
 
   static ThemeData appTheme() {
     return ThemeData(
-      primarySwatch: const MaterialColor(0xFF469A2D, green),
+      primarySwatch: const MaterialColor(0xFF2E856E, green),
       visualDensity: VisualDensity.adaptivePlatformDensity,
       fontFamily: 'Raleway',
     );
