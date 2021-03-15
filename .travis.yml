@@ -37,7 +37,7 @@ matrix:
       script: 
         - node_modules/.bin/newman run PostmanTests/Choose2Reuse.postman_environment.json
         - node_modules/.bin/newman run PostmanTests/BackendAPIDoc.postman_collection.json
-        
+        - node_modules/.bin/newman run PostmanTests/UnitTests.postman_collection.json -e PostmanTests/UnitTestingEnvironment.postman_environment.json
       
   
 
