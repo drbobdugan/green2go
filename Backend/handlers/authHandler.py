@@ -59,7 +59,7 @@ class AuthHandler:
         if message is None and "password" in res[1] and dic["password"] != res[1]["password"]:
             message = "Incorrect password."
         if message is not None:
-            return json.dumps({"success" : res[0], "message" : message})
+            return json.dumps({"success" : False, "message" : message})
         # delete previous auth
         try:
             authDao.deleteAuth(dic)
