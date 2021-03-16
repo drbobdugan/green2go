@@ -70,6 +70,17 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.selectAllByEmail(relationship)
+        if res[0] is True:
+            sortDict={
+                'email':relationship['email'],
+                'Checked out':[],
+                'Pending Return':[],
+                'Verified Return':[]
+            }
+            res[1].reverse()
+            for item in res[1]:
+                sortDict[item['status']].append(item)
+            res= (True,sortDict)
         return self.helperHandler.handleResponse(res)
 
     def checkinContainer(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here

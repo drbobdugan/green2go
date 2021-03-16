@@ -184,7 +184,6 @@ class ContainerDao(dao):
             temp = []
             for x in myresult[1]:
                 relDict={
-                "email": x[0],
                 "qrcode": x[1],
                 "status": x[2],
                 "statusUpdateTime": str(x[3]),
