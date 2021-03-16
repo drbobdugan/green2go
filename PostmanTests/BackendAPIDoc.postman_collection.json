@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1dd00882-bfcd-44df-9b74-173bbf39c381",
+		"_postman_id": "7e9e9f7e-4eb3-49a4-9631-24772545a7b5",
 		"name": "BackendAPIDoc",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -14,13 +14,13 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"// ",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -103,6 +103,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status Code is 200-202\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -111,17 +112,7 @@
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});",
 									""
-								],
-								"type": "text/javascript"
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -300,12 +291,12 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"var jsonData = JSON.parse(responseBody).data;",
 									"",
 									"pm.environment.set(\"authCodeLoginTest0\", jsonData[\"authCode\"]);"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -394,6 +385,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -406,8 +398,7 @@
 									"console.log(jsonData);",
 									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
 									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -434,54 +425,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Expired Token",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"zdmdLvqvBXqF\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "46"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 25 Feb 2021 00:07:28 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Expired token\"\n}"
-						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -529,6 +472,54 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"jQDgCmqI0o5SyM73sVKXEwaaR5Wyu6vybxkLKXPZmKtVN\",\n        \"refresh_token\": \"0awWHpzjw5UUY7ztrj0cATlf2FhGKmTlwKUZC8p7ei5VR\",\n        \"expires_at\": \"2021-03-03 00:37:53\"\n    }\n}"
+						},
+						{
+							"name": "Expired Token",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"zdmdLvqvBXqF\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/validateCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"validateCode"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "46"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 25 Feb 2021 00:07:28 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Expired token\"\n}"
 						}
 					]
 				},
@@ -538,6 +529,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -548,10 +540,9 @@
 									"});",
 									"var jsonData = JSON.parse(responseBody).data;",
 									"",
-									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
+									"pm.environment.set(\"authTokenLoginTest0\", jsonData['auth_token']);",
 									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -578,54 +569,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Incorrect Password",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"passwordwrong\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "52"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 16:16:19 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": false, \"message\": \"Incorrect password.\"}"
-						},
 						{
 							"name": "Success",
 							"originalRequest": {
@@ -721,6 +664,54 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": false,\n    \"message\": \"Email not found, please try signing up.\"\n}"
+						},
+						{
+							"name": "Incorrect Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"passwordwrong\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:16:19 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": false, \"message\": \"Incorrect password.\"}"
 						}
 					]
 				},
@@ -730,6 +721,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -744,8 +736,7 @@
 									"    pm.expect(pm.response.text()).to.include(\"test0@students.stonehill.edu\");",
 									"});",
 									""
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -790,15 +781,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{baseUrl}}/getUser?email=test0@students.stonehill.edu&auth_token=qwert",
 									"host": [
@@ -844,19 +826,55 @@
 							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid token\"\n}"
 						},
 						{
+							"name": "User Does Not Exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/getUser?email=test100@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test100@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Feb 2021 16:44:34 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
+						},
+						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{baseUrl}}/getUser?email=test0@students.stonehill.edu&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2",
 									"host": [
@@ -900,60 +918,6 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"email\": \"test0@students.stonehill.edu\",\n        \"password\": \"password\",\n        \"firstName\": \"Test\",\n        \"lastName\": \"User\",\n        \"middleName\": \"\",\n        \"phoneNum\": \"1234567890\",\n        \"role\": \"reus\",\n        \"classYear\": \"2021\",\n        \"authCode\": \"zdmdLvqvBXqF\",\n        \"authTime\": \"2021-02-24 23:49:33\",\n        \"lastLogIn\": \"2021-02-24 23:49:33\"\n    }\n}"
-						},
-						{
-							"name": "User Does Not Exist",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/getUser?email=test100@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test100@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "57"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 26 Feb 2021 16:44:34 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
 						}
 					]
 				},
@@ -981,7 +945,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1055,6 +1019,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1067,8 +1032,7 @@
 									"console.log(jsonData);",
 									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
 									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -1234,6 +1198,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1241,8 +1206,7 @@
 									"pm.test(\"Successful Delete Response\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -1325,6 +1289,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1332,8 +1297,7 @@
 									"pm.test(\"Successful Post Response \", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -1464,6 +1428,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1475,8 +1440,7 @@
 									"pm.test(\"QR Code Matches\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"001\");",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -1521,205 +1485,10 @@
 					},
 					"response": [
 						{
-							"name": "Invalid Token",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/getContainer?qrcode=001&auth_token=12&email=test0@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getContainer"
-									],
-									"query": [
-										{
-											"key": "qrcode",
-											"value": "001"
-										},
-										{
-											"key": "auth_token",
-											"value": "12"
-										},
-										{
-											"key": "email",
-											"value": "test0@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "46"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:50:22 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": false, \"message\": \"Invalid token\"}"
-						},
-						{
-							"name": "No matching user with token",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/getContainer?qrcode=001&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2&email=test0000@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getContainer"
-									],
-									"query": [
-										{
-											"key": "qrcode",
-											"value": "001"
-										},
-										{
-											"key": "auth_token",
-											"value": "IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2"
-										},
-										{
-											"key": "email",
-											"value": "test0000@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "79"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:49:48 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": false, \"message\": \"No matching user with that authorization token\"}"
-						},
-						{
-							"name": "Entry Not Found",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/getContainer?qrcode=0010&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2&email=test0@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getContainer"
-									],
-									"query": [
-										{
-											"key": "qrcode",
-											"value": "0010"
-										},
-										{
-											"key": "auth_token",
-											"value": "IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2"
-										},
-										{
-											"key": "email",
-											"value": "test0@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "57"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:49:06 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": false, \"message\": \"Entry could not be found\"}"
-						},
-						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{baseUrl}}/getContainer?qrcode=001&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2&email=test0@students.stonehill.edu",
 									"host": [
@@ -1767,6 +1536,59 @@
 							],
 							"cookie": [],
 							"body": "{\"success\": true, \"data\": {\"qrcode\": \"001\"}}"
+						},
+						{
+							"name": "Entry Not Found",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/getContainer?qrcode=0010&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2&email=test0@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getContainer"
+									],
+									"query": [
+										{
+											"key": "qrcode",
+											"value": "0010"
+										},
+										{
+											"key": "auth_token",
+											"value": "IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2"
+										},
+										{
+											"key": "email",
+											"value": "test0@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Mar 2021 23:49:06 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
 						}
 					]
 				}
@@ -1781,6 +1603,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1789,8 +1612,7 @@
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});",
 									""
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -1799,7 +1621,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"0001\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"L001\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"0001\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"null\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1921,6 +1743,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -1928,8 +1751,7 @@
 									"pm.test(\"Successful Get Response\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -1974,15 +1796,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{baseUrl}}/getRelationship?email=test@students.stonehill.edu&qrcode=000",
 									"host": [
@@ -2035,6 +1848,7 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -2042,8 +1856,7 @@
 									"pm.test(\"Successful Post Response\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -2082,13 +1895,13 @@
 						{
 							"listen": "test",
 							"script": {
+								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
 									""
-								],
-								"type": "text/javascript"
+								]
 							}
 						}
 					],
@@ -2097,7 +1910,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"0001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"qrcode\" : \"L001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2115,106 +1928,6 @@
 						}
 					},
 					"response": [
-						{
-							"name": "Select Location",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"001\",\n    \"auth_token\" : \"IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/selectLocation",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"selectLocation"
-									]
-								}
-							},
-							"status": "NOT FOUND",
-							"code": 404,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "232"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 03 Mar 2021 01:01:35 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>404 Not Found</title>\n<h1>Not Found</h1>\n<p>The requested URL was not found on the server. If you entered the URL manually please check your spelling and try again.</p>"
-						},
-						{
-							"name": "Select Location",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"0001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/selectLocation",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"selectLocation"
-									]
-								}
-							},
-							"status": "INTERNAL SERVER ERROR",
-							"code": 500,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "X-XSS-Protection",
-									"value": "0"
-								},
-								{
-									"key": "Connection",
-									"value": "close"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 01:45:13 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01 Transitional//EN\"\n  \"http://www.w3.org/TR/html4/loose.dtd\">\n<html>\n    <head>\n        <title>TypeError: 'NoneType' object is not subscriptable // Werkzeug Debugger</title>\n        <link rel=\"stylesheet\" href=\"?__debugger__=yes&amp;cmd=resource&amp;f=style.css\"\n        type=\"text/css\">\n        <!-- We need to make sure this has a favicon so that the debugger does\n         not by accident trigger a request to /favicon.ico which might\n         change the application state. -->\n        <link rel=\"shortcut icon\"\n        href=\"?__debugger__=yes&amp;cmd=resource&amp;f=console.png\">\n        <script src=\"?__debugger__=yes&amp;cmd=resource&amp;f=jquery.js\"></script>\n        <script src=\"?__debugger__=yes&amp;cmd=resource&amp;f=debugger.js\"></script>\n        <script type=\"text/javascript\">\n      var TRACEBACK = 140081106684784,\n          CONSOLE_MODE = false,\n          EVALEX = true,\n          EVALEX_TRUSTED = false,\n          SECRET = \"lXcvPm4uUpDRrekCVTLs\";\n    </script>\n    </head>\n    <body style=\"background-color: #fff\">\n        <div class=\"debugger\">\n            <h1>TypeError</h1>\n            <div class=\"detail\">\n                <p class=\"errormsg\">TypeError: 'NoneType' object is not subscriptable</p>\n            </div>\n            <h2 class=\"traceback\">Traceback \n                <em>(most recent call last)</em>\n            </h2>\n            <div class=\"traceback\">\n                <ul>\n                    <li>\n                        <div class=\"frame\" id=\"frame-140081106684056\">\n                            <h4>File \n                                <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                <em class=\"line\">2464</em>,\n      in\n                                <code class=\"function\">__call__</code>\n                            </h4>\n                            <div class=\"source library\">\n                                <pre class=\"line before\">\n                                    <span class=\"ws\"></span>\n                                </pre>\n                                <pre class=\"line before\">\n                                    <span class=\"ws\">    </span>def __call__(self, environ, start_response):\n                                </pre>\n                                <pre class=\"line before\">\n                                    <span class=\"ws\">        </span>&quot;&quot;&quot;The WSGI server calls the Flask application object as the\n                                </pre>\n                                <pre class=\"line before\">\n                                    <span class=\"ws\">        </span>WSGI application. This calls :meth:`wsgi_app` which can be\n                                </pre>\n                                <pre class=\"line before\">\n                                    <span class=\"ws\">        </span>wrapped to applying middleware.&quot;&quot;&quot;\n                                </pre>\n                                <pre class=\"line current\">\n                                    <span class=\"ws\">        </span>return self.wsgi_app(environ, start_response)\n                                </pre>\n                                <pre class=\"line after\">\n                                    <span class=\"ws\"></span>\n                                </pre>\n                                <pre class=\"line after\">\n                                    <span class=\"ws\">    </span>def __repr__(self):\n                                </pre>\n                                <pre class=\"line after\">\n                                    <span class=\"ws\">        </span>return &quot;&lt;%s %r&gt;&quot; % (self.__class__.__name__, self.name)\n                                </pre>\n                            </div>\n                        </div>\n                        <li>\n                            <div class=\"frame\" id=\"frame-140081106684000\">\n                                <h4>File \n                                    <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                    <em class=\"line\">2450</em>,\n      in\n                                    <code class=\"function\">wsgi_app</code>\n                                </h4>\n                                <div class=\"source library\">\n                                    <pre class=\"line before\">\n                                        <span class=\"ws\">            </span>try:\n                                    </pre>\n                                    <pre class=\"line before\">\n                                        <span class=\"ws\">                </span>ctx.push()\n                                    </pre>\n                                    <pre class=\"line before\">\n                                        <span class=\"ws\">                </span>response = self.full_dispatch_request()\n                                    </pre>\n                                    <pre class=\"line before\">\n                                        <span class=\"ws\">            </span>except Exception as e:\n                                    </pre>\n                                    <pre class=\"line before\">\n                                        <span class=\"ws\">                </span>error = e\n                                    </pre>\n                                    <pre class=\"line current\">\n                                        <span class=\"ws\">                </span>response = self.handle_exception(e)\n                                    </pre>\n                                    <pre class=\"line after\">\n                                        <span class=\"ws\">            </span>except:  # noqa: B001\n                                    </pre>\n                                    <pre class=\"line after\">\n                                        <span class=\"ws\">                </span>error = sys.exc_info()[1]\n                                    </pre>\n                                    <pre class=\"line after\">\n                                        <span class=\"ws\">                </span>raise\n                                    </pre>\n                                    <pre class=\"line after\">\n                                        <span class=\"ws\">            </span>return response(environ, start_response)\n                                    </pre>\n                                    <pre class=\"line after\">\n                                        <span class=\"ws\">        </span>finally:\n                                    </pre>\n                                </div>\n                            </div>\n                            <li>\n                                <div class=\"frame\" id=\"frame-140081106685232\">\n                                    <h4>File \n                                        <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                        <em class=\"line\">1867</em>,\n      in\n                                        <code class=\"function\">handle_exception</code>\n                                    </h4>\n                                    <div class=\"source library\">\n                                        <pre class=\"line before\">\n                                            <span class=\"ws\">            </span># if we want to repropagate the exception, we can attempt to\n                                        </pre>\n                                        <pre class=\"line before\">\n                                            <span class=\"ws\">            </span># raise it with the whole traceback in case we can do that\n                                        </pre>\n                                        <pre class=\"line before\">\n                                            <span class=\"ws\">            </span># (the function was actually called from the except part)\n                                        </pre>\n                                        <pre class=\"line before\">\n                                            <span class=\"ws\">            </span># otherwise, we just raise the error again\n                                        </pre>\n                                        <pre class=\"line before\">\n                                            <span class=\"ws\">            </span>if exc_value is e:\n                                        </pre>\n                                        <pre class=\"line current\">\n                                            <span class=\"ws\">                </span>reraise(exc_type, exc_value, tb)\n                                        </pre>\n                                        <pre class=\"line after\">\n                                            <span class=\"ws\">            </span>else:\n                                        </pre>\n                                        <pre class=\"line after\">\n                                            <span class=\"ws\">                </span>raise e\n                                        </pre>\n                                        <pre class=\"line after\">\n                                            <span class=\"ws\"></span>\n                                        </pre>\n                                        <pre class=\"line after\">\n                                            <span class=\"ws\">        </span>self.log_exception((exc_type, exc_value, tb))\n                                        </pre>\n                                        <pre class=\"line after\">\n                                            <span class=\"ws\">        </span>server_error = InternalServerError()\n                                        </pre>\n                                    </div>\n                                </div>\n                                <li>\n                                    <div class=\"frame\" id=\"frame-140081106684952\">\n                                        <h4>File \n                                            <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/_compat.py\"</cite>,\n      line\n                                            <em class=\"line\">39</em>,\n      in\n                                            <code class=\"function\">reraise</code>\n                                        </h4>\n                                        <div class=\"source library\">\n                                            <pre class=\"line before\">\n                                                <span class=\"ws\">    </span>import collections.abc as collections_abc\n                                            </pre>\n                                            <pre class=\"line before\">\n                                                <span class=\"ws\"></span>\n                                            </pre>\n                                            <pre class=\"line before\">\n                                                <span class=\"ws\">    </span>def reraise(tp, value, tb=None):\n                                            </pre>\n                                            <pre class=\"line before\">\n                                                <span class=\"ws\">        </span>if value.__traceback__ is not tb:\n                                            </pre>\n                                            <pre class=\"line before\">\n                                                <span class=\"ws\">            </span>raise value.with_traceback(tb)\n                                            </pre>\n                                            <pre class=\"line current\">\n                                                <span class=\"ws\">        </span>raise value\n                                            </pre>\n                                            <pre class=\"line after\">\n                                                <span class=\"ws\"></span>\n                                            </pre>\n                                            <pre class=\"line after\">\n                                                <span class=\"ws\">    </span>implements_to_string = _identity\n                                            </pre>\n                                            <pre class=\"line after\">\n                                                <span class=\"ws\"></span>\n                                            </pre>\n                                            <pre class=\"line after\">\n                                                <span class=\"ws\"></span>else:\n                                            </pre>\n                                            <pre class=\"line after\">\n                                                <span class=\"ws\">    </span>iterkeys = lambda d: d.iterkeys()\n                                            </pre>\n                                        </div>\n                                    </div>\n                                    <li>\n                                        <div class=\"frame\" id=\"frame-140081106685064\">\n                                            <h4>File \n                                                <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                                <em class=\"line\">2447</em>,\n      in\n                                                <code class=\"function\">wsgi_app</code>\n                                            </h4>\n                                            <div class=\"source library\">\n                                                <pre class=\"line before\">\n                                                    <span class=\"ws\">        </span>ctx = self.request_context(environ)\n                                                </pre>\n                                                <pre class=\"line before\">\n                                                    <span class=\"ws\">        </span>error = None\n                                                </pre>\n                                                <pre class=\"line before\">\n                                                    <span class=\"ws\">        </span>try:\n                                                </pre>\n                                                <pre class=\"line before\">\n                                                    <span class=\"ws\">            </span>try:\n                                                </pre>\n                                                <pre class=\"line before\">\n                                                    <span class=\"ws\">                </span>ctx.push()\n                                                </pre>\n                                                <pre class=\"line current\">\n                                                    <span class=\"ws\">                </span>response = self.full_dispatch_request()\n                                                </pre>\n                                                <pre class=\"line after\">\n                                                    <span class=\"ws\">            </span>except Exception as e:\n                                                </pre>\n                                                <pre class=\"line after\">\n                                                    <span class=\"ws\">                </span>error = e\n                                                </pre>\n                                                <pre class=\"line after\">\n                                                    <span class=\"ws\">                </span>response = self.handle_exception(e)\n                                                </pre>\n                                                <pre class=\"line after\">\n                                                    <span class=\"ws\">            </span>except:  # noqa: B001\n                                                </pre>\n                                                <pre class=\"line after\">\n                                                    <span class=\"ws\">                </span>error = sys.exc_info()[1]\n                                                </pre>\n                                            </div>\n                                        </div>\n                                        <li>\n                                            <div class=\"frame\" id=\"frame-140081106685176\">\n                                                <h4>File \n                                                    <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                                    <em class=\"line\">1952</em>,\n      in\n                                                    <code class=\"function\">full_dispatch_request</code>\n                                                </h4>\n                                                <div class=\"source library\">\n                                                    <pre class=\"line before\">\n                                                        <span class=\"ws\">            </span>request_started.send(self)\n                                                    </pre>\n                                                    <pre class=\"line before\">\n                                                        <span class=\"ws\">            </span>rv = self.preprocess_request()\n                                                    </pre>\n                                                    <pre class=\"line before\">\n                                                        <span class=\"ws\">            </span>if rv is None:\n                                                    </pre>\n                                                    <pre class=\"line before\">\n                                                        <span class=\"ws\">                </span>rv = self.dispatch_request()\n                                                    </pre>\n                                                    <pre class=\"line before\">\n                                                        <span class=\"ws\">        </span>except Exception as e:\n                                                    </pre>\n                                                    <pre class=\"line current\">\n                                                        <span class=\"ws\">            </span>rv = self.handle_user_exception(e)\n                                                    </pre>\n                                                    <pre class=\"line after\">\n                                                        <span class=\"ws\">        </span>return self.finalize_request(rv)\n                                                    </pre>\n                                                    <pre class=\"line after\">\n                                                        <span class=\"ws\"></span>\n                                                    </pre>\n                                                    <pre class=\"line after\">\n                                                        <span class=\"ws\">    </span>def finalize_request(self, rv, from_error_handler=False):\n                                                    </pre>\n                                                    <pre class=\"line after\">\n                                                        <span class=\"ws\">        </span>&quot;&quot;&quot;Given the return value from a view function this finalizes\n                                                    </pre>\n                                                    <pre class=\"line after\">\n                                                        <span class=\"ws\">        </span>the request by converting it into a response and invoking the\n                                                    </pre>\n                                                </div>\n                                            </div>\n                                            <li>\n                                                <div class=\"frame\" id=\"frame-140081106685344\">\n                                                    <h4>File \n                                                        <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                                        <em class=\"line\">1821</em>,\n      in\n                                                        <code class=\"function\">handle_user_exception</code>\n                                                    </h4>\n                                                    <div class=\"source library\">\n                                                        <pre class=\"line before\">\n                                                            <span class=\"ws\">            </span>return self.handle_http_exception(e)\n                                                        </pre>\n                                                        <pre class=\"line before\">\n                                                            <span class=\"ws\"></span>\n                                                        </pre>\n                                                        <pre class=\"line before\">\n                                                            <span class=\"ws\">        </span>handler = self._find_error_handler(e)\n                                                        </pre>\n                                                        <pre class=\"line before\">\n                                                            <span class=\"ws\"></span>\n                                                        </pre>\n                                                        <pre class=\"line before\">\n                                                            <span class=\"ws\">        </span>if handler is None:\n                                                        </pre>\n                                                        <pre class=\"line current\">\n                                                            <span class=\"ws\">            </span>reraise(exc_type, exc_value, tb)\n                                                        </pre>\n                                                        <pre class=\"line after\">\n                                                            <span class=\"ws\">        </span>return handler(e)\n                                                        </pre>\n                                                        <pre class=\"line after\">\n                                                            <span class=\"ws\"></span>\n                                                        </pre>\n                                                        <pre class=\"line after\">\n                                                            <span class=\"ws\">    </span>def handle_exception(self, e):\n                                                        </pre>\n                                                        <pre class=\"line after\">\n                                                            <span class=\"ws\">        </span>&quot;&quot;&quot;Handle an exception that did not have an error handler\n                                                        </pre>\n                                                        <pre class=\"line after\">\n                                                            <span class=\"ws\">        </span>associated with it, or that was raised from an error handler.\n                                                        </pre>\n                                                    </div>\n                                                </div>\n                                                <li>\n                                                    <div class=\"frame\" id=\"frame-140081106685288\">\n                                                        <h4>File \n                                                            <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/_compat.py\"</cite>,\n      line\n                                                            <em class=\"line\">39</em>,\n      in\n                                                            <code class=\"function\">reraise</code>\n                                                        </h4>\n                                                        <div class=\"source library\">\n                                                            <pre class=\"line before\">\n                                                                <span class=\"ws\">    </span>import collections.abc as collections_abc\n                                                            </pre>\n                                                            <pre class=\"line before\">\n                                                                <span class=\"ws\"></span>\n                                                            </pre>\n                                                            <pre class=\"line before\">\n                                                                <span class=\"ws\">    </span>def reraise(tp, value, tb=None):\n                                                            </pre>\n                                                            <pre class=\"line before\">\n                                                                <span class=\"ws\">        </span>if value.__traceback__ is not tb:\n                                                            </pre>\n                                                            <pre class=\"line before\">\n                                                                <span class=\"ws\">            </span>raise value.with_traceback(tb)\n                                                            </pre>\n                                                            <pre class=\"line current\">\n                                                                <span class=\"ws\">        </span>raise value\n                                                            </pre>\n                                                            <pre class=\"line after\">\n                                                                <span class=\"ws\"></span>\n                                                            </pre>\n                                                            <pre class=\"line after\">\n                                                                <span class=\"ws\">    </span>implements_to_string = _identity\n                                                            </pre>\n                                                            <pre class=\"line after\">\n                                                                <span class=\"ws\"></span>\n                                                            </pre>\n                                                            <pre class=\"line after\">\n                                                                <span class=\"ws\"></span>else:\n                                                            </pre>\n                                                            <pre class=\"line after\">\n                                                                <span class=\"ws\">    </span>iterkeys = lambda d: d.iterkeys()\n                                                            </pre>\n                                                        </div>\n                                                    </div>\n                                                    <li>\n                                                        <div class=\"frame\" id=\"frame-140081106682936\">\n                                                            <h4>File \n                                                                <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                                                <em class=\"line\">1950</em>,\n      in\n                                                                <code class=\"function\">full_dispatch_request</code>\n                                                            </h4>\n                                                            <div class=\"source library\">\n                                                                <pre class=\"line before\">\n                                                                    <span class=\"ws\">        </span>self.try_trigger_before_first_request_functions()\n                                                                </pre>\n                                                                <pre class=\"line before\">\n                                                                    <span class=\"ws\">        </span>try:\n                                                                </pre>\n                                                                <pre class=\"line before\">\n                                                                    <span class=\"ws\">            </span>request_started.send(self)\n                                                                </pre>\n                                                                <pre class=\"line before\">\n                                                                    <span class=\"ws\">            </span>rv = self.preprocess_request()\n                                                                </pre>\n                                                                <pre class=\"line before\">\n                                                                    <span class=\"ws\">            </span>if rv is None:\n                                                                </pre>\n                                                                <pre class=\"line current\">\n                                                                    <span class=\"ws\">                </span>rv = self.dispatch_request()\n                                                                </pre>\n                                                                <pre class=\"line after\">\n                                                                    <span class=\"ws\">        </span>except Exception as e:\n                                                                </pre>\n                                                                <pre class=\"line after\">\n                                                                    <span class=\"ws\">            </span>rv = self.handle_user_exception(e)\n                                                                </pre>\n                                                                <pre class=\"line after\">\n                                                                    <span class=\"ws\">        </span>return self.finalize_request(rv)\n                                                                </pre>\n                                                                <pre class=\"line after\">\n                                                                    <span class=\"ws\"></span>\n                                                                </pre>\n                                                                <pre class=\"line after\">\n                                                                    <span class=\"ws\">    </span>def finalize_request(self, rv, from_error_handler=False):\n                                                                </pre>\n                                                            </div>\n                                                        </div>\n                                                        <li>\n                                                            <div class=\"frame\" id=\"frame-140081106685456\">\n                                                                <h4>File \n                                                                    <cite class=\"filename\">\"/usr/local/lib/python3.6/dist-packages/flask/app.py\"</cite>,\n      line\n                                                                    <em class=\"line\">1936</em>,\n      in\n                                                                    <code class=\"function\">dispatch_request</code>\n                                                                </h4>\n                                                                <div class=\"source library\">\n                                                                    <pre class=\"line before\">\n                                                                        <span class=\"ws\">            </span>getattr(rule, &quot;provide_automatic_options&quot;, False)\n                                                                    </pre>\n                                                                    <pre class=\"line before\">\n                                                                        <span class=\"ws\">            </span>and req.method == &quot;OPTIONS&quot;\n                                                                    </pre>\n                                                                    <pre class=\"line before\">\n                                                                        <span class=\"ws\">        </span>):\n                                                                    </pre>\n                                                                    <pre class=\"line before\">\n                                                                        <span class=\"ws\">            </span>return self.make_default_options_response()\n                                                                    </pre>\n                                                                    <pre class=\"line before\">\n                                                                        <span class=\"ws\">        </span># otherwise dispatch to the handler for that endpoint\n                                                                    </pre>\n                                                                    <pre class=\"line current\">\n                                                                        <span class=\"ws\">        </span>return self.view_functions[rule.endpoint](**req.view_args)\n                                                                    </pre>\n                                                                    <pre class=\"line after\">\n                                                                        <span class=\"ws\"></span>\n                                                                    </pre>\n                                                                    <pre class=\"line after\">\n                                                                        <span class=\"ws\">    </span>def full_dispatch_request(self):\n                                                                    </pre>\n                                                                    <pre class=\"line after\">\n                                                                        <span class=\"ws\">        </span>&quot;&quot;&quot;Dispatches the request and on top of that performs request\n                                                                    </pre>\n                                                                    <pre class=\"line after\">\n                                                                        <span class=\"ws\">        </span>pre and postprocessing as well as HTTP exception catching and\n                                                                    </pre>\n                                                                    <pre class=\"line after\">\n                                                                        <span class=\"ws\">        </span>error handling.\n                                                                    </pre>\n                                                                </div>\n                                                            </div>\n                                                            <li>\n                                                                <div class=\"frame\" id=\"frame-140081106685512\">\n                                                                    <h4>File \n                                                                        <cite class=\"filename\">\"/root/green2go/Backend/runBackend.py\"</cite>,\n      line\n                                                                        <em class=\"line\">468</em>,\n      in\n                                                                        <code class=\"function\">selectLoction</code>\n                                                                    </h4>\n                                                                    <div class=\"source \">\n                                                                        <pre class=\"line before\">\n                                                                            <span class=\"ws\">    </span>authCheck = handleAuth(locationDic)\n                                                                        </pre>\n                                                                        <pre class=\"line before\">\n                                                                            <span class=\"ws\">    </span>if authCheck[0] is False:\n                                                                        </pre>\n                                                                        <pre class=\"line before\">\n                                                                            <span class=\"ws\">        </span>return json.dumps({&quot;success&quot; : False, &quot;message&quot; : authCheck[1]})\n                                                                        </pre>\n                                                                        <pre class=\"line before\">\n                                                                            <span class=\"ws\">    </span>locationDic.pop('auth_token', None)\n                                                                        </pre>\n                                                                        <pre class=\"line before\">\n                                                                            <span class=\"ws\">    </span>res = locationDao.selectLocation(locationDic)  #need to get the method for database team\n                                                                        </pre>\n                                                                        <pre class=\"line current\">\n                                                                            <span class=\"ws\">    </span>if res[0] is True:\n                                                                        </pre>\n                                                                        <pre class=\"line after\">\n                                                                            <span class=\"ws\">        </span>return json.dumps({&quot;success&quot; : res[0], &quot;message&quot; : &quot;&quot;})\n                                                                        </pre>\n                                                                        <pre class=\"line after\">\n                                                                            <span class=\"ws\">    </span>else:\n                                                                        </pre>\n                                                                        <pre class=\"line after\">\n                                                                            <span class=\"ws\">        </span>return json.dumps({&quot;success&quot; : res[0], &quot;message&quot; : res[1]})\n                                                                        </pre>\n                                                                        <pre class=\"line after\">\n                                                                            <span class=\"ws\"></span>\n                                                                        </pre>\n                                                                        <pre class=\"line after\">\n                                                                            <span class=\"ws\"></span>if __name__ == '__main__':\n                                                                        </pre>\n                                                                    </div>\n                                                                </div>\n                                                            </ul>\n                                                            <blockquote>TypeError: 'NoneType' object is not subscriptable</blockquote>\n                                                        </div>\n                                                        <div class=\"plain\">\n                                                            <form action=\"/?__debugger__=yes&amp;cmd=paste\" method=\"post\">\n                                                                <p>\n                                                                    <input type=\"hidden\" name=\"language\" value=\"pytb\">\n      This is the Copy/Paste friendly version of the traceback.  \n                                                                    <span\n      class=\"pastemessage\">You can also paste this traceback into\n      a \n                                                                        <a href=\"https://gist.github.com/\">gist</a>:\n                                                                        <input type=\"submit\" value=\"create paste\">\n                                                                    </span>\n                                                                </p>\n                                                                <textarea cols=\"50\" rows=\"10\" name=\"code\" readonly>Traceback (most recent call last):\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 2464, in __call__\n    return self.wsgi_app(environ, start_response)\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 2450, in wsgi_app\n    response = self.handle_exception(e)\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 1867, in handle_exception\n    reraise(exc_type, exc_value, tb)\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/_compat.py&quot;, line 39, in reraise\n    raise value\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 2447, in wsgi_app\n    response = self.full_dispatch_request()\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 1952, in full_dispatch_request\n    rv = self.handle_user_exception(e)\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 1821, in handle_user_exception\n    reraise(exc_type, exc_value, tb)\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/_compat.py&quot;, line 39, in reraise\n    raise value\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 1950, in full_dispatch_request\n    rv = self.dispatch_request()\n  File &quot;/usr/local/lib/python3.6/dist-packages/flask/app.py&quot;, line 1936, in dispatch_request\n    return self.view_functions[rule.endpoint](**req.view_args)\n  File &quot;/root/green2go/Backend/runBackend.py&quot;, line 468, in selectLoction\n    if res[0] is True:\nTypeError: 'NoneType' object is not subscriptable</textarea>\n                                                            </form>\n                                                        </div>\n                                                        <div class=\"explanation\">\n  The debugger caught an exception in your WSGI application.  You can now\n  look at the traceback which led to the error.  \n                                                            <span class=\"nojavascript\">\n  If you enable JavaScript you can also use additional features such as code\n  execution (if the evalex feature is enabled), automatic pasting of the\n  exceptions and much more.</span>\n                                                        </div>\n                                                        <div class=\"footer\">\n        Brought to you by \n                                                            <strong class=\"arthur\">DON'T PANIC</strong>, your\n        friendly Werkzeug powered traceback interpreter.\n                                                        </div>\n                                                    </div>\n                                                    <div class=\"pin-prompt\">\n                                                        <div class=\"inner\">\n                                                            <h3>Console Locked</h3>\n                                                            <p>\n          The console is locked and needs to be unlocked by entering the PIN.\n          You can find the PIN printed out on the standard output of your\n          shell that runs the server.\n        \n                                                                <form>\n                                                                    <p>PIN:\n            \n                                                                        <input type=text name=pin size=14>\n                                                                        <input type=submit name=btn value=\"Confirm Pin\">\n        \n                                                                    </form>\n                                                                </div>\n                                                            </div>\n                                                        </body>\n                                                    </html>\n                                                    <!--\n\nTraceback (most recent call last):\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 2464, in __call__\n    return self.wsgi_app(environ, start_response)\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 2450, in wsgi_app\n    response = self.handle_exception(e)\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 1867, in handle_exception\n    reraise(exc_type, exc_value, tb)\n  File \"/usr/local/lib/python3.6/dist-packages/flask/_compat.py\", line 39, in reraise\n    raise value\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 2447, in wsgi_app\n    response = self.full_dispatch_request()\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 1952, in full_dispatch_request\n    rv = self.handle_user_exception(e)\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 1821, in handle_user_exception\n    reraise(exc_type, exc_value, tb)\n  File \"/usr/local/lib/python3.6/dist-packages/flask/_compat.py\", line 39, in reraise\n    raise value\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 1950, in full_dispatch_request\n    rv = self.dispatch_request()\n  File \"/usr/local/lib/python3.6/dist-packages/flask/app.py\", line 1936, in dispatch_request\n    return self.view_functions[rule.endpoint](**req.view_args)\n  File \"/root/green2go/Backend/runBackend.py\", line 468, in selectLoction\n    if res[0] is True:\nTypeError: 'NoneType' object is not subscriptable\n\n-->\n"
-						},
 						{
 							"name": "Select Location",
 							"originalRequest": {
@@ -2296,6 +2009,10 @@
 		{
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
+		},
+		{
+			"key": "authTokenLoginTest0",
+			"value": "AsD4mgu8Z7oXiFFrHvjswsm1XaXKAz0lq9cbxNi0EBSOJ"
 		}
 	]
 }
