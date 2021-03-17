@@ -73,9 +73,10 @@ class ContainerHandler:
         res[1].reverse()
         if res[0] is True and isSorted is True:
             sortDict={
-                'Checked out':[],
-                'Pending Return':[],
-                'Verified Return':[]
+                'All' : res[1],
+                'Checked_out':[],
+                'Pending_Return':[],
+                'Verified_Return':[]
             }
             for item in res[1]:
                 sortDict[item['status']].append(item)
