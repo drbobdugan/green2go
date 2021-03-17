@@ -8,6 +8,7 @@ from containerDao import ContainerDao
 from authDao import AuthDao
 from locationDao import LocationDao
 from emailServer import EmailManager
+from pathlib import Path
 
 class HelperHandler:
 
@@ -24,6 +25,18 @@ class HelperHandler:
             authcode= authcode + random.choice(string.digits)
         return authcode
             
+    def extractQRCodesFromFile(self, p="../../qrCodes/qrCodes.txt"):
+        path = Path(__file__).parent / p
+        codesFile = path.open()
+        lines = codesFile.readlines()
+        codesFile.close()
+        codes = []
+        for line in lines:
+            codes.append(line.split(':')[1].strip())
+        return codes
+
+    def getValidLocationCodes(self):
+        return ['L001', 'L002', 'L003', 'L004']
 
 
     #returns [true|false, ""|exception]

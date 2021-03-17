@@ -4,14 +4,10 @@ import logging
 class dao:
     def __init__(self):
         logging.basicConfig(filename='dao.log', level=logging.DEBUG)
-        self.database = "sys"
-        #self.table = "location"
+        self.database = "temp"
 
     def changeDatabase(self,database):
         self.database = database
-    
-    #def changeTable(self,table):
-        #self.table = table
 
     def reconnectSql(self):
         try:

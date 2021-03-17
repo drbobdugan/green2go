@@ -42,6 +42,14 @@ class AuthHandler:
         userDao.updateUser({"email" : dic["email"], "authorized" : 1})
         # return it
         return json.dumps({"success" : res[0], "data" : res[1]})
+
+    def loginErrorHandler(self, res, dic):
+        message = None
+        if message is None and "authorized" in res[1] and res[1]["authorized"] == 0:
+            message = "Email not found, please try signing up."
+        if message is None and "password" in res[1] and dic["password"] != res[1]["password"]:
+            message = "Incorrect password."
+        return message
             
     def login(self, request, userDao, authDao):
         dic = None
@@ -50,16 +58,15 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except:
             return json.dumps({"success" : False, "message" : "Please enter an email and password."})
+        #get user
         res = userDao.getUser(dic)
+        # if not succesful then return why
         if res[0] is False:
             return json.dumps({"success" : res[0], "message" : res[1]})
-        message = None
-        if message is None and "authorized" in res[1] and res[1]["authorized"] == 0:
-            message = "Email not found, please try signing up."
-        if message is None and "password" in res[1] and dic["password"] != res[1]["password"]:
-            message = "Incorrect password."
-        if message is not None:
-            return json.dumps({"success" : False, "message" : message})
+        # handle login errors
+        errorRes = self.loginErrorHandler(res, dic)
+        if errorRes is not None:
+            return json.dumps({"success" : False, "message" : errorRes})
         # delete previous auth
         try:
             authDao.deleteAuth(dic)

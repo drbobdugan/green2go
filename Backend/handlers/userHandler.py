@@ -23,16 +23,23 @@ class UserHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res=userDao.getUser(dictOfUserAttrib)
-        if res[0] is False:
-            return json.dumps({"success" : res[0], "message" : res[1]})
-        response = containerDao.selectAllByEmail(dictOfUserAttrib)
         return self.helperHandler.handleResponse(res)
 
     def addUser(self, request, userDao):
         dictOfUserAttrib = None
         # keys to scape from request
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
-        formats = {'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)"}
+        formats = {
+            'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
+            'password' : "(([a-z|A-Z|0-9])|([^A-Za-z0-9]))+$",
+            'firstName': "[a-z|A-Z]+$",
+            'lastName': "[a-z|A-Z]+$",
+            'middleName': "[a-z|A-Z]*$",
+            'phoneNum': "([0-9]{10}$)|([0-9]{11}$)|([0-9]{12}$)",
+            'role': "(RegularUser$)|(Admin$)",
+            'classYear': "(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)"
+            
+        }
         #generate authCode
         authCode=self.helperHandler.genAuthcode()
         try:
