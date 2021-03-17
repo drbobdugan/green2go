@@ -81,7 +81,7 @@ class ContainerDao(dao):
                          "location_qrcode": oldEmail[4]}
                         self.updateRelationship(relDict)
                     elif (oldEmail[2]=="Checked out"):
-                        return("False", "Container already checked out")
+                        return(False, "Container already checked out")
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode) VALUES (%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,val)  #could break in the future
             if(myresult[0] == False):
