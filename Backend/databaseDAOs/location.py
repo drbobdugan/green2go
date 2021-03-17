@@ -4,6 +4,15 @@ class Location:
         self.location_qrcode = location_qrcode
         self.description = description
         self.lastPickup = lastPickup
-        
-    def toString(self):
-        return self.location_qrcode + " " + self.description + " " + self.lastPickup
+    
+    def toLocationList(self):
+        location = Location(self.location_qrcode, self.description, self.lastPickup)
+        return location
+
+    def toLocationDict(self):
+        row = dict(location_qrcode=self.location_qrcode, description=self.description,lastPickup=self.lastPickup)
+        return row
+
+
+    #add getQRcode
+    

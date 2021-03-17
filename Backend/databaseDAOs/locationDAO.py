@@ -10,43 +10,54 @@ from datetime import datetime
 from DAO import dao
 from location import Location
 
-class LocationDao:
-
-    def rowToLocation(self,row):
-        location = Location(row['location_qrcode'], row['description'], row['lastPickup'])
-        return location
-
-    def locationToRow(self,location):
-        row = dict(location_qrcode=location.location_qrcode, description=location.description,lastPickup=location.lastPickup)
-        return row
+class LocationDao(dao):
 
     def selectAll(self):
-        table = self.mydb['location']
-        rows   = table.all()
-
+        sql = "SELECT * FROM location"
+        myresult = self.handleSQL(sql,True,None)
+        if(myresult[0]==False):
+            return myresult
         result = []
-        for row in rows:
-            result.append(self.rowToLocation(row))
+        for row in myresult[1]:
+            location = Location(row[0],row[1],row[2])
+            result.append(location)
         return result
     
-    def selectByLocationQRcode(self,location_qrcode):
-        row = self.table.find_one(location_qrcode=location_qrcode)
+    def selectByLocationQRcode(self,qrcode):
+        sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
+        myresult = self.handleSQL(sql,True,None)
+        if(myresult[0]==False):
+            return myresult
+        location = Location(myresult[1][0],myresult[1][1],myresult[1][2])
+        return location
 
-        result = None
-        if (row is None):
-            logger.error('Failed to find location with ' + location_qrcode)
-        else:
-            result = self.rowToLocation(row)
-        return result
-        
     def insert(self,location):
-        self.table.insert(self.locationToRow(location))
-        self.mydb.commit()
-
-    def update(self,location):
-        self.table.update(self.locationToRow(location),['location_qrcode'])
-        self.mydb.commit()
+        try:
+            logging.info("Entering insertLocation")
+            result = location.toLocationList()
+            sql = "INSERT INTO location (qrcode, description, lastPickup) VALUES (%s,%s,%s)"
+            myresult = self.handleSQL(sql,False,result)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("insertLocation successful")
+            return True, ""
+        except Exception as e:
+            logging.error("Error in insertLocation")
+            logging.error(str(e))
+            return self.handleError(e)
 
     def delete(self,location):
-        self.table.delete(location_qrcode=location_qrcode)
-        self.mydb.commit()
+        try:
+            if(self.selectByLocationQRcode(location)[0] == False):
+                return False, "Location does not exist"
+            logging.info("Entering deleteLocation")
+            sql = "DELETE FROM location WHERE qrcode = '" + location.getQRcode() + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("deleteLocation successful")
+            return True, ""
+        except Exception as e:
+            logging.error("Error in deleteLocation")
+            logging.error(str(e))
+            return self.handleError(e)
