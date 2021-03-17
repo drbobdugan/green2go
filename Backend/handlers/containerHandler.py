@@ -10,12 +10,24 @@ class ContainerHandler:
 
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
+        self.validCodes = self.helperHandler.extractQRCodesFromFile()
+        self.validLocations = self.helperHandler.getValidLocationCodes()
+
+    def validateQRCode(self, dic):
+        # make sure valid qrcode
+        if dic['qrcode'] not in self.validCodes:
+            raise Exception('That is not a valid QR code.')
+
+    def validateLocation(self, location):
+        if location not in self.validLocations:
+            raise Exception('That is not a valid Location.')
 
     def addContainer(self, request, containerDao):
         containerDic = None
         keys = ["qrcode","auth_token", "email"]
         try:
             containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
+            self.validateQRCode(containerDic)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.addContainer(containerDic)
@@ -57,7 +69,9 @@ class ContainerHandler:
         keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
         try:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
+            self.validateQRCode(userContainer)
         except Exception as e:
+            print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.addRelationship(userContainer)
         return self.helperHandler.handleResponse(res)
@@ -88,6 +102,8 @@ class ContainerHandler:
         keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
+            self.validateQRCode(dictOfUserAttrib)
+            self.validateLocation(dictOfUserAttrib['location_qrcode'])
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.updateRelationship(dictOfUserAttrib)
