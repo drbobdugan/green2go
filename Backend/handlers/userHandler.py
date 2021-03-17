@@ -37,7 +37,7 @@ class UserHandler:
             'password' : "[a-z|A-Z]+$",
             'firstName': "[a-z|A-Z]+$",
             'lastName': "[a-z|A-Z]+$",
-            'middleName': "[a-z|A-Z]+$",
+            'middleName': "[a-z|A-Z]*$",
             'phoneNum': "([0-9]{10}$)|([0-9]{11}$)|([0-9]{12}$)",
             'role': "(RegularUser$)|(Admin$)",
             'classYear': "(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)"
