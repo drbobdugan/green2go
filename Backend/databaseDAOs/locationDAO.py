@@ -5,7 +5,6 @@ logger = logging.getLogger('root')
 logger.setLevel(logging.DEBUG)
 import mysql.connector
 import json
-import dataset
 from datetime import datetime
 from DAO import dao
 from location import Location
@@ -26,17 +25,20 @@ class LocationDao(dao):
     def selectByLocationQRcode(self,qrcode):
         sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
         myresult = self.handleSQL(sql,True,None)
+        print(myresult)
         if(myresult[0]==False):
             return myresult
+        myresult = myresult[1][0]
         location = Location(myresult[1][0],myresult[1][1],myresult[1][2])
         return location
 
-    def insert(self,location):
+    def insertLocation(self,location):
         try:
             logging.info("Entering insertLocation")
             result = location.toLocationList()
-            sql = "INSERT INTO location (qrcode, description, lastPickup) VALUES (%s,%s,%s)"
+            sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
+            #print(myresult)
             if(myresult[0] == False):
                 return myresult
             logging.info("insertLocation successful")
@@ -46,7 +48,7 @@ class LocationDao(dao):
             logging.error(str(e))
             return self.handleError(e)
 
-    def delete(self,location):
+    def deleteLocation(self,location):
         try:
             if(self.selectByLocationQRcode(location)[0] == False):
                 return False, "Location does not exist"
