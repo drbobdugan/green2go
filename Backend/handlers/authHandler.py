@@ -51,7 +51,7 @@ class AuthHandler:
         except:
             return json.dumps({"success" : False, "message" : "Please enter an email and password."})
         res = userDao.getUser(dic)
-        if res[0] is False:
+        if res[0] is True:
             return json.dumps({"success" : res[0], "message" : res[1]})
         message = None
         if message is None and "authorized" in res[1] and res[1]["authorized"] == 0:

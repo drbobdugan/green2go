@@ -23,9 +23,6 @@ class UserHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res=userDao.getUser(dictOfUserAttrib)
-        if res[0] is False:
-            return json.dumps({"success" : res[0], "message" : res[1]})
-        response = containerDao.selectAllByEmail(dictOfUserAttrib)
         return self.helperHandler.handleResponse(res)
 
     def addUser(self, request, userDao):
