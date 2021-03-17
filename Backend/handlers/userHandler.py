@@ -34,7 +34,7 @@ class UserHandler:
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
         formats = {
             'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
-            'password' : "[a-z|A-Z]+$",
+            'password' : "(([a-z|A-Z|0-9])|([^A-Za-z0-9]))+$",
             'firstName': "[a-z|A-Z]+$",
             'lastName': "[a-z|A-Z]+$",
             'middleName': "[a-z|A-Z]*$",
