@@ -23,44 +23,38 @@ class ContainerHandler:
             raise Exception('That is not a valid Location.')
 
     def addContainer(self, request, containerDao):
+        return self.containerCRUDS(request, containerDao, 0)
+  
+    def getContainer(self, request, containerDao):
+        return self.containerCRUDS(request, containerDao, 1)
+
+    def deleteContainer(self, request, containerDao):
+        return self.containerCRUDS(request, containerDao, 2)
+
+    def updateContainer(self, request, containerDao):
+        return self.containerCRUDS(request, containerDao, 3)
+    
+    def containerCRUDS(self, request, containerDao, function):
         containerDic = None
         keys = ["qrcode","auth_token", "email"]
         try:
-            containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-            self.validateQRCode(containerDic)
+            print(request, keys)
+            if function == (1 or 3):
+                containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
+            else:
+                containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
+            if function == 0:
+                self.validateQRCode(containerDic)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = containerDao.addContainer(containerDic)
-        return self.helperHandler.handleResponse(res)
-  
-    def getContainer(self, request, containerDao):
-        containerDic = None
-        keys = ["qrcode", "auth_token", "email"]
-        try:
-            containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=True)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
-        res = containerDao.getContainer(containerDic)
-        return self.helperHandler.handleResponse(res)
-
-    def deleteContainer(self, request, containerDao):
-        containerDic = None
-        keys = ["qrcode", "auth_token", "email"]
-        try:
-            containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
-        res = containerDao.deleteContainer(containerDic)
-        return self.helperHandler.handleResponse(res)
-
-    def updateContainer(self, request, containerDao):
-        containerDic = None
-        keys = ['qrcode', "auth_token", "email"]
-        try:
-            containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=True)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
-        res = containerDao.updateContainer(containerDic)
+        if function == 0:
+            res = containerDao.addContainer(containerDic)
+        elif function == 1:
+            res = containerDao.getContainer(containerDic)
+        elif function == 2:
+            res = containerDao.deleteContainer(containerDic)
+        elif function == 3:
+            res = containerDao.updateContainer(containerDic)
         return self.helperHandler.handleResponse(res)
 
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
