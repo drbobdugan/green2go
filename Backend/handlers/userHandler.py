@@ -32,7 +32,17 @@ class UserHandler:
         dictOfUserAttrib = None
         # keys to scape from request
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
-        formats = {'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)"}
+        formats = {
+            'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
+            'password' : "[a-z|A-Z]+$",
+            'firstName': "[a-z|A-Z]+$",
+            'lastName': "[a-z|A-Z]+$",
+            'middleName': "[a-z|A-Z]+$",
+            'phoneNum': "([0-9]{10}$)|([0-9]{11}$)|([0-9]{12}$)",
+            'role': "(RegularUser$)|(Admin$)",
+            'classYear': "(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)"
+            
+        }
         #generate authCode
         authCode=self.helperHandler.genAuthcode()
         try:
