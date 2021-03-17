@@ -32,14 +32,14 @@ class ContainerHandler:
         return self.containerCRUDS(request, containerDao, 2)
 
     def updateContainer(self, request, containerDao):
-        return self.containerCRUDS(request, containerDao, 3)
+        return self.containerCRUDS(request, containerDao)
     
     def containerCRUDS(self, request, containerDao, function):
         containerDic = None
         keys = ["qrcode","auth_token", "email"]
         try:
             print(request, keys)
-            if function == (1 or 3):
+            if function == 1:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
             else:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
