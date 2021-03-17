@@ -81,7 +81,11 @@ def checkoutContainer():
 
 @app.route('/getContainersForUser', methods = ['GET'])
 def getContainersForUser():
-    return containerHandler.getContainersForUser(request, containerDao)
+    return containerHandler.getContainersForUser(request, containerDao, False)
+
+@app.route('/getSortedContainers', methods = ['GET'])
+def getSortedContainers():
+    return containerHandler.getContainersForUser(request, containerDao, True)
 
 @app.route('/checkinContainer', methods=['POST'])
 def checkinContainer():

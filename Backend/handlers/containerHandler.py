@@ -62,7 +62,7 @@ class ContainerHandler:
         res = containerDao.addRelationship(userContainer)
         return self.helperHandler.handleResponse(res)
 
-    def getContainersForUser(self, request, containerDao):
+    def getContainersForUser(self, request, containerDao, isSorted):
         relationship = None
         keys=['email','auth_token']
         try:
@@ -70,14 +70,13 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = containerDao.selectAllByEmail(relationship)
-        if res[0] is True:
+        res[1].reverse()
+        if res[0] is True and isSorted is True:
             sortDict={
-                'email':relationship['email'],
                 'Checked out':[],
                 'Pending Return':[],
                 'Verified Return':[]
             }
-            res[1].reverse()
             for item in res[1]:
                 sortDict[item['status']].append(item)
             res= (True,sortDict)
