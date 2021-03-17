@@ -26,7 +26,7 @@ class API {
       if (androidInfo.isPhysicalDevice) {
         return remoteURL;
       }
-      return localURL;
+      return remoteURL;
     } catch (error) {
       final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       if (iosInfo.isPhysicalDevice) {
