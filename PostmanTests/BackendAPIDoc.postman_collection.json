@@ -1591,12 +1591,7 @@
 							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
 						}
 					]
-				}
-			]
-		},
-		{
-			"name": "HasContainer Tests",
-			"item": [
+				},
 				{
 					"name": "Checkout Container",
 					"event": [
@@ -1738,7 +1733,7 @@
 					]
 				},
 				{
-					"name": "Get Containers For User",
+					"name": "Get Containers For User Copy",
 					"event": [
 						{
 							"listen": "test",
@@ -1883,6 +1878,111 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Sorted Containers For User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful Get Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/getSortedContainers?email=test0@students.stonehill.edu&auth_token={{authTokenLoginTest0}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"getSortedContainers"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authTokenLoginTest0}}"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "detail about relationship",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/getRelationship?email=test@students.stonehill.edu&qrcode=000",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getRelationship"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test@students.stonehill.edu"
+										},
+										{
+											"key": "qrcode",
+											"value": "000"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 25 Feb 2021 00:14:06 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": true, \"message\": \"\"}"
+						}
+					]
 				}
 			]
 		},
