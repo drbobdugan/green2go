@@ -79,7 +79,7 @@ class ContainerHandler:
                 'Verified_Return':[]
             }
             for item in res[1]:
-                sortDict[item['status']].replace(' ', '_').append(item)
+                sortDict[item['status'].replace(' ', '_')].append(item)
             res= (True,sortDict)
         return self.helperHandler.handleResponse(res)
 
