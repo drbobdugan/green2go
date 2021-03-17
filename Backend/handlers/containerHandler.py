@@ -38,8 +38,7 @@ class ContainerHandler:
         containerDic = None
         keys = ["qrcode","auth_token", "email"]
         try:
-            print(request, keys)
-            if function == 1:
+            if function == (1 or 3):
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
             else:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
