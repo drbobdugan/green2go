@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'components/custom_theme.dart';
-import 'components/reuse_strings.dart';
 import 'pages/checkoutContainer.dart';
+import 'pages/containerList.dart';
 import 'pages/home.dart';
 import 'pages/login.dart';
 import 'pages/returnContainer.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
+import 'static/custom_theme.dart';
+import 'static/strings.dart';
 import 'static/student.dart';
 import 'static/user.dart';
 
@@ -28,7 +29,7 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: ReuseStrings.appName(),
+      title: ReuseStrings.appName,
       theme: CustomTheme.appTheme(),
       home: const LoginPage(),
       onGenerateRoute: (RouteSettings settings) {
@@ -47,6 +48,9 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
                   userAuth: settings.arguments as StudentAuth);
             case '/returnContainer':
               return ReturnContainerPage(
+                  userAuth: settings.arguments as StudentAuth);
+            case '/containerList':
+              return ContainerListPage(
                   userAuth: settings.arguments as StudentAuth);
             default:
               break;

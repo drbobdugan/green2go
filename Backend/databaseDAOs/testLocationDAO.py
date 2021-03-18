@@ -1,9 +1,10 @@
-from locationDAO import LocationDAO
-import location
+from location import Location
+from locationDAO import LocationDao
 dao = LocationDao()
+
 def main():
-    testInsertLocation()
-    testSelectLocation()
+    #testInsertLocation()
+    testSelectByLocationQRcode()
 
 def testInsertLocation():
     #drop off location 1
@@ -12,25 +13,19 @@ def testInsertLocation():
     #drop off location 2
     location = Location("L002","Drop-off bin outside College Center","2021-01-01 01:01:01")
     dao.insertLocation(location)
-    #drop off location 3
-    locDict={
-                "qrcode": "L003",
-                "description": "Drop-off bin outside Shields Science Center",
-                "lastPickup": "2021-01-01 01:01:01"}
-    dao.insertLocation(locDict)
+    #drop off location 4
+    location = Location("L004","Drop-off bin outside Holy Cross Center","2021-01-01 01:01:01")
+    dao.insertLocation(location)
   
 def testSelectByLocationQRcode():
     #location 1
     qrcode = "L001"
-    locDict={"qrcode": qrcode}
-    print(dao.selectLocation(locDict))
+    print(dao.selectByLocationQRcode(qrcode))
     #location 2
     qrcode = "L002"
-    contDict={"qrcode": qrcode}
-    print(dao.selectLocation(locDict))
+    print(dao.selectByLocationQRcode(qrcode))
     #location 3
-    qrcode = "L003"
-    contDict={"qrcode": qrcode}
-    print(dao.selectLocation(locDict))
+    qrcode = "L004"
+    print(dao.selectByLocationQRcode(qrcode))
 
 main()

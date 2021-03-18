@@ -1,15 +1,15 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
-import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_strings.dart';
-import '../components/user_appBar.dart';
+import '../components/reuse_userBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
 import '../services/student_service.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
 
 class CheckoutContainerPage extends StatefulWidget {
@@ -41,12 +41,12 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             ReuseLabel(
-              text: ReuseStrings.scanContainerMessage(),
+              text: ReuseStrings.scanContainerMessage,
               textStyle: CustomTheme.primaryLabelStyle(),
               bottom: 10.0,
             ),
             ReuseButton(
-              text: ReuseStrings.useCamera(),
+              text: ReuseStrings.useCamera,
               onPressed: () => scanQRCode(),
               buttonStyle: CustomTheme.primaryButtonStyle(),
               top: 20.0,
@@ -60,7 +60,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
 
   Future<void> scanQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
-            '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR)
+            '#FF2E856E', ReuseStrings.cancel, true, ScanMode.QR)
         .then((String code) {
       widget.onScanQR(code).then((APIResponse response) {
         if (response.success) {
