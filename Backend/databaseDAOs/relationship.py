@@ -10,7 +10,13 @@ class Relationship:
 
     def toRelationshipList(self):
         relationship = Relationship(self.email,self.qrcode,self.status,self.statusUpdateTime,self.location_qrcode)
-        return relationship
+        relationshipList = []
+        relationshipList.append(relationship.email)
+        relationshipList.append(relationship.qrcode)
+        relationshipList.append(relationship.status)
+        relationshipList.append(relationship.statusUpdateTime)
+        relationshipList.append(relationship.location_qrcode)
+        return relationshipList
 
     def toRelationshipDict(self):
         dictionary = dict(email=self.email,qrcode=self.qrcode,staus=self.status,

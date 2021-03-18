@@ -6,7 +6,9 @@ class Container:
 
     def toContainerList(self):
         container = Container(self.qrcode)
-        return container
+        containerList = []
+        containerList.append(container.qrcode)
+        return containerList
 
     def toContainerDict(self):
         dictionary = dict(qrcode=self.qrcode)

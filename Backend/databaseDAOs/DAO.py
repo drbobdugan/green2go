@@ -3,7 +3,7 @@ from datetime import datetime
 import logging
 class dao:
     def __init__(self):
-        logging.basicConfig(filename='dao.log', level=logging.DEBUG)
+        logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "temp"
 
     def changeDatabase(self,database):
@@ -27,7 +27,7 @@ class dao:
         except:
             logging.error("Failed closing connection: Already disconnected")
 
-    #  command , boolean for if you get something back, data to send to sql
+    #  command, boolean for if you get something back, data to send to sql
     def handleSQL(self, sql, isReturn, package):
         try:
             self.reconnectSql()
@@ -51,7 +51,6 @@ class dao:
             logging.error("Error in handleSQL")
             logging.error(str(e))
             return self.handleError(e, mycursor)
-
           
     def handleError(self,error, cursor=None):
         if cursor is not None:

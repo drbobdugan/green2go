@@ -1,18 +1,18 @@
 import unittest
-from containerDAO import containerDAO
-#import object classes?
+from containerDAO import ContainerDAO
+from container import Container
+from relationship import Relationship
 
 class unitTestContainerDAO(unittest.TestCase):
     """
     Test the containerDAO class methods using the unit test framework.  
     To run these tests:
          python3 -m unittest unitTestContainerDAO.py
-
     """
-   def setUp(self):
-        """
-        Setup a temporary database
-        """
+    def setUp(self):
+       """
+       Setup a temporary database
+       """
 
     def tearDown(self):
         """
@@ -63,7 +63,7 @@ class unitTestContainerDAO(unittest.TestCase):
         c = Container("101010")
         dao = ContainerDAO()
         
-        rc, getContainer = dao.selectContainer(c)
+        rc, selectContainer = dao.selectContainer(c)
         self.assertTrue(rc)
         self.assertEqual(container["qrcode"],getContainer["qrcode"])
     
@@ -80,7 +80,7 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = dao.deleteContainer(c)
         self.assertTrue(rc)
         
-        rc, getContainer = dao.getContainer(c)
+        rc, selectContainer = dao.selectContainer(c)
         self.assertFalse(rc)
     
     # TEST UPDATE CONTAINER
@@ -104,9 +104,9 @@ class unitTestContainerDAO(unittest.TestCase):
     
     # TEST CREATE RELATIONSHIP
     def testInsertRelationshipSmoke(self):
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None, None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
         dao = ContainerDAO()
-        return dao.addRelationship(rel)
+        return dao.insertRelationship(r)
     
     def testInsertRelationship(self):
         """
@@ -137,10 +137,10 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None, None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
         dao = ContainerDAO()
         
-        rc, getRelationship = dao.getRelationship(r)
+        rc, selectRelationship = dao.selectRelationship(r)
         self.assertTrue(rc)
     
     def testSelectRelationshipDoesntExist(self):
@@ -150,14 +150,40 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None, None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
         dao = ContainerDAO()
         
         rc, msg = dao.deleteRelationship(r)
         self.assertTrue(rc)
         
-        rc, getRelationship = dao.getRelationship(r)
+        rc, selectRelationship = dao.selectRelationship(r)
         self.assertFalse(rc)
+
+    def testSelectAllByEmail(self):
+        """
+        Test that we can select all tuples from one user by email 
+        """
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
+        dao = ContainerDAO()
+        
+        rc, selectAllByEmail = dao.selectAllByEmail(r)
+        self.assertTrue(rc)
+
+    def testSelectAllByStatus(self):
+        """
+        Test that we can select all tuples of one status from one user by email 
+        """
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
+        dao = ContainerDAO()
+        
+        rc, testSelectAllByStatus = dao.selectAllByStatus(r)
+        self.assertTrue(rc)
 
     # TEST UPDATE RELATIONSHIP
     def testUpdateRelationship(self):
@@ -167,7 +193,7 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None, None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
         dao = ContainerDAO()
         
         rc, updateRelationship = dao.updateRelationship(r)
@@ -181,10 +207,10 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None, None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
         dao = ContainerDAO()
        
-       rc, deleteRelationship = dao.deleteRelationship(r)
+        rc, deleteRelationship = dao.deleteRelationship(r)
         self.assertTrue(rc)
 
 if __name__ == '__main__':
