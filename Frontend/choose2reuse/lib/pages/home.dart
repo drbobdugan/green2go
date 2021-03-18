@@ -76,8 +76,8 @@ class _HomePageState extends State<HomePage> {
             text: containerLabels[status],
             textStyle: CustomTheme.secondaryLabelStyle(fontSize: 16.0),
             top: 10.0,
-            left: 8.0,
-            right: 8.0,
+            left: 5.0,
+            right: 5.0,
             backgroundWidth: 100,
           )
         ],
@@ -85,16 +85,18 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  ListView getContainerDataLarge() {
-    return ListView.builder(
-      itemCount: user.containers.length,
-      itemBuilder: (BuildContext context, int index) {
-        final ReusableContainer container = user.containers[index];
-        return Padding(
-          padding: const EdgeInsets.only(top: 20.0),
-          child: container.dataRow(),
-        );
-      },
+  Expanded getContainerDataLarge() {
+    return Expanded(
+      child: ListView.builder(
+        itemCount: 5,
+        itemBuilder: (BuildContext context, int index) {
+          final ReusableContainer container = user.containers[index];
+          return Padding(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: container.dataRow(),
+          );
+        },
+      ),
     );
   }
 
@@ -119,32 +121,35 @@ class _HomePageState extends State<HomePage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ReuseLabel(
               text: ReuseStrings.homepageTitle,
               textStyle: CustomTheme.primaryLabelStyle(),
-              top: 20.0,
-              bottom: 20.0,
+              top: 30.0,
+              bottom: 30.0,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 10.0),
+              padding: const EdgeInsets.only(bottom: 15.0),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: getContainerDataSmall(),
               ),
             ),
             Expanded(
-              child: Column(children: <Widget>[
-                SizedBox(height: 450.0, child: getContainerDataLarge()),
-                ReuseButton(
-                  text: ReuseStrings.viewAllButtonText,
-                  onPressed: () => handleViewAll(context),
-                  buttonStyle: CustomTheme.primaryButtonStyle(),
-                )
-              ]),
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    getContainerDataLarge(),
+                    ReuseButton(
+                      text: ReuseStrings.viewAllButtonText,
+                      onPressed: () => handleViewAll(context),
+                      buttonStyle: CustomTheme.primaryButtonStyle(),
+                      bottom: MediaQuery.of(context).size.height * 0.06,
+                    )
+                  ]),
             ),
           ],
         ),
