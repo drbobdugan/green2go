@@ -61,9 +61,6 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, selectByLocationQRcode = dao.selectByLocationQRcode(qrcode)
 
         self.assertTrue(rc)
-        #selectByLocationQRcode(location.location_qrcode)
-        print(rc)
-        print(qrcode, " vs ", selectByLocationQRcode.location_qrcode)
         self.assertEqual(qrcode,selectByLocationQRcode.location_qrcode)
     
     def testselectByLocationQRcodeDoesntExist(self):

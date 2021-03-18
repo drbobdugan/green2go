@@ -4,9 +4,9 @@ dao = LocationDao()
 
 def main():
     #testSelectAll()
-    #testSelectByLocationQRcode()
+    testSelectByLocationQRcode()
     #testInsertLocation()
-    testDeleteLocation()
+    #testDeleteLocation()
     
 def testSelectAll():
     print(dao.selectAll()) #returns all locations as objects

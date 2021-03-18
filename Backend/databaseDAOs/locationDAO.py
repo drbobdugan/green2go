@@ -12,27 +12,36 @@ from location import Location
 class LocationDao(dao):
 
     def selectAll(self):
-        sql = "SELECT * FROM location"
-        myresult = self.handleSQL(sql,True,None)
-        if(myresult[0]==False):
-            return myresult
-        result = []
-        for row in myresult[1]:
-            location = Location(row[0],row[1],row[2])
-            result.append(location)
-        return True, result
-    
+        try:
+            logging.info("Entering selectAll")
+            sql = "SELECT * FROM location"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0]==False):
+                return myresult
+            result = []
+            for row in myresult[1]:
+                location = Location(row[0],row[1],row[2])
+                result.append(location)
+            return True, result
+        except Exception as e:
+            logging.error("Error in selectAll")
+            logging.error(str(e))
+            return self.handleError(e)
+        
     def selectByLocationQRcode(self,qrcode):
-        sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
-        myresult = self.handleSQL(sql,True,None)
-        #print(myresult)
-        if(myresult[0]==False):
-            return myresult
-        #myresult = myresult[1][0]
-        print("in select QR code ", myresult)
-        location = Location(myresult[1][0],myresult[1][1],myresult[1][2])
-        print(location.location_qrcode)
-        return True, location
+        try:
+            logging.info("Entering selectByLocationQRcode")
+            sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0]==False or myresult[1] is None):
+                return myresult
+            myresult2 = myresult[1][0]
+            location = Location(myresult2[0],myresult2[1],myresult2[2])
+            return True, location
+        except Exception as e:
+            logging.error("Error in selectByLocationQRcode")
+            logging.error(str(e))
+            return self.handleError(e)
 
     def insertLocation(self,location):
         try:
@@ -40,7 +49,6 @@ class LocationDao(dao):
             result = location.toLocationList()
             sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
-            #print(myresult)
             if(myresult[0] == False):
                 return myresult
             logging.info("insertLocation successful")
