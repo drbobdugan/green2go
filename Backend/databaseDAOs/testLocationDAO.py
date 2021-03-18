@@ -3,8 +3,11 @@ from locationDAO import LocationDao
 dao = LocationDao()
 
 def main():
-    #testSelectAll()
-    testSelectByLocationQRcode()
+    """
+    Uncomment the desired method to test it
+    """
+    testSelectAll()
+    #testSelectByLocationQRcode()
     #testInsertLocation()
     #testDeleteLocation()
     

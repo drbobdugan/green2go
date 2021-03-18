@@ -1,8 +1,4 @@
 import logging
-FORMAT = "[%(asctime)s%(filename)s:%(lineno)s - %(funcName)s() ] %(message)s"
-logging.basicConfig(filename='output.log',format=FORMAT)
-logger = logging.getLogger('root')
-logger.setLevel(logging.DEBUG)
 import mysql.connector
 import json
 from datetime import datetime
@@ -11,7 +7,7 @@ from location import Location
 
 class LocationDao(dao):
 
-    def selectAll(self):
+    def selectAll(self): #returns --> "true, list of location objects"
         try:
             logging.info("Entering selectAll")
             sql = "SELECT * FROM location"
@@ -28,14 +24,14 @@ class LocationDao(dao):
             logging.error(str(e))
             return self.handleError(e)
         
-    def selectByLocationQRcode(self,qrcode):
+    def selectByLocationQRcode(self,qrcode): #returns --> "true, specific location object"
         try:
             logging.info("Entering selectByLocationQRcode")
             sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
             myresult = self.handleSQL(sql,True,None)
-            if(myresult[0]==False or myresult[1] is None):
-                return myresult
-            myresult2 = myresult[1][0]
+            if(myresult[0]==False):
+                return myresult 
+            myresult2 = myresult[1][0] #myresult looks like (true,[(qrcode,des,lastpickup)])
             location = Location(myresult2[0],myresult2[1],myresult2[2])
             return True, location
         except Exception as e:
@@ -60,7 +56,6 @@ class LocationDao(dao):
 
     def deleteLocation(self,location):
         try:
-            #add a check to see if location does not exist first? --> errors with selectByQRcode
             logging.info("Entering deleteLocation")
             sql = "DELETE FROM location WHERE location_qrcode = '" + location.getQRcode() + "'"
             myresult = self.handleSQL(sql,False,None)

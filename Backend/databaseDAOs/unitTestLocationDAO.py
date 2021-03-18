@@ -75,7 +75,7 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, selectByLocationQRcode = dao.selectByLocationQRcode(qrcode)
 
         self.assertFalse(rc)
-
+        
     def testDeleteLocation(self):
         """
         Test that we can delete a location from the database
