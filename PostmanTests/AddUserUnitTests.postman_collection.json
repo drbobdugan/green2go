@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "77061b38-86c6-4ed2-8f3e-2dea574dd613",
+		"name": "AddUserUnitTests",
+		"description": "Need csv file to run collections",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "New user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200-202\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+							"});",
+							"pm.test(\"Verify: \"+ pm.iterationData.get(\"desiredResult\") + \" request\", function(){",
+							"   pm.expect(pm.response.text()).to.include(pm.iterationData.get(\"desiredResult\"));",
+							"});",
+							"",
+							"pm.test(\"Reason: \"+ pm.iterationData.get(\"reasonForError\") , function () {",
+							"    pm.expect(pm.response.text()).to.include(pm.iterationData.get(\"reasonForError\"));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\",\n    \"firstName\" : \"{{firstName}}\",\n    \"lastName\" : \"{{lastName}}\",\n    \"middleName\" : \"{{middleName}}\",\n    \"phoneNum\" : \"{{phoneNum}}\",\n    \"role\" : \"{{role}}\",\n    \"classYear\" : \"{{classYear}}\"\n}\n    \n    \n    \n    \n    \n    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/addUser",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"addUser"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete user account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"{{email}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/secretDeleteUser",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"secretDeleteUser"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://198.199.77.174:5000"
+		},
+		{
+			"key": "localHost",
+			"value": "localhost:5000"
+		}
+	]
+}

@@ -27,8 +27,10 @@ class AuthHandler:
         authtime=res[1]["authTime"]
         authtimets=datetime.strptime(authtime, f)
         timepassed=datetime.now()-authtimets
-        if (dic['code']!=codefromtable or timepassed.total_seconds()>=300):
+        if (dic['code']!=codefromtable):
             return json.dumps({"success" : False, "message" : "Invalid verification code."})
+        elif(timepassed.total_seconds()>=300):
+            return json.dumps({"success" : False, "message" : "Expired verification code"})
         # delete previous auth
         try:
             authDao.deleteAuth(res[1])

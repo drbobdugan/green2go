@@ -1,0 +1,5 @@
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Flutter.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/countdown_flutter.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/device_info.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/flutter_barcode_scanner.framework
+${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/shared_preferences.framework
