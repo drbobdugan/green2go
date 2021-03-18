@@ -91,7 +91,7 @@ class _HomePageState extends State<HomePage> {
       itemBuilder: (BuildContext context, int index) {
         final ReusableContainer container = user.containers[index];
         return Padding(
-          padding: const EdgeInsets.only(top: 30.0),
+          padding: const EdgeInsets.only(top: 20.0),
           child: container.dataRow(),
         );
       },
@@ -99,7 +99,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   void handleViewAll(BuildContext context) {
-    NavigationService(context: context).goToPage(C2RPages.containerList, user);
+    NavigationService(context: context)
+        .goToPage(C2RPages.containerList, widget.userAuth);
   }
 
   @override
@@ -127,19 +128,24 @@ class _HomePageState extends State<HomePage> {
               top: 20.0,
               bottom: 20.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: getContainerDataSmall(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: getContainerDataSmall(),
+              ),
             ),
             Expanded(
-              child: getContainerDataLarge(),
+              child: Column(children: <Widget>[
+                SizedBox(height: 450.0, child: getContainerDataLarge()),
+                ReuseButton(
+                  text: ReuseStrings.viewAllButtonText,
+                  onPressed: () => handleViewAll(context),
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                )
+              ]),
             ),
-            ReuseButton(
-              text: ReuseStrings.goToSignUpPageText,
-              onPressed: () => handleViewAll(context),
-              buttonType: 'text',
-            )
           ],
         ),
       ),

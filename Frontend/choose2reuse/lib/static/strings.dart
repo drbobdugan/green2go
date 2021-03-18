@@ -8,6 +8,7 @@ class ReuseStrings {
   static String scanLocationButtonText = 'Scan location QR code';
   static String loginButtonText = 'Log in';
   static String signUpButtonText = 'Sign Up';
+  static String viewAllButtonText = 'View All';
   static String useCamera = 'Use Camera';
   static String submit = 'Submit';
   static String cancel = 'Cancel';
