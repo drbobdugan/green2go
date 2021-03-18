@@ -20,17 +20,19 @@ class LocationDao(dao):
         for row in myresult[1]:
             location = Location(row[0],row[1],row[2])
             result.append(location)
-        return result
+        return True, result
     
     def selectByLocationQRcode(self,qrcode):
         sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
         myresult = self.handleSQL(sql,True,None)
-        print(myresult)
+        #print(myresult)
         if(myresult[0]==False):
             return myresult
-        myresult = myresult[1][0]
+        #myresult = myresult[1][0]
+        print("in select QR code ", myresult)
         location = Location(myresult[1][0],myresult[1][1],myresult[1][2])
-        return location
+        print(location.location_qrcode)
+        return True, location
 
     def insertLocation(self,location):
         try:
@@ -50,10 +52,9 @@ class LocationDao(dao):
 
     def deleteLocation(self,location):
         try:
-            if(self.selectByLocationQRcode(location)[0] == False):
-                return False, "Location does not exist"
+            #add a check to see if location does not exist first? --> errors with selectByQRcode
             logging.info("Entering deleteLocation")
-            sql = "DELETE FROM location WHERE qrcode = '" + location.getQRcode() + "'"
+            sql = "DELETE FROM location WHERE location_qrcode = '" + location.getQRcode() + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
