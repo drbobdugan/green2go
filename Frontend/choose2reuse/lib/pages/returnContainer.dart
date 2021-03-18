@@ -2,15 +2,15 @@ import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown_flutter/countdown_flutter.dart';
 
-import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_strings.dart';
-import '../components/user_appBar.dart';
+import '../components/reuse_userBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
 import '../services/student_service.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
 
 class ReturnContainerPage extends StatefulWidget {
@@ -51,8 +51,8 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
           children: <Widget>[
             ReuseLabel(
               text: containerScanActive
-                  ? ReuseStrings.scanBeforeTimer()
-                  : ReuseStrings.scanLocationMessage(),
+                  ? ReuseStrings.scanBeforeTimer
+                  : ReuseStrings.scanLocationMessage,
               textStyle: CustomTheme.primaryLabelStyle(),
               isCenter: false,
             ),
@@ -62,7 +62,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
                 onFinish: () {
                   setState(() {
                     containerScanActive = false;
-                    errorMessage = ReuseStrings.timerOutErrorMessage();
+                    errorMessage = ReuseStrings.timerOutErrorMessage;
                   });
                 },
                 builder: (BuildContext ctx, String remaining) {
@@ -80,8 +80,8 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
               ),
             ReuseButton(
               text: containerScanActive
-                  ? ReuseStrings.scanContainerButtonText()
-                  : ReuseStrings.scanLocationButtonText(),
+                  ? ReuseStrings.scanContainerButtonText
+                  : ReuseStrings.scanLocationButtonText,
               onPressed: () => containerScanActive
                   ? scanContainerQRCode()
                   : scanLocationQRCode(),
@@ -97,7 +97,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
 
   Future<void> scanLocationQRCode() async {
     locationQR = await FlutterBarcodeScanner.scanBarcode(
-        '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR);
+        '#FF2E856E', ReuseStrings.cancel, true, ScanMode.QR);
 
     widget.onScanLocationQR(locationQR).then((APIResponse response) {
       if (response.success) {
@@ -116,7 +116,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
 
   Future<void> scanContainerQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
-            '#FF2E856E', ReuseStrings.cancel(), true, ScanMode.QR)
+            '#FF2E856E', ReuseStrings.cancel, true, ScanMode.QR)
         .then((String code) {
       widget.onScanContainerQR(code, locationQR).then((APIResponse response) {
         if (response.success) {

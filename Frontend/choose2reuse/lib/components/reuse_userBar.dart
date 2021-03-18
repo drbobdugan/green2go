@@ -1,7 +1,7 @@
-import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 
-import '../components/custom_theme.dart';
+import '../services/navigation_service.dart';
+import '../static/custom_theme.dart';
 import '../static/student.dart';
 
 enum AppBarItems { Home, Checkout, Return, Logout }

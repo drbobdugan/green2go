@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../components/custom_theme.dart';
+import '../static/custom_theme.dart';
 
 class ReuseErrorMessage extends StatelessWidget {
   const ReuseErrorMessage({Key key, @required this.text}) : super(key: key);

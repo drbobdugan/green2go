@@ -1,16 +1,16 @@
-import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
-import '../components/reuse_strings.dart';
 import '../components/reuse_textField.dart';
 import '../services/api.dart';
+import '../services/navigation_service.dart';
 import '../services/user_service.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
 import '../static/user.dart';
 
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text(ReuseStrings.appName()),
+        title: Text(ReuseStrings.appName),
       ),
       body: Form(
         child: SingleChildScrollView(
@@ -128,7 +128,7 @@ class _LoginPageState extends State<LoginPage> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: <Widget>[
                     ReuseTextField(
-                        text: ReuseStrings.emailField(),
+                        text: ReuseStrings.emailField,
                         node: emailNode,
                         onChanged: (String value) {
                           setState(() {
@@ -142,7 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                           fieldNextFocus(context, emailNode, passwordNode);
                         }),
                     ReuseTextField(
-                        text: ReuseStrings.passwordField(),
+                        text: ReuseStrings.passwordField,
                         obscureText: true,
                         onChanged: (String value) {
                           setState(() {
@@ -155,7 +155,7 @@ class _LoginPageState extends State<LoginPage> {
                           fieldNextFocus(context, passwordNode, null);
                         }),
                     ReuseButton(
-                      text: ReuseStrings.loginButtonText(),
+                      text: ReuseStrings.loginButtonText,
                       onPressed: () => handleLogIn(context),
                       buttonStyle: CustomTheme.primaryButtonStyle(),
                       top: 10.0,
@@ -168,7 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                         child: Row(
                           children: <Widget>[
                             ReuseLabel(
-                              text: ReuseStrings.rememberPassword(),
+                              text: ReuseStrings.rememberPassword,
                               textStyle: CustomTheme.secondaryLabelStyle(),
                               right: 5.0,
                             ),
@@ -188,7 +188,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     ReuseButton(
-                      text: ReuseStrings.goToSignUpPageText(),
+                      text: ReuseStrings.goToSignUpPageText,
                       onPressed: () => handleSignUp(context),
                       buttonType: 'text',
                     ),

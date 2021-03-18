@@ -32,18 +32,16 @@ class ContainerCounts extends StatelessWidget {
                 width: backgroundWidth,
                 decoration: BoxDecoration(
                     image: DecorationImage(
-                        image: AssetImage(backgroundName), fit: BoxFit.cover))),
+                        image: AssetImage(backgroundName), fit: BoxFit.fill))),
             Container(
               alignment: Alignment.center,
               height: backgroundHeight,
               width: backgroundWidth,
-              child: Padding(
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  child: Text(
-                    text,
-                    textAlign: isCenter ? TextAlign.center : TextAlign.left,
-                    style: textStyle,
-                  )),
+              child: Text(
+                text,
+                textAlign: isCenter ? TextAlign.center : TextAlign.left,
+                style: textStyle,
+              ),
             )
           ],
         ));
