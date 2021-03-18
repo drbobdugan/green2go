@@ -71,8 +71,7 @@ class CustomTheme {
         color: const Color(0xffffffff));
   }
 
-  static TextStyle rightListStyle(
-      {double fontSize = 16.0, bool isBold = true}) {
+  static TextStyle rightListStyle({double fontSize = 16, bool isBold = true}) {
     return TextStyle(
       fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
       fontSize: fontSize,
