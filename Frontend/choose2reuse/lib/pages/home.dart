@@ -88,7 +88,7 @@ class _HomePageState extends State<HomePage> {
   Expanded getContainerDataLarge() {
     return Expanded(
       child: ListView.builder(
-        itemCount: 5,
+        itemCount: user.containers.length > 5 ? 5 : user.containers.length,
         itemBuilder: (BuildContext context, int index) {
           final ReusableContainer container = user.containers[index];
           return Padding(

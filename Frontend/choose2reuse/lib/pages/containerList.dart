@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../components/reuse_filterButton.dart';
+import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
 import '../services/student_service.dart';
 import '../static/container.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
 
 class ContainerListPage extends StatefulWidget {
@@ -14,6 +18,10 @@ class ContainerListPage extends StatefulWidget {
 
   Future<APIResponse> onGetContainers() async {
     return await StudentService.getContainers(userAuth);
+  }
+
+  Future<APIResponse> onGetSortedContainers() async {
+    return await StudentService.getSortedContainers(userAuth);
   }
 
   @override
@@ -70,6 +78,21 @@ class _ContainerListPageState extends State<ContainerListPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+              Container(
+                  alignment: Alignment.centerRight,
+                  width: MediaQuery.of(context).size.width * 0.55,
+                  child: ReuseLabel(
+                      text: ReuseStrings.containerListTitle,
+                      textStyle: CustomTheme.primaryLabelStyle(),
+                      top: 30.0,
+                      bottom: 15.0)),
+              Container(
+                  alignment: Alignment.centerRight,
+                  height: MediaQuery.of(context).size.height * 0.12,
+                  width: MediaQuery.of(context).size.width * 0.2,
+                  child: const FilterButton())
+            ]),
             Expanded(
               child: getContainerDataLarge(),
             )
