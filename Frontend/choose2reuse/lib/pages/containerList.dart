@@ -78,20 +78,19 @@ class _ContainerListPageState extends State<ContainerListPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              Container(
-                  alignment: Alignment.centerRight,
-                  width: MediaQuery.of(context).size.width * 0.55,
+            Stack(alignment: Alignment.center, children: <Widget>[
+              SizedBox(
+                  height: 75,
+                  width: MediaQuery.of(context).size.width,
                   child: ReuseLabel(
                       text: ReuseStrings.containerListTitle,
                       textStyle: CustomTheme.primaryLabelStyle(),
                       top: 30.0,
                       bottom: 15.0)),
-              Container(
-                  alignment: Alignment.centerRight,
-                  height: MediaQuery.of(context).size.height * 0.12,
-                  width: MediaQuery.of(context).size.width * 0.2,
-                  child: const FilterButton())
+              const Positioned(
+                  top: 15,
+                  right: 10,
+                  child: FilterButton(height: 50.0, width: 50.0))
             ]),
             Expanded(
               child: getContainerDataLarge(),

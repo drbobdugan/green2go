@@ -18,13 +18,15 @@ const Map<FilterOptions, String> labels = <FilterOptions, String>{
 };
 
 class FilterButton extends StatelessWidget {
-  const FilterButton({
-    Key key,
-  }) : super(key: key);
+  const FilterButton({Key key, this.height, this.width}) : super(key: key);
+
+  final double height, width;
 
   @override
   Widget build(BuildContext context) {
     return Container(
+        height: height,
+        width: width,
         decoration: BoxDecoration(
             color: CustomTheme.getColor('light'),
             borderRadius: const BorderRadius.all(Radius.circular(50))),
