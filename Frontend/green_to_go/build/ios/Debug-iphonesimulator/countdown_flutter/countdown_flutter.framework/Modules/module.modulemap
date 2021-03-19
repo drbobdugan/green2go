@@ -1,6 +1,0 @@
-framework module countdown_flutter {
-  umbrella header "countdown_flutter-umbrella.h"
-
-  export *
-  module * { export * }
-}
