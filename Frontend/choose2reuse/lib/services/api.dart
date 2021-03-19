@@ -19,6 +19,7 @@ class API {
   static Future<String> getURL() async {
     const String remoteURL = '198.199.77.174:5000';
     const String localURL = '127.0.0.1:5000';
+    const String localAndroidURL = '10.0.2.2:5000';
 
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     try {

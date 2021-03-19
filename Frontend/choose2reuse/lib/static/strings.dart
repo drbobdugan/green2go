@@ -16,6 +16,7 @@ class ReuseStrings {
   //page titles
   static String homepageTitle = 'Dashboard';
   static String signUpPageTitle = 'Sign Up';
+  static String containerListTitle = 'Container History';
 
   //field text
   static String emailField = 'Email';

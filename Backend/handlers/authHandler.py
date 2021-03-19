@@ -4,11 +4,14 @@ from containerDao import ContainerDao
 from authDao import AuthDao
 from locationDao import LocationDao
 from datetime import datetime
+from pusher_push_notifications import PushNotifications
 
 class AuthHandler:
 
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
+        self.beams_client = PushNotifications(
+            instance_id='1173615',secret_key='f9ffa4761187b1665c2f')
 
     def validateCode(self, request, userDao, authDao):
         f='%Y-%m-%d %H:%M:%S'
@@ -105,6 +108,10 @@ class AuthHandler:
         dic["token"] = self.helperHandler.id_generator(size=45)
         updated = authDao.updateAuth(dic)
         return json.dumps({"success" : True, "data": updated[1]})
+
+    def beams_auth(self):
+        beams_token = self.beams_client.generate_token("test0@students.stonehill.edu")
+        return json.dumps(beams_token)
             
     def resendAuthCode(self, request, userDao, authDao):
         f='%Y-%m-%d %H:%M:%S'
