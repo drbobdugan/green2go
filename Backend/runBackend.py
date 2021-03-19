@@ -13,6 +13,7 @@ import sys
 import os
 import re
 import logging
+from pusher_push_notifications import PushNotifications
 sys.path.insert(0, os.getcwd()+'/Email/')
 sys.path.insert(0, os.getcwd()+'/handlers/')
 from emailServer import EmailManager
@@ -91,7 +92,7 @@ def getSortedContainers():
 def checkinContainer():
     return containerHandler.checkinContainer(request, containerDao)
 
-#----------------------------Validity Methods --------------------------------
+#----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
     return authHandler.validateCode(request, userDao, authDao)
@@ -107,6 +108,10 @@ def refreshCode():
 @app.route('/resendAuthCode',methods=['POST'])
 def resendAuthCode():
     return authHandler.resendAuthCode(request, userDao, authDao)
+
+@app.route('/pusher/beams-auth', methods=['GET'])
+def beams_auth():
+    return authHandler.beams_auth()
 
 #----------------------------Location Methods --------------------------------
 @app.route('/selectLocation',methods=['POST'])
