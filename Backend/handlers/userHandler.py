@@ -71,7 +71,7 @@ class UserHandler:
 
     def updateUser(self, request, userDao):
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
-        return self.userCRUDS(request=request, userDao=userDao, containerDao=None, hasAuth=hasAuth, keys=keys, function=3)
+        return self.userCRUDS(request=request, userDao=userDao, containerDao=None, hasAuth=True, keys=keys, function=3)
 
     def deleteUser(self, request, userDao, hasAuth):
         keys = ['email']
