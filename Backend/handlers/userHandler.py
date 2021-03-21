@@ -13,17 +13,8 @@ class UserHandler:
         self.helperHandler = helperHandler
 
     def getUser(self, request, userDao, containerDao, hasAuth):
-        #TODO split up errors
-        dictOfUserAttrib = None
         keys = ["email"]
-        if hasAuth is True:
-            keys.append("auth_token")
-        try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=hasAuth)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
-        res=userDao.getUser(dictOfUserAttrib)
-        return self.helperHandler.handleResponse(res)
+        return self.userCRUDS(request=request, userDao=userDao, containerDao=containerDao, hasAuth=hasAuth, keys=keys, function=1)
 
     def addUser(self, request, userDao):
         dictOfUserAttrib = None
@@ -79,24 +70,30 @@ class UserHandler:
 
 
     def updateUser(self, request, userDao):
-        dictOfUserAttrib = None
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
-        try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-        except Exception as e:
-            return json.dumps({"success" : False, "message" : str(e)})
-        res = userDao.updateUser(dictOfUserAttrib)
-        return self.helperHandler.handleResponse(res)
+        return self.userCRUDS(request=request, userDao=userDao, containerDao=None, hasAuth=hasAuth, keys=keys, function=3)
 
     def deleteUser(self, request, userDao, hasAuth):
-        dictOfUserAttrib = None
         keys = ['email']
-        if hasAuth is True:
+        return self.userCRUDS(request=request, userDao=userDao, containerDao=None, hasAuth=hasAuth, keys=keys, function=2)
+
+    #function values 0->add 1->get 2->delete 3->update
+    def userCRUDS(self, request, userDao, containerDao, hasAuth, keys, function):
+        dictOfUserAttrib = None
+        if hasAuth is True and "auth_token" not in keys:
             keys.append('auth_token')
         try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
+            if function == 0 or function == 2 or function == 3:
+                dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
+            else:
+                dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth, t="args")
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = userDao.deleteUser(dictOfUserAttrib)
+        if function == 1:
+            res = userDao.getUser(dictOfUserAttrib)
+        elif function == 2:
+            res = userDao.deleteUser(dictOfUserAttrib)
+        elif function == 3:
+            res = userDao.updateUser(dictOfUserAttrib)
         return self.helperHandler.handleResponse(res)
 
