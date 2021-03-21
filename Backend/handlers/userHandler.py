@@ -30,14 +30,38 @@ class UserHandler:
         # keys to scape from request
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
         formats = {
-            'email' : "([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
-            'password' : "(([a-z|A-Z|0-9])|([^A-Za-z0-9]))+$",
-            'firstName': "[a-z|A-Z]+$",
-            'lastName': "[a-z|A-Z]+$",
-            'middleName': "[a-z|A-Z]*$",
-            'phoneNum': "([0-9]{10}$)|([0-9]{11}$)|([0-9]{12}$)",
-            'role': "(RegularUser$)|(Admin$)",
-            'classYear': "(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)"
+            'email' : {
+                "format":"([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
+                "error":"Email"
+                },
+            'password' : {
+                "format":"(([a-z|A-Z|0-9])|([^A-Za-z0-9]))+$",
+                "error":"Password"
+                },
+            'firstName': {
+                "format":"[a-z|A-Z]+$",
+                "error":"First Name"
+                },
+            'lastName': {
+                "format":"[a-z|A-Z]+$",
+                "error":"Last Name"
+                },
+            'middleName': {
+                "format":"[a-z|A-Z]*$",
+                "error":"Middle Name"
+                },
+            'phoneNum': {
+                "format":"([0-9]{10}$)|([0-9]{11}$)|([0-9]{12}$)",
+                "error":"Phone Number"
+                },
+            'role': {
+                "format":"(RegularUser$)|(Admin$)",
+                "error":"Role"
+                },
+            'classYear': {
+                "format":"(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)",
+                "error":"Class Year"
+                }
             
         }
         #generate authCode
