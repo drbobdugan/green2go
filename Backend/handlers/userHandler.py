@@ -12,9 +12,9 @@ class UserHandler:
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
 
-    def getUser(self, request, userDao, containerDao, hasAuth):
+    def getUser(self, request, userDao, hasAuth):
         keys = ["email"]
-        return self.userCRUDS(request=request, userDao=userDao, containerDao=containerDao, hasAuth=hasAuth, keys=keys, function=1)
+        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=1)
 
     def addUser(self, request, userDao):
         dictOfUserAttrib = None
@@ -71,29 +71,36 @@ class UserHandler:
 
     def updateUser(self, request, userDao):
         keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
-        return self.userCRUDS(request=request, userDao=userDao, containerDao=None, hasAuth=True, keys=keys, function=3)
+        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=True, f=3)
 
     def deleteUser(self, request, userDao, hasAuth):
         keys = ['email']
-        return self.userCRUDS(request=request, userDao=userDao, containerDao=None, hasAuth=hasAuth, keys=keys, function=2)
+        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=2)
 
-    #function values 0->add 1->get 2->delete 3->update
-    def userCRUDS(self, request, userDao, containerDao, hasAuth, keys, function):
+    #f values 0->add 1->get 2->delete 3->update
+    def userCRUDS(self, data, userDao, hasAuth, f):
         dictOfUserAttrib = None
+        request = data[0]
+        keys = data[1]
+        t= "json"
+        if f == 1:
+            t= "args"
         if hasAuth is True and "auth_token" not in keys:
             keys.append('auth_token')
         try:
-            if function == 0 or function == 2 or function == 3:
-                dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
-            else:
-                dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth, t="args")
+            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth, t=t)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        if function == 1:
-            res = userDao.getUser(dictOfUserAttrib)
-        elif function == 2:
-            res = userDao.deleteUser(dictOfUserAttrib)
-        elif function == 3:
-            res = userDao.updateUser(dictOfUserAttrib)
+        res = self.sort(f)
         return self.helperHandler.handleResponse(res)
+
+    def sort(self, f):
+        res = None
+        if f == 1:
+            res = userDao.getUser(dictOfUserAttrib)
+        elif f == 2:
+            res = userDao.deleteUser(dictOfUserAttrib)
+        elif f == 3:
+            res = userDao.updateUser(dictOfUserAttrib)
+        return res
 
