@@ -18,7 +18,7 @@ class unitTestUserDao(unittest.TestCase):
         Delete the temporary database
         """
         dao = UserDao()
-        user = dao.getUser("test42@students.stonehill.edu")
+        user = dao.selectUser("test42@students.stonehill.edu")
         dao.deleteUser(user[1])
         del dao
     
@@ -37,7 +37,7 @@ class unitTestUserDao(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0")
         dao = UserDao()
-        return dao.addUser(user)
+        return dao.insertUser(user)
     
     def testRegularAddUser(self):
         """
@@ -70,7 +70,7 @@ class unitTestUserDao(unittest.TestCase):
 
         email="test42@students.stonehill.edu"
         dao = UserDao()
-        rc, getUser = dao.getUser(email)
+        rc, getUser = dao.selectUser(email)
 
         self.assertTrue(rc)
         self.assertEqual(email,getUser.email)
@@ -84,7 +84,7 @@ class unitTestUserDao(unittest.TestCase):
 
         email="test43@students.stonehill.edu"
         dao = UserDao()
-        rc, getUser = dao.getUser(email)
+        rc, getUser = dao.selectUser(email)
 
         self.assertFalse(rc)
 
