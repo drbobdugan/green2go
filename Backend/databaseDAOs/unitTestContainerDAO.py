@@ -74,11 +74,8 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = self.testInsertContainerSmoke()
         self.assertTrue(rc)
 
-        qrcode = "101010"
+        qrcode = "101011"
         dao = ContainerDAO()
-        
-        rc, msg = dao.deleteContainer(c)
-        self.assertTrue(rc)
         
         rc, selectContainer = dao.selectContainer(qrcode)
         self.assertFalse(rc)
