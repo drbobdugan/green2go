@@ -6,24 +6,24 @@ from user import User
 class UserDao(dao):
     #Accepts list val in format  val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
-    def addUser(self, user):
+    def insertUser(self, user):
         try:
-            logging.info("Entering addUser")
-            #FOR BACKEND -> datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            logging.info("Entering insertUser")
+            user.lastLogIn = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn,authorized) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False, user.userToList())
             if(myresult[0] == False):
                 return myresult
-            logging.info("addUser successful")
+            logging.info("insertUser successful")
             return True, ""
         except Exception as e:
-            logging.error("Error in addUser")
+            logging.error("Error in insertUser")
             logging.error(str(e))
             return self.handleError(e)
     #Gets user based on their email
-    def getUser(self,email):
+    def selectUser(self,email):
         try:
-            logging.info("Entering getUser")
+            logging.info("Entering selectUser")
             sql = "SELECT * FROM user where email = '" + email + "'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
@@ -41,10 +41,10 @@ class UserDao(dao):
                         str(myresult[9]), 
                         str(myresult[10]),
                         str(myresult[11]))
-            logging.info("getUser successful")
+            logging.info("selectUser successful")
             return True, user
         except Exception as e:
-            logging.error("Error in getUser")
+            logging.error("Error in selectUser")
             logging.error(str(e))
             return self.handleError(e)
     #FOR BACKEND -> BEFORE CALLING UPDATE PLEASE DO A GETUSER CALL SO THAT ALL OF THE VALUES ARE FILLED OUT
@@ -54,7 +54,7 @@ class UserDao(dao):
             myresult = self.deleteUser(user)
             if(myresult[0] == False):
                 return myresult
-            myresult = self.addUser(user)
+            myresult = self.insertUser(user)
             if(myresult[0] == False):
                 return myresult
             return True, ""
@@ -68,7 +68,7 @@ class UserDao(dao):
     def deleteUser(self,user): #DELETE THEIR ENTRY IN THE AUTH TABLE
         try:
             email = user.email
-            myresult = self.getUser(email)
+            myresult = self.selectUser(email)
             if(myresult[0]==False):
                 return myresult
             logging.info("Entering deleteUser")
