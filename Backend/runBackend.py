@@ -126,7 +126,7 @@ def secretDeleteUser():
 
 @app.route('/secretGetUser', methods=['GET'])
 def secretGetUser():
-    return userHandler.getUser(request, userDao, containerDao, False)
+    return userHandler.getUser(request, userDao, False)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
