@@ -91,16 +91,16 @@ class UserHandler:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth, t=t)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = self.sort(f)
+        res = self.sort(userDao, dictOfUserAttrib, f)
         return self.helperHandler.handleResponse(res)
 
-    def sort(self, f):
+    def sort(self, userDao, d, f):
         res = None
         if f == 1:
-            res = userDao.getUser(dictOfUserAttrib)
+            res = userDao.getUser(d)
         elif f == 2:
-            res = userDao.deleteUser(dictOfUserAttrib)
+            res = userDao.deleteUser(d)
         elif f == 3:
-            res = userDao.updateUser(dictOfUserAttrib)
+            res = userDao.updateUser(d)
         return res
 
