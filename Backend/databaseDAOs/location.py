@@ -6,11 +6,7 @@ class Location:
         self.lastPickup = lastPickup
 
     def toLocationList(self):
-        locationList = []
-        locationList.append(self.location_qrcode)
-        locationList.append(self.description)
-        locationList.append(self.lastPickup)
-        return locationList
+        return (self.location_qrcode,self.description,self.lastPickup)
 
     def toLocationDict(self):
         row = dict(location_qrcode=self.location_qrcode, description=self.description,lastPickup=self.lastPickup)
