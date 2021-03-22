@@ -177,7 +177,7 @@ class ContainerDao(dao):
         try:
             #select all containers from one user
             email = emailDict["email"]
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "'"
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "'" " ORDER BY statusUpdateTime"
             myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
             if(myresult[0] == False):
                 return myresult
