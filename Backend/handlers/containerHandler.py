@@ -23,38 +23,32 @@ class ContainerHandler:
             raise Exception('That is not a valid Location.')
 
     def addContainer(self, request, containerDao):
-        return self.containerCRUDS(request, containerDao, 0)
+        return self.containerCRUDS(request, containerDao, "addContainer")
   
     def getContainer(self, request, containerDao):
-        return self.containerCRUDS(request, containerDao, 1)
+        return self.containerCRUDS(request, containerDao, "getContainer")
 
     def deleteContainer(self, request, containerDao):
-        return self.containerCRUDS(request, containerDao, 2)
+        return self.containerCRUDS(request, containerDao, "deleteContainer")
 
     def updateContainer(self, request, containerDao):
-        return self.containerCRUDS(request, containerDao)
+        return self.containerCRUDS(request, containerDao, "updateContainer")
     
     #function values 0->add 1->get 2->delete
     def containerCRUDS(self, request, containerDao, function):
         containerDic = None
         keys = ["qrcode","auth_token", "email"]
         try:
-            if function == 1 or function == 3:
+            if function == ("getContainer" or "updateContainer"):
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
             else:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-            if function == 0:
+            if function == "addContainer":
                 self.validateQRCode(containerDic)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        if function == 0:
-            res = containerDao.addContainer(containerDic)
-        elif function == 1:
-            res = containerDao.getContainer(containerDic)
-        elif function == 2:
-            res = containerDao.deleteContainer(containerDic)
-        elif function == 3:
-            res = containerDao.updateContainer(containerDic)
+        function = "containerDao." + function + "(containerDic)"
+        res=eval(function)
         return self.helperHandler.handleResponse(res)
 
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
