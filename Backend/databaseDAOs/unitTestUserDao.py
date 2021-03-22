@@ -88,5 +88,29 @@ class unitTestUserDao(unittest.TestCase):
 
         self.assertFalse(rc)
 
+    def testDeleteUser(self):
+
+        """
+        Test that we can delete a user from the database.
+        """
+        rc, msg = self.addTest42User()
+        self.assertTrue(rc)
+
+        dao = UserDao()
+        email="test42@students.stonehill.edu"
+        rc, getUser = dao.getUser(email)
+        self.assertTrue(rc)
+        """
+        Delete the user
+        """
+        rc, deleteUser = dao.deleteUser(getUser)
+        self.assertTrue(rc)
+
+        """
+        Check if container is actually deleted
+        """
+        rc, getUser = dao.getUser(email)
+        self.assertFalse(rc)
+
 if __name__ == '__main__':
     unittest.main()

@@ -90,6 +90,9 @@ class unitTestAuthDAO(unittest.TestCase):
         rc, deleteAuth = dao.deleteAuth(auth)
         self.assertTrue(rc)
 
+        rc, selectByEmail = dao.selectByEmail(auth.user)
+        self.assertFalse(rc)
+
 
 if __name__ == '__main__':
     unittest.main()

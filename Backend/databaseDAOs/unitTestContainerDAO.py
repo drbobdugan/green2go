@@ -36,6 +36,14 @@ class unitTestContainerDAO(unittest.TestCase):
         """
         rc, msg = self.testInsertContainerSmoke()
         self.assertTrue(rc)
+        """
+        Check to see that the add went through.
+        """
+        qrcode = "101010"
+        dao = ContainerDAO()
+        rc, selectContainer = dao.selectContainer(qrcode)
+        self.assertTrue(rc)
+        self.assertEqual(qrcode,selectContainer.qrcode)
 
     def testInsertContainerTwice(self):
         """
@@ -79,6 +87,8 @@ class unitTestContainerDAO(unittest.TestCase):
         
         rc, selectContainer = dao.selectContainer(qrcode)
         self.assertFalse(rc)
+
+
     
     # TEST UPDATE CONTAINER
     #def testUpdateContainer(self,c): #idk if backend will need this one
@@ -96,6 +106,44 @@ class unitTestContainerDAO(unittest.TestCase):
         
         rc, deleteContainer = dao.deleteContainer(c)
         self.assertTrue(rc)
+
+        """
+        Verify that the container has actually been deleted.
+        """
+        rc, selectContainer = dao.selectContainer("101010")
+        self.assertFalse(rc)
+    
+    def TestDeleteContainerDoesNotExist(self):
+        """
+        Test that we can't delete a container that doesn't exist.
+        """
+        rc, msg = self.testInsertContainerSmoke()
+        self.assertTrue(rc)
+
+        c = Container("101010")
+        dao = ContainerDAO()
+
+        rc, deleteContainer = dao.deleteContainer(c)
+        self.assertTrue(rc)
+        """
+        QR Code already deleted.
+        """
+        rc, deleteContainer = dao.deleteContainer(c)
+        self.assertFalse(rc)
+
+        c = Container("101010")
+        """
+        QR code never in database.
+        """
+        rc, deleteContainer = dao.deleteContainer(c)
+        self.assertFalse(rc)
+
+        c = None
+        """
+        Container is NULL
+        """
+        rc, deleteContainer = dao.deleteContainer(c)
+        self.assertFalse(rc) 
 
 #____________________________________________________________________________________________________________________#
 
