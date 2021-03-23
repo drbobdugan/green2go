@@ -86,16 +86,22 @@ class _HomePageState extends State<HomePage> {
   }
 
   Expanded getContainerDataLarge() {
+    final ScrollController scrollController = ScrollController();
     return Expanded(
-      child: ListView.builder(
-        itemCount: user.containers.length > 5 ? 5 : user.containers.length,
-        itemBuilder: (BuildContext context, int index) {
-          final ReusableContainer container = user.containers[index];
-          return Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: container.dataRow(),
-          );
-        },
+      child: Scrollbar(
+        isAlwaysShown: true,
+        controller: scrollController,
+        child: ListView.builder(
+          controller: scrollController,
+          itemCount: user.containers.length > 5 ? 5 : user.containers.length,
+          itemBuilder: (BuildContext context, int index) {
+            final ReusableContainer container = user.containers[index];
+            return Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: container.dataRow(),
+            );
+          },
+        ),
       ),
     );
   }
@@ -131,7 +137,7 @@ class _HomePageState extends State<HomePage> {
               bottom: 30.0,
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 15.0),
+              padding: const EdgeInsets.only(bottom: 0.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -147,7 +153,7 @@ class _HomePageState extends State<HomePage> {
                       text: ReuseStrings.viewAllButtonText,
                       onPressed: () => handleViewAll(context),
                       buttonStyle: CustomTheme.primaryButtonStyle(),
-                      bottom: MediaQuery.of(context).size.height * 0.06,
+                      bottom: MediaQuery.of(context).size.height * 0.04,
                     )
                   ]),
             ),

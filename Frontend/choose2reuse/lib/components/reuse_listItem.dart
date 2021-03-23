@@ -63,9 +63,8 @@ class ListItem extends StatelessWidget {
                     fontSize: MediaQuery.of(context).size.width * 0.04),
                 left: 10,
               ),
-              const IconButton(
-                icon: Icon(Icons.delete),
-                color: Color(0xffff0000),
+              IconButton(
+                icon: Image.asset('assets/images/broken-glass.png'),
                 onPressed: null,
               ),
             ],
