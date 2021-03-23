@@ -13,22 +13,21 @@ class unitTestContainerDAO(unittest.TestCase):
        """
        Setup a temporary database
        """
+       self.dao = ContainerDAO()
+       self.dao.changeDatabase("temp")
 
     def tearDown(self):
         """
         Delete the temporary database
         """
-        dao = ContainerDAO()
         c = Container("101010") # c is container object 
-        #r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None) # r is relationship object
-        dao.deleteContainer(c)
-        #dao.deleteRelationship(r)
+        self.dao.deleteContainer(c)
+        del self.dao
     
     # TEST CREATE CONTAINER
     def testInsertContainerSmoke(self):
         c = Container("101010")
-        dao = ContainerDAO()
-        return dao.insertContainer(c)
+        return self.dao.insertContainer(c)
     
     def testInsertContainer(self):
         """
@@ -37,11 +36,10 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, msg = self.testInsertContainerSmoke()
         self.assertTrue(rc)
         """
-        Check to see that the add went through.
+        Check to see that the add went through
         """
         qrcode = "101010"
-        dao = ContainerDAO()
-        rc, selectContainer = dao.selectContainer(qrcode)
+        rc, selectContainer = self.dao.selectContainer(qrcode)
         self.assertTrue(rc)
         self.assertEqual(qrcode,selectContainer.qrcode)
 
@@ -69,9 +67,7 @@ class unitTestContainerDAO(unittest.TestCase):
         self.assertTrue(rc)
         
         qrcode = "101010"
-        dao = ContainerDAO()
-        
-        rc, selectContainer = dao.selectContainer(qrcode)
+        rc, selectContainer = self.dao.selectContainer(qrcode)
         self.assertTrue(rc)
         self.assertEqual(qrcode,selectContainer.qrcode)
     
@@ -83,15 +79,11 @@ class unitTestContainerDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         qrcode = "101011"
-        dao = ContainerDAO()
-        
-        rc, selectContainer = dao.selectContainer(qrcode)
+        rc, selectContainer = self.dao.selectContainer(qrcode)
         self.assertFalse(rc)
-
-
     
     # TEST UPDATE CONTAINER
-    #def testUpdateContainer(self,c): #idk if backend will need this one
+    #def testUpdateContainer(self,c): #idk if we will ever need this
 
     # TEST DELETE CONTAINER
     def testDeleteContainer(self):
@@ -102,15 +94,13 @@ class unitTestContainerDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         c = Container("101010")
-        dao = ContainerDAO()
-        
-        rc, deleteContainer = dao.deleteContainer(c)
+        rc, deleteContainer = self.dao.deleteContainer(c)
         self.assertTrue(rc)
 
         """
         Verify that the container has actually been deleted.
         """
-        rc, selectContainer = dao.selectContainer("101010")
+        rc, selectContainer = self.dao.selectContainer("101010")
         self.assertFalse(rc)
     
     def TestDeleteContainerDoesNotExist(self):
@@ -121,33 +111,27 @@ class unitTestContainerDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         c = Container("101010")
-        dao = ContainerDAO()
-
-        rc, deleteContainer = dao.deleteContainer(c)
+        rc, deleteContainer = self.dao.deleteContainer(c)
         self.assertTrue(rc)
         """
         QR Code already deleted.
         """
-        rc, deleteContainer = dao.deleteContainer(c)
+        rc, deleteContainer = self.dao.deleteContainer(c)
         self.assertFalse(rc)
 
         c = Container("101010")
         """
         QR code never in database.
         """
-        rc, deleteContainer = dao.deleteContainer(c)
+        rc, deleteContainer = self.dao.deleteContainer(c)
         self.assertFalse(rc)
 
         c = None
         """
         Container is NULL
         """
-        rc, deleteContainer = dao.deleteContainer(c)
+        rc, deleteContainer = self.dao.deleteContainer(c)
         self.assertFalse(rc) 
-
-#____________________________________________________________________________________________________________________#
-
-# the hascontainer relationship tests have moved to unitTestRelationshipDAO.py for now
 
 if __name__ == '__main__':
     unittest.main()
