@@ -17,15 +17,15 @@ class unitTestLocationDAO(unittest.TestCase):
         """
         Delete the temporary database
         """
-        dao = LocationDao()
+        self.dao = LocationDao()
         loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01") # loc is location object 
-        dao.deleteLocation(loc)
+        self.dao.deleteLocation(loc)
     
     # test creating location
     def testInsertLocationSmoke(self):
         loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01") 
-        dao = LocationDao()
-        return dao.insertLocation(loc)
+        self.dao = LocationDao()
+        return self.dao.insertLocation(loc)
     
     def testInsertLocation(self):
         """
@@ -57,8 +57,8 @@ class unitTestLocationDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         qrcode = "L042"
-        dao = LocationDao()
-        rc, selectByLocationQRcode = dao.selectByLocationQRcode(qrcode)
+        self.dao = LocationDao()
+        rc, selectByLocationQRcode = self.dao.selectByLocationQRcode(qrcode)
 
         self.assertTrue(rc)
         self.assertEqual(qrcode,selectByLocationQRcode.location_qrcode)
@@ -71,8 +71,8 @@ class unitTestLocationDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         qrcode = "L043"
-        dao = LocationDao()
-        rc, selectByLocationQRcode = dao.selectByLocationQRcode(qrcode)
+        self.dao = LocationDao()
+        rc, selectByLocationQRcode = self.dao.selectByLocationQRcode(qrcode)
 
         self.assertFalse(rc)
         
@@ -84,9 +84,9 @@ class unitTestLocationDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01") 
-        dao = LocationDao()
+        self.dao = LocationDao()
         
-        rc, deleteLocation = dao.deleteLocation(loc)
+        rc, deleteLocation = self.dao.deleteLocation(loc)
         self.assertTrue(rc)
 
 

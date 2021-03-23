@@ -12,20 +12,22 @@ class unitTestAuthDAO(unittest.TestCase):
        """
        Setup a temporary database
        """
+       self.dao = AuthDao()
+       self.dao.changeDatabase("temp")
 
     def tearDown(self):
         """
         Delete the temporary database
         """
-        dao = AuthDao()
+        self.dao = AuthDao()
         auth = Auth("auth42TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
-        dao.deleteAuth(auth)
+        self.dao.deleteAuth(auth)
 
     # test creating auth token
     def testInsertAuthSmoke(self):
-        dao = AuthDao()
+        self.dao = AuthDao()
         auth = Auth("auth42TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
-        return dao.insertAuth(auth)
+        return self.dao.insertAuth(auth)
     
     def testInsertAuth(self):
         """
@@ -57,8 +59,8 @@ class unitTestAuthDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         email = "auth42TestUser@students.stonehill.edu"
-        dao = AuthDao()
-        rc, selectByEmail = dao.selectByEmail(email)
+        self.dao = AuthDao()
+        rc, selectByEmail = self.dao.selectByEmail(email)
 
         self.assertTrue(rc)
         self.assertEqual(email,selectByEmail.user)
@@ -71,8 +73,8 @@ class unitTestAuthDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         email = "auth43TestUser@students.stonehill.edu"
-        dao = AuthDao()
-        rc, selectByEmail = dao.selectByEmail(email)
+        self.dao = AuthDao()
+        rc, selectByEmail = self.dao.selectByEmail(email)
 
         self.assertFalse(rc)
         
@@ -85,12 +87,12 @@ class unitTestAuthDAO(unittest.TestCase):
 
 
         auth = Auth("auth42TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
-        dao = AuthDao()
+        self.dao = AuthDao()
         
-        rc, deleteAuth = dao.deleteAuth(auth)
+        rc, deleteAuth = self.dao.deleteAuth(auth)
         self.assertTrue(rc)
 
-        rc, selectByEmail = dao.selectByEmail(auth.user)
+        rc, selectByEmail = self.dao.selectByEmail(auth.user)
         self.assertFalse(rc)
 
 
