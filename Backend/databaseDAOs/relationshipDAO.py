@@ -8,24 +8,21 @@ class RelationshipDAO(dao):
     # CREATE RELATIONSHIP
     def insertRelationship(self, r):
         try:
-            logging.info("Entering insertRelationship")
-            result = r.toRelationshipList()
-            result[3] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+            logging.info("Entering insertRelationship")
+            r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            result = r.toRelationshipList()
             # change the old person's pending return status to verified return
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
             #print("SQL:", sql)
             myresult = self.handleSQL(sql,True,None)
-            #print("MY RESULT",myresult)
             if(myresult[0] == False):
                 return myresult
-            if(myresult[1] != []):
-                if(myresult[1] is not None):
-                    oldEmail = myresult[1][0]
-                    #print("OLD EMAIL", oldEmail)
-                    tempR = self.selectRelationship(oldEmail[0],oldEmail[1])
-                    tempR.status="Verified Return"
-                    self.updateRelationship(tempR) # update isn't finished yet tho
+            if(myresult[1] != [] and myresult[1] is not None):
+                oldEmail = myresult[1][0]
+                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4])
+                tempR.status="Verified Return"
+                self.updateRelationship(tempR) # update isn't finished yet tho
 
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode) VALUES (%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
@@ -112,27 +109,15 @@ class RelationshipDAO(dao):
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r):
         try:
-            logging.info("Entering updateRelationship") 
+            logging.info("Entering updateRelationship")
+            r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             result = r.toRelationshipList()
-            result[3] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + "' ORDER BY statusUpdateTime DESC"
-            #print(sql)
+            sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
-            if(type(myresult[1]) is list):
-                statusUpdateTime = str(myresult[1][0][3])
-            else:
-                statusUpdateTime = str(myresult[1][3])
-            sql = "UPDATE hascontainer SET WHERE email = '" + result[0] + "' and " + "qrcode = '" + result[1] + "'" " and statusUpdateTime = '" + statusUpdateTime + "' and status <> 'Verified Return'"
-            """
-            for key in relDict:
-                    if relDict[key] is not None and key!="auth_token":
-                        sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' , "
-            sqlSet = sqlSet[:-2]
-            sqlSet += sqlWhere
-            """
-            #print(sql)
+            myresult = myresult[1][0]
+            sql = "UPDATE hascontainer SET status = 'Verifed Return' WHERE email = '" + result[0] + "' and " + "qrcode = '" + result[1] + "'" " and statusUpdateTime = '" + str(myresult[3]) + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult

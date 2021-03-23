@@ -4,7 +4,7 @@ import logging
 class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
-        self.database = "temp"
+        self.database = "sys"
 
     def changeDatabase(self,database):
         self.database = database
@@ -13,7 +13,8 @@ class dao:
         try:
             self.mydb.shutdown()
         except:
-            logging.error("Error closing connection: Already disconnected")
+            #logging.error("Error closing connection: Already disconnected")
+            test = 1
             
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",

@@ -9,19 +9,10 @@ class Relationship:
         self.location_qrcode = location_qrcode
 
     def toRelationshipList(self):
-        relationship = Relationship(self.email,self.qrcode,self.status,self.statusUpdateTime,self.location_qrcode)
-        relationshipList = []
-        relationshipList.append(relationship.email)
-        relationshipList.append(relationship.qrcode)
-        relationshipList.append(relationship.status)
-        relationshipList.append(relationship.statusUpdateTime)
-        relationshipList.append(relationship.location_qrcode)
-        return relationshipList
+        return (self.email,self.qrcode,self.status,self.statusUpdateTime,self.location_qrcode)
 
     def toRelationshipDict(self):
-        dictionary = dict(email=self.email,qrcode=self.qrcode,staus=self.status,
-        statusUpdateTime=self.statusUpdateTime,location_qrcode=self.location_qrcode)
-        return dictionary
+        return {"email":self.email,"qrcode":self.qrcode,"status":self.status,"statusUpdateTime":self.statusUpdateTime,"location_qrcode":self.location_qrcode}
 
     def getEmail(self):
         return self.email

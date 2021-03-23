@@ -29,18 +29,7 @@ class UserDao(dao):
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1][0]
-            user = User(myresult[0], 
-                        myresult[1], 
-                        myresult[2], 
-                        myresult[3], 
-                        myresult[4], 
-                        myresult[5],
-                        myresult[6], 
-                        str(myresult[7]),
-                        myresult[8], 
-                        str(myresult[9]), 
-                        str(myresult[10]),
-                        str(myresult[11]))
+            user = User(myresult[0], myresult[1], myresult[2], myresult[3], myresult[4], myresult[5],myresult[6], str(myresult[7]),myresult[8], str(myresult[9]), str(myresult[10]),str(myresult[11]))
             logging.info("selectUser successful")
             return True, user
         except Exception as e:

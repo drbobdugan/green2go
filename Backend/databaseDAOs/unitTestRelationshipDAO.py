@@ -69,17 +69,8 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Test that we can't select a relationship that doesnt exist in the database already
         """
-        rc, msg = self.testInsertRelationshipSmoke()
-        self.assertTrue(rc)
-
-        email = "test42@students.stonehill.edu"
-        qrcode = "101010"
         dao = RelationshipDAO()
-        
-        rc, msg = dao.deleteRelationship(email,qrcode)
-        self.assertTrue(rc)
-        
-        rc, selectRelationship = dao.selectRelationship(email,qrcode)
+        rc, selectRelationship = dao.selectRelationship("test43@students.stonehill.edu","0000")
         self.assertFalse(rc)
 
     def testSelectAllByEmail(self):

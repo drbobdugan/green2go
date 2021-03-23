@@ -12,15 +12,17 @@ class unitTestUserDao(unittest.TestCase):
         """
         Setup a temporary database
         """
+        self.dao = UserDao()
+        self.dao.changeDatabase("temp")
+
 
     def tearDown(self):
         """
         Delete the temporary database
         """
-        dao = UserDao()
-        user = dao.selectUser("test42@students.stonehill.edu")
-        dao.deleteUser(user[1])
-        del dao
+        user = self.dao.selectUser("test42@students.stonehill.edu")
+        self.dao.deleteUser(user[1])
+        del self.dao
     
     def addTest42User(self):
         user = User(
@@ -36,8 +38,7 @@ class unitTestUserDao(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0")
-        dao = UserDao()
-        return dao.insertUser(user)
+        return self.dao.insertUser(user)
     
     def testRegularAddUser(self):
         """
@@ -69,8 +70,7 @@ class unitTestUserDao(unittest.TestCase):
         self.assertTrue(rc)
 
         email="test42@students.stonehill.edu"
-        dao = UserDao()
-        rc, getUser = dao.selectUser(email)
+        rc, getUser = self.dao.selectUser(email)
 
         self.assertTrue(rc)
         self.assertEqual(email,getUser.email)
@@ -83,8 +83,7 @@ class unitTestUserDao(unittest.TestCase):
         self.assertTrue(rc)
 
         email="test43@students.stonehill.edu"
-        dao = UserDao()
-        rc, getUser = dao.selectUser(email)
+        rc, getUser = self.dao.selectUser(email)
 
         self.assertFalse(rc)
 
@@ -96,20 +95,19 @@ class unitTestUserDao(unittest.TestCase):
         rc, msg = self.addTest42User()
         self.assertTrue(rc)
 
-        dao = UserDao()
         email="test42@students.stonehill.edu"
-        rc, getUser = dao.getUser(email)
+        rc, getUser = self.dao.selectUser(email)
         self.assertTrue(rc)
         """
         Delete the user
         """
-        rc, deleteUser = dao.deleteUser(getUser)
+        rc, deleteUser = self.dao.deleteUser(getUser)
         self.assertTrue(rc)
 
         """
         Check if container is actually deleted
         """
-        rc, getUser = dao.getUser(email)
+        rc, getUser = self.dao.selectUser(email)
         self.assertFalse(rc)
 
 if __name__ == '__main__':
