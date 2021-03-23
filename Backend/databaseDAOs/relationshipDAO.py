@@ -11,10 +11,14 @@ class RelationshipDAO(dao):
             logging.info("Entering insertRelationship")
             result = r.toRelationshipList()
             result[3] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
-            myresult = self.handleSQL(sql,True,None)
-            
+
             # change the old person's pending return status to verified return
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
+            #print("SQL:", sql)
+            myresult = self.handleSQL(sql,True,None)
+            #print("MY RESULT",myresult)
+            if(myresult[0] == False):
+                return myresult
             if(myresult[1] != []):
                 if(myresult[1] is not None):
                     oldEmail = myresult[1][0]
@@ -38,7 +42,7 @@ class RelationshipDAO(dao):
     def selectRelationship(self,email,qrcode): 
         try: 
             logging.info("Entering selectRelationship")
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "ORDER BY statusUpdateTime DESC"
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
@@ -105,36 +109,31 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
-    """
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r):
         try:
-            #get all interaction sorted by time
-            #extract newest entry time
-            email = relDict["email"]
-            qrcode = relDict["qrcode"]
-            status = relDict["status"]
-            relDict["statusUpdateTime"] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            location = relDict["location_qrcode"]
-            #THIS DOES NOT WORK
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status <> 'Verified Return'" +"ORDER BY statusUpdateTime DESC"
+            logging.info("Entering updateRelationship") 
+            result = r.toRelationshipList()
+            result[3] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + "' ORDER BY statusUpdateTime DESC"
             #print(sql)
-            myresult = self.handleSQL(sql,True,None)#ORDER BY statusUpdateTime")
+            myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
             if(type(myresult[1]) is list):
                 statusUpdateTime = str(myresult[1][0][3])
             else:
                 statusUpdateTime = str(myresult[1][3])
-            sqlSet = "UPDATE hascontainer SET "
-            sqlWhere = "WHERE email = '"+email + "' and " + "qrcode = '"+qrcode + "'" " and statusUpdateTime = '" + statusUpdateTime + "' and status <> 'Verified Return'"
+            sql = "UPDATE hascontainer SET WHERE email = '" + result[0] + "' and " + "qrcode = '" + result[1] + "'" " and statusUpdateTime = '" + statusUpdateTime + "' and status <> 'Verified Return'"
+            """
             for key in relDict:
                     if relDict[key] is not None and key!="auth_token":
                         sqlSet = sqlSet + str(key) + "= '" + str(relDict[key]) + "' , "
             sqlSet = sqlSet[:-2]
             sqlSet += sqlWhere
-            #print(sqlSet)
-            myresult = self.handleSQL(sqlSet,False,None)
+            """
+            #print(sql)
+            myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
             return True, ""
@@ -142,7 +141,6 @@ class RelationshipDAO(dao):
             logging.error("Error in updateRelationship")
             logging.error(str(e))
             return self.handleError(e)
-    """
 
     # DELETE RELATIONSHIP  
     def deleteRelationship(self,r):

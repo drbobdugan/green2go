@@ -29,12 +29,11 @@ class ContainerDAO(dao):
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
-            #logging.info("selectContainer successful")
-            #myresult = (True, [('101010',)])
-            myresult2 = myresult[1][0][0] #since myresult looks like that we need [1][0][0] to get inside [(,)]
+            logging.info("selectContainer successful")
+            #myresult look like (True, [('101010',)])
+            myresult2 = myresult[1][0][0]
             container = Container(myresult2)
             return True, container
-            #{"qrcode" : myresult[1][0][0]} #need to return an object instead of dict
         except Exception as e:
             logging.error("Error in selectContainer")
             logging.error(str(e))
