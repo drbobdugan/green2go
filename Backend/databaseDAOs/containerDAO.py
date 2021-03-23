@@ -57,6 +57,3 @@ class ContainerDAO(dao):
             logging.error("Error in deleteContainer")
             logging.error(str(e))
             return self.handleError(e)
-# ____________________________________________________________________________________________________ #
-
-# the hascontainer relationship methods have moved to relationshipDAO.py for now

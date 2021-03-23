@@ -12,22 +12,20 @@ class unitTestRelationshipDAO(unittest.TestCase):
        """
        Setup a temporary database
        """
+       self.dao = RelationshipDAO()
+       self.dao.changeDatabase("temp")
 
     def tearDown(self):
         """
         Delete the temporary database
         """
-        dao = RelationshipDAO()
-        #c = Container("101010") # c is container object 
         r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None) # r is relationship object
-        #dao.deleteContainer(c)
-        dao.deleteRelationship(r)
+        self.dao.deleteRelationship(r)
 
     # TEST CREATE RELATIONSHIP
     def testInsertRelationshipSmoke(self):
         r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
-        dao = RelationshipDAO()
-        return dao.insertRelationship(r)
+        return self.dao.insertRelationship(r)
     
     def testInsertRelationship(self):
         """
@@ -45,7 +43,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         """
-        Second add should not fail
+        Second add should also work correctly
         """
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
@@ -60,17 +58,14 @@ class unitTestRelationshipDAO(unittest.TestCase):
 
         email = "test42@students.stonehill.edu"
         qrcode = "101010"
-        dao = RelationshipDAO()
-        
-        rc, selectRelationship = dao.selectRelationship(email,qrcode)
+        rc, selectRelationship = self.dao.selectRelationship(email,qrcode)
         self.assertTrue(rc)
     
     def testSelectRelationshipDoesntExist(self):
         """
         Test that we can't select a relationship that doesnt exist in the database already
         """
-        dao = RelationshipDAO()
-        rc, selectRelationship = dao.selectRelationship("test43@students.stonehill.edu","0000")
+        rc, selectRelationship = self.dao.selectRelationship("test43@students.stonehill.edu","0000")
         self.assertFalse(rc)
 
     def testSelectAllByEmail(self):
@@ -81,9 +76,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         email = "test42@students.stonehill.edu"
-        dao = RelationshipDAO()
-        
-        rc, selectAllByEmail = dao.selectAllByEmail(email)
+        rc, selectAllByEmail = self.dao.selectAllByEmail(email)
         self.assertTrue(rc)
 
     def testSelectAllByStatus(self):
@@ -95,9 +88,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
 
         email = "test42@students.stonehill.edu"
         status = "Checked Out"
-        dao = RelationshipDAO()
-        
-        rc, testSelectAllByStatus = dao.selectAllByStatus(email,status)
+        rc, testSelectAllByStatus = self.dao.selectAllByStatus(email,status)
         self.assertTrue(rc)
 
     # TEST UPDATE RELATIONSHIP
@@ -109,9 +100,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged",None,None)
-        dao = RelationshipDAO()
-        
-        rc, updateRelationship = dao.updateRelationship(r)
+        rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
     # TEST DELETE RELATIONSHIP
@@ -123,9 +112,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
-        dao = RelationshipDAO()
-       
-        rc, deleteRelationship = dao.deleteRelationship(r)
+        rc, deleteRelationship = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 
 if __name__ == '__main__':

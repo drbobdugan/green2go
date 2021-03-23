@@ -8,13 +8,11 @@ class RelationshipDAO(dao):
     # CREATE RELATIONSHIP
     def insertRelationship(self, r):
         try:
-
             logging.info("Entering insertRelationship")
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             result = r.toRelationshipList()
             # change the old person's pending return status to verified return
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
-            #print("SQL:", sql)
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
@@ -22,7 +20,7 @@ class RelationshipDAO(dao):
                 oldEmail = myresult[1][0]
                 tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4])
                 tempR.status="Verified Return"
-                self.updateRelationship(tempR) # update isn't finished yet tho
+                self.updateRelationship(tempR)
 
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode) VALUES (%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
