@@ -50,4 +50,5 @@ class ReuseStrings {
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';
   static String invalidCodeErrorMessage = 'Please enter a valid code.';
+  static String emptyEmailErrorMessage = 'Please enter an email address.';
 }
