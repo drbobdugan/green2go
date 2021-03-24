@@ -67,13 +67,20 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   void handleNewCode(BuildContext context) {
-    widget.onResend(email);
+    if (email != '') {
+      setState(() {
+        errorMessage = '';
+      });
+      widget.onResend(email);
+    } else {
+      setState(() {
+        errorMessage = ReuseStrings.emptyEmailErrorMessage;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    email = widget.user.email;
-
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
