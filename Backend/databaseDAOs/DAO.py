@@ -64,3 +64,5 @@ class dao:
             return False, "Could not connect to database please try again"
         if "list index out of range" in error:
             return False, "Entry could not be found"
+        if "NoneType" in error:
+            return False, "Null value passed in"

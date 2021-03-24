@@ -81,6 +81,10 @@ class unitTestContainerDAO(unittest.TestCase):
         qrcode = "101011"
         rc, selectContainer = self.dao.selectContainer(qrcode)
         self.assertFalse(rc)
+
+        qrcode = None
+        rc, selectContainer = self.dao.selectContainer(qrcode)
+        self.assertFalse(rc)
     
     # TEST UPDATE CONTAINER
     #def testUpdateContainer(self,c): #idk if we will ever need this

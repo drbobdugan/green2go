@@ -88,6 +88,62 @@ class unitTestUserDao(unittest.TestCase):
 
         self.assertFalse(rc)
 
+    def testUpdateUser(self):
+        """
+        Test that the user can be updated.
+        """
+        rc, msg = self.addTest42User()
+        self.assertTrue(rc)
+
+        user = User(
+                "test42@students.stonehill.edu",
+                "password",
+                "Test",
+                "Lazer",
+                "Example",
+                "1111111111",
+                "RegularUser",
+                "2021",
+                "1111111",
+                "2021-01-01 01:01:01",
+                "2021-01-01 01:01:01",
+                "0",
+                "exampletoken")
+
+        rc, msg = self.dao.updateUser(user)
+        self.assertTrue(rc)
+
+        rc, msg = self.dao.selectUser(user.email)
+        self.assertTrue(rc)
+        self.assertEqual(user.phoneNum, msg.phoneNum)
+        self.assertEqual(user.middleName, msg.middleName)
+
+    def testUpdateUserDoesntExist(self):
+        rc, msg = self.addTest42User()
+        self.assertTrue(rc)
+
+        user = User(
+                "test43@students.stonehill.edu",
+                "password",
+                "Test",
+                "Lazer",
+                "Example",
+                "1111111111",
+                "RegularUser",
+                "2021",
+                "1111111",
+                "2021-01-01 01:01:01",
+                "2021-01-01 01:01:01",
+                "0",
+                "exampletoken")
+
+        rc, msg = self.dao.updateUser(user)
+        self.assertFalse(rc)
+
+        rc, msg = self.dao.updateUser(None)
+        self.assertFalse(rc)         
+
+
     def testDeleteUser(self):
 
         """
