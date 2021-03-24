@@ -1,22 +1,23 @@
 #auth object
 class Auth:
-    def __init__(self,user,auth_token,refresh_token,expires_at):
-        self.user = user
-        self.auth_token = auth_token
-        self.refresh_token = refresh_token
-        self.expires_at = expires_at
+    def __init__(self, *args):
+        if args != ():
+            self.listToAuth(args)
 
-    def toAuthList(self):
-        authList = []
-        authList.append(self.user)
-        authList.append(self.auth_token)
-        authList.append(self.refresh_token)
-        authList.append(self.expires_at)
-        return authList
+    def authToList(self):
+        return(self.user,self.auth_token,self.refresh_token,self.expires_at)
 
-    def toAuthDict(self):
-        row = dict(user=self.user, auth_token=self.auth_token,refresh_token=self.refresh_token,expires_at=self.expires_at)
-        return row
+    def listToAuth(self,list):
+        self.user = list[0]
+        self.auth_token = list[1]
+        self.refresh_token = list[2]
+        self.expires_at = list[3]
+
+    def dictToAuth(self,dict):
+        self.listToAuth((dict["user"],dict["auth_token"],dict["refresh_token"],dict["expires_at"]))
+
+    def authToDict(self):
+        return {"user": self.user, "auth_token": self.auth_token, "refresh_token": self.refresh_token, "expires_at": self.expires_at}
 
     def getUser(self):
         return self.user
