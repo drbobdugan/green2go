@@ -42,7 +42,7 @@ class LocationDao(dao):
     def insertLocation(self,location):
         try:
             logging.info("Entering insertLocation")
-            result = location.toLocationList()
+            result = location.locationToList()
             sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):

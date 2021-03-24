@@ -1,17 +1,23 @@
 #location object
 class Location:
-    def __init__(self,location_qrcode,description,lastPickup):
-        self.location_qrcode = location_qrcode
-        self.description = description
-        self.lastPickup = lastPickup
-
-    def toLocationList(self):
+    def __init__(self, *args):
+        if args != ():
+            self.listToLocation(args)
+    
+    def locationToList(self):
         return (self.location_qrcode,self.description,self.lastPickup)
 
-    def toLocationDict(self):
-        row = dict(location_qrcode=self.location_qrcode, description=self.description,lastPickup=self.lastPickup)
-        return row
+    def listToLocation(self,list):
+        self.location_qrcode = list[0]
+        self.description = list[1]
+        self.lastPickup = list[2]
 
+    def dictToLocation(self,dict):
+        self.listToLocation((dict["location_qrcode"],dict["description"],dict["lastPickup"]))
+
+    def locationToDict(self):
+        return {"location_qrcode": self.location_qrcode,"description": self.description,"lastPickip": lastPickup}
+        
     def getQRcode(self):
         return self.location_qrcode
 

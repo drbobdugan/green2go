@@ -12,7 +12,7 @@ class AuthDao(dao):
         try:
             logging.info("Entering insertAuth")
             auth.expires_at = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
-            result = auth.toAuthList()
+            result = auth.authToList()
             sql = "INSERT INTO auth (user,auth_token,refresh_token,expires_at) VALUES (%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
