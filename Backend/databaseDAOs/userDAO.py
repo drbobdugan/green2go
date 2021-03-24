@@ -10,7 +10,7 @@ class UserDao(dao):
         try:
             logging.info("Entering insertUser")
             user.lastLogIn = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn,authorized) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn,authorized,beams_token) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False, user.userToList())
             if(myresult[0] == False):
                 return myresult
@@ -29,7 +29,7 @@ class UserDao(dao):
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1][0]
-            user = User(myresult[0], myresult[1], myresult[2], myresult[3], myresult[4], myresult[5],myresult[6], str(myresult[7]),myresult[8], str(myresult[9]), str(myresult[10]),str(myresult[11]))
+            user = User(myresult[0], myresult[1], myresult[2], myresult[3], myresult[4], myresult[5],myresult[6], str(myresult[7]),myresult[8], str(myresult[9]), str(myresult[10]),str(myresult[11]),myresult[12])
             logging.info("selectUser successful")
             return True, user
         except Exception as e:

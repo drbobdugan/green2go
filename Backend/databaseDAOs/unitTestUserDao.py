@@ -37,7 +37,8 @@ class unitTestUserDao(unittest.TestCase):
                 "1111111",
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
-                "0")
+                "0",
+                "exampletoken")
         return self.dao.insertUser(user)
     
     def testRegularAddUser(self):
