@@ -75,6 +75,9 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, selectByLocationQRcode = self.dao.selectByLocationQRcode(qrcode)
 
         self.assertFalse(rc)
+        rc, selectByLocationQRcode = self.dao.selectByLocationQRcode(None)
+
+        self.assertFalse(rc)
         
     def testDeleteLocation(self):
         """
@@ -88,6 +91,26 @@ class unitTestLocationDAO(unittest.TestCase):
         
         rc, deleteLocation = self.dao.deleteLocation(loc)
         self.assertTrue(rc)
+
+        rc, selectLocation = self.dao.selectByLocationQRcode("L042")
+        self.assertFalse(rc)
+    
+    def testDeleteLocationDoesntExist(self):
+        """
+        Test that we can't delete a location that doesn't exist
+        """
+        rc, msg = self.testInsertLocationSmoke()
+        self.assertTrue(rc)
+
+        loc = Location("L043","Drop-off bin outside Roche Commons","2021-01-01 01:01:01") 
+        self.dao = LocationDao()
+
+        rc, deleteLocation = self.dao.deleteLocation(loc)
+        self.assertFalse(rc)
+
+        rc, deleteLocation = self.dao.deleteLocation(None)
+        self.assertFalse(rc)
+
 
 
 if __name__ == '__main__':

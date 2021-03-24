@@ -13,6 +13,7 @@ import sys
 import os
 import re
 import logging
+from flask_cors import CORS
 from pusher_push_notifications import PushNotifications
 sys.path.insert(0, os.getcwd()+'/Email/')
 sys.path.insert(0, os.getcwd()+'/handlers/')
@@ -25,6 +26,7 @@ from locationHandler import LocationHandler
 
 #app methods
 app = Flask(__name__)
+CORS(app)
 logging.basicConfig(filename='demo.log', level=logging.DEBUG)
 app.debug = True
 
@@ -109,9 +111,12 @@ def refreshCode():
 def resendAuthCode():
     return authHandler.resendAuthCode(request, userDao, authDao)
 
-@app.route('/pusher/beams-auth', methods=['GET'])
+@app.route('/pusher/beams-auth', methods=['GET', 'OPTIONS'])
 def beams_auth():
-    return authHandler.beams_auth()
+    if request.method == 'OPTIONS':
+        return "true"
+    val = request.args.get('id')
+    return authHandler.beams_auth(val)
 
 #----------------------------Location Methods --------------------------------
 @app.route('/selectLocation',methods=['POST'])

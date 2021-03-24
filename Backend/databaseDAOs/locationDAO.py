@@ -56,6 +56,9 @@ class LocationDao(dao):
 
     def deleteLocation(self,location):
         try:
+            myresult = self.selectByLocationQRcode(location.location_qrcode)
+            if(myresult[0]==False):
+                return myresult
             logging.info("Entering deleteLocation")
             sql = "DELETE FROM location WHERE location_qrcode = '" + location.getQRcode() + "'"
             myresult = self.handleSQL(sql,False,None)
