@@ -9,7 +9,7 @@ class ContainerDAO(dao):
     def insertContainer(self,c):
         try:
             logging.info("Entering insertContainer")
-            result = c.toContainerList()
+            result = c.containerToList()
             sql = "INSERT INTO container (qrcode) VALUE (%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
@@ -46,7 +46,7 @@ class ContainerDAO(dao):
     def deleteContainer(self,c):
         try:
             logging.info("Entering deleteContainer")
-            result = c.toContainerList()
+            result = c.containerToList()
             sql = "DELETE FROM container WHERE qrcode = '" + result[0] + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
