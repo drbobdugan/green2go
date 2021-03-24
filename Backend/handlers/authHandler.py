@@ -11,7 +11,7 @@ class AuthHandler:
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
         self.beams_client = PushNotifications(
-            instance_id='1173615',secret_key='f9ffa4761187b1665c2f')
+            instance_id='7032df3e-e5a8-494e-9fc5-3b9f05a68e3c',secret_key='8AC9B8AABB93DFE452B2EFC2714FCF923841B6740F97207F4512F240264FF493')
 
     def validateCode(self, request, userDao, authDao):
         f='%Y-%m-%d %H:%M:%S'
@@ -109,8 +109,8 @@ class AuthHandler:
         updated = authDao.updateAuth(dic)
         return json.dumps({"success" : True, "data": updated[1]})
 
-    def beams_auth(self):
-        beams_token = self.beams_client.generate_token("test0@students.stonehill.edu")
+    def beams_auth(self, param):
+        beams_token = self.beams_client.generate_token(param)
         return json.dumps(beams_token)
             
     def resendAuthCode(self, request, userDao, authDao):
