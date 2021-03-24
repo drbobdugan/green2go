@@ -21,10 +21,8 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except :
             return json.dumps({"success" : False, "message" : "Please enter a valid code."})
-        res=None
-        try:
-            res = userDao.getUser(dic)
-        except:
+        res = userDao.getUser(dic)
+        if res[0] is False:
             res = {"success" : False, "message" : "Email does not correspond to user"}
         codefromtable=res[1]["authCode"]
         authtime=res[1]["authTime"]
