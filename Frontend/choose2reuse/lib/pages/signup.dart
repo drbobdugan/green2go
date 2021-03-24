@@ -64,7 +64,6 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(ReuseStrings.appName),
@@ -97,7 +96,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     autofillHints: const <String>[AutofillHints.givenName],
                     textInputAction: TextInputAction.next,
-                    //keyboardType: TextInputType.text,
                     onFieldSubmitted: () {
                       fieldNextFocus(context, firstNameNode, middleNameNode);
                     }),
@@ -111,7 +109,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     autofillHints: const <String>[AutofillHints.middleName],
                     textInputAction: TextInputAction.next,
-                    //keyboardType: TextInputType.text,
                     onFieldSubmitted: () {
                       fieldNextFocus(context, middleNameNode, lastNameNode);
                     }),
@@ -125,7 +122,6 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     autofillHints: const <String>[AutofillHints.familyName],
                     textInputAction: TextInputAction.next,
-                    //keyboardType: TextInputType.text,
                     onFieldSubmitted: () {
                       fieldNextFocus(context, lastNameNode, emailNode);
                     }),

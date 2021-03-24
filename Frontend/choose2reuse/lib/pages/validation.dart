@@ -76,7 +76,6 @@ class _ValidationPageState extends State<ValidationPage> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
         title: Text(ReuseStrings.appName),
