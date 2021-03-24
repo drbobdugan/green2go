@@ -167,5 +167,52 @@ class unitTestUserDao(unittest.TestCase):
         rc, getUser = self.dao.selectUser(email)
         self.assertFalse(rc)
 
+    def testDeleteUserDoesntExist(self):
+
+        rc, msg = self.addTest42User()
+        self.assertTrue(rc)
+
+        email="test42@students.stonehill.edu"
+
+        rc, getUser = self.dao.selectUser(email)
+        self.assertTrue(rc)
+
+        rc, deleteUser = self.dao.deleteUser(getUser)
+        self.assertTrue(rc)
+
+        """
+        Can't delete a user that's already been deleted
+        """
+        rc, deleteUser = self.dao.deleteUser(getUser)
+        self.assertFalse(rc)
+
+        """
+        Can't delete a user that was never there to begin with
+        """
+        user = User(
+                "test43@students.stonehill.edu",
+                "password",
+                "Test",
+                "Lazer",
+                "Example",
+                "1111111111",
+                "RegularUser",
+                "2021",
+                "1111111",
+                "2021-01-01 01:01:01",
+                "2021-01-01 01:01:01",
+                "0",
+                "exampletoken")
+
+        rc, msg = self.dao.deleteUser(user)
+        self.assertFalse(rc)
+
+        """
+        Can't delete a NoneType user
+        """
+
+        rc, msg = self.dao.deleteUser(None)
+        self.assertFalse(rc)
+
 if __name__ == '__main__':
     unittest.main()

@@ -58,6 +58,9 @@ class AuthDao(dao):
 
     def deleteAuth(self,auth):
         try:
+            myresult = self.selectByEmail(auth.user)
+            if(myresult[0]==False):
+                return myresult
             logging.info("Entering deleteAuth")
             sql = "DELETE FROM auth WHERE user = '" + auth.getUser() + "'"
             myresult = self.handleSQL(sql,False,None)
