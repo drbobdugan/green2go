@@ -1,20 +1,19 @@
 import unittest
-from userDAO import UserDao
+from userDAO import UserDAO
 from user import User
-class unitTestUserDao(unittest.TestCase):
+class unitTestUserDAO(unittest.TestCase):
     """
-    Test the userDao class methods using the unit test framework.  
+    Test the userDAO class methods using the unit test framework.  
     To run these tests:
-         python3 -m unittest unitTestUserDao.py
+         python3 -m unittest unitTestUserDAO.py
 
     """
     def setUp(self):
         """
         Setup a temporary database
         """
-        self.dao = UserDao()
+        self.dao = UserDAO()
         self.dao.changeDatabase("temp")
-
 
     def tearDown(self):
         """
@@ -142,7 +141,6 @@ class unitTestUserDao(unittest.TestCase):
 
         rc, msg = self.dao.updateUser(None)
         self.assertFalse(rc)         
-
 
     def testDeleteUser(self):
 

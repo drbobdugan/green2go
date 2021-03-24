@@ -3,7 +3,7 @@ import logging
 import mysql.connector
 from DAO import dao
 from user import User
-class UserDao(dao):
+class UserDAO(dao):
     #Accepts list val in format  val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
     def insertUser(self, user):
@@ -20,6 +20,7 @@ class UserDao(dao):
             logging.error("Error in insertUser")
             logging.error(str(e))
             return self.handleError(e)
+    
     #Gets user based on their email
     def selectUser(self,email):
         try:
@@ -36,6 +37,7 @@ class UserDao(dao):
             logging.error("Error in selectUser")
             logging.error(str(e))
             return self.handleError(e)
+    
     #FOR BACKEND -> BEFORE CALLING UPDATE PLEASE DO A GETUSER CALL SO THAT ALL OF THE VALUES ARE FILLED OUT
     def updateUser(self,user):
         try:
@@ -52,8 +54,7 @@ class UserDao(dao):
             logging.error(str(e))
             return self.handleError(e)
             #return self.deleteUser(email)
-        
-        
+    
     def deleteUser(self,user): #DELETE THEIR ENTRY IN THE AUTH TABLE
         try:
             email = user.email
