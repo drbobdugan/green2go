@@ -19,12 +19,12 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Delete the temporary database
         """
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None) # r is relationship object
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None) # r is relationship object
         self.dao.deleteRelationship(r)
 
     # TEST CREATE RELATIONSHIP
     def testInsertRelationshipSmoke(self):
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None)
         return self.dao.insertRelationship(r)
     
     def testInsertRelationship(self):
@@ -99,7 +99,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged",None,None)
+        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged","2021-01-01 01:01:01",None)
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
@@ -111,7 +111,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out",None,None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None)
         rc, deleteRelationship = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 

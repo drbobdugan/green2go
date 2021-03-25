@@ -10,7 +10,7 @@ class RelationshipDAO(dao):
         try:
             logging.info("Entering insertRelationship")
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            result = r.toRelationshipList()
+            result = r.relationshipToList()
             # change the old person's pending return status to verified return
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
@@ -109,7 +109,7 @@ class RelationshipDAO(dao):
         try:
             logging.info("Entering updateRelationship")
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            result = r.toRelationshipList()
+            result = r.relationshipToList()
             sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
@@ -129,7 +129,7 @@ class RelationshipDAO(dao):
     def deleteRelationship(self,r):
         try:
             logging.info("Entering deleteRelationship")
-            result = r.toRelationshipList()
+            result = r.relationshipToList()
             email = result[0]
             qrcode = result[1]
             status = result[2] 
