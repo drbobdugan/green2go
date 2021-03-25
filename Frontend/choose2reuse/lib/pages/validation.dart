@@ -67,11 +67,11 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   void handleNewCode(BuildContext context) {
-    if (email != '') {
+    if (email != '' || widget.user.email != '') {
       setState(() {
         errorMessage = '';
       });
-      widget.onResend(email);
+      email != '' ? widget.onResend(email) : widget.onResend(widget.user.email);
     } else {
       setState(() {
         errorMessage = ReuseStrings.emptyEmailErrorMessage;
