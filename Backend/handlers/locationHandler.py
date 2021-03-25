@@ -13,6 +13,7 @@ class LocationHandler:
 
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
+        self.locationdao = LocationDao()
 
 
     def selectLocation(self, request,locationDao):
@@ -23,7 +24,7 @@ class LocationHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
        
-        
-        res = LocationDao.selectByLocationQRcode(locationDao,qrcode=locationDic["qrcode"]) #need to get the method for database team 
-        res=res[0],res[1].toLocationDict()
+        print(locationDic)
+        res = self.locationdao.selectByLocationQRcode(locationDic['qrcode']) #need to get the method for database team 
+        res=res[0],res[1].locationToDict()
         return self.helperHandler.handleResponse(res)

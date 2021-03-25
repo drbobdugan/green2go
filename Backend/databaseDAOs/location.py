@@ -16,7 +16,7 @@ class Location:
         self.listToLocation((dict["location_qrcode"],dict["description"],dict["lastPickup"]))
 
     def locationToDict(self):
-        return {"location_qrcode": self.location_qrcode,"description": self.description,"lastPickip": lastPickup}
+        return {"location_qrcode": self.location_qrcode,"description": self.description,"lastPickip": self.lastPickup}
         
     def getQRcode(self):
         return self.location_qrcode
