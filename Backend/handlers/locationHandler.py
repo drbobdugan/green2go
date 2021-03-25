@@ -8,6 +8,7 @@ from containerDao import ContainerDao
 from authDao import AuthDao
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from locationDAO import LocationDao
+from location import Location
 # test
 class LocationHandler:
 
@@ -26,5 +27,6 @@ class LocationHandler:
        
         print(locationDic)
         res = self.locationdao.selectByLocationQRcode(locationDic['qrcode']) #need to get the method for database team 
-        res=res[0],res[1].locationToDict()
+        if (type(res[1])==type(Location)):
+            res=res[0],res[1].locationToDict()
         return self.helperHandler.handleResponse(res)
