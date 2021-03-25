@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:pusher_beams/pusher_beams.dart';
 
 import 'pages/checkoutContainer.dart';
 import 'pages/containerList.dart';
@@ -12,7 +14,15 @@ import 'static/strings.dart';
 import 'static/student.dart';
 import 'static/user.dart';
 
-void main() {
+void main() async {
+  /*WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await PusherBeams.start('7032df3e-e5a8-494e-9fc5-3b9f05a68e3c');
+  } on FormatException {
+    print('Failed to connect to Pusher Beams');
+  }*/
+
   runApp(
     const Choose2ReuseApp(),
   );
@@ -27,6 +37,24 @@ class Choose2ReuseApp extends StatefulWidget {
 
 class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
   @override
+  void initState() {
+    super.initState();
+    //initInterests();
+  }
+
+  /*Future<void> initInterests() async {
+    try {
+      await PusherBeams.addDeviceInterest('hello');
+      await PusherBeams.addDeviceInterest('debug-hello');
+
+      final interests = await PusherBeams.getDeviceInterests();
+
+      print(interests);
+    } on PlatformException {
+      print('Encountered PlatformException');
+    }
+  }*/
+
   Widget build(BuildContext context) {
     return MaterialApp(
       title: ReuseStrings.appName,
