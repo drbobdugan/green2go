@@ -10,12 +10,12 @@ class Relationship:
         self.email = list[0]
         self.qrcode = list[1]
         self.status = list[2]
-        self.setStatusUpdateTime = list[3]
+        self.statusUpdateTime = list[3]
         self.location_qrcode = list[4]
     
     # object to list
     def relationshipToList(self):
-        return(self.email,self.qrcode,self.status,self.setStatusUpdateTime,self.location_qrcode)
+        return(self.email,self.qrcode,self.status,self.statusUpdateTime,self.location_qrcode)
     
     # dictionary to object
     def dictToRelationship(self,dict):

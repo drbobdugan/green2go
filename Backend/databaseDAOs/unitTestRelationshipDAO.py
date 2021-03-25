@@ -99,7 +99,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged","2021-01-01 01:01:01","L001")
+        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged","2021-01-01 01:01:01",None)
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
