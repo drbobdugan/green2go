@@ -63,10 +63,10 @@ class ListItem extends StatelessWidget {
                     fontSize: MediaQuery.of(context).size.width * 0.04),
                 left: 10,
               ),
-              IconButton(
-                icon: Image.asset('assets/images/broken-glass.png'),
-                onPressed: null,
-              ),
+              // IconButton(
+              //   icon: Image.asset('assets/images/broken-glass.png'),
+              //   onPressed: null,
+              // ),
             ],
           ),
         ),
