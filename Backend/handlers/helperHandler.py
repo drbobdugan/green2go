@@ -2,10 +2,14 @@ import re
 import json
 import string
 import random
+import sys
+import os
 from datetime import datetime
 from userDao import UserDao
-from containerDao import ContainerDao
 from authDao import AuthDao
+from containerDao import ContainerDao
+#sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+#from authDAO import AuthDao
 from locationDao import LocationDao
 from emailServer import EmailManager
 from pathlib import Path
@@ -107,6 +111,6 @@ class HelperHandler:
         
     def handleResponse(self, res):
         if res[0] is True:
-            return json.dumps({"success" : res[0], "data" : res[1]})
+            return json.dumps({"success" : res[0], "data" : res[1]},default=str)
         else:
             return json.dumps({"success" : res[0], "message" : res[1]})
