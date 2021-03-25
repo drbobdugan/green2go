@@ -53,6 +53,9 @@ class _ValidationPageState extends State<ValidationPage> {
 
   void handleVerify(BuildContext context) {
     if (isValidCode()) {
+      if (email == '') {
+        email = widget.user.email;
+      }
       widget.onVerify(email, code).then((APIResponse response) {
         if (response.success) {
           NavigationService(context: context)
