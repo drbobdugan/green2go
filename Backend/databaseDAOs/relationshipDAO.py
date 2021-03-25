@@ -115,7 +115,7 @@ class RelationshipDAO(dao):
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1][0]
-            sql = "UPDATE hascontainer SET status = 'Verifed Return' WHERE email = '" + result[0] + "' and " + "qrcode = '" + result[1] + "'" " and statusUpdateTime = '" + str(myresult[3]) + "'"
+            sql = "UPDATE hascontainer SET status = '" + r.status + "' WHERE email = '" + result[0] + "' and " + "qrcode = '" + result[1] + "'" " and statusUpdateTime = '" + str(myresult[3]) + "' and location_qrcode = '" + r.location_qrcode + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
