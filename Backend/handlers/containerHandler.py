@@ -120,7 +120,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         relationship=Relationship()
-        print(dictOfUserAttrib)
+        #print(dictOfUserAttrib)
         relationship.dictToRelationship(dictOfUserAttrib)
         res = self.relationdao.updateRelationship(relationship)
         return self.helperHandler.handleResponse(res)

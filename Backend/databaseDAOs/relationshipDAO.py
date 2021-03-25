@@ -118,7 +118,7 @@ class RelationshipDAO(dao):
             myresult = list(myresult)
             myresult[3] = str(myresult[3])
             r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4])
-            sql = "UPDATE hascontainer SET status = '" + str(r1.status) + "', location_qrcode = '" + str(r1.location_qrcode) + "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
+            sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
