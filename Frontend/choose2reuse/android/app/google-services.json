@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1027650287013",
+    "project_id": "choose2reuse-7d502",
+    "storage_bucket": "choose2reuse-7d502.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027650287013:android:4ef68c9eca1d770065e44c",
+        "android_client_info": {
+          "package_name": "edu.stonehill.greenZgo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027650287013-rp9vqlpg0sutuebd9j6a40kqntsllc23.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCX2J_U34wS5dAaaY3HMGQAU9NnDraxGg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027650287013-rp9vqlpg0sutuebd9j6a40kqntsllc23.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1027650287013-bnpqf956ufvefiq46hiv5o10fv2eu07n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "edu.stonehill.choose2reuse",
+                "app_store_id": "1559285375"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

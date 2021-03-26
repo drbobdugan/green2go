@@ -30,6 +30,7 @@ dependencies:
   firebase_core: ^1.0.2
   firebase_messaging: ^9.0.1
   pusher_beams: ^0.5.3+3
+  permission_handler: ^6.1.1
 
 dev_dependencies:
   change_app_package_name: ^0.1.2

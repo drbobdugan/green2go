@@ -7,8 +7,8 @@ class Container:
 
     # list to object
     def listToContainer(self,list):
-        self.qrcode = list[0]
-
+        self.qrcode = list
+       
     # object to list
     def containerToList(self):
         containerList = []
@@ -17,7 +17,8 @@ class Container:
 
     # dictionary to object
     def dictToContainer(self,dict):
-        self.listToContainer((dict["qrcode"]))
+        print(dict)
+        self.listToContainer(dict["qrcode"])
 
     # object to dictionary
     def containerToDict(self):
