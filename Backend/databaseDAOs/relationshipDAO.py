@@ -3,6 +3,7 @@ from datetime import datetime
 import logging
 from relationship import Relationship
 from DAO import dao
+from datetime import timedelta
 class RelationshipDAO(dao):
 
     # CREATE RELATIONSHIP
@@ -108,7 +109,7 @@ class RelationshipDAO(dao):
     def updateRelationship(self,r):
         try:
             logging.info("Entering updateRelationship")
-            r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            r.statusUpdateTime = (datetime.now() + timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S') 
             result = r.relationshipToList()
             sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
