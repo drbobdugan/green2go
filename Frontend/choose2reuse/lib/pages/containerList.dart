@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../components/reuse_filterButton.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
@@ -11,14 +10,26 @@ import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
 
+enum FilterOptions { All, CheckedOut, Pending, Verified }
+
+const List<FilterOptions> items = <FilterOptions>[
+  FilterOptions.All,
+  FilterOptions.CheckedOut,
+  FilterOptions.Pending,
+  FilterOptions.Verified
+];
+
+const Map<FilterOptions, String> labels = <FilterOptions, String>{
+  FilterOptions.All: 'All',
+  FilterOptions.CheckedOut: 'Checked Out',
+  FilterOptions.Pending: 'Pending Return',
+  FilterOptions.Verified: 'Verified Return'
+};
+
 class ContainerListPage extends StatefulWidget {
   const ContainerListPage({Key key, @required this.userAuth}) : super(key: key);
 
   final StudentAuth userAuth;
-
-  Future<APIResponse> onGetContainers() async {
-    return await StudentService.getContainers(userAuth);
-  }
 
   Future<APIResponse> onGetSortedContainers() async {
     return await StudentService.getSortedContainers(userAuth);
@@ -30,6 +41,7 @@ class ContainerListPage extends StatefulWidget {
 
 class _ContainerListPageState extends State<ContainerListPage> {
   StudentDetails user;
+  List<ReusableContainer> filteredContainers;
 
   @override
   void initState() {
@@ -37,10 +49,12 @@ class _ContainerListPageState extends State<ContainerListPage> {
 
     user = StudentDetails(widget.userAuth);
 
-    widget.onGetContainers().then((APIResponse response) {
+    widget.onGetSortedContainers().then((APIResponse response) {
       if (response.success) {
         setState(() {
-          user.setContainers(response.data as List<dynamic>);
+          user.sortedContainers =
+              SortedReusableContainers(response.data as Map<String, dynamic>);
+          filteredContainers = user.sortedContainers.all;
         });
       }
     });
@@ -48,9 +62,9 @@ class _ContainerListPageState extends State<ContainerListPage> {
 
   ListView getContainerDataLarge() {
     return ListView.builder(
-      itemCount: user.containers.length,
+      itemCount: filteredContainers.length,
       itemBuilder: (BuildContext context, int index) {
-        final ReusableContainer container = user.containers[index];
+        final ReusableContainer container = filteredContainers[index];
         return Padding(
           padding: const EdgeInsets.only(top: 30.0),
           child: container.dataRow(),
@@ -59,9 +73,23 @@ class _ContainerListPageState extends State<ContainerListPage> {
     );
   }
 
+  void onFilter(String filterOn) {
+    setState(() {
+      if (filterOn == labels[FilterOptions.CheckedOut]) {
+        filteredContainers = user.sortedContainers.checkedOut;
+      } else if (filterOn == labels[FilterOptions.Verified]) {
+        filteredContainers = user.sortedContainers.verified;
+      } else if (filterOn == labels[FilterOptions.Pending]) {
+        filteredContainers = user.sortedContainers.unverified;
+      } else {
+        filteredContainers = user.sortedContainers.all;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (user.containers == null) {
+    if (user.sortedContainers == null) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: ReuseLoading(),
@@ -78,19 +106,49 @@ class _ContainerListPageState extends State<ContainerListPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Stack(alignment: Alignment.center, children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: <
+                Widget>[
               SizedBox(
                   height: 75,
-                  width: MediaQuery.of(context).size.width,
+                  width: MediaQuery.of(context).size.width - 130,
                   child: ReuseLabel(
                       text: ReuseStrings.containerListTitle,
                       textStyle: CustomTheme.primaryLabelStyle(),
                       top: 30.0,
                       bottom: 15.0)),
-              const Positioned(
-                  top: 15,
-                  right: 10,
-                  child: FilterButton(height: 50.0, width: 50.0))
+              Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: <
+                  Widget>[
+                ReuseLabel(
+                  text: ReuseStrings.filterBy,
+                  textStyle: CustomTheme.secondaryLabelStyle(fontSize: 16.0),
+                  right: 10.0,
+                ),
+                Container(
+                    height: 50.0,
+                    width: 100.0,
+                    decoration: BoxDecoration(
+                        color: CustomTheme.getColor('light'),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(50))),
+                    child: PopupMenuButton<String>(
+                      icon: const Icon(Icons.filter_alt, color: Colors.white),
+                      onSelected: (String value) {
+                        onFilter(value);
+                      },
+                      itemBuilder: (BuildContext context) {
+                        return items.map((FilterOptions option) {
+                          return PopupMenuItem<String>(
+                              value: labels[option],
+                              child: Row(children: <Widget>[
+                                Text(labels[option],
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomTheme.getColor('primary')))
+                              ]));
+                        }).toList();
+                      },
+                    ))
+              ])
             ]),
             Expanded(
               child: getContainerDataLarge(),

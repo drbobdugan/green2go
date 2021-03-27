@@ -44,10 +44,11 @@ class _HomePageState extends State<HomePage> {
     widget.onGetContainers().then((APIResponse response) {
       if (response.success) {
         setState(() {
-          user.setContainers(response.data as List<dynamic>);
+          user.topContainers =
+              SortedReusableContainers.getContainerList(response.data);
 
           for (final ContainerStatus status in containerItems) {
-            containerCounts[status] = user.containers
+            containerCounts[status] = user.topContainers
                 .where((dynamic c) => c.status == containerLabels[status])
                 .toList()
                 .length;
@@ -93,9 +94,10 @@ class _HomePageState extends State<HomePage> {
         controller: scrollController,
         child: ListView.builder(
           controller: scrollController,
-          itemCount: user.containers.length > 5 ? 5 : user.containers.length,
+          itemCount:
+              user.topContainers.length > 5 ? 5 : user.topContainers.length,
           itemBuilder: (BuildContext context, int index) {
-            final ReusableContainer container = user.containers[index];
+            final ReusableContainer container = user.topContainers[index];
             return Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: container.dataRow(),
@@ -113,7 +115,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    if (user.containers == null) {
+    if (user.topContainers == null) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: ReuseLoading(),
@@ -134,7 +136,7 @@ class _HomePageState extends State<HomePage> {
               text: ReuseStrings.homepageTitle,
               textStyle: CustomTheme.primaryLabelStyle(),
               top: 30.0,
-              bottom: 30.0,
+              bottom: 20.0,
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 0.0),

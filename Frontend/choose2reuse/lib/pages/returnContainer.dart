@@ -1,6 +1,7 @@
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown_flutter/countdown_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
@@ -37,6 +38,32 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
   String errorMessage = '';
   bool containerScanActive = false;
   String locationQR = '';
+  int secondsRemaining = 300;
+
+  @override
+  @override
+  void initState() {
+    super.initState();
+    autoCheckTimeRemaining();
+  }
+
+  void autoCheckTimeRemaining() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String startTime = prefs.getString('returnContainerStartTime');
+
+    if (startTime != null) {
+      final DateTime parsed = DateTime.parse(startTime);
+      final DateTime invalidAt = parsed.add(const Duration(seconds: 300));
+      if (DateTime.now().isAfter(invalidAt)) {
+        prefs.setString('returnContainerStartTime', null);
+      } else {
+        setState(() {
+          containerScanActive = true;
+          secondsRemaining = DateTime.now().difference(parsed).inSeconds;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +85,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
             ),
             if (containerScanActive)
               CountdownFormatted(
-                duration: const Duration(minutes: 5),
+                duration: Duration(seconds: secondsRemaining),
                 onFinish: () {
                   setState(() {
                     containerScanActive = false;
@@ -96,6 +123,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
   }
 
   Future<void> scanLocationQRCode() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
     locationQR = await FlutterBarcodeScanner.scanBarcode(
         '#FF2E856E', ReuseStrings.cancel, true, ScanMode.QR);
 
@@ -104,6 +132,8 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
         if (!containerScanActive) {
           setState(() {
             containerScanActive = true;
+            prefs.setString(
+                'returnContainerStartTime', DateTime.now().toString());
           });
         }
       } else {

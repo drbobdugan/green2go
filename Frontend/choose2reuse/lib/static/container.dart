@@ -3,14 +3,12 @@ import '../components/reuse_listItem.dart';
 
 class ReusableContainer {
   ReusableContainer(dynamic value) {
-    email = value['user'] as String;
     qrCode = value['qrcode'] as String;
     status = value['status'] as String;
     statusUpdateTime = value['statusUpdateTime'] as String;
     statusLocation = value['location_qrcode'] as String;
   }
 
-  String email;
   String qrCode;
   String status;
   String statusUpdateTime;
@@ -33,6 +31,29 @@ class ReusableContainer {
     final DateTime inputDate = DateFormat('yyyy-MM-dd HH:mm:ss').parse(date);
     return DateFormat('MM/dd/yyyy hh:mm a').format(inputDate);
   }
+}
+
+class SortedReusableContainers {
+  SortedReusableContainers(Map<String, dynamic> value) {
+    all = getContainerList(value['All']);
+    checkedOut = getContainerList(value['Checked_out']);
+    verified = getContainerList(value['Verified_Return']);
+    unverified = getContainerList(value['Unverified_Return']);
+  }
+
+  static List<ReusableContainer> getContainerList(dynamic value) {
+    if (value != null) {
+      return (value as List<dynamic>)
+          .map((dynamic item) => ReusableContainer(item))
+          .toList();
+    }
+    return <ReusableContainer>[];
+  }
+
+  List<ReusableContainer> all;
+  List<ReusableContainer> checkedOut;
+  List<ReusableContainer> verified;
+  List<ReusableContainer> unverified;
 }
 
 enum ContainerStatus { CheckedOut, Verified, Unverified }

@@ -31,23 +31,32 @@ class ListItem extends StatelessWidget {
               bottomRight: Radius.circular(25),
             ),
           ),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 15.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                ReuseLabel(
-                  text: text1,
-                  textStyle: CustomTheme.leftListStyle(),
-                  right: 5,
-                ),
-                ReuseLabel(
-                  text: text3,
-                  textStyle: CustomTheme.leftIDStyle(),
-                  right: 5,
-                )
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  ReuseLabel(
+                    text: text1,
+                    textStyle: CustomTheme.leftListStyle(),
+                    right: 5,
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Flexible(
+                    child: ReuseLabel(
+                      text: text3,
+                      textStyle: CustomTheme.leftIDStyle(),
+                      right: 5,
+                    ),
+                  )
+                ],
+              )
+            ],
           ),
         ),
         Container(
@@ -63,10 +72,8 @@ class ListItem extends StatelessWidget {
                     fontSize: MediaQuery.of(context).size.width * 0.04),
                 left: 10,
               ),
-              // IconButton(
-              //   icon: Image.asset('assets/images/broken-glass.png'),
-              //   onPressed: null,
-              // ),
+              Icon(Icons.broken_image_rounded,
+                  size: 30.0, color: CustomTheme.getColor(colorID)),
             ],
           ),
         ),

@@ -46,6 +46,7 @@ class ReuseStrings {
   static String welcomeLabel = 'Welcome!';
   static String validationInstruction =
       'Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.';
+  static String filterBy = 'Filter By';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';
