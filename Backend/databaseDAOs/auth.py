@@ -17,7 +17,7 @@ class Auth:
         self.listToAuth((dict["user"],dict["auth_token"],dict["refresh_token"],dict["expires_at"]))
 
     def authToDict(self):
-        return {"user": self.user, "auth_token": self.auth_token, "refresh_token": self.refresh_token, "expires_at": self.expires_at}
+        return {"user": self.user, "auth_token": self.auth_token, "refresh_token": self.refresh_token, "expires_at": str(self.expires_at)}
 
     def getUser(self):
         return self.user

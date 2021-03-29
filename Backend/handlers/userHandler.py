@@ -1,8 +1,12 @@
 import json
 import string
 import random
+import sys
+import os
 from datetime import datetime
-from userDao import UserDao
+sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+from userDAO import UserDAO
+from user import User
 from containerDao import ContainerDao
 from authDao import AuthDao
 from locationDao import LocationDao
@@ -11,6 +15,7 @@ class UserHandler:
 
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
+        self.userDao = UserDAO()
 
     def getUser(self, request, userDao, hasAuth):
         keys = ["email"]
@@ -60,10 +65,15 @@ class UserHandler:
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
             dictOfUserAttrib['authCode'] = authCode
+            dictOfUserAttrib['authTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            dictOfUserAttrib['lastLogIn'] = "None"
+            dictOfUserAttrib['authorized'] = "0"
+            dictOfUserAttrib['beams_token'] = "None"
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)})
-        res = userDao.addUser(dictOfUserAttrib)
-        print(res)
+        user = User()
+        user.dictToUser(dictOfUserAttrib)
+        res = self.userDao.insertUser(user)
         if(res[0]):
             self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
@@ -96,11 +106,27 @@ class UserHandler:
 
     def sort(self, userDao, d, f):
         res = None
+        user = User()
+        # get user from table to get missing fields
+        tempUser = self.userDao.selectUser(d["email"])
+        user = tempUser[1]
+        # convert user obj to dict for simplicity
+        tempUserDic = user.userToDict()
+        print(tempUserDic)
+        print(user)
+        #tempUser = None
         if f == 1:
-            res = userDao.getUser(d)
+            res = [True, tempUserDic]
         elif f == 2:
-            res = userDao.deleteUser(d)
+            self.userDao.deleteUser(user)
+            dic = user.userToDict()
+            res = [True, dic]
         elif f == 3:
-            res = userDao.updateUser(d)
+            for key in d:
+                tempUserDic[key] = d[key]
+            user.dictToUser(tempUserDic)
+            self.userDao.updateUser(user)
+            dic = user.userToDict()
+            res = [True, dic]
         return res
 

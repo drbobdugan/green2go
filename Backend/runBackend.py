@@ -4,13 +4,14 @@ import json
 import string
 import random
 from flask import request
-from userDao import UserDao
+import sys
+import os
+sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+from userDAO import UserDAO
 from containerDao import ContainerDao
 from authDao import AuthDao
 from locationDao import LocationDao
 from datetime import datetime
-import sys
-import os
 import re
 import logging
 from flask_cors import CORS
@@ -31,7 +32,7 @@ logging.basicConfig(filename='demo.log', level=logging.DEBUG)
 app.debug = True
 
 #daos and objects
-userDao=UserDao()
+userDao=UserDAO()
 containerDao=ContainerDao()
 authDao = AuthDao()
 locationDao=LocationDao()
