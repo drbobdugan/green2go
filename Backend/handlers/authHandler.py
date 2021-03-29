@@ -94,10 +94,11 @@ class AuthHandler:
         # retrieve auth
         res = self.authDao.selectByEmail(dic["email"])
         auth = res[1]
+        print(auth)
         # update the auth
         authDic = auth.authToDict()
         authDic["auth_token"] = self.helperHandler.id_generator(size=45)
-        authDic["refresh_token"] = self.helperHandler.id_generator(size=45)
+        authDic["refresh_token"] = auth.refresh_token
         auth.dictToAuth(authDic)
         res = self.authDao.updateAuth(auth)
         auth = res[1]
@@ -147,7 +148,7 @@ class AuthHandler:
         try:
             user = userDao.getUser(dic)
         except:
-            user = {"success" : False, "message" : "Email does not correspond to user"}
+            return json.dumps({"success" : False, "message" : "Email does not correspond to user"})
         authtime=user[1]["authTime"]
         authtimets=datetime.strptime(authtime, f)
         timepassed=datetime.now()-authtimets

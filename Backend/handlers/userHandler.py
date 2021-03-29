@@ -109,6 +109,8 @@ class UserHandler:
         user = User()
         # get user from table to get missing fields
         tempUser = self.userDao.selectUser(d["email"])
+        if tempUser[0] is False:
+            return False, tempUser[1]
         user = tempUser[1]
         # convert user obj to dict for simplicity
         tempUserDic = user.userToDict()
