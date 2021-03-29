@@ -32,7 +32,6 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except :
             return json.dumps({"success" : False, "message" : "Please enter a valid code."})
-        print(dic)
         user = User()
         res = self.userDao.selectUser(dic["email"])
         user = res[1]
@@ -54,16 +53,16 @@ class AuthHandler:
         authDic["refresh_token"] = self.helperHandler.id_generator(size=45)
         authDic["expires_at"] = ""
         auth = Auth()
-        print(authDic)
         auth.dictToAuth(authDic)
         self.authDao.deleteAuth(auth)
         res = self.authDao.insertAuth(auth)
+        data = auth.authToDict()
         # fix userAuth as well
         userDic["authorized"] = 1
         user = user.dictToUser(userDic)
         userDao.updateUser(user)
         # return it
-        return json.dumps({"success" : res[0], "data" : res[1]})
+        return json.dumps({"success" : res[0], "data" : data})
 
     def loginErrorHandler(self, userDic, dic):
         message = None
@@ -93,8 +92,9 @@ class AuthHandler:
             return json.dumps({"success" : False, "message" : errorRes})
         # retrieve auth
         res = self.authDao.selectByEmail(dic["email"])
+        if res[0] is False:
+            return json.dumps({"success" : res[0], "message" : res[1]})
         auth = res[1]
-        print(auth)
         # update the auth
         authDic = auth.authToDict()
         authDic["auth_token"] = self.helperHandler.id_generator(size=45)

@@ -76,7 +76,7 @@ class ContainerHandler:
             self.validateQRCode(userContainer)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         except Exception as e:
-            print(str(e))
+            #print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
         relationship=Relationship()
         
@@ -93,7 +93,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = self.relationdao.selectAllByEmail(relationship['email'])
-        print(res)
+        #print(res)
         
         res[1].reverse()
         if res[0] is True and isSorted is True:
@@ -104,7 +104,7 @@ class ContainerHandler:
                 'Verified_Return':[]
             }
             for item in res[1]:
-                print(item['status'].replace(' ', '_'))
+                #print(item['status'].replace(' ', '_'))
                 sortDict[item['status'].replace(' ', '_')].append(item)
             res= (True,sortDict)
         return self.helperHandler.handleResponse(res)

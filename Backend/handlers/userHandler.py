@@ -8,7 +8,7 @@ sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from userDAO import UserDAO
 from user import User
 from containerDao import ContainerDao
-from authDao import AuthDao
+from authDAO import AuthDao
 from locationDao import LocationDao
 
 class UserHandler:
@@ -16,6 +16,7 @@ class UserHandler:
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
         self.userDao = UserDAO()
+        self.authDao = AuthDao()
 
     def getUser(self, request, userDao, hasAuth):
         keys = ["email"]
@@ -114,16 +115,18 @@ class UserHandler:
         user = tempUser[1]
         # convert user obj to dict for simplicity
         tempUserDic = user.userToDict()
-        print(tempUserDic)
-        print(user)
+        #get the user from the auth table
+        tempAuth = self.authDao.selectByEmail(d["email"])
+        auth = tempAuth[1]
         #tempUser = None
-        if f == 1:
+        if f == 1: #GET
             res = [True, tempUserDic]
-        elif f == 2:
+        elif f == 2: #DELETE: delete user and auth
             self.userDao.deleteUser(user)
+            self.authDao.deleteAuth(auth)
             dic = user.userToDict()
             res = [True, dic]
-        elif f == 3:
+        elif f == 3: #UPDATE: update dic, convert to user, and call updateUser
             for key in d:
                 tempUserDic[key] = d[key]
             user.dictToUser(tempUserDic)
