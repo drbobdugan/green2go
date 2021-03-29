@@ -83,7 +83,7 @@ class AuthHandler:
         res = self.userDao.selectUser(dic["email"])
         # if not succesful then return why
         if res[0] is False:
-            return json.dumps({"success" : res[0], "message" : "Email not found, please try signing up"})
+            return json.dumps({"success" : res[0], "message" : res[1]})
         # handle login errors
         user = res[1]
         userDic = user.userToDict()
