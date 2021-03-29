@@ -50,7 +50,7 @@ class AuthDao(dao):
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0]==False):
                 return myresult
-            return True
+            return True, auth
         except Exception as e:
             logging.error("Error in updateAuth")
             logging.error(str(e))
