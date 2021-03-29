@@ -56,6 +56,7 @@ class AuthHandler:
         auth = Auth()
         print(authDic)
         auth.dictToAuth(authDic)
+        self.authDao.deleteAuth(auth)
         res = self.authDao.insertAuth(auth)
         # fix userAuth as well
         userDic["authorized"] = 1
