@@ -44,8 +44,8 @@ class AuthHandler:
         timepassed=datetime.now()-authtimets
         if (dic['code']!=codefromtable):
             return json.dumps({"success" : False, "message" : "Invalid verification code."})
-        #elif(timepassed.total_seconds()>=300):
-           # return json.dumps({"success" : False, "message" : "Expired verification code"})
+        elif(timepassed.total_seconds()>=300):
+            return json.dumps({"success" : False, "message" : "Expired verification code"})
         # create new auth
         authDic = {}
         authDic["user"] = dic["email"]
