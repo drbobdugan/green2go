@@ -36,7 +36,7 @@ class AuthHandler:
         res = self.userDao.selectUser(dic["email"])
         user = res[1]
         if res[0] is False:
-            res = {"success" : False, "message" : "Email does not correspond to user"}
+            return json.dumps({"success" : False, "message" : "Email does not correspond to user"})
         userDic = user.userToDict()
         codefromtable=userDic["authCode"]
         authtime=userDic["authTime"]
