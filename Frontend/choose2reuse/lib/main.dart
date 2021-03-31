@@ -18,13 +18,12 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   try {
-    PusherBeams.start('7032df3e-e5a8-494e-9fc5-3b9f05a68e3c').
-    then((dynamic res) => {
-      PusherBeams.addDeviceInterest('hello').then((dynamic res) => {
-        print('done')
-      })
-    });
-  } catch(e) {
+    PusherBeams.start('7032df3e-e5a8-494e-9fc5-3b9f05a68e3c')
+        .then((dynamic res) => {
+              PusherBeams.addDeviceInterest('hello')
+                  .then((dynamic res) => {print('done')})
+            });
+  } catch (e) {
     print(e);
     print('Failed to connect to Pusher Beams');
   }
@@ -45,21 +44,7 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
   @override
   void initState() {
     super.initState();
-    //initInterests();
   }
-
-  /*Future<void> initInterests() async {
-    try {
-      await PusherBeams.addDeviceInterest('hello');
-      await PusherBeams.addDeviceInterest('debug-hello');
-
-      final interests = await PusherBeams.getDeviceInterests();
-
-      print(interests);
-    } on PlatformException {
-      print('Encountered PlatformException');
-    }
-  }*/
 
   Widget build(BuildContext context) {
     return MaterialApp(
