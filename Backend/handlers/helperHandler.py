@@ -16,7 +16,6 @@ from pusher_push_notifications import PushNotifications
 from pathlib import Path
 from pusher_push_notifications import PushNotifications
 
-
 class HelperHandler:
 
     def __init__(self, emailServer):
