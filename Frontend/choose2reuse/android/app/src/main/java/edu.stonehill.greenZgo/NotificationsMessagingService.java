@@ -1,3 +1,5 @@
+package edu.stonehill.greenZgo;
+
 import android.util.Log;
 
 import com.google.firebase.messaging.RemoteMessage;
