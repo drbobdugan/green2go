@@ -7,7 +7,7 @@ class Container:
 
     # list to object
     def listToContainer(self,list):
-        self.qrcode = list
+        self.qrcode = list[0]
        
     # object to list
     def containerToList(self):
