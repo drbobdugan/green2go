@@ -15,13 +15,8 @@ matrix:
         - pip install -r requirements.txt
 
       script:
-        - cd Backend/
-        - ls
-        - python3 -m unittest unitTestUserDao.py
-        - python3 -m unittest unitTestContainerDao.py
-        - python3 -m unittest unitTestLocationDao.py
-        - python3 -m unittest testAuthDao.py
-	- cd databaseDAOs
+        - cd Backend/databaseDAOs
+	- ls
 	- python3 -m testAuthDAO.py
 	- python3 -m testLocationDAO.py
 	- python3 -m unitTestAuthDao.py  
