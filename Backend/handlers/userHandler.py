@@ -7,9 +7,8 @@ from datetime import datetime
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from userDAO import UserDAO
 from user import User
-from containerDao import ContainerDao
 from authDAO import AuthDao
-from locationDao import LocationDao
+from auth import Auth
 
 class UserHandler:
 
@@ -107,31 +106,32 @@ class UserHandler:
 
     def sort(self, userDao, d, f):
         res = None
-        user = User()
         # get user from table to get missing fields
-        tempUser = self.userDao.selectUser(d["email"])
-        if tempUser[0] is False:
-            return False, tempUser[1]
-        user = tempUser[1]
+        res = self.userDao.selectUser(d["email"])
+        user = res[1]
+        if res[0] is False:
+            return False, res[1]
         # convert user obj to dict for simplicity
-        tempUserDic = user.userToDict()
+        UserDic = user.userToDict()
         #get the user from the auth table
-        tempAuth = self.authDao.selectByEmail(d["email"])
-        auth = tempAuth[1]
         #tempUser = None
         if f == 1: #GET
-            res = [True, tempUserDic]
+            res = [True, UserDic]
         elif f == 2: #DELETE: delete user and auth
+            try:
+                res = self.authDao.selectByEmail(d["email"])
+                auth = res[1]
+                self.authDao.deleteAuth(auth)
+            except:
+                pass
             self.userDao.deleteUser(user)
-            self.authDao.deleteAuth(auth)
             dic = user.userToDict()
             res = [True, dic]
-        elif f == 3: #UPDATE: update dic, convert to user, and call updateUser
+        elif f == 3: #UPDATE: update dic, convert to user, and update user table
             for key in d:
-                tempUserDic[key] = d[key]
-            user.dictToUser(tempUserDic)
+                UserDic[key] = d[key]
+            user.dictToUser(UserDic)
             self.userDao.updateUser(user)
-            dic = user.userToDict()
-            res = [True, dic]
+            res = [True, UserDic]
         return res
 

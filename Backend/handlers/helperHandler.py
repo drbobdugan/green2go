@@ -5,20 +5,23 @@ import random
 import sys
 import os
 from datetime import datetime
-from userDao import UserDao
-from authDao import AuthDao
-from containerDao import ContainerDao
-#sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
-#from authDAO import AuthDao
-from locationDao import LocationDao
+sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+from userDAO import UserDAO
+from authDAO import AuthDao
+from auth import Auth
+from containerDAO import ContainerDAO
+from locationDAO import LocationDao
 from emailServer import EmailManager
+from pusher_push_notifications import PushNotifications
 from pathlib import Path
 from pusher_push_notifications import PushNotifications
+
 
 class HelperHandler:
 
     def __init__(self, emailServer):
         self.emailServer = emailServer
+        self.authDao = AuthDao()
         self.beams_client = PushNotifications(
             instance_id='7032df3e-e5a8-494e-9fc5-3b9f05a68e3c',secret_key='8AC9B8AABB93DFE452B2EFC2714FCF923841B6740F97207F4512F240264FF493')
 
@@ -97,16 +100,16 @@ class HelperHandler:
         return dic
 
     def handleAuth(self, dic):
-        authDao = AuthDao()
-        res = authDao.getAuth(dic)
-        del authDao
+        res = self.authDao.selectByEmail(dic["email"])
         if res[0] is False:
             return False, "No matching user with that authorization token"
         # make sure auth code actually exixts in dattabse
-        if res[1]["auth_token"] != dic["auth_token"]:
+        auth = res[1]
+        authDic = auth.authToDict()
+        if authDic["auth_token"] != dic["auth_token"]:
             return False, "Invalid token"
         # check that it's not expired
-        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+        timeobj=datetime.strptime(authDic["expires_at"], '%Y-%m-%d %H:%M:%S')
         if datetime.now() >= timeobj:
             return False, "Expired token"
         return True, ""
@@ -117,7 +120,7 @@ class HelperHandler:
             return json.dumps({"success" : res[0], "data" : res[1]},default=str)
         else:
             return json.dumps({"success" : res[0], "message" : res[1]})
-
+    
     def beams_auth(self, id):
         beams_token = self.beams_client.generate_token(id)
-        return beams_token["token"]
+        return beams_token["token"] 

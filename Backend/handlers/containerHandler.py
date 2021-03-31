@@ -3,12 +3,11 @@ import string
 import os
 import sys
 from datetime import datetime
-from userDao import UserDao
 
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from containerDAO import ContainerDAO
-from authDao import AuthDao
-from locationDao import LocationDao
+from authDAO import AuthDao
+from locationDAO import LocationDao
 from relationshipDAO import RelationshipDAO
 from relationship import Relationship
 from container import Container

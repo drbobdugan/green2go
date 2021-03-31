@@ -8,9 +8,10 @@ import sys
 import os
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from userDAO import UserDAO
-from containerDao import ContainerDao
-from authDao import AuthDao
-from locationDao import LocationDao
+from containerDAO import ContainerDAO
+from authDAO import AuthDao
+from locationDAO import LocationDao
+from relationshipDAO import RelationshipDAO
 from datetime import datetime
 import re
 import logging
@@ -33,9 +34,10 @@ app.debug = True
 
 #daos and objects
 userDao=UserDAO()
-containerDao=ContainerDao()
+containerDao=ContainerDAO()
 authDao = AuthDao()
 locationDao=LocationDao()
+relationshipDao = RelationshipDAO()
 emailServer = EmailManager()
 
 #handlers
