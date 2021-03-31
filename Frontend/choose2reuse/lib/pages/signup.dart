@@ -1,14 +1,14 @@
 import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 
-import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_strings.dart';
 import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/user_service.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/user.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -64,10 +64,9 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(ReuseStrings.appName()),
+        title: Text(ReuseStrings.appName),
       ),
       body: GestureDetector(
           onTap: () {
@@ -83,12 +82,12 @@ class _SignUpPageState extends State<SignUpPage> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: <Widget>[
                 ReuseLabel(
-                  text: ReuseStrings.signUpPageTitle(),
+                  text: ReuseStrings.signUpPageTitle,
                   textStyle: CustomTheme.primaryLabelStyle(),
                   bottom: 20.0,
                 ),
                 ReuseTextField(
-                    text: ReuseStrings.firstNameField(),
+                    text: ReuseStrings.firstNameField,
                     node: firstNameNode,
                     onChanged: (String value) {
                       setState(() {
@@ -97,12 +96,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     autofillHints: const <String>[AutofillHints.givenName],
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.name,
                     onFieldSubmitted: () {
                       fieldNextFocus(context, firstNameNode, middleNameNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.middleNameField(),
+                    text: ReuseStrings.middleNameField,
                     node: middleNameNode,
                     onChanged: (String value) {
                       setState(() {
@@ -111,12 +109,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     autofillHints: const <String>[AutofillHints.middleName],
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.name,
                     onFieldSubmitted: () {
                       fieldNextFocus(context, middleNameNode, lastNameNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.lastNameField(),
+                    text: ReuseStrings.lastNameField,
                     node: lastNameNode,
                     onChanged: (String value) {
                       setState(() {
@@ -125,12 +122,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     },
                     autofillHints: const <String>[AutofillHints.familyName],
                     textInputAction: TextInputAction.next,
-                    keyboardType: TextInputType.name,
                     onFieldSubmitted: () {
                       fieldNextFocus(context, lastNameNode, emailNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.emailField(),
+                    text: ReuseStrings.emailField,
                     node: emailNode,
                     onChanged: (String value) {
                       setState(() {
@@ -144,7 +140,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, emailNode, phoneNumNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.phoneNumberField(),
+                    text: ReuseStrings.phoneNumberField,
                     node: phoneNumNode,
                     onChanged: (String value) {
                       setState(() {
@@ -160,7 +156,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, phoneNumNode, classYearNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.classYearField(),
+                    text: ReuseStrings.classYearField,
                     node: classYearNode,
                     onChanged: (String value) {
                       setState(() {
@@ -173,7 +169,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, classYearNode, passwordNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.passwordField(),
+                    text: ReuseStrings.passwordField,
                     node: passwordNode,
                     obscureText: true,
                     onChanged: (String value) {
@@ -189,7 +185,7 @@ class _SignUpPageState extends State<SignUpPage> {
                           context, passwordNode, confirmPasswordNode);
                     }),
                 ReuseTextField(
-                    text: ReuseStrings.confirmPasswordField(),
+                    text: ReuseStrings.confirmPasswordField,
                     node: confirmPasswordNode,
                     obscureText: true,
                     onChanged: (String value) {
@@ -204,13 +200,13 @@ class _SignUpPageState extends State<SignUpPage> {
                       fieldNextFocus(context, confirmPasswordNode, null);
                     }),
                 ReuseButton(
-                  text: ReuseStrings.signUpButtonText(),
+                  text: ReuseStrings.signUpButtonText,
                   onPressed: () => handleSignUp(context),
                   buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),
                 ReuseButton(
-                  text: ReuseStrings.goToValidationPageText(),
+                  text: ReuseStrings.goToValidationPageText,
                   onPressed: () => handleValidation(context),
                   buttonType: 'text',
                 ),

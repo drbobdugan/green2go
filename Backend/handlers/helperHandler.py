@@ -2,18 +2,25 @@ import re
 import json
 import string
 import random
+import sys
+import os
 from datetime import datetime
 from userDao import UserDao
-from containerDao import ContainerDao
 from authDao import AuthDao
+from containerDao import ContainerDao
+#sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+#from authDAO import AuthDao
 from locationDao import LocationDao
 from emailServer import EmailManager
 from pathlib import Path
+from pusher_push_notifications import PushNotifications
 
 class HelperHandler:
 
     def __init__(self, emailServer):
         self.emailServer = emailServer
+        self.beams_client = PushNotifications(
+            instance_id='7032df3e-e5a8-494e-9fc5-3b9f05a68e3c',secret_key='8AC9B8AABB93DFE452B2EFC2714FCF923841B6740F97207F4512F240264FF493')
 
     # this crates the unique code for the user 
     def id_generator(self, size=12, chars=string.ascii_uppercase + string.digits +string.ascii_lowercase):
@@ -69,8 +76,8 @@ class HelperHandler:
         if formats is None:
             return True
         for key in formats:
-            if dicOfValues[key] is not None and (not re.match(formats[key], dicOfValues[key])):
-                raise Exception("Please enter a valid "+str(key)+".")
+            if dicOfValues[key] is not None and (not re.match(formats[key]["format"], dicOfValues[key])):
+                raise Exception("Please enter a valid "+str(formats[key]["error"])+".")
         return True
 
     def extractKeysFromRequest(self, request, keys, required=None ,t="json"):
@@ -107,6 +114,10 @@ class HelperHandler:
         
     def handleResponse(self, res):
         if res[0] is True:
-            return json.dumps({"success" : res[0], "data" : res[1]})
+            return json.dumps({"success" : res[0], "data" : res[1]},default=str)
         else:
             return json.dumps({"success" : res[0], "message" : res[1]})
+
+    def beams_auth(self, id):
+        beams_token = self.beams_client.generate_token(id)
+        return beams_token["token"]

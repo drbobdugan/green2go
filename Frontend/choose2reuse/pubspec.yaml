@@ -22,8 +22,15 @@ dependencies:
 
   http: ^0.12.0
   email_validator: ^1.0.0
-  device_info: ^1.0.0
+  device_info: ^2.0.0
   shared_preferences: ^0.5.1
+  intl: ^0.16.1
+
+  firebase_analytics: ^7.1.1
+  firebase_core: ^1.0.2
+  firebase_messaging: ^9.0.1
+  pusher_beams: ^0.5.3+3
+  permission_handler: ^6.1.1
 
 dev_dependencies:
   change_app_package_name: ^0.1.2
@@ -49,6 +56,7 @@ flutter:
     - assets/images/c2r_reuseIcon_dark.jpg
     - assets/images/c2r_loading.gif
     - assets/images/sample_qr_code.png
+    - assets/images/broken-glass.png
 
   # To add custom fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a

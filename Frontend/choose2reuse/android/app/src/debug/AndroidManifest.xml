@@ -1,7 +1,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="edu.stonehill.green2go">
+    package="edu.stonehill.greenZgo">
     <!-- Flutter needs it to communicate with the running application
          to allow setting breakpoints, to provide hot reload, etc.
     -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:name="io.flutter.app.FlutterApplication"
+        android:label="Green2Go"
+        android:icon="@mipmap/launcher_icon"
+        android:usesCleartextTraffic="true">
+        
+    </application>
+
 </manifest>

@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
-
-import 'components/custom_theme.dart';
-import 'components/reuse_strings.dart';
+import 'package:flutter/services.dart';
+import 'package:pusher_beams/pusher_beams.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'pages/checkoutContainer.dart';
+import 'pages/containerList.dart';
 import 'pages/home.dart';
 import 'pages/login.dart';
 import 'pages/returnContainer.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
+import 'static/custom_theme.dart';
+import 'static/strings.dart';
 import 'static/student.dart';
 import 'static/user.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    PusherBeams.start('7032df3e-e5a8-494e-9fc5-3b9f05a68e3c')
+        .then((dynamic res) => {
+              PusherBeams.addDeviceInterest('hello')
+                  .then((dynamic res) => {print('done')})
+            });
+  } catch (e) {
+    print(e);
+    print('Failed to connect to Pusher Beams');
+  }
+
   runApp(
     const Choose2ReuseApp(),
   );
@@ -26,9 +42,13 @@ class Choose2ReuseApp extends StatefulWidget {
 
 class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
   @override
+  void initState() {
+    super.initState();
+  }
+
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: ReuseStrings.appName(),
+      title: ReuseStrings.appName,
       theme: CustomTheme.appTheme(),
       home: const LoginPage(),
       onGenerateRoute: (RouteSettings settings) {
@@ -47,6 +67,9 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
                   userAuth: settings.arguments as StudentAuth);
             case '/returnContainer':
               return ReturnContainerPage(
+                  userAuth: settings.arguments as StudentAuth);
+            case '/containerList':
+              return ContainerListPage(
                   userAuth: settings.arguments as StudentAuth);
             default:
               break;

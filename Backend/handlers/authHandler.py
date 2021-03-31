@@ -1,14 +1,25 @@
 import json
-from userDao import UserDao
-from containerDao import ContainerDao
-from authDao import AuthDao
-from locationDao import LocationDao
+import os
+import sys
+sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+from userDAO import UserDAO
+from containerDAO import ContainerDAO
+from authDAO import AuthDao
+from locationDAO import LocationDao
+from user import User
+from container import Container
+from auth import Auth
+from location import Location
 from datetime import datetime
 
 class AuthHandler:
 
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
+        self.userDao = UserDAO()
+        self.containerDao = ContainerDAO()
+        self.authDao = AuthDao()
+        self.locationDao = LocationDao()
 
     def validateCode(self, request, userDao, authDao):
         f='%Y-%m-%d %H:%M:%S'
@@ -18,30 +29,45 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except :
             return json.dumps({"success" : False, "message" : "Please enter a valid code."})
-        res=None
-        try:
-            res = userDao.getUser(dic)
-        except:
+        user = User()
+        res = self.userDao.selectUser(dic["email"])
+        user = res[1]
+        if res[0] is False:
             res = {"success" : False, "message" : "Email does not correspond to user"}
-        codefromtable=res[1]["authCode"]
-        authtime=res[1]["authTime"]
+        userDic = user.userToDict()
+        codefromtable=userDic["authCode"]
+        authtime=userDic["authTime"]
         authtimets=datetime.strptime(authtime, f)
         timepassed=datetime.now()-authtimets
-        if (dic['code']!=codefromtable or timepassed.total_seconds()>=300):
+        if (dic['code']!=codefromtable):
             return json.dumps({"success" : False, "message" : "Invalid verification code."})
-        # delete previous auth
-        try:
-            authDao.deleteAuth(res[1])
-        except:
-            pass
+        elif(timepassed.total_seconds()>=300):
+            return json.dumps({"success" : False, "message" : "Expired verification code"})
         # create new auth
-        res[1]["auth_token"] = self.helperHandler.id_generator(size=45)
-        res[1]["refresh_token"] = self.helperHandler.id_generator(size=45)
-        res = authDao.addAuth(res[1])
+        authDic = {}
+        authDic["user"] = dic["email"]
+        authDic["auth_token"] = self.helperHandler.id_generator(size=45)
+        authDic["refresh_token"] = self.helperHandler.id_generator(size=45)
+        authDic["expires_at"] = ""
+        auth = Auth()
+        auth.dictToAuth(authDic)
+        self.authDao.deleteAuth(auth)
+        res = self.authDao.insertAuth(auth)
+        data = auth.authToDict()
         # fix userAuth as well
-        userDao.updateUser({"email" : dic["email"], "authorized" : 1})
+        userDic["authorized"] = 1
+        user = user.dictToUser(userDic)
+        userDao.updateUser(user)
         # return it
-        return json.dumps({"success" : res[0], "data" : res[1]})
+        return json.dumps({"success" : res[0], "data" : data})
+
+    def loginErrorHandler(self, userDic, dic):
+        message = None
+        if message is None and "authorized" in userDic and userDic["authorized"] == 0:
+            message = "Email not found, please try signing up."
+        if message is None and "password" in userDic and dic["password"] != userDic["password"]:
+            message = "Incorrect password."
+        return message
             
     def login(self, request, userDao, authDao):
         dic = None
@@ -50,27 +76,31 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except:
             return json.dumps({"success" : False, "message" : "Please enter an email and password."})
-        res = userDao.getUser(dic)
+        #get user
+        res = self.userDao.selectUser(dic["email"])
+        # if not succesful then return why
         if res[0] is False:
             return json.dumps({"success" : res[0], "message" : res[1]})
-        message = None
-        if message is None and "authorized" in res[1] and res[1]["authorized"] == 0:
-            message = "Email not found, please try signing up."
-        if message is None and "password" in res[1] and dic["password"] != res[1]["password"]:
-            message = "Incorrect password."
-        if message is not None:
-            return json.dumps({"success" : False, "message" : message})
-        # delete previous auth
-        try:
-            authDao.deleteAuth(dic)
-        except:
-            pass
-        # create new auth
-        dic["auth_token"] = self.helperHandler.id_generator(size=45)
-        dic["refresh_token"] = self.helperHandler.id_generator(size=45)
-        res = authDao.addAuth(dic)
+        # handle login errors
+        user = res[1]
+        userDic = user.userToDict()
+        errorRes = self.loginErrorHandler(userDic, dic)
+        if errorRes is not None:
+            return json.dumps({"success" : False, "message" : errorRes})
+        # retrieve auth
+        res = self.authDao.selectByEmail(dic["email"])
+        if res[0] is False:
+            return json.dumps({"success" : res[0], "message" : res[1]})
+        auth = res[1]
+        # update the auth
+        authDic = auth.authToDict()
+        authDic["auth_token"] = self.helperHandler.id_generator(size=45)
+        authDic["refresh_token"] = auth.refresh_token
+        auth.dictToAuth(authDic)
+        res = self.authDao.updateAuth(auth)
+        auth = res[1]
         # return it
-        return json.dumps({"success" : res[0], "data" : res[1]})
+        return json.dumps({"success" : res[0], "data" : auth.authToDict()})
             
     def refreshCode(self, request, authDao):
         dic = None
@@ -79,23 +109,26 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = authDao.getAuth(dic)
+        res = self.authDao.selectByEmail(dic["email"])
+        auth = res[1]
         message = None
         if res[0] is False:
             message = "Invalid refresh token"
         # refresh token mismatch
-        if dic["refresh_token"] != res[1]["refresh_token"]:
+        authDic = auth.authToDic()
+        if dic["refresh_token"] != authDic["refresh_token"]:
             message = "Invalid token"
         # handle is auth code is expired
-        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+        timeobj=datetime.strptime(authDic["expires_at"], '%Y-%m-%d %H:%M:%S')
         if datetime.now() >= timeobj:
             message = "Expired token"
         if message is not None:
             return json.dumps({"success" : False, "message": message})
         # return normal response
-        dic["token"] = self.helperHandler.id_generator(size=45)
-        updated = authDao.updateAuth(dic)
-        return json.dumps({"success" : True, "data": updated[1]})
+        authDic["token"] = self.helperHandler.id_generator(size=45)
+        auth.dictToAuth(authDic)
+        res = self.authDao.updateAuth(auth)
+        return json.dumps({"success" : True, "data": res[1]})
             
     def resendAuthCode(self, request, userDao, authDao):
         f='%Y-%m-%d %H:%M:%S'
@@ -107,23 +140,28 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        user=None
+        
+        user=User()
+        
         try:
-            user = userDao.getUser(dic)
+            user = self.userDao.selectUser(dic["email"])
+           
         except:
-            user = {"success" : False, "message" : "Email does not correspond to user"}
-        authtime=user[1]["authTime"]
+            return json.dumps({"success" : False, "message" : "Email does not correspond to user"})
+        authtime=user[1].authTime
         authtimets=datetime.strptime(authtime, f)
         timepassed=datetime.now()-authtimets
         if(timepassed.total_seconds()<300):
-            self.helperHandler.sendEmail(user[1]['email'], user[1]['authCode'])
+            self.helperHandler.sendEmail(user[1].email, user[1].authCode)
             return json.dumps({"success" : True, "data": ""})
         if (timepassed.total_seconds()>300):
             authCode=self.helperHandler.genAuthcode()
-            user[1]["authCode"]=authCode
-            user[1]["authTime"]=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            userDao.updateUser(user[1])
-            self.helperHandler.sendEmail(user[1]['email'], authCode)
+            user[1].authCode=authCode
+            user[1].authTime=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            userdic=user[1].userToDict()
+            
+            self.userDao.updateUser(user[1])
+            self.helperHandler.sendEmail(user[1].email, authCode)
             return json.dumps({"success" : True, "data": ""})
 
 

@@ -3,21 +3,18 @@ from datetime import datetime
 import logging
 class dao:
     def __init__(self):
-        logging.basicConfig(filename='dao.log', level=logging.DEBUG)
+        logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-        #self.table = "location"
 
     def changeDatabase(self,database):
         self.database = database
-    
-    #def changeTable(self,table):
-        #self.table = table
 
     def reconnectSql(self):
         try:
             self.mydb.shutdown()
         except:
-            logging.error("Error closing connection: Already disconnected")
+            #logging.error("Error closing connection: Already disconnected")
+            test = 1
             
         self.mydb = mysql.connector.connect(
             host="198.199.77.174",
@@ -31,7 +28,7 @@ class dao:
         except:
             logging.error("Failed closing connection: Already disconnected")
 
-    #  command , boolean for if you get something back, data to send to sql
+    #  command, boolean for if you get something back, data to send to sql
     def handleSQL(self, sql, isReturn, package):
         try:
             self.reconnectSql()
@@ -55,7 +52,6 @@ class dao:
             logging.error("Error in handleSQL")
             logging.error(str(e))
             return self.handleError(e, mycursor)
-
           
     def handleError(self,error, cursor=None):
         if cursor is not None:
@@ -68,3 +64,5 @@ class dao:
             return False, "Could not connect to database please try again"
         if "list index out of range" in error:
             return False, "Entry could not be found"
+        if "NoneType" in error:
+            return False, "Null value passed in"

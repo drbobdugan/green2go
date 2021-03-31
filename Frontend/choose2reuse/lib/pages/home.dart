@@ -1,37 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
-import '../components/custom_theme.dart';
+import '../components/reuse_button.dart';
 import '../components/reuse_containerCounts.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
-import '../components/reuse_strings.dart';
-import '../components/user_appBar.dart';
+import '../components/reuse_userBar.dart';
 import '../services/api.dart';
+import '../services/navigation_service.dart';
 import '../services/student_service.dart';
 import '../static/container.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
-
-enum ContainerStatus { CheckedOut, Verified, Unverified }
-
-const List<ContainerStatus> items = <ContainerStatus>[
-  ContainerStatus.CheckedOut,
-  ContainerStatus.Verified,
-  ContainerStatus.Unverified,
-];
-
-const Map<ContainerStatus, String> iconColor = <ContainerStatus, String>{
-  ContainerStatus.CheckedOut: 'attention',
-  ContainerStatus.Verified: 'primary',
-  ContainerStatus.Unverified: 'darkPrimary',
-};
-
-const Map<ContainerStatus, String> labels = <ContainerStatus, String>{
-  ContainerStatus.CheckedOut: 'Checked out',
-  ContainerStatus.Verified: 'Pending Return',
-  ContainerStatus.Unverified: 'Verified Return',
-};
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key, @required this.userAuth}) : super(key: key);
@@ -64,11 +44,12 @@ class _HomePageState extends State<HomePage> {
     widget.onGetContainers().then((APIResponse response) {
       if (response.success) {
         setState(() {
-          user.setContainers(response.data as List<dynamic>);
+          user.topContainers =
+              SortedReusableContainers.getContainerList(response.data);
 
-          for (final ContainerStatus status in items) {
-            containerCounts[status] = user.containers
-                .where((dynamic c) => c.status == labels[status])
+          for (final ContainerStatus status in containerItems) {
+            containerCounts[status] = user.topContainers
+                .where((dynamic c) => c.status == containerLabels[status])
                 .toList()
                 .length;
           }
@@ -78,7 +59,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> getContainerDataSmall() {
-    return items.map((ContainerStatus status) {
+    return containerItems.map((ContainerStatus status) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -86,17 +67,18 @@ class _HomePageState extends State<HomePage> {
           ContainerCounts(
               text: '${containerCounts[status]}',
               textStyle: CustomTheme.primaryLabelStyle(fontSize: 25.0),
-              backgroundName: 'assets/images/c2r_reuseIcon_primary.jpg',
+              backgroundName:
+                  'assets/images/c2r_reuseIcon_${containerIconColors[status]}.jpg',
               backgroundHeight: 75.0,
-              backgroundWidth: 75.0,
-              right: 25.0,
-              left: 25.0),
+              backgroundWidth: 90.0,
+              right: 15.0,
+              left: 15.0),
           ReuseLabel(
-            text: labels[status],
+            text: containerLabels[status],
             textStyle: CustomTheme.secondaryLabelStyle(fontSize: 16.0),
             top: 10.0,
-            left: 8.0,
-            right: 8.0,
+            left: 5.0,
+            right: 5.0,
             backgroundWidth: 100,
           )
         ],
@@ -104,38 +86,36 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  ListView getContainerDataLarge() {
-    return ListView.builder(
-      itemCount: user.containers.length,
-      itemBuilder: (BuildContext context, int index) {
-        final ReusableContainer container = user.containers[index];
-        return Padding(
-          padding: const EdgeInsets.only(top: 30.0),
-          child: ListItem(
-            text1: '${container.status}',
-            text3: '#${container.qrCode}',
-            text2: '${container.status}' == 'Checked out'
-                ? '${formatDate(container.statusUpdateTime)}'
-                : '${formatDate(container.statusUpdateTime)}\n${container.statusLocation}',
-            colorID: container.status.contains('Checked')
-                ? 'attention'
-                : (container.status.contains('Pending')
-                    ? 'primary'
-                    : 'darkPrimary'),
-          ),
-        );
-      },
+  Expanded getContainerDataLarge() {
+    final ScrollController scrollController = ScrollController();
+    return Expanded(
+      child: Scrollbar(
+        isAlwaysShown: true,
+        controller: scrollController,
+        child: ListView.builder(
+          controller: scrollController,
+          itemCount:
+              user.topContainers.length > 5 ? 5 : user.topContainers.length,
+          itemBuilder: (BuildContext context, int index) {
+            final ReusableContainer container = user.topContainers[index];
+            return Padding(
+              padding: const EdgeInsets.only(top: 30.0),
+              child: container.dataRow(),
+            );
+          },
+        ),
+      ),
     );
   }
 
-  String formatDate(String date) {
-    final DateTime inputDate = DateFormat('yyyy-MM-dd HH:mm:ss').parse(date);
-    return DateFormat('MM/dd/yyyy hh:mm a').format(inputDate);
+  void handleViewAll(BuildContext context) {
+    NavigationService(context: context)
+        .goToPage(C2RPages.containerList, widget.userAuth);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (user.containers == null) {
+    if (user.topContainers == null) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: ReuseLoading(),
@@ -149,23 +129,37 @@ class _HomePageState extends State<HomePage> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             ReuseLabel(
-              text: ReuseStrings.homepageTitle(),
+              text: ReuseStrings.homepageTitle,
               textStyle: CustomTheme.primaryLabelStyle(),
-              top: 20.0,
+              top: 30.0,
               bottom: 20.0,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: getContainerDataSmall(),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 0.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: getContainerDataSmall(),
+              ),
             ),
             Expanded(
-              child: getContainerDataLarge(),
-            )
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  getContainerDataLarge(),
+                  ReuseButton(
+                    text: ReuseStrings.viewAllButtonText,
+                    onPressed: () => handleViewAll(context),
+                    buttonStyle: CustomTheme.primaryButtonStyle(),
+                    bottom: MediaQuery.of(context).size.height * 0.04,
+                  )
+                ],
+              ),
+            ),
           ],
         ),
       ),

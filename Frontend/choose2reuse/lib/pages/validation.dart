@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../components/custom_theme.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_strings.dart';
 import '../components/reuse_textField.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
 import '../services/user_service.dart';
-import '../static/user.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
+import '../static/user.dart';
 
 class ValidationPage extends StatefulWidget {
   const ValidationPage({Key key, @required this.user}) : super(key: key);
@@ -44,7 +44,7 @@ class _ValidationPageState extends State<ValidationPage> {
   bool isValidCode() {
     if (code == '') {
       setState(() {
-        errorMessage = ReuseStrings.invalidCodeErrorMessage();
+        errorMessage = ReuseStrings.invalidCodeErrorMessage;
       });
       return false;
     }
@@ -53,6 +53,9 @@ class _ValidationPageState extends State<ValidationPage> {
 
   void handleVerify(BuildContext context) {
     if (isValidCode()) {
+      if (email == '') {
+        email = widget.user.email;
+      }
       widget.onVerify(email, code).then((APIResponse response) {
         if (response.success) {
           NavigationService(context: context)
@@ -67,19 +70,25 @@ class _ValidationPageState extends State<ValidationPage> {
   }
 
   void handleNewCode(BuildContext context) {
-    widget.onResend(email);
+    if (email != '' || widget.user.email != '') {
+      setState(() {
+        errorMessage = '';
+      });
+      email != '' ? widget.onResend(email) : widget.onResend(widget.user.email);
+    } else {
+      setState(() {
+        errorMessage = ReuseStrings.emptyEmailErrorMessage;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    email = widget.user.email;
-
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomPadding: false,
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        title: Text(ReuseStrings.appName()),
+        title: Text(ReuseStrings.appName),
       ),
       body: GestureDetector(
         onTap: () {
@@ -95,18 +104,18 @@ class _ValidationPageState extends State<ValidationPage> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               ReuseLabel(
-                text: ReuseStrings.welcomeLabel(),
+                text: ReuseStrings.welcomeLabel,
                 textStyle: CustomTheme.primaryLabelStyle(),
                 bottom: 15.0,
               ),
               ReuseLabel(
-                text: ReuseStrings.validationInstruction(),
+                text: ReuseStrings.validationInstruction,
                 textStyle: CustomTheme.primaryLabelStyle(isBold: false),
                 bottom: 15.0,
               ),
               ReuseTextField(
                   visible: widget.user.email == '',
-                  text: ReuseStrings.emailField(),
+                  text: ReuseStrings.emailField,
                   onChanged: (String value) {
                     setState(() {
                       email = value;
@@ -115,20 +124,20 @@ class _ValidationPageState extends State<ValidationPage> {
                   autofillHints: const <String>[AutofillHints.email],
                   keyboardType: TextInputType.emailAddress),
               ReuseTextField(
-                  text: ReuseStrings.enterValidationCodeField(),
+                  text: ReuseStrings.enterValidationCodeField,
                   onChanged: (String value) {
                     setState(() {
                       code = value;
                     });
                   }),
               ReuseButton(
-                text: ReuseStrings.submit(),
+                text: ReuseStrings.submit,
                 onPressed: () => handleVerify(context),
                 buttonStyle: CustomTheme.primaryButtonStyle(),
                 top: 15.0,
               ),
               ReuseButton(
-                text: ReuseStrings.requestNewCode(),
+                text: ReuseStrings.requestNewCode,
                 onPressed: () => handleNewCode(context),
                 buttonType: 'text',
               ),

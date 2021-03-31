@@ -29,6 +29,7 @@ def update_auth(t):
             "refresh_token" : "l9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9"}
     call = a.updateAuth(dic)
     print("Call of 0",call[0])
+    print("Call of 1",call[1])
     assert call[0], 'Get auth code'
     del a
     return call[1]

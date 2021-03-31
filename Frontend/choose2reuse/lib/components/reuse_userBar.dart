@@ -1,7 +1,8 @@
-import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
-import '../components/custom_theme.dart';
+import '../services/navigation_service.dart';
+import '../static/custom_theme.dart';
 import '../static/student.dart';
 
 enum AppBarItems { Home, Checkout, Return, Logout }
@@ -15,7 +16,7 @@ const List<AppBarItems> items = <AppBarItems>[
 
 const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
   AppBarItems.Home: Icons.home,
-  AppBarItems.Checkout: Icons.rotate_left_rounded,
+  AppBarItems.Checkout: Icons.rotate_right_rounded,
   AppBarItems.Return: Icons.rotate_right_rounded,
   AppBarItems.Logout: Icons.logout
 };
@@ -74,10 +75,15 @@ class _UserAppBarState extends State<UserAppBar> {
                   value: labels[choice],
                   child: Row(children: <Widget>[
                     Padding(
-                        padding: const EdgeInsets.only(right: 5.0, bottom: 2.0),
-                        child: Icon(icons[choice],
-                            size: 24.0,
-                            color: CustomTheme.getColor('attention'))),
+                      padding: const EdgeInsets.only(right: 5.0, bottom: 2.0),
+                      child: Transform.rotate(
+                          angle: choice == AppBarItems.Checkout
+                              ? (180 * math.pi / 180)
+                              : 0,
+                          child: Icon(icons[choice],
+                              size: 24.0,
+                              color: CustomTheme.getColor('attention'))),
+                    ),
                     Text(labels[choice],
                         style: TextStyle(
                             fontWeight: FontWeight.bold,

@@ -49,4 +49,10 @@ class StudentService {
         'getContainersForUser?email=${auth.email}&auth_token=${auth.token}');
     return resp;
   }
+
+  static Future<APIResponse> getSortedContainers(StudentAuth auth) async {
+    final APIResponse resp = await API.getResponse(
+        'getSortedContainers?email=${auth.email}&auth_token=${auth.token}');
+    return resp;
+  }
 }

@@ -29,12 +29,6 @@ class StudentDetails {
     role = user['role'];
   }
 
-  void setContainers(List<dynamic> myContainers) {
-    print(myContainers);
-    containers =
-        myContainers.map((dynamic item) => ReusableContainer(item)).toList();
-  }
-
   String email;
   String password;
   String firstName;
@@ -44,5 +38,6 @@ class StudentDetails {
   String phoneNum;
   String role;
   StudentAuth auth;
-  List<ReusableContainer> containers;
+  List<ReusableContainer> topContainers;
+  SortedReusableContainers sortedContainers;
 }

@@ -12,7 +12,7 @@ class LocationDao(dao):
             val.append(locDict['qrcode'])
             val.append(locDict['description'])
             val.append(locDict['lastPickup'])
-            sql = "INSERT INTO location (qrcode, description, lastPickup) VALUES (%s,%s,%s)"
+            sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
             myresult = self.handleSQL(sql,False,val)
             if(myresult[0] == False):
                 return myresult
@@ -28,7 +28,7 @@ class LocationDao(dao):
         try: 
             logging.info("Entering selectLocation")
             qrcode=locDict['qrcode']
-            sql = "SELECT * FROM location WHERE qrcode = '" + qrcode + "'"
+            sql = "SELECT * FROM location WHERE location_qrcode = '" + qrcode + "'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
@@ -51,7 +51,7 @@ class LocationDao(dao):
             return False, "Location does not exist"
         try:
             logging.info("Entering deleteLocation")
-            sql = "DELETE FROM location WHERE qrcode like '" + qrcode + "'"
+            sql = "DELETE FROM location WHERE location_qrcode like '" + qrcode + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult

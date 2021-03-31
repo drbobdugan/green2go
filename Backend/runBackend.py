@@ -4,15 +4,18 @@ import json
 import string
 import random
 from flask import request
-from userDao import UserDao
+import sys
+import os
+sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+from userDAO import UserDAO
 from containerDao import ContainerDao
 from authDao import AuthDao
 from locationDao import LocationDao
 from datetime import datetime
-import sys
-import os
 import re
 import logging
+from flask_cors import CORS
+from pusher_push_notifications import PushNotifications
 sys.path.insert(0, os.getcwd()+'/Email/')
 sys.path.insert(0, os.getcwd()+'/handlers/')
 from emailServer import EmailManager
@@ -24,11 +27,12 @@ from locationHandler import LocationHandler
 
 #app methods
 app = Flask(__name__)
+CORS(app)
 logging.basicConfig(filename='demo.log', level=logging.DEBUG)
 app.debug = True
 
 #daos and objects
-userDao=UserDao()
+userDao=UserDAO()
 containerDao=ContainerDao()
 authDao = AuthDao()
 locationDao=LocationDao()
@@ -44,7 +48,7 @@ locationHandler = LocationHandler(helperHandler)
 #----------------------------User Methods --------------------------------
 @app.route('/getUser', methods=['GET'])
 def getUser():
-    return userHandler.getUser(request, userDao, containerDao, True)
+    return userHandler.getUser(request, userDao, True)
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
@@ -91,7 +95,7 @@ def getSortedContainers():
 def checkinContainer():
     return containerHandler.checkinContainer(request, containerDao)
 
-#----------------------------Validity Methods --------------------------------
+#----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
     return authHandler.validateCode(request, userDao, authDao)
@@ -108,6 +112,13 @@ def refreshCode():
 def resendAuthCode():
     return authHandler.resendAuthCode(request, userDao, authDao)
 
+@app.route('/pusher/beams-auth', methods=['GET', 'OPTIONS'])
+def beams_auth():
+    if request.method == 'OPTIONS':
+        return "true"
+    val = request.args.get('id')
+    return authHandler.beams_auth(val)
+
 #----------------------------Location Methods --------------------------------
 @app.route('/selectLocation',methods=['POST'])
 def selectLocation():
@@ -121,7 +132,7 @@ def secretDeleteUser():
 
 @app.route('/secretGetUser', methods=['GET'])
 def secretGetUser():
-    return userHandler.getUser(request, userDao, containerDao, False)
+    return userHandler.getUser(request, userDao, False)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
