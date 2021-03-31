@@ -115,7 +115,7 @@ class AuthHandler:
         if res[0] is False:
             message = "Invalid refresh token"
         # refresh token mismatch
-        authDic = auth.authToDic()
+        authDic = auth.authToDict()
         if dic["refresh_token"] != authDic["refresh_token"]:
             message = "Invalid token"
         # handle is auth code is expired
