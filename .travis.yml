@@ -21,7 +21,16 @@ matrix:
         - python3 -m unittest unitTestContainerDao.py
         - python3 -m unittest unitTestLocationDao.py
         - python3 -m unittest testAuthDao.py
-  
+	- cd databaseDAOs
+	- python3 -m testAuthDAO.py
+	- python3 -m testLocationDAO.py
+	- python3 -m unitTestAuthDao.py  
+	- python3 -m unitTestContainerDAO.py
+        - python3 -m unitTestLocationDAO.py
+        - python3 -m unitTestRelationshipDAO.py
+        - python3 -m unitTestUserDao.py
+
+
 
     - language: node_js
       node_js: 
