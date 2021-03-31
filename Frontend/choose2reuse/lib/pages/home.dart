@@ -148,16 +148,17 @@ class _HomePageState extends State<HomePage> {
             ),
             Expanded(
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: <Widget>[
-                    getContainerDataLarge(),
-                    ReuseButton(
-                      text: ReuseStrings.viewAllButtonText,
-                      onPressed: () => handleViewAll(context),
-                      buttonStyle: CustomTheme.primaryButtonStyle(),
-                      bottom: MediaQuery.of(context).size.height * 0.04,
-                    )
-                  ]),
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  getContainerDataLarge(),
+                  ReuseButton(
+                    text: ReuseStrings.viewAllButtonText,
+                    onPressed: () => handleViewAll(context),
+                    buttonStyle: CustomTheme.primaryButtonStyle(),
+                    bottom: MediaQuery.of(context).size.height * 0.04,
+                  )
+                ],
+              ),
             ),
           ],
         ),

@@ -94,7 +94,13 @@ PODS:
     - nanopb/encode (= 2.30906.0)
   - nanopb/decode (2.30906.0)
   - nanopb/encode (2.30906.0)
+  - "permission_handler (5.1.0+2)":
+    - Flutter
   - PromisesObjC (1.2.12)
+  - "pusher_beams (0.5.3+3)":
+    - Flutter
+    - PushNotifications (~> 3.0.4)
+  - PushNotifications (3.0.4)
   - shared_preferences (0.0.1):
     - Flutter
 
@@ -106,6 +112,8 @@ DEPENDENCIES:
   - firebase_messaging (from `.symlinks/plugins/firebase_messaging/ios`)
   - Flutter (from `Flutter`)
   - flutter_barcode_scanner (from `.symlinks/plugins/flutter_barcode_scanner/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
+  - pusher_beams (from `.symlinks/plugins/pusher_beams/ios`)
   - shared_preferences (from `.symlinks/plugins/shared_preferences/ios`)
 
 SPEC REPOS:
@@ -122,6 +130,7 @@ SPEC REPOS:
     - GoogleUtilities
     - nanopb
     - PromisesObjC
+    - PushNotifications
 
 EXTERNAL SOURCES:
   countdown_flutter:
@@ -138,6 +147,10 @@ EXTERNAL SOURCES:
     :path: Flutter
   flutter_barcode_scanner:
     :path: ".symlinks/plugins/flutter_barcode_scanner/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
+  pusher_beams:
+    :path: ".symlinks/plugins/pusher_beams/ios"
   shared_preferences:
     :path: ".symlinks/plugins/shared_preferences/ios"
 
@@ -160,7 +173,10 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 116c84c4bdeb76be2a7a46de51244368f9794eab
   GoogleUtilities: e1d9ed4e544fc32a93e00e721400cbc3f377200d
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
   PromisesObjC: 3113f7f76903778cf4a0586bd1ab89329a0b7b97
+  pusher_beams: 72cc6e700ab23231b2674ce97d3a0d7ddbdb4278
+  PushNotifications: 6e3d148e5e129af9d4a9279b288c934f9a7f9066
   shared_preferences: af6bfa751691cdc24be3045c43ec037377ada40d
 
 PODFILE CHECKSUM: 48f610b85bb2e99ba3890688a33a4a1544466fca

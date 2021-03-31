@@ -72,8 +72,11 @@ class ListItem extends StatelessWidget {
                     fontSize: MediaQuery.of(context).size.width * 0.04),
                 left: 10,
               ),
-              Icon(Icons.broken_image_rounded,
-                  size: 30.0, color: CustomTheme.getColor(colorID)),
+              Icon(
+                Icons.broken_image_rounded,
+                size: 30.0,
+                color: CustomTheme.getColor('attention'),
+              ),
             ],
           ),
         ),
