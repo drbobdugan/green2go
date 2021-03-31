@@ -16,11 +16,11 @@ matrix:
 
       script:
         - cd Backend/databaseDAOs
-	- ls
-	- python3 -m unittest testAuthDAO.py
-	- python3 -m unittest testLocationDAO.py
-	- python3 -m unittest unitTestAuthDao.py  
-	- python3 -m unittest unitTestContainerDAO.py
+	      - ls
+	      - python3 -m unittest testAuthDAO.py
+	      - python3 -m unittest testLocationDAO.py
+	      - python3 -m unittest unitTestAuthDao.py  
+	      - python3 -m unittest unitTestContainerDAO.py
         - python3 -m unittest unitTestLocationDAO.py
         - python3 -m unittest unitTestRelationshipDAO.py
         - python3 -m unittest unitTestUserDao.py
