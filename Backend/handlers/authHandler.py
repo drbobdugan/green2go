@@ -112,23 +112,26 @@ class AuthHandler:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = authDao.getAuth(dic)
+        res = self.authDao.selectByEmail(dic["email"])
+        auth = res[1]
         message = None
         if res[0] is False:
             message = "Invalid refresh token"
         # refresh token mismatch
-        if dic["refresh_token"] != res[1]["refresh_token"]:
+        authDic = auth.authToDic()
+        if dic["refresh_token"] != authDic["refresh_token"]:
             message = "Invalid token"
         # handle is auth code is expired
-        timeobj=datetime.strptime(res[1]["expires_at"], '%Y-%m-%d %H:%M:%S')
+        timeobj=datetime.strptime(authDic["expires_at"], '%Y-%m-%d %H:%M:%S')
         if datetime.now() >= timeobj:
             message = "Expired token"
         if message is not None:
             return json.dumps({"success" : False, "message": message})
         # return normal response
-        dic["token"] = self.helperHandler.id_generator(size=45)
-        updated = authDao.updateAuth(dic)
-        return json.dumps({"success" : True, "data": updated[1]})
+        authDic["token"] = self.helperHandler.id_generator(size=45)
+        auth.dictToAuth(authDic)
+        res = self.authDao.updateAuth(auth)
+        return json.dumps({"success" : True, "data": res[1]})
 
     def beams_auth(self, param):
         beams_token = self.beams_client.generate_token(param)
