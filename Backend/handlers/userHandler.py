@@ -69,7 +69,7 @@ class UserHandler:
             dictOfUserAttrib['authTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             dictOfUserAttrib['lastLogIn'] = "None"
             dictOfUserAttrib['authorized'] = "0"
-            dictOfUserAttrib['beams_token'] = "None"
+            dictOfUserAttrib['beams_token'] = self.helperHandler.beams_auth(dictOfUserAttrib['email'])
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)})
         user = User()
