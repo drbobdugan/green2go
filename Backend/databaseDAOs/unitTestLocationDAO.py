@@ -111,7 +111,37 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, deleteLocation = self.dao.deleteLocation(None)
         self.assertFalse(rc)
 
+    def testInsertLocationQRCodeTooLong(self):
+        """
+        Test that we cannot add a location_qrcode that is over 45 characters long
+        """
+        loc = Location("L043xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Drop-off bin outside Roche Commons","2021-01-01 01:01:01") 
+        self.dao = LocationDao()
 
+        rc, insertLocation = self.dao.insertLocation(loc)
+        self.assertFalse(rc)
+
+    def testInsertDescriptionTooLong(self):
+        """
+        Test that we cannot add a description that is over 128 characters long
+        """
+        loc = Location("L042",
+        "Drop-off bin outside Roche Commons xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "2021-01-01 01:01:01") 
+        self.dao = LocationDao()
+
+        rc, insertLocation = self.dao.insertLocation(loc)
+        self.assertFalse(rc)
+
+    def testInsertWrongDate(self):
+        """
+        Test that we cannot add a incorrectly formatted date
+        """
+        loc = Location("L042","Drop-off bin outside Roche Commons","01:01:01 2021-01-01") 
+        self.dao = LocationDao()
+
+        rc, insertLocation = self.dao.insertLocation(loc)
+        self.assertFalse(rc)
 
 if __name__ == '__main__':
     unittest.main()
