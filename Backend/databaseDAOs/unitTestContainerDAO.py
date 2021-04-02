@@ -20,7 +20,7 @@ class unitTestContainerDAO(unittest.TestCase):
         """
         Delete the temporary database
         """
-        c = Container("101010") # c is container object 
+        c = Container("101010") # c is container object
         self.dao.deleteContainer(c)
         del self.dao
     
@@ -136,6 +136,15 @@ class unitTestContainerDAO(unittest.TestCase):
         """
         rc, deleteContainer = self.dao.deleteContainer(c)
         self.assertFalse(rc) 
+
+    def testInsertContainerQRCodeTooLong(self): 
+        """
+        Test that we cannot add a qrcode to container that is over 45 characters long
+        """
+        c = Container("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx") 
+
+        rc, insertContainer = self.dao.insertContainer(c)
+        self.assertFalse(rc)
 
 if __name__ == '__main__':
     unittest.main()
