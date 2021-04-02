@@ -38,7 +38,7 @@ class SortedReusableContainers {
     all = getContainerList(value['All']);
     checkedOut = getContainerList(value['Checked_out']);
     verified = getContainerList(value['Verified_Return']);
-    unverified = getContainerList(value['Unverified_Return']);
+    pending = getContainerList(value['Pending_Return']);
   }
 
   static List<ReusableContainer> getContainerList(dynamic value) {
@@ -53,7 +53,7 @@ class SortedReusableContainers {
   List<ReusableContainer> all;
   List<ReusableContainer> checkedOut;
   List<ReusableContainer> verified;
-  List<ReusableContainer> unverified;
+  List<ReusableContainer> pending;
 }
 
 enum ContainerStatus { CheckedOut, Verified, Unverified }
