@@ -80,7 +80,7 @@ class _ContainerListPageState extends State<ContainerListPage> {
       } else if (filterOn == labels[FilterOptions.Verified]) {
         filteredContainers = user.sortedContainers.verified;
       } else if (filterOn == labels[FilterOptions.Pending]) {
-        filteredContainers = user.sortedContainers.unverified;
+        filteredContainers = user.sortedContainers.pending;
       } else {
         filteredContainers = user.sortedContainers.all;
       }
