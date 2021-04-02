@@ -22,19 +22,19 @@ class API {
     const String localAndroidURL = '10.0.2.2:5000';
 
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-    // try {
-    //   final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
-    //   if (androidInfo.isPhysicalDevice) {
-    //     return remoteURL;
-    //   }
-    return remoteURL;
-    // } catch (error) {
-    //   final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
-    //   if (iosInfo.isPhysicalDevice) {
-    //     return remoteURL;
-    //   }
-    //   return localURL;
-    // }
+    try {
+      final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      if (androidInfo.isPhysicalDevice) {
+        return remoteURL;
+      }
+      return remoteURL;
+    } catch (error) {
+      final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      if (iosInfo.isPhysicalDevice) {
+        return remoteURL;
+      }
+      return localURL;
+    }
   }
 
   static Future<APIResponse> postResponse(String path, dynamic params) async {
