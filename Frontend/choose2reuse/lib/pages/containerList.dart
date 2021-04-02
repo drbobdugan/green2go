@@ -72,14 +72,14 @@ class _ContainerListPageState extends State<ContainerListPage> {
       itemBuilder: (BuildContext context, int index) {
         final ReusableContainer container = filteredContainers[index];
         return Padding(
-          padding: const EdgeInsets.only(top: 30.0),
-          child: ListItem(
+            padding: const EdgeInsets.only(top: 30.0),
+            child: ListItem(
                 text1: container.dataRowText1(),
                 text2: container.dataRowText2(),
                 text3: container.dataRowText3(),
                 colorID: container.dataRowColorID(),
-                onSubmitDialog: (String message) => widget.onSubmitReport(message)
-        );
+                onSubmitDialog: (String message) =>
+                    widget.onSubmitReport(message)));
       },
     );
   }

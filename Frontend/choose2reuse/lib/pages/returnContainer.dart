@@ -37,7 +37,7 @@ class ReturnContainerPage extends StatefulWidget {
 class _ReturnContainerPageState extends State<ReturnContainerPage>
     with WidgetsBindingObserver {
   String errorMessage = '';
-  bool containerScanActive = true;
+  bool containerScanActive = false;
   String locationQR = '';
   int secondsRemaining = 300;
 
