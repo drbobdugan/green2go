@@ -10,6 +10,7 @@ class unitTestUserDAO(unittest.TestCase):
     """
     def setUp(self):
         """
+        
         Setup a temporary database
         """
         self.dao = UserDAO()
@@ -39,7 +40,97 @@ class unitTestUserDAO(unittest.TestCase):
                 "0",
                 "exampletoken")
         return self.dao.insertUser(user)
-    
+    def testUserSizeLimits(self):
+        lim45 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        user = User(
+                lim45,
+                "password",
+                "Test",
+                "User",
+                "Example",
+                "7817817811",
+                "RegularUser",
+                "2021",
+                "1111111",
+                "2021-01-01 01:01:01",
+                "2021-01-01 01:01:01",
+                "0",
+                "exampletoken")
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("email is too long" in msg)
+
+        user.email = "test42@students.stonehill.edu"
+        password = user.password
+        user.password = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("password is too long" in msg)
+
+
+        user.password = password
+        firstName = user.firstName
+        user.firstName = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("firstName is too long" in msg)
+
+        user.firstName = firstName
+        lastName = user.lastName
+        user.lastName = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("lastName is too long" in msg)
+
+        user.lastName = lastName
+        middleName = user.middleName
+        user.middleName = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("middleName is too long" in msg)
+
+        user.middleName = middleName
+        phoneNum = user.phoneNum
+        user.phoneNum = "xxxxxxxxxxxxxxxx"
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("phoneNum is too long" in msg)
+
+        user.phoneNum = phoneNum
+        role = user.role
+        user.role = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("role is too long" in msg)
+
+        user.role = role
+        classYear = user.classYear
+        user.classYear = "xxxxx"
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("classYear is too long" in msg)
+
+        user.classYear = classYear
+        authCode = user.authCode
+        user.authCode = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("authCode is too long" in msg)
+
+        user.authCode = authCode
+        authorized = user.authorized
+        user.authorized = "xx"
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("authorized is too long" in msg)
+
+        user.authorized = authorized
+        user.beams_token = lim45 + lim45 + lim45 + lim45 + lim45 + lim45 + lim45 + lim45 + lim45 + lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("beams_token is too long" in msg)
+
+
     def testRegularAddUser(self):
         """
         Test that we can add a user that doesn't exist in the database

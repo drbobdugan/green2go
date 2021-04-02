@@ -6,8 +6,59 @@ from user import User
 class UserDAO(dao):
     #Accepts list val in format  val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
+
+    def checkFormatting(self,user):
+        myresult = self.checkLength(user)
+        if myresult[0] == False:
+            return myresult
+        return True, ""
+    def checkLength(self,user):
+        maxLength = {
+        "email" : 45,
+        "password" : 45,
+        "firstName" : 45,
+        "lastName" : 45,
+        "middleName" : 45,
+        "phoneNum" : 15,
+        "role" : 45,
+        "classYear" : 4,
+        "authCode" : 45,
+        "authorized" : 1,
+        "beams_token" : 400}
+        var = "None"
+        if(len(user.email)>maxLength["email"]):
+            var = "email"
+        if(len(user.password)>maxLength["password"]):
+            var = "password"
+        if(len(user.firstName) > maxLength["firstName"]):
+            var = "firstName"
+        if(len(user.lastName) > maxLength["lastName"]):
+            var = "lastName"
+        if(len(user.middleName) > maxLength["middleName"]):
+            var = "middleName"
+        if(len(user.phoneNum) > maxLength["phoneNum"]):
+            var = "phoneNum"
+        if(len(user.role) > maxLength["role"]):
+            var = "role"
+        if(len(user.classYear) > maxLength["classYear"]):
+            var = "classYear"
+        if(len(user.authCode) > maxLength["authCode"]):
+            var = "authCode"
+        if(len(user.authorized) > maxLength["authorized"]):
+            var = "authorized"
+        if(len(user.beams_token) > maxLength["beams_token"]):
+            var = "beams_token"
+        if(var == "None"):
+            return True, ""
+        else:
+            temp = var + " is too long, maximum length: " + str(maxLength[var])
+            return False, temp  
+
     def insertUser(self, user):
         try:
+            myresult = self.checkFormatting(user)
+            if(myresult[0] == False):
+                return myresult
             logging.info("Entering insertUser")
             user.lastLogIn = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode, authTime, lastLogIn,authorized,beams_token) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
@@ -41,6 +92,9 @@ class UserDAO(dao):
     #FOR BACKEND -> BEFORE CALLING UPDATE PLEASE DO A GETUSER CALL SO THAT ALL OF THE VALUES ARE FILLED OUT
     def updateUser(self,user):
         try:
+            myresult = self.checkFormatting(user)
+            if(myresult[0] == False):
+                return myresult
             logging.info("Entering updateUser")
             myresult = self.deleteUser(user)
             if(myresult[0] == False):
@@ -57,6 +111,9 @@ class UserDAO(dao):
     
     def deleteUser(self,user): #DELETE THEIR ENTRY IN THE AUTH TABLE
         try:
+            myresult = self.checkFormatting(user)
+            if(myresult[0] == False):
+                return myresult
             email = user.email
             myresult = self.selectUser(email)
             if(myresult[0]==False):
