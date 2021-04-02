@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/reuse_label.dart';
+import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
@@ -35,6 +36,11 @@ class ContainerListPage extends StatefulWidget {
     return await StudentService.getSortedContainers(userAuth);
   }
 
+  Future<APIResponse> onSubmitReport(String report) {
+    print(report);
+    // return await StudentService.reportContainer(userAuth, report);
+  }
+
   @override
   _ContainerListPageState createState() => _ContainerListPageState();
 }
@@ -67,7 +73,12 @@ class _ContainerListPageState extends State<ContainerListPage> {
         final ReusableContainer container = filteredContainers[index];
         return Padding(
           padding: const EdgeInsets.only(top: 30.0),
-          child: container.dataRow(),
+          child: ListItem(
+                text1: container.dataRowText1(),
+                text2: container.dataRowText2(),
+                text3: container.dataRowText3(),
+                colorID: container.dataRowColorID(),
+                onSubmitDialog: (String message) => widget.onSubmitReport(message)
         );
       },
     );

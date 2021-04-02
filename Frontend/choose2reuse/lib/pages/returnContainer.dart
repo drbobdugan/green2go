@@ -34,17 +34,32 @@ class ReturnContainerPage extends StatefulWidget {
   _ReturnContainerPageState createState() => _ReturnContainerPageState();
 }
 
-class _ReturnContainerPageState extends State<ReturnContainerPage> {
+class _ReturnContainerPageState extends State<ReturnContainerPage>
+    with WidgetsBindingObserver {
   String errorMessage = '';
-  bool containerScanActive = false;
+  bool containerScanActive = true;
   String locationQR = '';
   int secondsRemaining = 300;
 
   @override
-  @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+
     autoCheckTimeRemaining();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      autoCheckTimeRemaining();
+    }
   }
 
   void autoCheckTimeRemaining() async {
@@ -116,6 +131,18 @@ class _ReturnContainerPageState extends State<ReturnContainerPage> {
               top: 20.0,
             ),
             ReuseErrorMessage(text: errorMessage),
+            if (containerScanActive)
+              ReuseButton(
+                text: ReuseStrings.resetReturnButtonText,
+                onPressed: () {
+                  setState(() {
+                    containerScanActive = false;
+                    secondsRemaining = 300;
+                  });
+                },
+                buttonStyle: CustomTheme.primaryButtonStyle(),
+                top: 20.0,
+              )
           ],
         ),
       ),

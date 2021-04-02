@@ -4,6 +4,7 @@ class ReuseStrings {
   static String appName = 'Choose2Reuse';
 
   //button text
+  static String resetReturnButtonText = 'Start a new return';
   static String scanContainerButtonText = 'Scan container QR code';
   static String scanLocationButtonText = 'Scan location QR code';
   static String loginButtonText = 'Log in';
@@ -47,6 +48,10 @@ class ReuseStrings {
   static String validationInstruction =
       'Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.';
   static String filterBy = 'Filter By';
+  static String lostOrDamagedQuestion =
+      'Please provide details to report this container as lost or damaged.';
+  static String lostOrDamagedTitle = 'Report a Container';
+  static String lostOrDamagedPrompt = 'Enter your reasoning here';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';
