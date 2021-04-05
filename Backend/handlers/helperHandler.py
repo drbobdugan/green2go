@@ -15,12 +15,19 @@ from emailServer import EmailManager
 from pusher_push_notifications import PushNotifications
 from pathlib import Path
 from pusher_push_notifications import PushNotifications
+from passlib.context import CryptContext
+
 
 class HelperHandler:
 
     def __init__(self, emailServer):
         self.emailServer = emailServer
         self.authDao = AuthDao()
+        self.pwd_context = CryptContext(
+        schemes=["pbkdf2_sha256"],
+        default="pbkdf2_sha256",
+        pbkdf2_sha256__default_rounds=30000)
+
         self.beams_client = PushNotifications(
             instance_id='7032df3e-e5a8-494e-9fc5-3b9f05a68e3c',secret_key='8AC9B8AABB93DFE452B2EFC2714FCF923841B6740F97207F4512F240264FF493')
 
@@ -123,3 +130,10 @@ class HelperHandler:
     def beams_auth(self, id):
         beams_token = self.beams_client.generate_token(id)
         return beams_token["token"] 
+
+
+    def encrypt_password(self,password):
+        print(password)
+        return self.pwd_context.hash(password)
+    def check_encrypted_password(self,password, hashed):
+        return self.pwd_context.verify(password, hashed)

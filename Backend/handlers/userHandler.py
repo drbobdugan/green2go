@@ -64,6 +64,8 @@ class UserHandler:
         authCode=self.helperHandler.genAuthcode()
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
+            pas=self.helperHandler.encrypt_password(dictOfUserAttrib["password"])
+            dictOfUserAttrib["password"]=pas
             dictOfUserAttrib['authCode'] = authCode
             dictOfUserAttrib['authTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             dictOfUserAttrib['lastLogIn'] = "None"

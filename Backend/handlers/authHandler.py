@@ -66,9 +66,10 @@ class AuthHandler:
 
     def loginErrorHandler(self, userDic, dic):
         message = None
+        dencryptedpas=self.helperHandler.check_encrypted_password(dic["password"],userDic["password"])
         if message is None and "authorized" in userDic and userDic["authorized"] == 0:
             message = "Email not found, please try signing up."
-        if message is None and "password" in userDic and dic["password"] != userDic["password"]:
+        if message is None and "password" in userDic and dencryptedpas =='False':
             message = "Incorrect password."
         return message
             
