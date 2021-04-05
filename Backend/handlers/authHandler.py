@@ -67,9 +67,10 @@ class AuthHandler:
     def loginErrorHandler(self, userDic, dic):
         message = None
         dencryptedpas=self.helperHandler.check_encrypted_password(dic["password"],userDic["password"])
+        print(dencryptedpas)
         if message is None and "authorized" in userDic and userDic["authorized"] == 0:
             message = "Email not found, please try signing up."
-        if message is None and "password" in userDic and dencryptedpas =='False':
+        if message is None and dencryptedpas ==False:
             message = "Incorrect password."
         return message
             
@@ -89,6 +90,7 @@ class AuthHandler:
         user = res[1]
         userDic = user.userToDict()
         errorRes = self.loginErrorHandler(userDic, dic)
+        print(errorRes)
         if errorRes is not None:
             return json.dumps({"success" : False, "message" : errorRes})
         # retrieve auth
