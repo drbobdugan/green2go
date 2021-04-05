@@ -237,19 +237,16 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"var jsonData = JSON.parse(responseBody).data;",
 											"var authorized = jsonData[\"authorized\"];",
 											"",
+											"",
 											"pm.test(\"Successful Authorization\", function () {",
-											"    if(authorized == 1){",
-											"        return true;",
-											"    }",
-											"    else",
-											"    return false;",
+											"    pm.expect(authorized).to.equal(\"1\");",
 											"});"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],

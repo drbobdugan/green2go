@@ -58,8 +58,8 @@ class AuthHandler:
         res = self.authDao.insertAuth(auth)
         data = auth.authToDict()
         # fix userAuth as well
-        userDic["authorized"] = 1
-        user = user.dictToUser(userDic)
+        userDic["authorized"] = "1"
+        user.dictToUser(userDic)
         userDao.updateUser(user)
         # return it
         return json.dumps({"success" : res[0], "data" : data})

@@ -140,7 +140,6 @@ class unitTestAuthDAO(unittest.TestCase):
         rc, msg = self.testInsertAuthSmoke()
         self.assertTrue(rc)
 
-
         auth = Auth("auth42TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
         self.dao = AuthDao()
         
@@ -156,6 +155,42 @@ class unitTestAuthDAO(unittest.TestCase):
         self.assertFalse(rc)
 
         rc, deleteAuth = self.dao.deleteAuth(None)
+        self.assertFalse(rc)
+
+    def testInsertAuthUserTooLong(self):
+        """
+        Test that we cannot add a user to auth that is over 45 characters long
+        """
+        auth = Auth("auth47XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXTestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
+
+        rc, insertAuth = self.dao.insertAuth(auth)
+        self.assertFalse(rc)
+
+    def testInsertAuth_TokenTooLong(self):
+        """
+        Test that we cannot add an auth_token to auth that is over 45 characters long
+        """
+        auth = Auth("auth47TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRLXXX","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
+
+        rc, insertAuth = self.dao.insertAuth(auth)
+        self.assertFalse(rc)
+
+    def testInsertRefresh_TokenTooLong(self):
+        """
+        Test that we cannot add an refresh_token to auth that is over 45 characters long
+        """
+        auth = Auth("auth47TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9XXX","2021-01-01 01:01:01")
+       
+        rc, insertAuth = self.dao.insertAuth(auth)
+        self.assertFalse(rc)
+
+    def testInsertWrongExpiresAt(self):
+        """
+        Test that we cannot add a incorrectly formatted date
+        """
+        auth = Auth("auth47TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyM11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","01:01:01 2021-01-01") 
+        
+        rc, insertAuth = self.dao.insertAuth(auth)
         self.assertFalse(rc)
 
 if __name__ == '__main__':

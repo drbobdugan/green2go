@@ -1,5 +1,4 @@
 import 'package:intl/intl.dart';
-import '../components/reuse_listItem.dart';
 
 class ReusableContainer {
   ReusableContainer(dynamic value) {
@@ -14,17 +13,24 @@ class ReusableContainer {
   String statusUpdateTime;
   String statusLocation;
 
-  ListItem dataRow() {
-    return ListItem(
-      text1: status,
-      text3: '#$qrCode',
-      text2: status == 'Checked out'
-          ? formatDate(statusUpdateTime)
-          : '${formatDate(statusUpdateTime)}\n$statusLocation',
-      colorID: status.contains('Checked')
-          ? 'attention'
-          : (status.contains('Pending') ? 'primary' : 'darkPrimary'),
-    );
+  String dataRowText1() {
+    return status;
+  }
+
+  String dataRowText2() {
+    return status == 'Checked out'
+        ? formatDate(statusUpdateTime)
+        : '${formatDate(statusUpdateTime)}\n$statusLocation';
+  }
+
+  String dataRowText3() {
+    return '#$qrCode';
+  }
+
+  String dataRowColorID() {
+    return status.contains('Checked')
+        ? 'attention'
+        : (status.contains('Pending') ? 'primary' : 'darkPrimary');
   }
 
   String formatDate(String date) {

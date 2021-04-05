@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_containerCounts.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
@@ -20,6 +21,11 @@ class HomePage extends StatefulWidget {
 
   Future<APIResponse> onGetContainers() async {
     return await StudentService.getContainers(userAuth);
+  }
+
+  Future<APIResponse> onSubmitReport(String report) {
+    print(report);
+    // return await StudentService.reportContainer(userAuth, report);
   }
 
   @override
@@ -100,7 +106,13 @@ class _HomePageState extends State<HomePage> {
             final ReusableContainer container = user.topContainers[index];
             return Padding(
               padding: const EdgeInsets.only(top: 30.0),
-              child: container.dataRow(),
+              child: ListItem(
+                  text1: container.dataRowText1(),
+                  text2: container.dataRowText2(),
+                  text3: container.dataRowText3(),
+                  colorID: container.dataRowColorID(),
+                  onSubmitDialog: (String message) =>
+                      widget.onSubmitReport(message)),
             );
           },
         ),
