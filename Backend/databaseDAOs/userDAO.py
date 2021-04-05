@@ -15,7 +15,7 @@ class UserDAO(dao):
     def checkLength(self,user):
         maxLength = {
         "email" : 45,
-        "password" : 45,
+        "password" : 100,
         "firstName" : 45,
         "lastName" : 45,
         "middleName" : 45,

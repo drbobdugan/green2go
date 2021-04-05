@@ -62,7 +62,7 @@ class unitTestUserDAO(unittest.TestCase):
 
         user.email = "test42@students.stonehill.edu"
         password = user.password
-        user.password = lim45
+        user.password = lim45 + lim45 + lim45
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         self.assertTrue("password is too long" in msg)
