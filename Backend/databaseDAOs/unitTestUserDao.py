@@ -5,7 +5,7 @@ class unitTestUserDAO(unittest.TestCase):
     """
     Test the userDAO class methods using the unit test framework.  
     To run these tests:
-         python3 -m unittest unitTestUserDAO.py
+         python3 -m unittest unitTestUserDao.py
 
     """
     def setUp(self):
@@ -40,6 +40,7 @@ class unitTestUserDAO(unittest.TestCase):
                 "0",
                 "exampletoken")
         return self.dao.insertUser(user)
+    
     def testUserSizeLimits(self):
         lim45 = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
         user = User(
@@ -66,7 +67,6 @@ class unitTestUserDAO(unittest.TestCase):
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         self.assertTrue("password is too long" in msg)
-
 
         user.password = password
         firstName = user.firstName
@@ -129,7 +129,6 @@ class unitTestUserDAO(unittest.TestCase):
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         self.assertTrue("beams_token is too long" in msg)
-
 
     def testRegularAddUser(self):
         """

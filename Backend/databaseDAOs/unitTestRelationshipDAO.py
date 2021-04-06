@@ -115,5 +115,75 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, deleteRelationship = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 
+#____________________________________________________________________________________________________________________________________________________________#
+
+    # TEST SPECIAL CASES - INCORRECT FORMATS
+    def testInsertEmailTooLong(self):
+        """
+        Test that we cannot add an email that is over 45 characters long
+        """
+        r = Relationship("test42xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None) 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
+    def testInsertQRCodeTooLong(self):
+        """
+        Test that we cannot add a QR code that is over 45 characters long
+        """
+        r = Relationship("test42@students.stonehill.edu","101010xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Checked Out","2021-01-01 01:01:01",None) 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
+    def testInsertStatusNotValid(self):
+        """
+        Test that we cannot add a status that is not:
+        Checked Out | Pending Return | Verified Return | Lost/Damaged
+        """
+        """
+        r = Relationship("test42@students.stonehill.edu","101010","TEST WRONG STATUS","2021-01-01 01:01:01",None) 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+        """
+        # have to add code to relationshipDAO to make sure it does not take an invalid status
+
+        """
+        Test that we cannot add a status that is over 45 characters long
+        """
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","2021-01-01 01:01:01",None) 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
+    def testInsertWrongStatusUpdateTime(self):
+        """
+        Test that we cannot add a incorrectly formatted date
+        """
+        """
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","01:01:01 2021-01-01",None) 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+        """
+        # this yields True is not false error
+        # we think this takes our wrong date because it is just overwritten in the dao
+
+    def testInsertLocQRCodeTooLong(self):
+        """
+        Test that we cannot add a location QR code that is over 45 characters long
+        """
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx") 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
 if __name__ == '__main__':
     unittest.main()
