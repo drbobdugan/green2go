@@ -8,6 +8,8 @@ class Container:
     # list to object
     def listToContainer(self,list):
         self.qrcode = list[0]
+        self.active = 1
+        self.description = "active container"
        
     # object to list
     def containerToList(self):

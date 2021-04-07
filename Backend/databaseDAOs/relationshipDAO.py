@@ -9,6 +9,11 @@ class RelationshipDAO(dao):
     # CREATE RELATIONSHIP
     def insertRelationship(self, r):
         try:
+            """
+            myresult = self.checkFormatting(r)
+            if(myresult[0] == False):
+                return myresult
+            """
             logging.info("Entering insertRelationship")
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             result = r.relationshipToList()
@@ -108,6 +113,11 @@ class RelationshipDAO(dao):
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r):
         try:
+            """
+            myresult = self.checkFormatting(r)
+            if(myresult[0] == False):
+                return myresult
+            """
             logging.info("Entering updateRelationship")
             r.statusUpdateTime = (datetime.now() + timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S') 
             result = r.relationshipToList()
@@ -132,6 +142,11 @@ class RelationshipDAO(dao):
     # DELETE RELATIONSHIP  
     def deleteRelationship(self,r):
         try:
+            """
+            myresult = self.checkFormatting(r)
+            if(myresult[0] == False):
+                return myresult
+            """
             logging.info("Entering deleteRelationship")
             result = r.relationshipToList()
             email = result[0]
@@ -147,3 +162,42 @@ class RelationshipDAO(dao):
             logging.error("Error in deleteRelationship")
             logging.error(str(e))
             return self.handleError(e)
+#____________________________________________________________________________________________________________
+
+    # CHECK FORMATTING
+    def checkFormatting(self,r):
+        myresult = self.checkLength(r)
+        if myresult[0] == False:
+            return myresult
+        return True, ""
+    
+    def checkLength(self,r):
+        maxLength = {
+        "email" : 45,
+        "qrcode" : 45,
+        "status" : 45,
+        #"statusUpdateTime" : 8, # datetime length = 8 ? 
+        "location_qrcode" : 45}
+        #"active" : 1}
+        var = "None"
+        if(len(r.email)>maxLength["email"]):
+            var = "email"
+        if(len(r.qrcode)>maxLength["qrcode"]):
+            var = "qrcode"
+        if(len(r.status) > maxLength["status"]):
+            var = "status"
+        """
+        if(len(r.statusUpdateTime) > maxLength["statusUpdateTime"]):
+            var = "statusUpdateTime"
+        """
+        if(len(r.location_qrcode) > maxLength["location_qrcode"]):
+            var = "location_qrcode"
+        """
+        if(len(r.active) > maxLength["active"]):
+            var = "active" 
+        """
+        if(var == "None"):
+            return True, ""
+        else:
+            temp = var + " is too long, maximum length: " + str(maxLength[var])
+            return False, temp

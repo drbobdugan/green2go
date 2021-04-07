@@ -40,7 +40,20 @@ class ContainerDAO(dao):
             return self.handleError(e)
 
     # UPDATE CONTAINER
-    #def updateContainer(self,c): #idk if we need this method but if so it will be like DELETE sql
+    def updateContainer(self,c):
+        try:
+            logging.info("Entering updateContainer")
+            result = c.containerToList()
+            sql = "UPDATE container WHERE qrcode = '" + result[0] + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("updateContainer successful")
+            return True, ""
+        except Exception as e:
+            logging.error("Error in updateContainer")
+            logging.error(str(e))
+            return self.handleError(e)
 
     # DELETE CONTAINER
     def deleteContainer(self,c):
@@ -57,3 +70,8 @@ class ContainerDAO(dao):
             logging.error("Error in deleteContainer")
             logging.error(str(e))
             return self.handleError(e)
+
+    def markContainerLostDamaged(self,c):
+        print("hello world")
+        # use SQL to update active to 0 and description to whatever the person typed in
+        # update the relationship status to "Lost/Damaged"
