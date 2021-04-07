@@ -49,15 +49,19 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
     def testInsertRelationshipNoneType(self):
-        r = Relationship(None,"101010","Checked Out","2021-01-01 01:01:01",None, None)
+        r = Relationship(None,"101010","Checked Out","2021-01-01 01:01:01",None,"1", None)
         rc, msg  = self.dao.insertRelationship(r)
         self.assertFalse(rc)
 
-        r = Relationship("test42@students.stonehill.edu",None,"Checked Out","2021-01-01 01:01:01",None, None)
+        r = Relationship("test42@students.stonehill.edu",None,"Checked Out","2021-01-01 01:01:01",None,"1", None)
         rc, msg  = self.dao.insertRelationship(r)
         self.assertFalse(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010",None,"2021-01-01 01:01:01",None, None)
+        r = Relationship("test42@students.stonehill.edu","101010",None,"2021-01-01 01:01:01",None,"1", None)
+        rc, msg  = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010",None,"2021-01-01 01:01:01",None, None, None)
         rc, msg  = self.dao.insertRelationship(r)
         self.assertFalse(rc)
 
@@ -112,7 +116,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged","2021-01-01 01:01:01",None,"1",None)
+        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged","2021-01-01 01:01:01",None,"0","Snapped in half")
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
@@ -197,6 +201,32 @@ class unitTestRelationshipDAO(unittest.TestCase):
 
         rc, insertRelationship = self.dao.insertRelationship(r)
         self.assertFalse(rc)
+
+    def testInsertActiveTooLong(self):
+        """
+        Test that we cannot add an active that is more than two characters long.
+        """
+        """
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043","42",None) 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+        """
+
+    def testUpdateDamagedNoDescription(self):
+        """
+        Test that we cannot mark a container as damaged or lost without a description
+        """
+        """
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010","Lost/Damaged","2021-01-01 01:01:01",None,"0",None)
+        rc, updateRelationship = self.dao.updateRelationship(r)
+        self.assertFalse(rc)
+        """
+
 
 if __name__ == '__main__':
     unittest.main()
