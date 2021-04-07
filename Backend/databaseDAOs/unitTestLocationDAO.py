@@ -49,6 +49,21 @@ class unitTestLocationDAO(unittest.TestCase):
         self.assertFalse(rc)
         self.assertEqual(msg,"Duplicate Entry")
 
+    def testInsertLocationNoneType(self):
+        loc = Location(None,"Drop-off bin outside Testing Center","2021-01-01 01:01:01") 
+        self.dao = LocationDao()
+
+        rc, insertLocation = self.dao.insertLocation(loc)
+        self.assertFalse(rc)
+
+        loc = Location("L043",None,"2021-01-01 01:01:01")
+        rc, insertLocation = self.dao.insertLocation(loc)
+        self.assertFalse(rc)
+
+        loc = Location("L043","Drop-off bin outside Testing Center",None)
+        rc, insertLocation = self.dao.insertLocation(loc)
+        self.assertFalse(rc)
+
     def testselectByLocationQRcode(self):
         """
         Test that we can select a location that exists in the database already

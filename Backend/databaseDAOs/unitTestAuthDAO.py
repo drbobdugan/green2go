@@ -51,6 +51,21 @@ class unitTestAuthDAO(unittest.TestCase):
         self.assertFalse(rc)
         self.assertEqual(msg,"Duplicate Entry")
 
+    def testInsertAuthNoneType(self):
+        self.dao = AuthDao()
+
+        auth = Auth(None,"Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL","F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
+        rc, msg = self.dao.insertAuth(auth)
+        self.assertFalse(rc)
+
+        auth = Auth("auth42TestUser@students.stonehill.edu",None,"F9R51hFTGUgV0LeyJJAkwbSiZL1dfennuGDlPcUJnnNm9","2021-01-01 01:01:01")
+        rc, msg = self.dao.insertAuth(auth)
+        self.assertFalse(rc)
+
+        auth = Auth("auth42TestUser@students.stonehill.edu","Fgpmy1lEbwaNoIqZmkjBkkzOtskzYquyL11ISH5ij9iRL",None,"2021-01-01 01:01:01")
+        rc, msg = self.dao.insertAuth(auth)
+        self.assertFalse(rc)
+
     def testSelectByEmail(self):
         """
         Test that we can select a location that exists in the database already

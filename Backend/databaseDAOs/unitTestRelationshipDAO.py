@@ -48,6 +48,19 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
+    def testInsertRelationshipNoneType(self):
+        r = Relationship(None,"101010","Checked Out","2021-01-01 01:01:01",None, None)
+        rc, msg  = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
+        r = Relationship("test42@students.stonehill.edu",None,"Checked Out","2021-01-01 01:01:01",None, None)
+        rc, msg  = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010",None,"2021-01-01 01:01:01",None, None)
+        rc, msg  = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+
     # TEST READ RELATIONSHIP
     def testSelectRelationship(self):
         """
