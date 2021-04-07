@@ -20,7 +20,7 @@ class ListItem extends StatelessWidget {
 
   String reportMessage;
 
-  AlertDialog lostDamagedDialog(context) {
+  AlertDialog lostDamagedDialog(BuildContext context) {
     return AlertDialog(
       title: ReuseLabel(
         text: ReuseStrings.lostOrDamagedTitle,

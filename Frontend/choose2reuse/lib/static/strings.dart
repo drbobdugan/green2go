@@ -24,9 +24,9 @@ class ReuseStrings {
   static String passwordField = 'Password';
   static String confirmPasswordField = 'Confirm Password';
   static String firstNameField = 'First Name';
-  static String middleNameField = 'Middle Name';
+  static String middleNameField = 'Middle Name (Optional)';
   static String lastNameField = 'Last Name';
-  static String classYearField = 'Class Year';
+  static String classYearField = 'Class Year (Optional)';
   static String phoneNumberField = 'Phone Number';
   static String enterValidationCodeField = 'Enter code here';
 

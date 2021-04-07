@@ -55,4 +55,18 @@ class StudentService {
         'getSortedContainers?email=${auth.email}&auth_token=${auth.token}');
     return resp;
   }
+
+  static Future<APIResponse> reportContainer(
+      StudentAuth auth, String qrCode, String description) async {
+    final APIResponse resp = await API.postResponse(
+        'reportContainer',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'qrcode': qrCode,
+          'status': 'Damaged/Lost',
+          'auth_token': auth.token,
+          'description': description
+        }));
+    return resp;
+  }
 }
