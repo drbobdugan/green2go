@@ -10,9 +10,9 @@ export default class App extends Component {
       <Router basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path= "/" render = {() => (
-            <Redirect to "/login"/>
+            <Redirect to = "/login"/>
           )}/>
-          <Route exact path= "/login" component={Login} />          
+          <Route exact path= "/login" component={Login} />
         </Switch>
       </Router>
     </div>
