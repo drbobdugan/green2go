@@ -1,36 +1,51 @@
 import './App.css';
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
+import axios from 'axios';
 
-export default class Login extends Component {
-    constructor(props){
-        super(props);
 
-        this.state = { userid: '', password: ''};
+function Login (props) {
+    // creates getter and setter methods
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [authToken, setAuthToken] = useState()
+    const [data, setData] = useState(['one', 'two', 'three'])
+
+    async function loginToEmail () {
+        const obj = {
+            'email' : email,
+            'password' : password
+        }
+        var response = await axios.post('http://198.199.77.174:5000/login', obj)
+        setAuthToken(response.data.data.auth_token)
     }
-    componentDidMount(){}
 
-    onChangeUserid(e){
-        const { value } = e.target;
-        this.setState({ userid: value });
-        console.log(this.state.userid);
-    }
-
-    onChangePassword(e){
-        const { value } = e.target;
-        this.setState({ password: value });
-    }
-
-    render(){
+    // you can return other html components encapsulated in a function
+    function authTokenResponse() {
         return (
+            <div>
+                <strong>{authToken}</strong>
+            </div>
+        )
+    }
+
+    return (
         <div className="App">
             <hi>Login</hi>
             <p>Login Attempts: </p>
-            <form id="form" method="post" action='login'>
-                <p>Userid:  <input type="text" name="userid" onChange={this.onChangeUserid} /> </p>
-                <p>Password:  <input type="password" name="password" onChange={this.onChangePassword} /> </p>
-                <input type="submit" name="submit" value="submit"/>
+            <form id="form">
+                <p>Email:  <input placeholder="Email" type="text" name="email" value={email} onChange={(event) => {setEmail(event.target.value)} } /> </p>
+                <p>Password:  <input placeholder="Password" type="password" name="password" value={password} onChange={(event) => {setPassword(event.target.value)} } /> </p>
+                <input type="button" name="submit" value="submit" onClick={() => { loginToEmail() } }/>
             </form>
+            {
+                data.map((elem) => <h1>{elem}</h1>)
+            }
+            {authToken
+            ? authTokenResponse()
+            : null
+            }
         </div>
-            );
-    }
+        );
 }
+
+export default Login
