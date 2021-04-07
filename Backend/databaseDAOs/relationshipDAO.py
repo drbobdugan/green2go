@@ -16,19 +16,30 @@ class RelationshipDAO(dao):
             """
             logging.info("Entering insertRelationship")
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    
             result = r.relationshipToList()
             # change the old person's pending return status to verified return
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
+            
+            """
+
+
+
+            #Check to make sure status is not damaged/lost
+
+
+
+            """
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
             if(myresult[1] != [] and myresult[1] is not None):
                 oldEmail = myresult[1][0]
-                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4])
+                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
                 tempR.status="Verified Return"
                 self.updateRelationship(tempR)
 
-            sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode) VALUES (%s,%s,%s,%s,%s)"
+            sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode,active,description) VALUES (%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
                 return myresult
@@ -53,7 +64,9 @@ class RelationshipDAO(dao):
             status=myresult[2]
             statusUpdateTime=str(myresult[3])
             location_qrcode=myresult[4]
-            x = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode)
+            active = myresult[5]
+            descrption = myresult[6]
+            x = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,active,descrption)
             logging.info("selectRelationship successful")
             return True, x
         except Exception as e:
@@ -128,7 +141,7 @@ class RelationshipDAO(dao):
             myresult = myresult[1][0]
             myresult = list(myresult)
             myresult[3] = str(myresult[3])
-            r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4])
+            r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4],myresult[5],myresult[6])
             sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):

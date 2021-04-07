@@ -74,14 +74,16 @@ class ContainerHandler:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
             self.validateQRCode(userContainer)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            userContainer['description'] = None
+            userContainer['active'] = "1"
         except Exception as e:
             #print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
         relationship=Relationship()
-        
         relationship.dictToRelationship(userContainer)
-        
+        print(relationship.relationshipToList())
         res = self.relationdao.insertRelationship(relationship)
+        print(res)
         return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao, isSorted):
@@ -116,6 +118,8 @@ class ContainerHandler:
             self.validateQRCode(dictOfUserAttrib)
             self.validateLocation(dictOfUserAttrib['location_qrcode'])
             dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            dictOfUserAttrib['description'] = None
+            dictOfUserAttrib['active'] = "0"
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         relationship=Relationship()

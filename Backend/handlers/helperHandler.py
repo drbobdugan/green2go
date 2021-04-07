@@ -133,7 +133,6 @@ class HelperHandler:
 
 
     def encrypt_password(self,password):
-        print(password)
         return self.pwd_context.hash(password)
     def check_encrypted_password(self,password, hashed):
         return self.pwd_context.verify(password, hashed)
