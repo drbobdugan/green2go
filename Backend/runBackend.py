@@ -95,7 +95,11 @@ def getSortedContainers():
 
 @app.route('/checkinContainer', methods=['POST'])
 def checkinContainer():
-    return containerHandler.checkinContainer(request, containerDao)
+    return containerHandler.updateRelationship(request, relationshipDao)
+
+@app.route('/reportContainer', methods=['POST'])
+def reportContainer():
+    return containerHandler.updateRelationship(request, relationshipDao)
 
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])

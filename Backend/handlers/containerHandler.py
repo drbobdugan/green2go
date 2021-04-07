@@ -110,20 +110,32 @@ class ContainerHandler:
             res= (True,sortDict)
         return self.helperHandler.handleResponse(res)
 
-    def checkinContainer(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
+    def updateRelationship(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
         dictOfUserAttrib = None
-        keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
+        if "/checkinContainer" in str(request):
+            keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
+        elif "/reportContainer" in str(request):
+            keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
             self.validateQRCode(dictOfUserAttrib)
-            self.validateLocation(dictOfUserAttrib['location_qrcode'])
+            if "/checkinContainer" in str(request):
+                self.validateLocation(dictOfUserAttrib['location_qrcode'])
             dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            dictOfUserAttrib['description'] = None
-            dictOfUserAttrib['active'] = "0"
+            if "/reportContainer" in str(request):
+                dictOfUserAttrib['active'] = "0"
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        relationship=Relationship()
         #print(dictOfUserAttrib)
-        relationship.dictToRelationship(dictOfUserAttrib)
+        rel = self.relationdao.selectRelationship(dictOfUserAttrib["email"], dictOfUserAttrib["qrcode"])
+        relationship = rel[1]
+        relDict = relationship.relationshipToDict()
+        print(relDict)
+        for key in dictOfUserAttrib:
+            if key != "auth_token":
+                relDict[key] = dictOfUserAttrib[key]
+        print(relDict)
+        relationship.dictToRelationship(relDict)
         res = self.relationdao.updateRelationship(relationship)
+        print(res)
         return self.helperHandler.handleResponse(res)
