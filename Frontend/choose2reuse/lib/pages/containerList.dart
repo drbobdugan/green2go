@@ -36,9 +36,9 @@ class ContainerListPage extends StatefulWidget {
     return await StudentService.getSortedContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String report, String qrCode) async {
+  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
     print(report);
-    return await StudentService.reportContainer(userAuth, report, qrCode);
+    return await StudentService.reportContainer(userAuth, qrCode, report);
   }
 
   @override
@@ -79,7 +79,7 @@ class _ContainerListPageState extends State<ContainerListPage> {
                 text3: container.dataRowText3(),
                 colorID: container.dataRowColorID(),
                 onSubmitDialog: (String message) =>
-                    widget.onSubmitReport(message, container.qrCode)));
+                    widget.onSubmitReport(container.qrCode, message)));
       },
     );
   }

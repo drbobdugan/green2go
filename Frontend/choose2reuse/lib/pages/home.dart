@@ -23,9 +23,9 @@ class HomePage extends StatefulWidget {
     return await StudentService.getContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String report, String qrCode) async {
+  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
     print(report);
-    return await StudentService.reportContainer(userAuth, report, qrCode);
+    return await StudentService.reportContainer(userAuth, qrCode, report);
   }
 
   @override
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
                   onSubmitDialog: (String message) =>
-                      widget.onSubmitReport(message, container.qrCode)),
+                      widget.onSubmitReport(container.qrCode, message)),
             );
           },
         ),
