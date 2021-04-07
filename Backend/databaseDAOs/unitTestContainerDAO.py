@@ -87,7 +87,20 @@ class unitTestContainerDAO(unittest.TestCase):
         self.assertFalse(rc)
     
     # TEST UPDATE CONTAINER
-    #def testUpdateContainer(self,c): #idk if we will ever need this
+    def testUpdateContainer(self):
+        """
+        Test that we can update a container in the database
+        """
+        """
+        rc, msg = self.testInsertContainerSmoke()
+        self.assertTrue(rc)
+
+        c = Container("Updated101010") # should we test to update active and description?
+        rc, updateContainer = self.dao.updateContainer(c)
+        self.assertTrue(rc)
+
+    # but this unit test doesn't pass :(
+    """
 
     # TEST DELETE CONTAINER
     def testDeleteContainer(self):

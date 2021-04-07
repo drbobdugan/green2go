@@ -8,6 +8,11 @@ class ContainerDAO(dao):
     # CREATE CONTAINER
     def insertContainer(self,c):
         try:
+            """
+            myresult = self.checkFormatting(c)
+            if(myresult[0] == False):
+                return myresult
+            """
             logging.info("Entering insertContainer")
             result = c.containerToList()
             sql = "INSERT INTO container (qrcode) VALUE (%s)"
@@ -42,6 +47,11 @@ class ContainerDAO(dao):
     # UPDATE CONTAINER
     def updateContainer(self,c):
         try:
+            """
+            myresult = self.checkFormatting(c)
+            if(myresult[0] == False):
+                return myresult
+            """
             logging.info("Entering updateContainer")
             result = c.containerToList()
             sql = "UPDATE container WHERE qrcode = '" + result[0] + "'"
@@ -58,6 +68,11 @@ class ContainerDAO(dao):
     # DELETE CONTAINER
     def deleteContainer(self,c):
         try:
+            """
+            myresult = self.checkFormatting(c)
+            if(myresult[0] == False):
+                return myresult
+            """
             logging.info("Entering deleteContainer")
             result = c.containerToList()
             sql = "DELETE FROM container WHERE qrcode = '" + result[0] + "'"
@@ -70,6 +85,34 @@ class ContainerDAO(dao):
             logging.error("Error in deleteContainer")
             logging.error(str(e))
             return self.handleError(e)
+#____________________________________________________________________________________________________________
+
+    # CHECK FORMATTING
+    def checkFormatting(self,c):
+        myresult = self.checkLength(c)
+        if myresult[0] == False:
+            return myresult
+        return True, ""
+    
+    def checkLength(self,c):
+        maxLength = {
+        "qrcode" : 45,
+        "active" : 45,
+        "description" : 45}
+        var = "None"
+        if(len(c.qrcode)>maxLength["qrcode"]):
+            var = "qrcode"
+        """
+        if(len(c.active) > maxLength["active"]):
+            var = "active"
+        if(len(r.description) > maxLength["description"]):
+            var = "desctiption" 
+        """
+        if(var == "None"):
+            return True, ""
+        else:
+            temp = var + " is too long, maximum length: " + str(maxLength[var])
+            return False, temp
 
     def markContainerLostDamaged(self,c):
         print("hello world")
