@@ -6,6 +6,25 @@ from DAO import dao
 from location import Location
 
 class LocationDao(dao):
+    
+    def checkFormatting(self,loc):
+        myresult = self.checkLength(loc)
+        if myresult[0] == False:
+            return myresult
+        return True, ""
+
+    def checkLength(self,loc):
+        maxLength = {"location_qrcode" : 45, "description" : 128,}
+        var = "None"
+        if(len(loc.location_qrcode)>maxLength["location_qrcode"]):
+            var = "location_qrcode"
+        if(len(loc.description)>maxLength["description"]):
+            var = "description"
+        if(var == "None"):
+            return True, ""
+        else:
+            temp = var + " is too long, maximum length: " + str(maxLength[var])
+            return False, temp  
 
     def selectAll(self): #returns --> "true, list of location objects"
         try:
@@ -41,6 +60,9 @@ class LocationDao(dao):
 
     def insertLocation(self,location):
         try:
+            myresult = self.checkFormatting(location)
+            if(myresult[0] == False):
+                return myresult
             logging.info("Entering insertLocation")
             result = location.locationToList()
             sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
@@ -56,6 +78,9 @@ class LocationDao(dao):
 
     def deleteLocation(self,location):
         try:
+            myresult = self.checkFormatting(location)
+            if(myresult[0] == False):
+                return myresult
             myresult = self.selectByLocationQRcode(location.location_qrcode)
             if(myresult[0]==False):
                 return myresult

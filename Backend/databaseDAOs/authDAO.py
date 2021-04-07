@@ -7,9 +7,34 @@ from datetime import datetime, timedelta
 from DAO import dao
 from auth import Auth
 class AuthDao(dao):
+
+    def checkFormatting(self,auth):
+        myresult = self.checkLength(auth)
+        if myresult[0] == False:
+            return myresult
+        return True, ""
+        
+    def checkLength(self,auth):
+        maxLength = {"user" : 45, "auth_token" : 45, "refresh_token" : 45}
+        var = "None"
+        if(len(auth.user)>maxLength["user"]):
+            var = "user"
+        if(len(auth.auth_token)>maxLength["auth_token"]):
+            var = "auth_token"
+        if(len(auth.refresh_token)>maxLength["refresh_token"]):
+            var = "refresh_token"
+        if(var == "None"):
+            return True, ""
+        else:
+            temp = var + " is too long, maximum length: " + str(maxLength[var])
+            return False, temp  
+
     #the user field in Auth Table is the user's email
     def insertAuth(self,auth):
         try:
+            myresult = self.checkFormatting(auth)
+            if(myresult[0] == False):
+                return myresult
             logging.info("Entering insertAuth")
             auth.expires_at = (datetime.now() + timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:%S')
             result = auth.authToList()
@@ -42,6 +67,9 @@ class AuthDao(dao):
 
     def updateAuth(self,auth): #returns "True" if the auth_token was successfully updated or not
         try:
+            myresult = self.checkFormatting(auth)
+            if(myresult[0] == False):
+                return myresult
             user = auth.user
             auth_token = auth.auth_token
             refresh_token = auth.refresh_token
@@ -58,6 +86,9 @@ class AuthDao(dao):
 
     def deleteAuth(self,auth):
         try:
+            myresult = self.checkFormatting(auth)
+            if(myresult[0] == False):
+                return myresult
             myresult = self.selectByEmail(auth.user)
             if(myresult[0]==False):
                 return myresult
