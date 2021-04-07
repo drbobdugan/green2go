@@ -30,7 +30,9 @@ class ReusableContainer {
   String dataRowColorID() {
     return status.contains('Checked')
         ? 'attention'
-        : (status.contains('Pending') ? 'primary' : 'darkPrimary');
+        : (status.contains('Pending')
+            ? 'primary'
+            : (status.contains('Verified') ? 'darkPrimary' : 'disabled'));
   }
 
   String formatDate(String date) {
