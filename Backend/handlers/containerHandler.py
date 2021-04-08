@@ -150,6 +150,8 @@ class ContainerHandler:
             return json.dumps({"success" : False, "message" : str(e)})
         #get relationship object based on email and qrcode
         rel = self.relationdao.selectRelationship(relDict['email'], relDict['qrcode'])
+        if rel[0] is False:
+            return self.helperHandler.handleResponse(rel)
         relationship = rel[1]
         #delete relationship from table
         res = self.relationdao.deleteRelationship(relationship)
