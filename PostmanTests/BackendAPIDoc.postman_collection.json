@@ -15,13 +15,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
-									"// ",
+									"",
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -104,7 +104,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status Code is 200-202\", function () {",
 									"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -113,7 +112,8 @@
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});",
 									""
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -530,7 +530,6 @@
 						{
 							"listen": "test",
 							"script": {
-								"type": "text/javascript",
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
@@ -543,7 +542,8 @@
 									"",
 									"pm.environment.set(\"authTokenLoginTest0\", jsonData['auth_token']);",
 									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
-								]
+								],
+								"type": "text/javascript"
 							}
 						}
 					],
@@ -1617,7 +1617,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"null\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"None\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1997,6 +1997,49 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get all Contianers (hasRelationship table)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/getallContainers?email=test0@students.stonehill.edu&auth_token={{authTokenLoginTest0}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"getallContainers"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authTokenLoginTest0}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2123,10 +2166,6 @@
 		{
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
-		},
-		{
-			"key": "authTokenLoginTest0",
-			"value": "AsD4mgu8Z7oXiFFrHvjswsm1XaXKAz0lq9cbxNi0EBSOJ"
 		}
 	]
 }
