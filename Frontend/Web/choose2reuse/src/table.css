@@ -1,0 +1,7 @@
+tr:hover{
+  color:aqua;
+}
+
+tr{
+    cursor:pointer;
+}

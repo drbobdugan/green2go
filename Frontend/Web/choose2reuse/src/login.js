@@ -6,9 +6,10 @@ import { useHistory } from "react-router-dom";
 function Login (props) {
     const history = useHistory();
 
-    const routeChange = () =>{ 
+    function routeChange(token) { 
     let path = `/table`; 
-    history.push(path);
+    //passes email and authToken values to props param in table.js
+    history.push(path,{email:email,authToken:token});
     }
     // creates getter and setter methods
     const [email, setEmail] = useState('')
@@ -22,6 +23,7 @@ function Login (props) {
         }
         var response = await axios.post('http://198.199.77.174:5000/login', obj)
         setAuthToken(response.data.data.auth_token)
+        routeChange(response.data.data.auth_token)
     }
 
     // you can return other html components encapsulated in a function
@@ -39,7 +41,7 @@ function Login (props) {
             <form id="form">
                 <p>Email:  <input placeholder="Email" type="text" name="email" value={email} onChange={(event) => {setEmail(event.target.value)} } /> </p>
                 <p>Password:  <input placeholder="Password" type="password" name="password" value={password} onChange={(event) => {setPassword(event.target.value)} } /> </p>
-                <input type="button" name="submit" value="submit" onClick={() => { loginToEmail() } } onClick={() => { routeChange() }}/>
+                <input type="button" name="submit" value="submit" onClick={() => { loginToEmail() } }/>
             </form>
             {authToken
             ? authTokenResponse()
