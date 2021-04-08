@@ -103,7 +103,7 @@ class ContainerHandler:
                 'Checked_out':[],
                 'Pending_Return':[],
                 'Verified_Return':[],
-                'Damaged/Lost':[]
+                'Damaged_Lost':[]
             }
             for item in res[1]:
                 #print(item['status'].replace(' ', '_'))
@@ -131,14 +131,11 @@ class ContainerHandler:
         rel = self.relationdao.selectRelationship(dictOfUserAttrib["email"], dictOfUserAttrib["qrcode"])
         relationship = rel[1]
         relDict = relationship.relationshipToDict()
-        print(relDict)
         for key in dictOfUserAttrib:
             if key != "auth_token":
                 relDict[key] = dictOfUserAttrib[key]
-        print(relDict)
         relationship.dictToRelationship(relDict)
         res = self.relationdao.updateRelationship(relationship)
-        print(res)
         return self.helperHandler.handleResponse(res)
 
 #THIS METHOD IS EXCLUSIVELY FOR TESTING
@@ -148,7 +145,7 @@ class ContainerHandler:
         keys = ['email', 'qrcode']
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
-            #self.validateQRCode(relDict)
+            self.validateQRCode(relDict)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #get relationship object based on email and qrcode
