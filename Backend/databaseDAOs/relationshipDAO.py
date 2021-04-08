@@ -26,8 +26,8 @@ class RelationshipDAO(dao):
             if(myresult[1] != [] and myresult[1] is not None):
                 oldEmail = myresult[1][0]
                 tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
-                if(tempR.status=="Damaged/Lost"):
-                    return False, "Container has been marked as Damaged/Lost"
+                if(tempR.status=="Damaged Lost"):
+                    return False, "Container has been marked as Damaged Lost"
                 tempR.status="Verified Return"
                 self.updateRelationship(tempR)
 
@@ -163,8 +163,8 @@ class RelationshipDAO(dao):
             myresult = list(myresult)
             myresult[3] = str(myresult[3])
             r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4],myresult[5],myresult[6])
-            if(r1.status=="Damaged/Lost"):
-                return False, "Container has been marked as Damaged/Lost"
+            if(r1.status=="Damaged Lost"):
+                return False, "Container has been marked as Damaged Lost"
             sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "', active = '" + str(r.active)+ "', description = '" + str(r.description)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):

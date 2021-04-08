@@ -156,6 +156,7 @@ class ContainerHandler:
         #delete relationship from table
         res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
+# to get all containers for admin
 
     def GetallRelationships(self,request,relationshipDao,hasAuth):
         relaDict = None

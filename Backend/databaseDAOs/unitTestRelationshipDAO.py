@@ -135,7 +135,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.dao.insertRelationship(r)
         self.assertTrue(rc)
 
-        r.status = "Damaged/Lost"
+        r.status = "Damaged Lost"
         r.description = "Snapped in half"
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
@@ -143,9 +143,9 @@ class unitTestRelationshipDAO(unittest.TestCase):
         r.status = "Checked Out"
         rc, msg = self.dao.insertRelationship(r)
         self.assertFalse(rc)
-        self.assertTrue(msg == "Container has been marked as Damaged/Lost")
+        self.assertTrue(msg == "Container has been marked as Damaged Lost")
 
-        r.status = "Damaged/Lost"
+        r.status = "Damaged Lost"
         rc, msg = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 
@@ -188,7 +188,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
     def testInsertStatusNotValid(self):
         """
         Test that we cannot add a status that is not:
-        Checked Out | Pending Return | Verified Return | Damaged/Lost
+        Checked Out | Pending Return | Verified Return | Damaged Lost
         """
         """
         r = Relationship("test42@students.stonehill.edu","101010","TEST WRONG STATUS","2021-01-01 01:01:01",None,"1",None) 
@@ -252,7 +252,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Damaged/Lost","2021-01-01 01:01:01",None,"0",None)
+        r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None,"0",None)
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertFalse(rc)
         """
