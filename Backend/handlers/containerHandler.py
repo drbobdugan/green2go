@@ -148,7 +148,7 @@ class ContainerHandler:
         keys = ['email', 'qrcode']
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
-            self.validateQRCode(relDict)
+            #self.validateQRCode(relDict)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #get relationship object based on email and qrcode
