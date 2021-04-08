@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:pusher_beams/pusher_beams.dart';
 
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
@@ -19,6 +20,10 @@ class LoginPage extends StatefulWidget {
 
   Future<APIResponse> onLogIn(ExistingUser user) async {
     return await UserService.logIn(user);
+  }
+
+  Future<APIResponse> onGetUser(ExistingUser user, StudentAuth auth) async {
+    return await UserService.getUser(user, auth);
   }
 
   @override
@@ -66,6 +71,31 @@ class _LoginPageState extends State<LoginPage> {
           prefs.setString('email', user.email);
           prefs.setString('password', user.password);
         }
+
+        try {
+          PusherBeams.addDeviceInterest(user.email);
+        } catch (e) {
+          print(e);
+          print('Failed to add user interest');
+        }
+
+        /*final StudentAuth auth =
+            StudentAuth(response.data as Map<String, dynamic>);
+        print(response.data);
+
+        widget.onGetUser(user, auth).then((APIResponse response2) {
+          if (response2.success) {
+            print(response2.data);
+            final String beamsToken = response2.data['beams_token'] as String;
+            final Map<String, String> tokenProvider = {'token': beamsToken};
+
+            PusherBeams.setUserId(auth.email, tokenProvider);
+          } else {
+            print(response2.success);
+            print(response2.message);
+            print(response2.data);
+          }
+        });*/
 
         NavigationService(context: context)
             .goHome(StudentAuth(response.data as Map<String, dynamic>));

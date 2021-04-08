@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import '../static/student.dart';
 import '../static/user.dart';
 import 'api.dart';
 
@@ -50,5 +51,12 @@ class UserService {
 
   static dynamic sendCode(dynamic params) async {
     return null;
+  }
+
+  static Future<APIResponse> getUser(
+      ExistingUser user, StudentAuth auth) async {
+    final APIResponse resp = await API
+        .getResponse('getUser?email=${user.email}&auth_token=${auth.token}');
+    return resp;
   }
 }
