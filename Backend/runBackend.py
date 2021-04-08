@@ -101,6 +101,10 @@ def checkinContainer():
 def reportContainer():
     return containerHandler.updateRelationship(request, relationshipDao)
 
+@app.route('/getallContainers', methods=['GET'])
+def getallContainers():
+    return containerHandler.GetallRelationships(request,relationshipDao,True)
+
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():

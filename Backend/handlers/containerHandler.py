@@ -156,3 +156,17 @@ class ContainerHandler:
         #delete relationship from table
         res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
+
+    def GetallRelationships(self,request,relationshipDao,hasAuth):
+        relaDict = None
+        keys=['email','auth_token']
+        try:
+            relDict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+        except Exception as e:
+    
+            return json.dumps({"success" : False, "message" : str(e)})
+        rel=self.relationdao.selectAll()
+        if rel[0] is False:
+            return self.helperHandler.handleResponse(rel)
+
+        return self.helperHandler.handleResponse(rel)
