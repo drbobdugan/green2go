@@ -25,7 +25,7 @@ class RelationshipDAO(dao):
 
 
 
-            #Check to make sure status is not damaged/lost
+            #Check to make sure status is not lost/damaged
 
 
 
@@ -88,7 +88,9 @@ class RelationshipDAO(dao):
                 "qrcode": x[1],
                 "status": x[2],
                 "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4]}
+                "location_qrcode": x[4],
+                "active": x[5],
+                "description": x[6]}
                 temp.append(relDict)
             logging.info("selectAllByEmail successful")
             return True, temp
@@ -114,7 +116,9 @@ class RelationshipDAO(dao):
                 "qrcode": x[1],
                 "status": x[2],
                 "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4]}
+                "location_qrcode": x[4],
+                "active": x[5],
+                "description": x[6]}
                 temp.append(relDict)
             logging.info("selectAllByStatus successful")
             return True, temp
@@ -156,9 +160,12 @@ class RelationshipDAO(dao):
     def deleteRelationship(self,r):
         try:
             """
+            print("here 1")
             myresult = self.checkFormatting(r)
+            print(myresult[0])
             if(myresult[0] == False):
                 return myresult
+            print("here 2")
             """
             logging.info("Entering deleteRelationship")
             result = r.relationshipToList()
@@ -189,9 +196,10 @@ class RelationshipDAO(dao):
         "email" : 45,
         "qrcode" : 45,
         "status" : 45,
-        #"statusUpdateTime" : 8, # datetime length = 8 ? 
-        "location_qrcode" : 45}
-        #"active" : 1}
+        "location_qrcode" : 45,
+        "active": 1,
+        "description" : 128}
+
         var = "None"
         if(len(r.email)>maxLength["email"]):
             var = "email"
@@ -199,16 +207,13 @@ class RelationshipDAO(dao):
             var = "qrcode"
         if(len(r.status) > maxLength["status"]):
             var = "status"
-        """
-        if(len(r.statusUpdateTime) > maxLength["statusUpdateTime"]):
-            var = "statusUpdateTime"
-        """
         if(len(r.location_qrcode) > maxLength["location_qrcode"]):
             var = "location_qrcode"
-        """
         if(len(r.active) > maxLength["active"]):
             var = "active" 
-        """
+        if(len(r.description) > maxLength["description"]):
+            var = "description"
+
         if(var == "None"):
             return True, ""
         else:
