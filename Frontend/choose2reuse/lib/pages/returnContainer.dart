@@ -52,6 +52,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
+
     super.dispose();
   }
 
@@ -62,6 +63,18 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
     }
   }
 
+  void resetTimer(bool showMessage) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('returnContainerStartTime', null);
+
+    setState(() {
+      containerScanActive = false;
+      if (showMessage) {
+        errorMessage = ReuseStrings.timerOutErrorMessage;
+      }
+    });
+  }
+
   void autoCheckTimeRemaining() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     final String startTime = prefs.getString('returnContainerStartTime');
@@ -70,7 +83,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
       final DateTime parsed = DateTime.parse(startTime);
       final DateTime invalidAt = parsed.add(const Duration(seconds: 300));
       if (DateTime.now().isAfter(invalidAt)) {
-        prefs.setString('returnContainerStartTime', null);
+        resetTimer(false);
       } else {
         setState(() {
           containerScanActive = true;
@@ -102,10 +115,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
               CountdownFormatted(
                 duration: Duration(seconds: secondsRemaining),
                 onFinish: () {
-                  setState(() {
-                    containerScanActive = false;
-                    errorMessage = ReuseStrings.timerOutErrorMessage;
-                  });
+                  resetTimer(true);
                 },
                 builder: (BuildContext ctx, String remaining) {
                   return ReuseLabel(
@@ -135,10 +145,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
               ReuseButton(
                 text: ReuseStrings.resetReturnButtonText,
                 onPressed: () {
-                  setState(() {
-                    containerScanActive = false;
-                    secondsRemaining = 300;
-                  });
+                  resetTimer(false);
                 },
                 buttonStyle: CustomTheme.primaryButtonStyle(),
                 top: 20.0,
@@ -159,9 +166,9 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
         if (!containerScanActive) {
           setState(() {
             containerScanActive = true;
-            prefs.setString(
-                'returnContainerStartTime', DateTime.now().toString());
           });
+          prefs.setString(
+              'returnContainerStartTime', DateTime.now().toString());
         }
       } else {
         setState(() {

@@ -39,7 +39,6 @@ class ContainerListPage extends StatefulWidget {
   }
 
   Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    print(report);
     return await StudentService.reportContainer(userAuth, qrCode, report);
   }
 
