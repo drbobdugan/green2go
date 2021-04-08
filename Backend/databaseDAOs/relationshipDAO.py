@@ -199,6 +199,7 @@ class RelationshipDAO(dao):
             return True, ""
         except Exception as e:
             logging.error("Error in deleteRelationship")
+            print(str(e))
             logging.error(str(e))
             return self.handleError(e)
 #____________________________________________________________________________________________________________
