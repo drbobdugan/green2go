@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../components/reuse_containerList.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
@@ -38,10 +38,6 @@ class ContainerListPage extends StatefulWidget {
     return await StudentService.getSortedContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    return await StudentService.reportContainer(userAuth, qrCode, report);
-  }
-
   @override
   _ContainerListPageState createState() => _ContainerListPageState();
 }
@@ -65,24 +61,6 @@ class _ContainerListPageState extends State<ContainerListPage> {
         });
       }
     });
-  }
-
-  ListView getContainerDataLarge() {
-    return ListView.builder(
-      itemCount: filteredContainers.length,
-      itemBuilder: (BuildContext context, int index) {
-        final ReusableContainer container = filteredContainers[index];
-        return Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: ListItem(
-                text1: container.dataRowText1(),
-                text2: container.dataRowText2(),
-                text3: container.dataRowText3(),
-                colorID: container.dataRowColorID(),
-                onSubmitDialog: (String message) =>
-                    widget.onSubmitReport(container.qrCode, message)));
-      },
-    );
   }
 
   void onFilter(String filterOn) {
@@ -178,9 +156,8 @@ class _ContainerListPageState extends State<ContainerListPage> {
                 ),
               ],
             ),
-            Expanded(
-              child: getContainerDataLarge(),
-            )
+            ReuseContainerList(
+                userAuth: widget.userAuth, containers: filteredContainers),
           ],
         ),
       ),

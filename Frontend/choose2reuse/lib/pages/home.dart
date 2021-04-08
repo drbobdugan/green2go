@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../components/reuse_button.dart';
 import '../components/reuse_containerCounts.dart';
+import '../components/reuse_containerList.dart';
 import '../components/reuse_label.dart';
-import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
@@ -91,46 +91,9 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
-  Expanded getContainerDataLarge() {
-    final ScrollController scrollController = ScrollController();
-    return Expanded(
-      child: Scrollbar(
-        isAlwaysShown: true,
-        controller: scrollController,
-        child: ListView.builder(
-          controller: scrollController,
-          itemCount:
-              user.topContainers.length > 5 ? 5 : user.topContainers.length,
-          itemBuilder: (BuildContext context, int index) {
-            final ReusableContainer container = user.topContainers[index];
-            return Padding(
-              padding: const EdgeInsets.only(top: 30.0),
-              child: ListItem(
-                  text1: container.dataRowText1(),
-                  text2: container.dataRowText2(),
-                  text3: container.dataRowText3(),
-                  colorID: container.dataRowColorID(),
-                  onSubmitDialog: (String message) =>
-                      handleSubmitReport(index, message)),
-            );
-          },
-        ),
-      ),
-    );
-  }
-
   void handleViewAll(BuildContext context) {
     NavigationService(context: context)
         .goToPage(C2RPages.containerList, widget.userAuth);
-  }
-
-  void handleSubmitReport(int index, String message) {
-    StudentDetails duplicateUser = user;
-    duplicateUser.topContainers[index].status = ContainerStatus.DamagedLost;
-    setState(() {
-      user = duplicateUser;
-    });
-    widget.onSubmitReport(user.topContainers[index].qrCode, message);
   }
 
   @override
@@ -166,19 +129,14 @@ class _HomePageState extends State<HomePage> {
                 children: getContainerDataSmall(),
               ),
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: <Widget>[
-                  getContainerDataLarge(),
-                  ReuseButton(
-                    text: ReuseStrings.viewAllButtonText,
-                    onPressed: () => handleViewAll(context),
-                    buttonStyle: CustomTheme.primaryButtonStyle(),
-                    bottom: MediaQuery.of(context).size.height * 0.04,
-                  )
-                ],
-              ),
+            ReuseContainerList(
+                userAuth: widget.userAuth,
+                containers: user.topContainers.take(5).toList()),
+            ReuseButton(
+              text: ReuseStrings.viewAllButtonText,
+              onPressed: () => handleViewAll(context),
+              buttonStyle: CustomTheme.primaryButtonStyle(),
+              bottom: MediaQuery.of(context).size.height * 0.04,
             ),
           ],
         ),

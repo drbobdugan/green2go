@@ -63,7 +63,7 @@ class StudentService {
         jsonEncode(<String, String>{
           'email': auth.email,
           'qrcode': qrCode,
-          'status': 'Damaged/Lost',
+          'status': 'Damaged Lost',
           'auth_token': auth.token,
           'description': description
         }));
