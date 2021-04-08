@@ -46,6 +46,7 @@ class ListItem extends StatelessWidget {
                         reportMessage = text;
                       },
                       maxLines: null,
+                      maxLength: 128,
                       decoration: InputDecoration.collapsed(
                           hintText: ReuseStrings.lostOrDamagedPrompt),
                     )),

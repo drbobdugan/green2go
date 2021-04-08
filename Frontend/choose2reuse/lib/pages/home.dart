@@ -91,6 +91,10 @@ class _HomePageState extends State<HomePage> {
     }).toList();
   }
 
+  void handleSubmitReport(int index, String message) {
+    widget.onSubmitReport(user.topContainers[index].qrCode, message);
+  }
+
   void handleViewAll(BuildContext context) {
     NavigationService(context: context)
         .goToPage(C2RPages.containerList, widget.userAuth);
@@ -131,7 +135,8 @@ class _HomePageState extends State<HomePage> {
             ),
             ReuseContainerList(
                 userAuth: widget.userAuth,
-                containers: user.topContainers.take(5).toList()),
+                containers: user.topContainers.take(5).toList(),
+                submitReport: handleSubmitReport),
             ReuseButton(
               text: ReuseStrings.viewAllButtonText,
               onPressed: () => handleViewAll(context),

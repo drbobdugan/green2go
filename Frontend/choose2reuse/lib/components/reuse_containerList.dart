@@ -1,40 +1,44 @@
 import 'package:flutter/material.dart';
 
+import '../components/reuse_label.dart';
 import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
 import '../services/api.dart';
 import '../services/student_service.dart';
 import '../static/container.dart';
+import '../static/custom_theme.dart';
+import '../static/strings.dart';
 import '../static/student.dart';
 
-class ReuseContainerList extends StatefulWidget {
+class ReuseContainerList extends StatelessWidget {
   const ReuseContainerList(
-      {Key key, @required this.userAuth, @required this.containers})
+      {Key key,
+      @required this.userAuth,
+      @required this.containers,
+      @required this.submitReport})
       : super(key: key);
 
   final StudentAuth userAuth;
   final List<ReusableContainer> containers;
-
-  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    return await StudentService.reportContainer(userAuth, qrCode, report);
-  }
-
-  @override
-  _ReuseContainerListState createState() => _ReuseContainerListState();
-}
-
-class _ReuseContainerListState extends State<ReuseContainerList> {
-  void handleSubmitReport(int index, String message) {
-    widget.containers[index].status = ContainerStatus.DamagedLost;
-    widget.onSubmitReport(widget.containers[index].qrCode, message);
-  }
+  final dynamic submitReport;
 
   @override
   Widget build(BuildContext context) {
-    if (widget.containers == null) {
+    if (containers == null) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: ReuseLoading(),
+      );
+    }
+
+    if (containers.isEmpty) {
+      return ReuseLabel(
+        text: ReuseStrings.noContainers,
+        textStyle: CustomTheme.primaryLabelStyle(fontSize: 16.0),
+        top: 10.0,
+        left: 5.0,
+        right: 5.0,
+        backgroundWidth: 100,
       );
     }
 
@@ -45,9 +49,9 @@ class _ReuseContainerListState extends State<ReuseContainerList> {
         controller: scrollController,
         child: ListView.builder(
           controller: scrollController,
-          itemCount: widget.containers.length,
+          itemCount: containers.length,
           itemBuilder: (BuildContext context, int index) {
-            final ReusableContainer container = widget.containers[index];
+            final ReusableContainer container = containers[index];
             return Padding(
               padding: const EdgeInsets.only(top: 30.0),
               child: ListItem(
@@ -56,7 +60,7 @@ class _ReuseContainerListState extends State<ReuseContainerList> {
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
                   onSubmitDialog: (String message) =>
-                      handleSubmitReport(index, message)),
+                      submitReport(index, message)),
             );
           },
         ),

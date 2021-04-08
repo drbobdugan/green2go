@@ -38,6 +38,10 @@ class ContainerListPage extends StatefulWidget {
     return await StudentService.getSortedContainers(userAuth);
   }
 
+  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
+    return await StudentService.reportContainer(userAuth, qrCode, report);
+  }
+
   @override
   _ContainerListPageState createState() => _ContainerListPageState();
 }
@@ -45,6 +49,7 @@ class ContainerListPage extends StatefulWidget {
 class _ContainerListPageState extends State<ContainerListPage> {
   StudentDetails user;
   List<ReusableContainer> filteredContainers;
+  String filterOn;
 
   @override
   void initState() {
@@ -63,7 +68,14 @@ class _ContainerListPageState extends State<ContainerListPage> {
     });
   }
 
-  void onFilter(String filterOn) {
+  void onFilter(String filterName) {
+    setState(() {
+      filterOn = filterName;
+    });
+    reFilter();
+  }
+
+  void reFilter() {
     setState(() {
       if (filterOn == labels[FilterOptions.CheckedOut]) {
         filteredContainers = user.sortedContainers.checkedOut;
@@ -77,6 +89,11 @@ class _ContainerListPageState extends State<ContainerListPage> {
         filteredContainers = user.sortedContainers.all;
       }
     });
+  }
+
+  void handleSubmitReport(int index, String message) {
+    widget.onSubmitReport(filteredContainers[index].qrCode, message);
+    reFilter();
   }
 
   @override
@@ -157,7 +174,9 @@ class _ContainerListPageState extends State<ContainerListPage> {
               ],
             ),
             ReuseContainerList(
-                userAuth: widget.userAuth, containers: filteredContainers),
+                userAuth: widget.userAuth,
+                containers: filteredContainers,
+                submitReport: handleSubmitReport),
           ],
         ),
       ),

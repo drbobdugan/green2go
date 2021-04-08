@@ -97,5 +97,5 @@ const Map<ContainerStatus, String> containerLabels = <ContainerStatus, String>{
   ContainerStatus.CheckedOut: 'Checked out',
   ContainerStatus.Pending: 'Pending Return',
   ContainerStatus.Verified: 'Verified Return',
-  ContainerStatus.DamagedLost: 'Damaged or Lost'
+  ContainerStatus.DamagedLost: 'Damaged/Lost'
 };

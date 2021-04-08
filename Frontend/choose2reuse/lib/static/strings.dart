@@ -52,6 +52,7 @@ class ReuseStrings {
       'Please provide details to report this container as lost or damaged.';
   static String lostOrDamagedTitle = 'Report a Container';
   static String lostOrDamagedPrompt = 'Enter your reasoning here';
+  static String noContainers = 'No containers found.';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';
