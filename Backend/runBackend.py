@@ -140,5 +140,9 @@ def secretDeleteUser():
 def secretGetUser():
     return userHandler.getUser(request, userDao, False)
 
+@app.route('/secretDeleteRelationship', methods=['DELETE'])
+def secretDeleteRelationship():
+    return containerHandler.deleteRelationship(request, relationshipDao, False)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

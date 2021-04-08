@@ -102,7 +102,8 @@ class ContainerHandler:
                 'All' : res[1],
                 'Checked_out':[],
                 'Pending_Return':[],
-                'Verified_Return':[]
+                'Verified_Return':[],
+                'Damaged/Lost':[]
             }
             for item in res[1]:
                 #print(item['status'].replace(' ', '_'))
@@ -138,4 +139,21 @@ class ContainerHandler:
         relationship.dictToRelationship(relDict)
         res = self.relationdao.updateRelationship(relationship)
         print(res)
+        return self.helperHandler.handleResponse(res)
+
+#THIS METHOD IS EXCLUSIVELY FOR TESTING
+    def deleteRelationship(self, request, relationshipDao, hasAuth):
+        relDict = None
+        #auth_token not required
+        keys = ['email', 'qrcode']
+        try:
+            relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
+            self.validateQRCode(relDict)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        #get relationship object based on email and qrcode
+        rel = self.relationdao.selectRelationship(relDict['email'], relDict['qrcode'])
+        relationship = rel[1]
+        #delete relationship from table
+        res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
