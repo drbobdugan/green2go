@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
                   onSubmitDialog: (String message) =>
-                      handleSubmitReport(container.qrCode, message)),
+                      handleSubmitReport(index, message)),
             );
           },
         ),
@@ -125,8 +125,13 @@ class _HomePageState extends State<HomePage> {
         .goToPage(C2RPages.containerList, widget.userAuth);
   }
 
-  void handleSubmitReport(String qrCode, String message) {
-    widget.onSubmitReport(qrCode, message);
+  void handleSubmitReport(int index, String message) {
+    StudentDetails duplicateUser = user;
+    duplicateUser.topContainers[index].status = ContainerStatus.LostDamaged;
+    setState(() {
+      user = duplicateUser;
+    });
+    widget.onSubmitReport(user.topContainers[index].qrCode, message);
   }
 
   @override
