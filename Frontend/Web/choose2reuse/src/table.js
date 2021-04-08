@@ -14,7 +14,7 @@ function Table (props) {
         }
         
         async function getContainers(email, authToken){
-         var response = await axios.get('http://198.199.77.174:5000/getContainersForUser?email='+email+'&auth_token='+authToken)
+         var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
         }
 
@@ -40,7 +40,7 @@ function Table (props) {
              <tbody>
                {containers.map((elem)=>(
                 <tr onClick={()=>{select(elem)}}>
-                 <td>{props.location.state.email}</td>
+                 <td>{elem.email}</td>
                  <td>{elem.qrcode}</td>
                  <td>{elem.status}</td>
                  <td>{elem.statusUpdateTime}</td>
