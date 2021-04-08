@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
 
   void handleSubmitReport(int index, String message) {
     StudentDetails duplicateUser = user;
-    duplicateUser.topContainers[index].status = ContainerStatus.LostDamaged;
+    duplicateUser.topContainers[index].status = ContainerStatus.DamagedLost;
     setState(() {
       user = duplicateUser;
     });

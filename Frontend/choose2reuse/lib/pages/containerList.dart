@@ -11,22 +11,22 @@ import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
 
-enum FilterOptions { All, CheckedOut, Pending, Verified, LostDamaged }
+enum FilterOptions { All, CheckedOut, Pending, Verified, DamagedLost }
 
 const List<FilterOptions> items = <FilterOptions>[
   FilterOptions.All,
   FilterOptions.CheckedOut,
   FilterOptions.Pending,
   FilterOptions.Verified,
-  FilterOptions.LostDamaged
+  FilterOptions.DamagedLost
 ];
 
-const Map<FilterOptions, String> labels = <FilterOptions, String>{
+Map<FilterOptions, String> labels = <FilterOptions, String>{
   FilterOptions.All: 'All',
-  FilterOptions.CheckedOut: 'Checked Out',
-  FilterOptions.Pending: 'Pending Return',
-  FilterOptions.Verified: 'Verified Return',
-  FilterOptions.LostDamaged: 'Lost or Damaged'
+  FilterOptions.CheckedOut: containerLabels[ContainerStatus.CheckedOut],
+  FilterOptions.Pending: containerLabels[ContainerStatus.Pending],
+  FilterOptions.Verified: containerLabels[ContainerStatus.Verified],
+  FilterOptions.DamagedLost: containerLabels[ContainerStatus.DamagedLost]
 };
 
 class ContainerListPage extends StatefulWidget {
@@ -94,8 +94,8 @@ class _ContainerListPageState extends State<ContainerListPage> {
         filteredContainers = user.sortedContainers.pending;
       } else if (filterOn == labels[FilterOptions.Verified]) {
         filteredContainers = user.sortedContainers.verified;
-      } else if (filterOn == labels[FilterOptions.LostDamaged]) {
-        filteredContainers = user.sortedContainers.lostDamaged;
+      } else if (filterOn == labels[FilterOptions.DamagedLost]) {
+        filteredContainers = user.sortedContainers.damagedLost;
       } else {
         filteredContainers = user.sortedContainers.all;
       }

@@ -43,7 +43,7 @@ class SortedReusableContainers {
     checkedOut = getContainerList(value['Checked_out']);
     pending = getContainerList(value['Pending_Return']);
     verified = getContainerList(value['Verified_Return']);
-    lostDamaged = getContainerList(value['Lost_Damaged']);
+    damagedLost = getContainerList(value['Damaged_Lost']);
   }
 
   static List<ReusableContainer> getContainerList(dynamic value) {
@@ -59,10 +59,10 @@ class SortedReusableContainers {
   List<ReusableContainer> checkedOut;
   List<ReusableContainer> pending;
   List<ReusableContainer> verified;
-  List<ReusableContainer> lostDamaged;
+  List<ReusableContainer> damagedLost;
 }
 
-enum ContainerStatus { CheckedOut, Pending, Verified, LostDamaged }
+enum ContainerStatus { CheckedOut, Pending, Verified, DamagedLost }
 
 const List<ContainerStatus> containerIconItems = <ContainerStatus>[
   ContainerStatus.CheckedOut,
@@ -75,7 +75,7 @@ const Map<String, ContainerStatus> containerDataStrings =
   'Checked out': ContainerStatus.CheckedOut,
   'Pending Return': ContainerStatus.Pending,
   'Verified Return': ContainerStatus.Verified,
-  'Lost or Damaged': ContainerStatus.LostDamaged
+  'Damaged or Lost': ContainerStatus.DamagedLost
 };
 
 const Map<ContainerStatus, String> containerIconColors =
@@ -90,12 +90,12 @@ const Map<ContainerStatus, String> containerDataRowColors =
   ContainerStatus.CheckedOut: 'attention',
   ContainerStatus.Pending: 'primary',
   ContainerStatus.Verified: 'darkPrimary',
-  ContainerStatus.LostDamaged: 'disabled',
+  ContainerStatus.DamagedLost: 'disabled',
 };
 
 const Map<ContainerStatus, String> containerLabels = <ContainerStatus, String>{
   ContainerStatus.CheckedOut: 'Checked out',
   ContainerStatus.Pending: 'Pending Return',
   ContainerStatus.Verified: 'Verified Return',
-  ContainerStatus.LostDamaged: 'Damaged or Lost'
+  ContainerStatus.DamagedLost: 'Damaged or Lost'
 };
