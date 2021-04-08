@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
   Map<ContainerStatus, int> containerCounts = <ContainerStatus, int>{
     ContainerStatus.CheckedOut: 0,
     ContainerStatus.Verified: 0,
-    ContainerStatus.Unverified: 0,
+    ContainerStatus.Pending: 0,
   };
 
   @override
@@ -53,9 +53,9 @@ class _HomePageState extends State<HomePage> {
           user.topContainers =
               SortedReusableContainers.getContainerList(response.data);
 
-          for (final ContainerStatus status in containerItems) {
+          for (final ContainerStatus status in containerIconItems) {
             containerCounts[status] = user.topContainers
-                .where((dynamic c) => c.status == containerLabels[status])
+                .where((dynamic c) => status == c.status)
                 .toList()
                 .length;
           }
@@ -65,7 +65,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> getContainerDataSmall() {
-    return containerItems.map((ContainerStatus status) {
+    return containerIconItems.map((ContainerStatus status) {
       return Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -112,7 +112,7 @@ class _HomePageState extends State<HomePage> {
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
                   onSubmitDialog: (String message) =>
-                      widget.onSubmitReport(container.qrCode, message)),
+                      handleSubmitReport(container.qrCode, message)),
             );
           },
         ),
@@ -123,6 +123,10 @@ class _HomePageState extends State<HomePage> {
   void handleViewAll(BuildContext context) {
     NavigationService(context: context)
         .goToPage(C2RPages.containerList, widget.userAuth);
+  }
+
+  void handleSubmitReport(String qrCode, String message) {
+    widget.onSubmitReport(qrCode, message);
   }
 
   @override

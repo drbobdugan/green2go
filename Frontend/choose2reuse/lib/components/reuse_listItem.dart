@@ -42,7 +42,7 @@ class ListItem extends StatelessWidget {
                     width: 200.0,
                     height: 100.0,
                     child: TextField(
-                      onChanged: (text) {
+                      onChanged: (String text) {
                         reportMessage = text;
                       },
                       maxLines: null,
@@ -51,7 +51,7 @@ class ListItem extends StatelessWidget {
                     )),
                 decoration: BoxDecoration(
                   border: Border.all(width: 1.0),
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
                 ))
           ],
         ),
@@ -66,7 +66,7 @@ class ListItem extends StatelessWidget {
           text: ReuseStrings.submit,
           onPressed: () {
             Navigator.pop(context);
-            this.onSubmitDialog(reportMessage);
+            onSubmitDialog(reportMessage);
           },
           buttonType: 'text',
         ),
@@ -136,9 +136,10 @@ class ListItem extends StatelessWidget {
                     size: 30.0,
                     color: CustomTheme.getColor('attention'),
                   ),
-                  onPressed: () => showDialog(
+                  onPressed: () => showDialog<void>(
                       context: context,
-                      builder: (context) => lostDamagedDialog(context))),
+                      builder: (BuildContext context) =>
+                          lostDamagedDialog(context))),
             ],
           ),
         ),
