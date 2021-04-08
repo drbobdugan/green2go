@@ -119,6 +119,31 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+    def selectAll(self): 
+        try:
+            logging.info("Entering selectAll") 
+            sql = "SELECT * from hascontainer"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            temp = []
+            for x in myresult[1]:
+                relDict={
+                "email": x[0],
+                "qrcode": x[1],
+                "status": x[2],
+                "statusUpdateTime": str(x[3]),
+                "location_qrcode": x[4],
+                "active": x[5],
+                "description": x[6]}
+                temp.append(relDict)
+            logging.info("selectAll successful")
+            return True, temp
+        except Exception as e:
+            logging.error("Error in selectAll")
+            logging.error(str(e))
+            return self.handleError(e)
+
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r):
         try:

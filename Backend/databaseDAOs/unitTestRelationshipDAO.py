@@ -108,6 +108,16 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, testSelectAllByStatus = self.dao.selectAllByStatus(email,status)
         self.assertTrue(rc)
 
+    def testSelectAll(self):
+        """
+        Test that we can select all tuples in the hascontainer table
+        """
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        rc, testSelectAll = self.dao.selectAll()
+        self.assertTrue(rc)
+
     # TEST UPDATE RELATIONSHIP
     def testUpdateRelationship(self):
         """
