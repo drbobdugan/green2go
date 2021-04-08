@@ -11,20 +11,22 @@ import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
 
-enum FilterOptions { All, CheckedOut, Pending, Verified }
+enum FilterOptions { All, CheckedOut, Pending, Verified, LostDamaged }
 
 const List<FilterOptions> items = <FilterOptions>[
   FilterOptions.All,
   FilterOptions.CheckedOut,
   FilterOptions.Pending,
-  FilterOptions.Verified
+  FilterOptions.Verified,
+  FilterOptions.LostDamaged
 ];
 
 const Map<FilterOptions, String> labels = <FilterOptions, String>{
   FilterOptions.All: 'All',
   FilterOptions.CheckedOut: 'Checked Out',
   FilterOptions.Pending: 'Pending Return',
-  FilterOptions.Verified: 'Verified Return'
+  FilterOptions.Verified: 'Verified Return',
+  FilterOptions.LostDamaged: 'Lost or Damaged'
 };
 
 class ContainerListPage extends StatefulWidget {
@@ -88,10 +90,12 @@ class _ContainerListPageState extends State<ContainerListPage> {
     setState(() {
       if (filterOn == labels[FilterOptions.CheckedOut]) {
         filteredContainers = user.sortedContainers.checkedOut;
-      } else if (filterOn == labels[FilterOptions.Verified]) {
-        filteredContainers = user.sortedContainers.verified;
       } else if (filterOn == labels[FilterOptions.Pending]) {
         filteredContainers = user.sortedContainers.pending;
+      } else if (filterOn == labels[FilterOptions.Verified]) {
+        filteredContainers = user.sortedContainers.verified;
+      } else if (filterOn == labels[FilterOptions.LostDamaged]) {
+        filteredContainers = user.sortedContainers.lostDamaged;
       } else {
         filteredContainers = user.sortedContainers.all;
       }
@@ -175,59 +179,6 @@ class _ContainerListPageState extends State<ContainerListPage> {
                 ),
               ],
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //   children: <Widget>[
-            //     SizedBox(
-            //       height: 75,
-            //       width: MediaQuery.of(context).size.width - 130,
-            //       child: ReuseLabel(
-            //           text: ReuseStrings.containerListTitle,
-            //           textStyle: CustomTheme.primaryLabelStyle(),
-            //           top: 30.0,
-            //           bottom: 15.0),
-            //     ),
-            //     Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-            //       children: <Widget>[
-            //         ReuseLabel(
-            //           text: ReuseStrings.filterBy,
-            //           textStyle:
-            //               CustomTheme.secondaryLabelStyle(fontSize: 16.0),
-            //           right: 10.0,
-            //         ),
-            //         Container(
-            //           height: 50.0,
-            //           width: 100.0,
-            //           decoration: BoxDecoration(
-            //               color: CustomTheme.getColor('light'),
-            //               borderRadius:
-            //                   const BorderRadius.all(Radius.circular(50))),
-            //           child: PopupMenuButton<String>(
-            //             icon:
-            //                 const Icon(Icons.filter_alt, color: Colors.white),
-            //             onSelected: (String value) {
-            //               onFilter(value);
-            //             },
-            //             itemBuilder: (BuildContext context) {
-            //               return items.map((FilterOptions option) {
-            //                 return PopupMenuItem<String>(
-            //                     value: labels[option],
-            //                     child: Row(children: <Widget>[
-            //                       Text(labels[option],
-            //                           style: TextStyle(
-            //                               fontWeight: FontWeight.bold,
-            //                               color: CustomTheme.getColor(
-            //                                   'primary')))
-            //                     ]));
-            //               }).toList();
-            //             },
-            //           ),
-            //         ),
-            //       ],
-            //     )
-            //   ],
-            // ),
             Expanded(
               child: getContainerDataLarge(),
             )

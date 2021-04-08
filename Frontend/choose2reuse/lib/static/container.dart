@@ -3,22 +3,22 @@ import 'package:intl/intl.dart';
 class ReusableContainer {
   ReusableContainer(dynamic value) {
     qrCode = value['qrcode'] as String;
-    status = value['status'] as String;
+    status = containerDataStrings[value['status'] as String];
     statusUpdateTime = value['statusUpdateTime'] as String;
     statusLocation = value['location_qrcode'] as String;
   }
 
   String qrCode;
-  String status;
+  ContainerStatus status;
   String statusUpdateTime;
   String statusLocation;
 
   String dataRowText1() {
-    return status;
+    return containerLabels[status];
   }
 
   String dataRowText2() {
-    return status == 'Checked out'
+    return status == ContainerStatus.CheckedOut
         ? formatDate(statusUpdateTime)
         : '${formatDate(statusUpdateTime)}\n$statusLocation';
   }
@@ -28,11 +28,7 @@ class ReusableContainer {
   }
 
   String dataRowColorID() {
-    return status.contains('Checked')
-        ? 'attention'
-        : (status.contains('Pending')
-            ? 'primary'
-            : (status.contains('Verified') ? 'darkPrimary' : 'disabled'));
+    return containerDataRowColors[status];
   }
 
   String formatDate(String date) {
@@ -45,8 +41,9 @@ class SortedReusableContainers {
   SortedReusableContainers(Map<String, dynamic> value) {
     all = getContainerList(value['All']);
     checkedOut = getContainerList(value['Checked_out']);
-    verified = getContainerList(value['Verified_Return']);
     pending = getContainerList(value['Pending_Return']);
+    verified = getContainerList(value['Verified_Return']);
+    lostDamaged = getContainerList(value['Lost_Damaged']);
   }
 
   static List<ReusableContainer> getContainerList(dynamic value) {
@@ -60,27 +57,45 @@ class SortedReusableContainers {
 
   List<ReusableContainer> all;
   List<ReusableContainer> checkedOut;
-  List<ReusableContainer> verified;
   List<ReusableContainer> pending;
+  List<ReusableContainer> verified;
+  List<ReusableContainer> lostDamaged;
 }
 
-enum ContainerStatus { CheckedOut, Verified, Unverified }
+enum ContainerStatus { CheckedOut, Pending, Verified, LostDamaged }
 
-const List<ContainerStatus> containerItems = <ContainerStatus>[
+const List<ContainerStatus> containerIconItems = <ContainerStatus>[
   ContainerStatus.CheckedOut,
-  ContainerStatus.Verified,
-  ContainerStatus.Unverified,
+  ContainerStatus.Pending,
+  ContainerStatus.Verified
 ];
+
+const Map<String, ContainerStatus> containerDataStrings =
+    <String, ContainerStatus>{
+  'Checked out': ContainerStatus.CheckedOut,
+  'Pending Return': ContainerStatus.Pending,
+  'Verified Return': ContainerStatus.Verified,
+  'Lost or Damaged': ContainerStatus.LostDamaged
+};
 
 const Map<ContainerStatus, String> containerIconColors =
     <ContainerStatus, String>{
   ContainerStatus.CheckedOut: 'light',
-  ContainerStatus.Verified: 'primary',
-  ContainerStatus.Unverified: 'dark',
+  ContainerStatus.Pending: 'primary',
+  ContainerStatus.Verified: 'dark',
+};
+
+const Map<ContainerStatus, String> containerDataRowColors =
+    <ContainerStatus, String>{
+  ContainerStatus.CheckedOut: 'attention',
+  ContainerStatus.Pending: 'primary',
+  ContainerStatus.Verified: 'darkPrimary',
+  ContainerStatus.LostDamaged: 'disabled',
 };
 
 const Map<ContainerStatus, String> containerLabels = <ContainerStatus, String>{
   ContainerStatus.CheckedOut: 'Checked out',
-  ContainerStatus.Verified: 'Pending Return',
-  ContainerStatus.Unverified: 'Verified Return',
+  ContainerStatus.Pending: 'Pending Return',
+  ContainerStatus.Verified: 'Verified Return',
+  ContainerStatus.LostDamaged: 'Damaged or Lost'
 };
