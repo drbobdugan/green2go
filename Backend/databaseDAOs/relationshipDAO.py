@@ -9,11 +9,11 @@ class RelationshipDAO(dao):
     # CREATE RELATIONSHIP
     def insertRelationship(self, r):
         try:
-            """
-            myresult = self.checkFormatting(r)
+            
+            myresult = self.checkStatus(r)
             if(myresult[0] == False):
                 return myresult
-            """
+            
             logging.info("Entering insertRelationship")
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     
@@ -147,11 +147,9 @@ class RelationshipDAO(dao):
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r):
         try:
-            """
-            myresult = self.checkFormatting(r)
+            myresult = self.checkStatus(r)
             if(myresult[0] == False):
                 return myresult
-            """
             logging.info("Entering updateRelationship")
             r.statusUpdateTime = (datetime.now() + timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S') 
             result = r.relationshipToList()
@@ -165,6 +163,8 @@ class RelationshipDAO(dao):
             r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4],myresult[5],myresult[6])
             if(r1.status=="Damaged Lost"):
                 return False, "Container has been marked as Damaged Lost"
+            if(r.status == "Damaged Lost" and r.description == None):
+                return False, "Damaged Lost Container lacks description"
             sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "', active = '" + str(r.active)+ "', description = '" + str(r.description)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
@@ -211,6 +211,11 @@ class RelationshipDAO(dao):
             return myresult
         return True, ""
     
+    def checkStatus(self,r):
+        if(r.status == "Checked Out" or r.status == "Pending Return" or r.status == "Verified Return" or r.status == "Damaged Lost"):
+            return True, ""
+        return False, "Invalid Status"
+
     def checkLength(self,r):
         maxLength = {
         "email" : 45,

@@ -131,10 +131,10 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
     def testCheckoutDamageLost(self):
-        r = Relationship("test42@students.stonehill.edu","101011","Checked Out","2021-01-01 01:01:01",None,"0",None)
-        rc, msg = self.dao.insertRelationship(r)
+        rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None)
         r.status = "Damaged Lost"
         r.description = "Snapped in half"
         rc, updateRelationship = self.dao.updateRelationship(r)
@@ -190,15 +190,13 @@ class unitTestRelationshipDAO(unittest.TestCase):
         Test that we cannot add a status that is not:
         Checked Out | Pending Return | Verified Return | Damaged Lost
         """
-        """
+        
         r = Relationship("test42@students.stonehill.edu","101010","TEST WRONG STATUS","2021-01-01 01:01:01",None,"1",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
         self.assertFalse(rc)
-        """
-        # have to add code to relationshipDAO to make sure it does not take an invalid status
-
+        
         """
         Test that we cannot add a status that is over 45 characters long
         """
@@ -234,7 +232,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
 
     def testInsertActiveTooLong(self):
         """
-        Test that we cannot add an active that is more than two characters long.
+        Test that we cannot add an active that is more than one character long.
         """
         """
         r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043","42",None) 
@@ -244,18 +242,42 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertFalse(rc)
         """
 
+    def testInsertDescTooLong(self):
+        """
+        Test that we cannot add a description that is more than 128 characters long.
+        """
+        
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043","4","paloeklslslslslslslslslslslslslslslslslslslslaeowlsosjdoskejepspsosdksdkfjsldkflaksdjflkjasdkfjaskjdflkjasdfljsadkfjkasndfklasjndfkaskjldflsadfnlkajsndfknasldkjfnalksjdnflkjasndlkfjnsakjdnfkaslndfkljsandfkjnka") 
+        self.dao = RelationshipDAO()
+
+        rc, insertRelationship = self.dao.insertRelationship(r)
+        self.assertFalse(rc)
+       
+    def testUpdateStatusNotValid(self):
+        """
+        Test that we cannot update a status that is not:
+        Checked Out | Pending Return | Verified Return | Damaged Lost
+        """
+        
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010","WRONG STATUS","2021-01-01 01:01:01",None,"0","Pending Return")
+        rc, updateRelationship = self.dao.updateRelationship(r)
+        self.assertFalse(rc)
+
     def testUpdateDamagedNoDescription(self):
         """
         Test that we cannot mark a container as damaged or lost without a description
         """
-        """
+        
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
         r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None,"0",None)
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertFalse(rc)
-        """
+        
 
 
 if __name__ == '__main__':
