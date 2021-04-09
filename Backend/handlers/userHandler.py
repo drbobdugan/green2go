@@ -77,6 +77,7 @@ class UserHandler:
         user.dictToUser(dictOfUserAttrib)
         res = self.userDao.insertUser(user)
         if(res[0]):
+            print(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
             self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
 
