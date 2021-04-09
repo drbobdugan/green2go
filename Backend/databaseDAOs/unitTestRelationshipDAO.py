@@ -19,12 +19,12 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Delete the temporary database
         """
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None) # r is relationship object
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None) # r is relationship object
         self.dao.deleteRelationship(r)
 
     # TEST CREATE RELATIONSHIP
     def testInsertRelationshipSmoke(self):
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None)
         return self.dao.insertRelationship(r)
     
     def testInsertRelationship(self):
@@ -49,11 +49,11 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
     def testInsertRelationshipNoneType(self):
-        r = Relationship(None,"101010","Checked Out","2021-01-01 01:01:01",None,"1", None)
+        r = Relationship(None,"101010","Checked out","2021-01-01 01:01:01",None,"1", None)
         rc, msg  = self.dao.insertRelationship(r)
         self.assertFalse(rc)
 
-        r = Relationship("test42@students.stonehill.edu",None,"Checked Out","2021-01-01 01:01:01",None,"1", None)
+        r = Relationship("test42@students.stonehill.edu",None,"Checked out","2021-01-01 01:01:01",None,"1", None)
         rc, msg  = self.dao.insertRelationship(r)
         self.assertFalse(rc)
 
@@ -104,7 +104,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         email = "test42@students.stonehill.edu"
-        status = "Checked Out"
+        status = "Checked out"
         rc, testSelectAllByStatus = self.dao.selectAllByStatus(email,status)
         self.assertTrue(rc)
 
@@ -134,13 +134,13 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None)
         r.status = "Damaged Lost"
         r.description = "Snapped in half"
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
-        r.status = "Checked Out"
+        r.status = "Checked out"
         rc, msg = self.dao.insertRelationship(r)
         self.assertFalse(rc)
         self.assertTrue(msg == "Container has been marked as Damaged Lost")
@@ -158,7 +158,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None)
         rc, deleteRelationship = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 
@@ -169,7 +169,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Test that we cannot add an email that is over 45 characters long
         """
-        r = Relationship("test42xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None) 
+        r = Relationship("test42xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
@@ -179,7 +179,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Test that we cannot add a QR code that is over 45 characters long
         """
-        r = Relationship("test42@students.stonehill.edu","101010xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Checked Out","2021-01-01 01:01:01",None,"1",None) 
+        r = Relationship("test42@students.stonehill.edu","101010xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Checked out","2021-01-01 01:01:01",None,"1",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
@@ -200,7 +200,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Test that we cannot add a status that is over 45 characters long
         """
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","2021-01-01 01:01:01",None,"1",None) 
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","2021-01-01 01:01:01",None,"1",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
@@ -211,7 +211,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         Test that we cannot add a incorrectly formatted date
         """
         """
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","01:01:01 2021-01-01",None,"1",None) 
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","01:01:01 2021-01-01",None,"1",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
@@ -224,7 +224,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         Test that we cannot add a location QR code that is over 45 characters long
         """
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","1",None) 
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01","L043xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","1",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
@@ -235,7 +235,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         Test that we cannot add an active that is more than one character long.
         """
         """
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043","42",None) 
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01","L043","42",None) 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)
@@ -247,7 +247,7 @@ class unitTestRelationshipDAO(unittest.TestCase):
         Test that we cannot add a description that is more than 128 characters long.
         """
         
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01","L043","4","paloeklslslslslslslslslslslslslslslslslslslslaeowlsosjdoskejepspsosdksdkfjsldkflaksdjflkjasdkfjaskjdflkjasdfljsadkfjkasndfklasjndfkaskjldflsadfnlkajsndfknasldkjfnalksjdnflkjasndlkfjnsakjdnfkaslndfkljsandfkjnka") 
+        r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01","L043","4","paloeklslslslslslslslslslslslslslslslslslslslaeowlsosjdoskejepspsosdksdkfjsldkflaksdjflkjasdkfjaskjdflkjasdfljsadkfjkasndfklasjndfkaskjldflsadfnlkajsndfknasldkjfnalksjdnflkjasndlkfjnsakjdnfkaslndfkljsandfkjnka") 
         self.dao = RelationshipDAO()
 
         rc, insertRelationship = self.dao.insertRelationship(r)

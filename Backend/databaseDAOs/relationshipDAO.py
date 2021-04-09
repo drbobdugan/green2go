@@ -212,7 +212,7 @@ class RelationshipDAO(dao):
         return True, ""
     
     def checkStatus(self,r):
-        if(r.status == "Checked Out" or r.status == "Pending Return" or r.status == "Verified Return" or r.status == "Damaged Lost"):
+        if(r.status == "Checked out" or r.status == "Pending Return" or r.status == "Verified Return" or r.status == "Damaged Lost"):
             return True, ""
         return False, "Invalid Status"
 
