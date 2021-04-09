@@ -162,6 +162,28 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, deleteRelationship = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 
+    def testGetRecentUser(self):
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        rc, msg = self.dao.getRecentUser("101010")
+        self.assertTrue(rc)
+        self.assertTrue(msg == "test42@students.stonehill.edu")
+
+        rc, msg = self.dao.getRecentUser("16546456")
+        self.assertFalse(rc)
+
+        r = Relationship("test43@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None)
+        rc, msg = self.dao.insertRelationship(r)
+        self.assertTrue(rc)
+
+        rc, msg = self.dao.getRecentUser("101010")
+        self.assertTrue(rc)
+        self.assertTrue(msg == "test43@students.stonehill.edu")
+
+        rc, msg = self.dao.deleteRelationship(r)
+        self.assertTrue(rc)
+
 #____________________________________________________________________________________________________________________________________________________________#
 
     # TEST SPECIAL CASES - INCORRECT FORMATS

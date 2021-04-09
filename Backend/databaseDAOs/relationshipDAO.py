@@ -6,10 +6,27 @@ from DAO import dao
 from datetime import timedelta
 class RelationshipDAO(dao):
 
+
+    def getRecentUser(self, qrcode):
+        try:
+            logging.info("Entering getRecentUser")
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            if(myresult[1] != [] and myresult[1] is not None):
+                logging.info("getRecentUser successful")
+                return True, myresult[1][0][0]
+            return False, "Could not find relationship with that QR code"
+        except Exception as e:
+            logging.error("Error in getRecentUser")
+            logging.error(str(e))
+            return self.handleError(e)
+            
     # CREATE RELATIONSHIP
     def insertRelationship(self, r):
         try:
-            
+
             myresult = self.checkStatus(r)
             if(myresult[0] == False):
                 return myresult
