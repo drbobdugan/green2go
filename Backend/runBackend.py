@@ -47,7 +47,7 @@ notificationHelper = NotificationHelper()
 helperHandler = HelperHandler(emailServer)
 authHandler = AuthHandler(helperHandler)
 userHandler = UserHandler(helperHandler)
-containerHandler = ContainerHandler(helperHandler)
+containerHandler = ContainerHandler(helperHandler, notificationHelper)
 locationHandler = LocationHandler(helperHandler)
 
 #----------------------------User Methods --------------------------------
@@ -86,7 +86,7 @@ def updateContainer():
 
 @app.route('/checkoutContainer', methods=['POST'])
 def checkoutContainer():
-    return containerHandler.checkoutContainer(request, containerDao)
+    return containerHandler.checkoutContainer(request, containerDao, relationshipDao)
 
 @app.route('/getContainersForUser', methods = ['GET'])
 def getContainersForUser():

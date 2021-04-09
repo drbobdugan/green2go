@@ -13,12 +13,13 @@ from relationship import Relationship
 from container import Container
 class ContainerHandler:
 
-    def __init__(self, helperHandler):
+    def __init__(self, helperHandler, notificationHelper):
         self.helperHandler = helperHandler
         self.validCodes = self.helperHandler.extractQRCodesFromFile()
         self.validLocations = self.helperHandler.getValidLocationCodes()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
+        self.notificationHelper = notificationHelper
 
     def validateQRCode(self, dic):
         # make sure valid qrcode
@@ -67,7 +68,7 @@ class ContainerHandler:
         return self.helperHandler.handleResponse(res)
 
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
-    def checkoutContainer(self, request, containerDao):
+    def checkoutContainer(self, request, containerDao, relationshipDAO):
         userContainer = None
         keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
         try:
@@ -79,6 +80,12 @@ class ContainerHandler:
         except Exception as e:
             #print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
+
+        # send notification
+        old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
+        if old_code[0] is True:
+            self.notificationHelper.sendNotification(old_code[1])
+
         relationship=Relationship()
         relationship.dictToRelationship(userContainer)
         print(relationship.relationshipToList())
