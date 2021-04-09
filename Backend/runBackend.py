@@ -19,6 +19,8 @@ from flask_cors import CORS
 from pusher_push_notifications import PushNotifications
 sys.path.insert(0, os.getcwd()+'/Email/')
 sys.path.insert(0, os.getcwd()+'/handlers/')
+sys.path.insert(0, os.getcwd()+'/Notifications/')
+from notificationHelper import NotificationHelper
 from emailServer import EmailManager
 from authHandler import AuthHandler
 from helperHandler import HelperHandler
@@ -39,6 +41,7 @@ authDao = AuthDao()
 locationDao=LocationDao()
 relationshipDao = RelationshipDAO()
 emailServer = EmailManager()
+notificationHelper = NotificationHelper()
 
 #handlers
 helperHandler = HelperHandler(emailServer)
