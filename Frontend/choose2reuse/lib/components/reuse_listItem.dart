@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../components/reuse_button.dart';
@@ -27,34 +28,36 @@ class ListItem extends StatelessWidget {
         textStyle: CustomTheme.primaryLabelStyle(),
         isCenter: true,
       ),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            ReuseLabel(
-              text: ReuseStrings.lostOrDamagedQuestion,
-              textStyle: CustomTheme.primaryLabelStyle(fontSize: 16.0),
-              isCenter: true,
-            ),
-            Container(
-                margin: const EdgeInsets.only(top: 20.0),
-                padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                    width: 200.0,
-                    height: 100.0,
-                    child: TextField(
-                      onChanged: (String text) {
-                        reportMessage = text;
-                      },
-                      maxLines: null,
-                      maxLength: 128,
-                      decoration: InputDecoration.collapsed(
-                          hintText: ReuseStrings.lostOrDamagedPrompt),
-                    )),
-                decoration: BoxDecoration(
-                  border: Border.all(width: 1.0),
-                  borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                ))
-          ],
+      content: FontScaleBlocker(
+        child: SingleChildScrollView(
+          child: ListBody(
+            children: <Widget>[
+              ReuseLabel(
+                text: ReuseStrings.lostOrDamagedQuestion,
+                textStyle: CustomTheme.primaryLabelStyle(fontSize: 16.0),
+                isCenter: true,
+              ),
+              Container(
+                  margin: const EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                      width: 200.0,
+                      height: 100.0,
+                      child: TextField(
+                        onChanged: (String text) {
+                          reportMessage = text;
+                        },
+                        maxLines: null,
+                        maxLength: 128,
+                        decoration: InputDecoration.collapsed(
+                            hintText: ReuseStrings.lostOrDamagedPrompt),
+                      )),
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1.0),
+                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                  ))
+            ],
+          ),
         ),
       ),
       actions: <Widget>[

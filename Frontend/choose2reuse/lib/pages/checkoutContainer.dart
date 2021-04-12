@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 
@@ -31,28 +32,30 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: UserAppBar(userAuth: widget.userAuth),
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            ReuseLabel(
-              text: ReuseStrings.scanContainerMessage,
-              textStyle: CustomTheme.primaryLabelStyle(),
-              bottom: 10.0,
-            ),
-            ReuseButton(
-              text: ReuseStrings.useCamera,
-              onPressed: () => scanQRCode(),
-              buttonStyle: CustomTheme.primaryButtonStyle(),
-              top: 20.0,
-            ),
-            ReuseErrorMessage(text: errorMessage),
-          ],
+    return FontScaleBlocker(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: UserAppBar(userAuth: widget.userAuth),
+        body: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              ReuseLabel(
+                text: ReuseStrings.scanContainerMessage,
+                textStyle: CustomTheme.primaryLabelStyle(),
+                bottom: 10.0,
+              ),
+              ReuseButton(
+                text: ReuseStrings.useCamera,
+                onPressed: () => scanQRCode(),
+                buttonStyle: CustomTheme.primaryButtonStyle(),
+                top: 20.0,
+              ),
+              ReuseErrorMessage(text: errorMessage),
+            ],
+          ),
         ),
       ),
     );

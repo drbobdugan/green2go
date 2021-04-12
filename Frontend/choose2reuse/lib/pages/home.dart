@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../components/reuse_button.dart';
@@ -109,41 +110,43 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: UserAppBar(userAuth: widget.userAuth),
-      body: SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            ReuseLabel(
-              text: ReuseStrings.homepageTitle,
-              textStyle: CustomTheme.primaryLabelStyle(),
-              top: 30.0,
-              bottom: 20.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 0.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: getContainerDataSmall(),
+    return FontScaleBlocker(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: UserAppBar(userAuth: widget.userAuth),
+        body: SizedBox(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              ReuseLabel(
+                text: ReuseStrings.homepageTitle,
+                textStyle: CustomTheme.primaryLabelStyle(),
+                top: 30.0,
+                bottom: 20.0,
               ),
-            ),
-            ReuseContainerList(
-                userAuth: widget.userAuth,
-                containers: user.topContainers.take(5).toList(),
-                submitReport: handleSubmitReport),
-            ReuseButton(
-              text: ReuseStrings.viewAllButtonText,
-              onPressed: () => handleViewAll(context),
-              buttonStyle: CustomTheme.primaryButtonStyle(),
-              bottom: MediaQuery.of(context).size.height * 0.04,
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(bottom: 0.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: getContainerDataSmall(),
+                ),
+              ),
+              ReuseContainerList(
+                  userAuth: widget.userAuth,
+                  containers: user.topContainers.take(5).toList(),
+                  submitReport: handleSubmitReport),
+              ReuseButton(
+                text: ReuseStrings.viewAllButtonText,
+                onPressed: () => handleViewAll(context),
+                buttonStyle: CustomTheme.primaryButtonStyle(),
+                bottom: MediaQuery.of(context).size.height * 0.04,
+              ),
+            ],
+          ),
         ),
       ),
     );
