@@ -13803,7 +13803,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18885,12 +18885,12 @@
 	],
 	"variable": [
 		{
-			"id": "c3f2a4ca-33e9-41c9-b296-6e5fcd460a9f",
+			"id": "fbb025ba-107a-42bb-884f-bfa82d5837e6",
 			"key": "localHost",
 			"value": "localhost:5000"
 		},
 		{
-			"id": "0b0ab11d-ed62-4e30-9509-4eaf1004765c",
+			"id": "dc0a937a-f78a-47ba-96d1-8dd787b94958",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
