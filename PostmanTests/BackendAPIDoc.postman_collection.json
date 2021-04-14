@@ -946,7 +946,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2340,7 +2340,7 @@
 	],
 	"variable": [
 		{
-			"id": "3196b246-f18a-4219-afab-1dd7af03df5e",
+			"id": "c17ff0f1-0740-447b-b2e2-2e89a5348aa1",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
