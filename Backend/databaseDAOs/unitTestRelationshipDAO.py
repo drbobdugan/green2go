@@ -21,6 +21,8 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         r = Relationship("test42@students.stonehill.edu","101010","Checked out","2021-01-01 01:01:01",None,"1",None) # r is relationship object
         self.dao.deleteRelationship(r)
+        r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None,"1",None) # r is relationship object
+        self.dao.deleteRelationship(r)
 
     # TEST CREATE RELATIONSHIP
     def testInsertRelationshipSmoke(self):
