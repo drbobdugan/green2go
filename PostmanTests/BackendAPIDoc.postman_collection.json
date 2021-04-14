@@ -1734,7 +1734,7 @@
 					]
 				},
 				{
-					"name": "Get Containers For User Copy",
+					"name": "Get Containers For User",
 					"event": [
 						{
 							"listen": "test",
@@ -1957,6 +1957,49 @@
 					]
 				},
 				{
+					"name": "Get all Contianers (hasRelationship table)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful Get All Containers Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/getallContainers?email=test0@students.stonehill.edu&auth_token={{authTokenLoginTest0}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"getallContainers"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authTokenLoginTest0}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Checkin Container",
 					"event": [
 						{
@@ -1993,49 +2036,6 @@
 							],
 							"path": [
 								"checkinContainer"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get all Contianers (hasRelationship table)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Successful Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/getallContainers?email=test0@students.stonehill.edu&auth_token={{authTokenLoginTest0}}",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"getallContainers"
-							],
-							"query": [
-								{
-									"key": "email",
-									"value": "test0@students.stonehill.edu"
-								},
-								{
-									"key": "auth_token",
-									"value": "{{authTokenLoginTest0}}"
-								}
 							]
 						}
 					},
@@ -2140,6 +2140,182 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "Clean Up DB",
+			"item": [
+				{
+					"name": "Delete Relationship",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/secretDeleteRelationship",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"secretDeleteRelationship"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete container",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful Delete Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"email\" : \"test0@students.stonehill.edu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/deleteContainer",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"deleteContainer"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"001\",\n    \"auth_token\" : \"IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2\",\n    \"email\" : \"test0@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteContainer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "32"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Mar 2021 23:55:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": true, \"message\": \"\"}"
+						}
+					]
+				},
+				{
+					"name": "Delete user account",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"",
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/secretDeleteUser",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"secretDeleteUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -2164,6 +2340,7 @@
 	],
 	"variable": [
 		{
+			"id": "85016e25-649b-4d90-bf9e-f4551a96e61f",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
