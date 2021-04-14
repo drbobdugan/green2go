@@ -7731,7 +7731,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8316,7 +8316,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"12323434534234\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"12323434534234\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8858,7 +8858,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8902,7 +8902,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9531,7 +9531,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"123123131231231223123123\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"123123131231231223123123\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10075,7 +10075,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10661,7 +10661,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11251,7 +11251,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11841,7 +11841,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12433,7 +12433,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13074,7 +13074,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13720,7 +13720,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13841,7 +13841,7 @@
 											"",
 											"var verified = JSON.parse(responseBody).data.Verified_Return;",
 											"//console.log(verified);",
-											"var checkedout = JSON.parse(responseBody).data.Checked_out;",
+											"var checkedout = JSON.parse(responseBody).data.Checked_Out;",
 											"//console.log(checkedout);",
 											"var pending = JSON.parse(responseBody).data.Pending_Return;",
 											"//console.log(pending);",
@@ -14511,7 +14511,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -15158,7 +15158,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+											"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -15735,7 +15735,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -16373,7 +16373,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -17011,7 +17011,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -17539,7 +17539,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -18885,12 +18885,12 @@
 	],
 	"variable": [
 		{
-			"id": "40febf8a-9475-4bb5-a425-d7d295b4152a",
+			"id": "c3f2a4ca-33e9-41c9-b296-6e5fcd460a9f",
 			"key": "localHost",
 			"value": "localhost:5000"
 		},
 		{
-			"id": "013e19f4-931a-44e5-90d5-13cc663b0130",
+			"id": "0b0ab11d-ed62-4e30-9509-4eaf1004765c",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
