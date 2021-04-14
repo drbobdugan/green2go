@@ -130,12 +130,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/addUser",
+							"raw": "{{baseUrl}}/secretAddUser",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
-								"addUser"
+								"secretAddUser"
 							]
 						}
 					},
@@ -2340,7 +2340,7 @@
 	],
 	"variable": [
 		{
-			"id": "85016e25-649b-4d90-bf9e-f4551a96e61f",
+			"id": "19320829-78c4-4933-ab1f-fb4627706463",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}

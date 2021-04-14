@@ -58,7 +58,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -67,7 +66,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -84,12 +84,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -381,7 +381,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -390,7 +389,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -407,12 +407,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -616,7 +616,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -625,7 +624,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -642,12 +642,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -659,7 +659,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -671,7 +670,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"Duplicate\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -688,12 +688,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -793,7 +793,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -802,7 +801,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -819,12 +819,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -1082,7 +1082,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -1091,7 +1090,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1108,12 +1108,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -1371,7 +1371,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -1380,7 +1379,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1397,12 +1397,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -1663,7 +1663,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -1672,7 +1671,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1689,12 +1689,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -1838,7 +1838,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -1847,7 +1846,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1864,12 +1864,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -2108,7 +2108,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -2117,7 +2116,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2134,12 +2134,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -2378,7 +2378,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -2387,7 +2386,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2404,12 +2404,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -2790,7 +2790,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -2799,7 +2798,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2816,12 +2816,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -3205,7 +3205,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -3214,7 +3213,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -3231,12 +3231,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -3529,7 +3529,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -3538,7 +3537,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -3555,12 +3555,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -3940,7 +3940,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -3949,7 +3948,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -3966,12 +3966,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -4335,7 +4335,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -4344,7 +4343,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4361,12 +4361,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -4732,7 +4732,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -4741,7 +4740,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4758,12 +4758,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -5173,7 +5173,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -5182,7 +5181,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5199,12 +5199,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -5569,7 +5569,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -5578,7 +5577,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5595,12 +5595,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -6010,7 +6010,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -6019,7 +6018,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6036,12 +6036,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -6469,7 +6469,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -6478,7 +6477,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6495,12 +6495,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -6928,7 +6928,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -6937,7 +6936,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6954,12 +6954,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -7387,7 +7387,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -7396,7 +7395,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -7413,12 +7413,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -7968,7 +7968,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -7977,7 +7976,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -7994,12 +7994,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -8514,7 +8514,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -8523,7 +8522,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -8540,12 +8540,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -9184,7 +9184,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -9193,7 +9192,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9210,12 +9210,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -9730,7 +9730,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -9739,7 +9738,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9756,12 +9756,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -10316,7 +10316,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -10325,7 +10324,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -10342,12 +10342,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -10906,7 +10906,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -10915,7 +10914,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -10932,12 +10932,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -11496,7 +11496,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -11505,7 +11504,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -11522,12 +11522,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -12089,7 +12089,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -12098,7 +12097,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -12115,12 +12115,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -12730,7 +12730,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -12739,7 +12738,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -12756,12 +12756,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -13376,7 +13376,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -13385,7 +13384,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -13402,12 +13402,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -14167,7 +14167,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -14176,7 +14175,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -14193,12 +14193,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -14814,7 +14814,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -14823,7 +14822,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -14840,12 +14840,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -15452,7 +15452,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -15461,7 +15460,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -15478,12 +15478,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -15869,7 +15869,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Relationship",
+							"name": "Delete Relationship (Damaged Lost)",
 							"event": [
 								{
 									"listen": "test",
@@ -15911,493 +15911,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete container",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Delete Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/deleteContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"deleteContainer"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"// ",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.environment.set(\"authCode\", \"null\");",
-											"pm.environment.set(\"authToken\", \"null\");"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Unit Test - Report Container Lost/Damaged  - \"Invalid QR Code\"",
-					"item": [
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New user test00",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"Status Code is 200-202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/addUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetAuthCode[testing]",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "javascript"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretGetUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test00@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Validate Code That was Emailed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Login Successful Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete container (check if in database)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Delete Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/deleteContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"deleteContainer"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New container",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Post Response \", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/addContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addContainer"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Checkout Container",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Unsuccessful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/checkoutContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"checkoutContainer"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Report Container (Damaged/Lost)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Unsuccessful Post Response \", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"false\");",
-											"});",
-											"",
-											"pm.test(\"QR Code Invalid in Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"That is not a valid QR code.\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"-e916-48b8-8ecb-57c0696f2892\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"status\" : \"Damaged Lost\",\n    \"description\" : \"I lost my container.\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/reportContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"reportContainer"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Relationship",
+							"name": "Delete Relationship (Checked Out)",
 							"event": [
 								{
 									"listen": "test",
@@ -16574,7 +16088,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -16583,7 +16096,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -16600,12 +16114,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -16993,7 +16507,577 @@
 							"response": []
 						},
 						{
-							"name": "Delete Relationship",
+							"name": "Delete Relationship (Damaged Lost)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Delete Request\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretDeleteRelationship",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretDeleteRelationship"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Relationship (Checked Out)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Delete Request\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretDeleteRelationship",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretDeleteRelationship"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Delete Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteContainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"// ",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.environment.set(\"authCode\", \"null\");",
+											"pm.environment.set(\"authToken\", \"null\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretDeleteUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretDeleteUser"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Unit Test - Report Container Lost/Damaged  - \"Invalid QR Code\"",
+					"item": [
+						{
+							"name": "Delete user account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretDeleteUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretDeleteUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New user test00",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200-202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretAddUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretAddUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAuthCode[testing]",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretGetUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test00@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Code That was Emailed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/validateCode",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"validateCode"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Login Successful Request\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete container (check if in database)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Delete Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteContainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response \", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addContainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout Container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Unsuccessful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/checkoutContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"checkoutContainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Report Container (Damaged/Lost)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Unsuccessful Post Response \", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"false\");",
+											"});",
+											"",
+											"pm.test(\"QR Code Invalid in Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"That is not a valid QR code.\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"-e916-48b8-8ecb-57c0696f2892\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"status\" : \"Damaged Lost\",\n    \"description\" : \"I lost my container.\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/reportContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"reportContainer"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Relationship (Checked Out)",
 							"event": [
 								{
 									"listen": "test",
@@ -17170,7 +17254,6 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
 											"pm.test(\"Status Code is 200-202\", function () {",
 											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -17179,7 +17262,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -17196,12 +17280,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/addUser",
+									"raw": "{{baseUrl}}/secretAddUser",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"addUser"
+										"secretAddUser"
 									]
 								}
 							},
@@ -17521,7 +17605,7 @@
 							"response": []
 						},
 						{
-							"name": "Delete Relationship",
+							"name": "Delete Relationship (Checked Out)",
 							"event": [
 								{
 									"listen": "test",
@@ -18801,12 +18885,12 @@
 	],
 	"variable": [
 		{
-			"id": "058da113-0b54-4432-afca-b4e639c20b14",
+			"id": "be93a7bc-1ccd-451a-bf66-2f06cf20716d",
 			"key": "localHost",
 			"value": "localhost:5000"
 		},
 		{
-			"id": "3967891d-dc2c-4118-b9d0-eba27e60a776",
+			"id": "a25a978f-a0f4-4cb1-a68b-e29548a64b0e",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
