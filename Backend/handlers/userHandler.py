@@ -16,16 +16,7 @@ class UserHandler:
         self.helperHandler = helperHandler
         self.userDao = UserDAO()
         self.authDao = AuthDao()
-
-    def getUser(self, request, userDao, hasAuth):
-        keys = ["email"]
-        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=1)
-
-    def addUser(self, request, userDao):
-        dictOfUserAttrib = None
-        # keys to scape from request
-        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role']
-        formats = {
+        self.formats = {
             'email' : {
                 "format":"([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
                 "error":"Email"
@@ -56,10 +47,20 @@ class UserHandler:
                 }
             
         }
+
+    def getUser(self, request, userDao, hasAuth):
+        keys = ["email"]
+        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=1)
+
+    def addUser(self, request, userDao):
+        dictOfUserAttrib = None
+        # keys to scape from request
+        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role']
+        
         #generate authCode
         authCode=self.helperHandler.genAuthcode()
         try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
+            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=self.formats, hasAuth=False)
             pas=self.helperHandler.encrypt_password(dictOfUserAttrib["password"])
             dictOfUserAttrib["password"]=pas
             dictOfUserAttrib['authCode'] = authCode
@@ -90,13 +91,16 @@ class UserHandler:
         dictOfUserAttrib = None
         request = data[0]
         keys = data[1]
+        formats=None
         t= "json"
         if f == 1:
             t= "args"
+        if f==3:
+            formats = self.formats
         if hasAuth is True and "auth_token" not in keys:
             keys.append('auth_token')
         try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth, t=t)
+            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=hasAuth, t=t)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = self.sort(userDao, dictOfUserAttrib, f)
