@@ -76,7 +76,7 @@ class UserHandler:
         user = User()
         user.dictToUser(dictOfUserAttrib)
         res = self.userDao.insertUser(user)
-        if(res[0]):
+        if(res[0] and "/secretAddUser" not in str(request)):
             self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
 

@@ -86,7 +86,7 @@ def updateContainer():
 
 @app.route('/checkoutContainer', methods=['POST'])
 def checkoutContainer():
-    return containerHandler.checkoutContainer(request, containerDao, relationshipDao)
+    return containerHandler.addRelationship(request, containerDao, relationshipDao)
 
 @app.route('/getContainersForUser', methods = ['GET'])
 def getContainersForUser():
@@ -102,7 +102,11 @@ def checkinContainer():
 
 @app.route('/reportContainer', methods=['POST'])
 def reportContainer():
-    return containerHandler.updateRelationship(request, relationshipDao)
+    return containerHandler.addRelationship(request, containerDao, relationshipDao)
+
+@app.route('/undoReportContainer', methods=['DELETE'])
+def undoReportContainer():
+    return containerHandler.deleteRelationship(request, relationshipDao, True)
 
 @app.route('/getallContainers', methods=['GET'])
 def getallContainers():
@@ -150,6 +154,10 @@ def secretGetUser():
 @app.route('/secretDeleteRelationship', methods=['DELETE'])
 def secretDeleteRelationship():
     return containerHandler.deleteRelationship(request, relationshipDao, False)
+
+@app.route('/secretAddUser', methods=['POST'])
+def secretAddUser():
+    return userHandler.addUser(request, userDao)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

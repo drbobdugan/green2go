@@ -45,9 +45,9 @@ class RelationshipDAO(dao):
                 tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
                 if(tempR.status=="Damaged Lost"):
                     return False, "Container has been marked as Damaged Lost"
-                tempR.status="Verified Return"
-                self.updateRelationship(tempR)
-
+                if(result[2] != "Damaged Lost"):
+                    tempR.status="Verified Return"
+                    self.updateRelationship(tempR)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode,active,description) VALUES (%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
@@ -168,7 +168,7 @@ class RelationshipDAO(dao):
             if(myresult[0] == False):
                 return myresult
             logging.info("Entering updateRelationship")
-            r.statusUpdateTime = (datetime.now() + timedelta(seconds=2)).strftime('%Y-%m-%d %H:%M:%S') 
+            r.statusUpdateTime = (datetime.now() + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S') 
             result = r.relationshipToList()
             sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
