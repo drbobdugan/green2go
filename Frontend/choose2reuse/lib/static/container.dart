@@ -40,7 +40,7 @@ class ReusableContainer {
 class SortedReusableContainers {
   SortedReusableContainers(Map<String, dynamic> value) {
     all = getContainerList(value['All']);
-    checkedOut = getContainerList(value['Checked_out']);
+    checkedOut = getContainerList(value['Checked_Out']);
     pending = getContainerList(value['Pending_Return']);
     verified = getContainerList(value['Verified_Return']);
     damagedLost = getContainerList(value['Damaged_Lost']);
@@ -72,7 +72,7 @@ const List<ContainerStatus> containerIconItems = <ContainerStatus>[
 
 const Map<String, ContainerStatus> containerDataStrings =
     <String, ContainerStatus>{
-  'Checked out': ContainerStatus.CheckedOut,
+  'Checked Out': ContainerStatus.CheckedOut,
   'Pending Return': ContainerStatus.Pending,
   'Verified Return': ContainerStatus.Verified,
   'Damaged Lost': ContainerStatus.DamagedLost
@@ -94,8 +94,8 @@ const Map<ContainerStatus, String> containerDataRowColors =
 };
 
 const Map<ContainerStatus, String> containerLabels = <ContainerStatus, String>{
-  ContainerStatus.CheckedOut: 'Checked out',
+  ContainerStatus.CheckedOut: 'Checked Out',
   ContainerStatus.Pending: 'Pending Return',
   ContainerStatus.Verified: 'Verified Return',
-  ContainerStatus.DamagedLost: 'Damaged/Lost'
+  ContainerStatus.DamagedLost: 'Damaged Lost'
 };

@@ -114,7 +114,7 @@ class ContainerHandler:
         if res[0] is True and isSorted is True:
             sortDict={
                 'All' : res[1],
-                'Checked_out':[],
+                'Checked_Out':[],
                 'Pending_Return':[],
                 'Verified_Return':[],
                 'Damaged_Lost':[]
@@ -165,7 +165,7 @@ class ContainerHandler:
         relationship = rel[1]
         relDict = relationship.relationshipToDict()
         if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
-            return json.dumps({"success" : False, "message" : "Container is not Damaged/Lost"})
+            return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
         #delete relationship from table
         res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
