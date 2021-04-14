@@ -65,7 +65,6 @@ class HelperHandler:
             raise Exception(str(e).replace("'", '') + " field missing from request")
         # Ensure correct formatting
         try:
-            print(formats)
             self.ensureCorrectFormatting(dic, formats)
         except Exception as e:
             raise Exception(str(e).replace("'", ''))
