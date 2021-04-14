@@ -35,7 +35,7 @@ class LocationDao(dao):
                 return myresult
             result = []
             for row in myresult[1]:
-                location = Location(row[0],row[1],row[2])
+                location = Location(row[0],row[1],row[2],int(row[3]))
                 result.append(location)
             return True, result
         except Exception as e:
@@ -51,7 +51,7 @@ class LocationDao(dao):
             if(myresult[0]==False):
                 return myresult 
             myresult2 = myresult[1][0] #myresult looks like (true,[(qrcode,des,lastpickup)])
-            location = Location(myresult2[0],myresult2[1],myresult2[2])
+            location = Location(myresult2[0],myresult2[1],myresult2[2],int(myresult2[3]))
             return True, location
         except Exception as e:
             logging.error("Error in selectByLocationQRcode")
@@ -65,7 +65,7 @@ class LocationDao(dao):
                 return myresult
             logging.info("Entering insertLocation")
             result = location.locationToList()
-            sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
+            sql = "INSERT INTO location (location_qrcode, description, lastPickup, containers) VALUES (%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
                 return myresult
@@ -76,16 +76,17 @@ class LocationDao(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+
     def deleteLocation(self,location):
         try:
+            logging.info("Entering deleteLocation")
             myresult = self.checkFormatting(location)
             if(myresult[0] == False):
                 return myresult
             myresult = self.selectByLocationQRcode(location.location_qrcode)
             if(myresult[0]==False):
                 return myresult
-            logging.info("Entering deleteLocation")
-            sql = "DELETE FROM location WHERE location_qrcode = '" + location.getQRcode() + "'"
+            sql = "DELETE FROM location WHERE location_qrcode = '" + location.location_qrcode + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
@@ -93,5 +94,22 @@ class LocationDao(dao):
             return True, ""
         except Exception as e:
             logging.error("Error in deleteLocation")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    def updateContainers(self,location):
+        try:
+            logging.info("Entering updateContainers")
+            myresult = self.checkFormatting(location)
+            if(myresult[0] == False):
+                return myresult
+            sql = "UPDATE location SET containers = '" + str(location.containers) + "' where location_qrcode = '" + location.location_qrcode + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("updateContainers successful")
+            return True, ""
+        except Exception as e:
+            logging.error("Error in updateContainers")
             logging.error(str(e))
             return self.handleError(e)
