@@ -24,7 +24,7 @@ class UserHandler:
     def addUser(self, request, userDao):
         dictOfUserAttrib = None
         # keys to scape from request
-        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
+        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role']
         formats = {
             'email' : {
                 "format":"([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
@@ -53,10 +53,6 @@ class UserHandler:
             'role': {
                 "format":"(RegularUser$)|(Admin$)",
                 "error":"Role"
-                },
-            'classYear': {
-                "format":"(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)",
-                "error":"Class Year"
                 }
             
         }
@@ -82,7 +78,7 @@ class UserHandler:
 
 
     def updateUser(self, request, userDao):
-        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
+        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'authCode', 'auth_token']
         return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=True, f=3)
 
     def deleteUser(self, request, userDao, hasAuth):
