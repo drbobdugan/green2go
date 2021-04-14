@@ -17790,7 +17790,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -17799,7 +17798,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -17816,12 +17816,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -18163,7 +18163,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -18172,7 +18171,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -18189,12 +18189,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -18539,7 +18539,6 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
 													"pm.test(\"Status Code is 200-202\", function () {",
 													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
@@ -18548,7 +18547,8 @@
 													"    pm.expect(pm.response.text()).to.include(\"true\");",
 													"});",
 													""
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -18565,12 +18565,12 @@
 											}
 										},
 										"url": {
-											"raw": "{{baseUrl}}/addUser",
+											"raw": "{{baseUrl}}/secretAddUser",
 											"host": [
 												"{{baseUrl}}"
 											],
 											"path": [
-												"addUser"
+												"secretAddUser"
 											]
 										}
 									},
@@ -18885,12 +18885,12 @@
 	],
 	"variable": [
 		{
-			"id": "be93a7bc-1ccd-451a-bf66-2f06cf20716d",
+			"id": "40febf8a-9475-4bb5-a425-d7d295b4152a",
 			"key": "localHost",
 			"value": "localhost:5000"
 		},
 		{
-			"id": "a25a978f-a0f4-4cb1-a68b-e29548a64b0e",
+			"id": "013e19f4-931a-44e5-90d5-13cc663b0130",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
