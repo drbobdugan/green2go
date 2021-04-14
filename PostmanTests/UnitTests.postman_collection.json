@@ -76,7 +76,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -399,7 +399,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -634,7 +634,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -680,7 +680,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -811,7 +811,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1100,7 +1100,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1389,7 +1389,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1681,7 +1681,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1856,7 +1856,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2126,7 +2126,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2396,7 +2396,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2808,7 +2808,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3223,7 +3223,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3547,7 +3547,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3958,7 +3958,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4353,7 +4353,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4750,7 +4750,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5191,7 +5191,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5587,7 +5587,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6028,7 +6028,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6487,7 +6487,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6946,7 +6946,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7405,7 +7405,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7986,7 +7986,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8532,7 +8532,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9202,7 +9202,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9748,7 +9748,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10334,7 +10334,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10924,7 +10924,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11514,7 +11514,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12107,7 +12107,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -12748,7 +12748,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -13394,7 +13394,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -14185,7 +14185,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -14832,7 +14832,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -15470,7 +15470,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -16106,7 +16106,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -16744,7 +16744,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -17272,7 +17272,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -17808,7 +17808,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18181,7 +18181,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18557,7 +18557,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18885,12 +18885,12 @@
 	],
 	"variable": [
 		{
-			"id": "fbb025ba-107a-42bb-884f-bfa82d5837e6",
+			"id": "0a2e7d14-aefe-44c3-a5ed-9678a658ee0d",
 			"key": "localHost",
 			"value": "localhost:5000"
 		},
 		{
-			"id": "dc0a937a-f78a-47ba-96d1-8dd787b94958",
+			"id": "79744eb2-6407-41da-a4c3-53f4a8b622ae",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
