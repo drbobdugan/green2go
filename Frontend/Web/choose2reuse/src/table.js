@@ -51,15 +51,46 @@ function Table (props) {
           var filter = e.target.value
           console.log(filter)     
           setFilteredContainers(containers.filter(container => {
+            if(container.location_qrcode != null && container.description != null){
             return(
               container.email.includes(filter) || 
               container.qrcode.includes(filter) ||
               container.status.includes(filter) ||
               container.statusUpdateTime.includes(filter) ||
-              //container.location_qrcode.includes(filter) ||
-              container.active.includes(filter) 
-              //container.description.includes(filter)
+              container.location_qrcode.includes(filter) ||
+              container.active.includes(filter) ||
+              container.description.includes(filter)
             )
+            }
+            else if(container.location_qrcode == null && container.description != null){
+              return(
+                container.email.includes(filter) || 
+                container.qrcode.includes(filter) ||
+                container.status.includes(filter) ||
+                container.statusUpdateTime.includes(filter) ||
+                container.active.includes(filter) ||
+                container.description.includes(filter)
+              )
+              }
+              else if(container.location_qrcode != null && container.description == null){
+                return(
+                  container.email.includes(filter) || 
+                  container.qrcode.includes(filter) ||
+                  container.status.includes(filter) ||
+                  container.statusUpdateTime.includes(filter) ||
+                  container.active.includes(filter) ||
+                  container.location_qrcode.includes(filter) 
+                )
+                }
+                else if(container.location_qrcode == null && container.description == null){
+                  return(
+                    container.email.includes(filter) || 
+                    container.qrcode.includes(filter) ||
+                    container.status.includes(filter) ||
+                    container.statusUpdateTime.includes(filter) ||
+                    container.active.includes(filter)  
+                  )
+                  }
           }))
         }
 
