@@ -161,7 +161,7 @@ def secretAddUser():
 
 @app.route('/secretCheckout', methods=['POST'])
 def secretCheckout():
-    return containerHandler.checkoutTool(request, containerDao, relationshipDao)
+    return containerHandler.addRelationship(request, containerDao, relationshipDao)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
