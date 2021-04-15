@@ -70,12 +70,13 @@ class ContainerHandler:
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
     def addRelationship(self, request, containerDao, relationshipDAO):
         userContainer = None
+        hasAuth = True
         if "/checkoutContainer" in str(request):
             keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
         elif "/reportContainer" in str(request):
             keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
         try:
-            userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
+            userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
             self.validateQRCode(userContainer)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             if "/checkoutContainer" in str(request):
@@ -172,7 +173,7 @@ class ContainerHandler:
 # to get all containers for admin
 
     def GetallRelationships(self,request,relationshipDao,hasAuth):
-        relaDict = None
+        relDict = None
         keys=['email','auth_token']
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
@@ -184,3 +185,27 @@ class ContainerHandler:
             return self.helperHandler.handleResponse(rel)
 
         return self.helperHandler.handleResponse(rel)
+
+# checkout Container Tool
+    def checkoutTool(self, request, relationshipDao, hasAuth=False):
+        relDict = None
+        keys=['email']
+        try:
+            relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        relDict['status'] = "Pending Return"
+        res = self.relationdao.selectAllByStatus(relDict['email'], relDict['status'])
+        relDict = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+        relDict['status'] = "Checked Out"
+        relDict['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        relationship = Relationship()
+        relationship.dictToRelationship(relDict)
+        res = self.relationdao.insertRelationship(relationship)
+        print(res)
+        if (res[0] is True):
+            res = self.relationdao.deleteRelationship(relationship)
+        print(res)
+
+        return self.helperHandler.handleResponse(res)
+        

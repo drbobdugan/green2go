@@ -159,6 +159,10 @@ def secretDeleteRelationship():
 def secretAddUser():
     return userHandler.addUser(request, userDao)
 
+@app.route('/secretCheckout', methods=['POST'])
+def secretCheckout():
+    return containerHandler.checkoutTool(request, containerDao, relationshipDao)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
 
