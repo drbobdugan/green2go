@@ -2,12 +2,24 @@ import './App.css';
 import React,{Component, useState} from 'react';
 import axios from 'axios';
 import './table.css';
+import { useHistory } from "react-router-dom";
 
 
 function Table (props) {
         const [containers, setContainers] = useState([])
         const [filteredContainers, setFilteredContainers] = useState([])
         const [selected, setSelected] = useState()
+
+        const history = useHistory();
+
+        function routeChangeLocationCount() { 
+        let path = `/locationCount`; 
+        history.push(path);
+        }
+        function routeChangeStatusCount() { 
+          let path = `/statusCount`; 
+          history.push(path);
+          }
 
         function select(container){
           console.log(container)
@@ -51,15 +63,46 @@ function Table (props) {
           var filter = e.target.value
           console.log(filter)     
           setFilteredContainers(containers.filter(container => {
+            if(container.location_qrcode != null && container.description != null){
             return(
               container.email.includes(filter) || 
               container.qrcode.includes(filter) ||
               container.status.includes(filter) ||
               container.statusUpdateTime.includes(filter) ||
-              //container.location_qrcode.includes(filter) ||
-              container.active.includes(filter) 
-              //container.description.includes(filter)
+              container.location_qrcode.includes(filter) ||
+              container.active.includes(filter) ||
+              container.description.includes(filter)
             )
+            }
+            else if(container.location_qrcode == null && container.description != null){
+              return(
+                container.email.includes(filter) || 
+                container.qrcode.includes(filter) ||
+                container.status.includes(filter) ||
+                container.statusUpdateTime.includes(filter) ||
+                container.active.includes(filter) ||
+                container.description.includes(filter)
+              )
+              }
+              else if(container.location_qrcode != null && container.description == null){
+                return(
+                  container.email.includes(filter) || 
+                  container.qrcode.includes(filter) ||
+                  container.status.includes(filter) ||
+                  container.statusUpdateTime.includes(filter) ||
+                  container.active.includes(filter) ||
+                  container.location_qrcode.includes(filter) 
+                )
+                }
+                else if(container.location_qrcode == null && container.description == null){
+                  return(
+                    container.email.includes(filter) || 
+                    container.qrcode.includes(filter) ||
+                    container.status.includes(filter) ||
+                    container.statusUpdateTime.includes(filter) ||
+                    container.active.includes(filter)  
+                  )
+                  }
           }))
         }
 
@@ -69,7 +112,9 @@ function Table (props) {
         return (
             <div className="App">
             <h1>All Container Transactions</h1>
-            <table className="tableTotals" class="center">
+            <div class="row">
+              <div class="column"><button type="button" onClick={() => { routeChangeLocationCount() } }>Location Container Counts</button></div>
+              <div class="column"><table className="tableTotals" class="center">
               <thead>
                 <tr>
                 <th colspan="3">Totals</th>
@@ -87,7 +132,11 @@ function Table (props) {
                 <th>0</th>
                 </tr>
               </tbody>
-            </table>
+            </table></div>
+              
+              <div class="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status Counts</button></div>
+           </div>
+            
             <br></br>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
