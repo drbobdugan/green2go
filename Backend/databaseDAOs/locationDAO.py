@@ -35,7 +35,7 @@ class LocationDao(dao):
                 return myresult
             result = []
             for row in myresult[1]:
-                location = Location(row[0],row[1],row[2],int(row[3]))
+                location = Location(row[0],row[1],row[2])
                 result.append(location)
             return True, result
         except Exception as e:
@@ -51,7 +51,7 @@ class LocationDao(dao):
             if(myresult[0]==False):
                 return myresult 
             myresult2 = myresult[1][0] #myresult looks like (true,[(qrcode,des,lastpickup)])
-            location = Location(myresult2[0],myresult2[1],myresult2[2],int(myresult2[3]))
+            location = Location(myresult2[0],myresult2[1],myresult2[2],)
             return True, location
         except Exception as e:
             logging.error("Error in selectByLocationQRcode")
@@ -65,7 +65,7 @@ class LocationDao(dao):
                 return myresult
             logging.info("Entering insertLocation")
             result = location.locationToList()
-            sql = "INSERT INTO location (location_qrcode, description, lastPickup, containers) VALUES (%s,%s,%s,%s)"
+            sql = "INSERT INTO location (location_qrcode, description, lastPickup) VALUES (%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
                 return myresult
