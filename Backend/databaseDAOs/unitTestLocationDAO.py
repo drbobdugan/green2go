@@ -18,12 +18,12 @@ class unitTestLocationDAO(unittest.TestCase):
         Delete the temporary database
         """
         self.dao = LocationDao()
-        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01",0) # loc is location object 
+        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01") # loc is location object 
         self.dao.deleteLocation(loc)
     
     # test creating location
     def testInsertLocationSmoke(self):
-        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01",0) 
+        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01") 
         self.dao = LocationDao()
         return self.dao.insertLocation(loc)
     
@@ -56,11 +56,11 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, insertLocation = self.dao.insertLocation(loc)
         self.assertFalse(rc)
 
-        loc = Location("L043",None,"2021-01-01 01:01:01",0)
+        loc = Location("L043",None,"2021-01-01 01:01:01")
         rc, insertLocation = self.dao.insertLocation(loc)
         self.assertFalse(rc)
 
-        loc = Location("L043","Drop-off bin outside Testing Center",None,0)
+        loc = Location("L043","Drop-off bin outside Testing Center",None)
         rc, insertLocation = self.dao.insertLocation(loc)
         self.assertFalse(rc)
 
@@ -101,7 +101,7 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, msg = self.testInsertLocationSmoke()
         self.assertTrue(rc)
 
-        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01",0) 
+        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01") 
         self.dao = LocationDao()
         
         rc, deleteLocation = self.dao.deleteLocation(loc)
@@ -117,7 +117,7 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, msg = self.testInsertLocationSmoke()
         self.assertTrue(rc)
 
-        loc = Location("L043","Drop-off bin outside Roche Commons","2021-01-01 01:01:01",0) 
+        loc = Location("L043","Drop-off bin outside Roche Commons","2021-01-01 01:01:01") 
         self.dao = LocationDao()
 
         rc, deleteLocation = self.dao.deleteLocation(loc)
@@ -130,7 +130,7 @@ class unitTestLocationDAO(unittest.TestCase):
         """
         Test that we cannot add a location_qrcode that is over 45 characters long
         """
-        loc = Location("L043xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Drop-off bin outside Roche Commons","2021-01-01 01:01:01",0) 
+        loc = Location("L043xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","Drop-off bin outside Roche Commons","2021-01-01 01:01:01") 
         self.dao = LocationDao()
 
         rc, insertLocation = self.dao.insertLocation(loc)
@@ -141,7 +141,7 @@ class unitTestLocationDAO(unittest.TestCase):
         Test that we cannot add a description that is over 128 characters long
         """
         loc = Location("L042",
-        "Drop-off bin outside Roche Commons xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",0,
+        "Drop-off bin outside Roche Commons xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         "2021-01-01 01:01:01") 
         self.dao = LocationDao()
 
@@ -152,37 +152,11 @@ class unitTestLocationDAO(unittest.TestCase):
         """
         Test that we cannot add a incorrectly formatted date
         """
-        loc = Location("L042","Drop-off bin outside Roche Commons","01:01:01 2021-01-01",0) 
+        loc = Location("L042","Drop-off bin outside Roche Commons","01:01:01 2021-01-01") 
         self.dao = LocationDao()
 
         rc, insertLocation = self.dao.insertLocation(loc)
         self.assertFalse(rc)
-
-    def testUpdateContainers(self):
-        """
-        Test that we can increment and clear containers from a locat
-        """
-        loc = Location("L042","Drop-off bin outside Testing Center","2021-01-01 01:01:01",0) 
-        self.dao = LocationDao()
-        rc, msg = self.dao.insertLocation(loc)
-        self.assertTrue(rc)
-
-        loc.containers+=1
-        rc, msg = self.dao.updateContainers(loc)
-        self.assertTrue(loc)
-
-        rc, msg = self.dao.selectByLocationQRcode("L042")
-        self.assertTrue(rc)
-        self.assertTrue(msg.containers == 1)
-
-        loc.containers=0
-        rc, msg = self.dao.updateContainers(loc)
-        self.assertTrue(loc)
-
-        rc, msg = self.dao.selectByLocationQRcode("L042")
-        self.assertTrue(rc)
-        self.assertTrue(msg.containers == 0)
-
 
         
 
