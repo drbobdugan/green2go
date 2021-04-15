@@ -24,7 +24,6 @@ class StudentDetails {
     firstName = user['firstName'];
     middleName = user['middleName'];
     lastName = user['lastName'];
-    classYear = user['classYear'];
     phoneNum = user['phoneNum'];
     role = user['role'];
   }
@@ -34,7 +33,6 @@ class StudentDetails {
   String firstName;
   String middleName;
   String lastName;
-  String classYear;
   String phoneNum;
   String role;
   StudentAuth auth;

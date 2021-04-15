@@ -29,7 +29,6 @@ class _SignUpPageState extends State<SignUpPage> {
   final FocusNode lastNameNode = FocusNode();
   final FocusNode emailNode = FocusNode();
   final FocusNode phoneNumNode = FocusNode();
-  final FocusNode classYearNode = FocusNode();
   final FocusNode passwordNode = FocusNode();
   final FocusNode confirmPasswordNode = FocusNode();
 
@@ -155,20 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
                       textInputAction: TextInputAction.next,
                       keyboardType: TextInputType.phone,
                       onFieldSubmitted: () {
-                        fieldNextFocus(context, phoneNumNode, classYearNode);
-                      }),
-                  ReuseTextField(
-                      text: ReuseStrings.classYearField,
-                      node: classYearNode,
-                      onChanged: (String value) {
-                        setState(() {
-                          user.classYear = value;
-                        });
-                      },
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
-                      onFieldSubmitted: () {
-                        fieldNextFocus(context, classYearNode, passwordNode);
+                        fieldNextFocus(context, phoneNumNode, passwordNode);
                       }),
                   ReuseTextField(
                       text: ReuseStrings.passwordField,

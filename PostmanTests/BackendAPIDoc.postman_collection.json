@@ -122,7 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -946,7 +946,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1617,7 +1617,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"status\" : \"Checked out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"None\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\",\n    \"location_qrcode\" : \"None\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2340,7 +2340,7 @@
 	],
 	"variable": [
 		{
-			"id": "19320829-78c4-4933-ab1f-fb4627706463",
+			"id": "c17ff0f1-0740-447b-b2e2-2e89a5348aa1",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}

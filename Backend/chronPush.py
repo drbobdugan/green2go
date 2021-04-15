@@ -10,7 +10,7 @@ need_to_be_messaged = []
 relationshipDao = RelationshipDAO()
 all_containers = relationshipDao.selectAll()[1]
 for x in all_containers:
-    if x['status']=='Checked out':
+    if x['status']=='Checked Out':
       timeobj=datetime.datetime.strptime(x["statusUpdateTime"], '%Y-%m-%d %H:%M:%S')
       hours_added = datetime.timedelta(hours = 48)
       future_date_and_time = timeobj + hours_added

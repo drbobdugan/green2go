@@ -26,7 +26,7 @@ function Table (props) {
           {
             if(filter == 'Checked Out')
             {
-              setFilteredContainers(containers.filter(container => container.status == 'Checked out'))
+              setFilteredContainers(containers.filter(container => container.status == 'Checked Out'))
             }
             if(filter == 'Pending Return')
             {
