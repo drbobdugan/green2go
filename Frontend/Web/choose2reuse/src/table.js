@@ -17,12 +17,11 @@ function Table (props) {
         async function getContainers(email, authToken){
          var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
-         setFilteredContainers(containers)
+         setFilteredContainers(response.data.data)
         }
         
         function filterByStatus(e) {
-          var filter = e.target.value
-          console.log(filter)         
+          var filter = e.target.value        
           if(filter !== 'All') 
           {
             if(filter == 'Checked Out')
@@ -46,6 +45,22 @@ function Table (props) {
           {
             setFilteredContainers(containers)
           }
+        }
+
+        function filterBySearch(e) {
+          var filter = e.target.value
+          console.log(filter)     
+          setFilteredContainers(containers.filter(container => {
+            return(
+              container.email.includes(filter) || 
+              container.qrcode.includes(filter) ||
+              container.status.includes(filter) ||
+              container.statusUpdateTime.includes(filter) ||
+              //container.location_qrcode.includes(filter) ||
+              container.active.includes(filter) 
+              //container.description.includes(filter)
+            )
+          }))
         }
 
         if(containers.length === 0 && props.location && props.location.state)
@@ -73,7 +88,12 @@ function Table (props) {
                 </tr>
               </tbody>
             </table>
-
+            <br></br>
+            <br></br>
+            <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
+            <br></br>
+            <br></br>
+            <br></br>
             <table className="tableInfo" class="center">
             <thead>
              <tr>
