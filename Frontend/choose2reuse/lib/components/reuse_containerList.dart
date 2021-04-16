@@ -59,6 +59,7 @@ class ReuseContainerList extends StatelessWidget {
                   text2: container.dataRowText2(),
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
+                  status: container.status,
                   onSubmitDialog: (String message) =>
                       submitReport(index, message)),
             );

@@ -13,6 +13,7 @@ class ReuseStrings {
   static String useCamera = 'Use Camera';
   static String submit = 'Submit';
   static String cancel = 'Cancel';
+  static String yes = 'Yes';
 
   //page titles
   static String homepageTitle = 'Dashboard';
@@ -53,6 +54,8 @@ class ReuseStrings {
   static String lostOrDamagedTitle = 'Report a Container';
   static String lostOrDamagedPrompt = 'Enter your reasoning here';
   static String noContainers = 'No containers found.';
+  static String undoLostOrDamagedQuestion =
+      'Are you sure you want to undo marking this container as damaged/lost?';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';

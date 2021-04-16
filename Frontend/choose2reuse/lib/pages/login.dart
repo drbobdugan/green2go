@@ -79,28 +79,13 @@ class _LoginPageState extends State<LoginPage> {
           print('Failed to add user interest');
         }
 
-        /*final StudentAuth auth =
-            StudentAuth(response.data as Map<String, dynamic>);
-        print(response.data);
-
-        widget.onGetUser(user, auth).then((APIResponse response2) {
-          if (response2.success) {
-            print(response2.data);
-            final String beamsToken = response2.data['beams_token'] as String;
-            final Map<String, String> tokenProvider = {'token': beamsToken};
-
-            PusherBeams.setUserId(auth.email, tokenProvider);
-          } else {
-            print(response2.success);
-            print(response2.message);
-            print(response2.data);
-          }
-        });*/
-
         NavigationService(context: context)
             .goHome(StudentAuth(response.data as Map<String, dynamic>));
       } else {
+        prefs.setString('email', null);
+        prefs.setString('password', null);
         setState(() {
+          isLoggedIn = false;
           errorMessage = response.message;
         });
       }
@@ -124,10 +109,12 @@ class _LoginPageState extends State<LoginPage> {
     if (isLoggedIn == true) {
       handleLogIn(context);
     }
+
     if (isLoggedIn != false) {
       return const Scaffold(
           backgroundColor: Colors.white, body: ReuseLoading());
     }
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

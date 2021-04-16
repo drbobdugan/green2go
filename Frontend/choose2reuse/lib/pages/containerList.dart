@@ -38,8 +38,13 @@ class ContainerListPage extends StatefulWidget {
     return await StudentService.getSortedContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    return await StudentService.reportContainer(userAuth, qrCode, report);
+  Future<APIResponse> onSubmitReport(
+      ReusableContainer container, String report) async {
+    if (container.status == ContainerStatus.DamagedLost) {
+      // ADD BACKEND CONNECTION
+    }
+    return await StudentService.reportContainer(
+        userAuth, container.qrCode, report);
   }
 
   @override
@@ -92,7 +97,7 @@ class _ContainerListPageState extends State<ContainerListPage> {
   }
 
   void handleSubmitReport(int index, String message) {
-    widget.onSubmitReport(filteredContainers[index].qrCode, message);
+    widget.onSubmitReport(filteredContainers[index], message);
     reFilter();
   }
 

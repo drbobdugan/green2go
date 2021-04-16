@@ -23,8 +23,13 @@ class HomePage extends StatefulWidget {
     return await StudentService.getContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    return await StudentService.reportContainer(userAuth, qrCode, report);
+  Future<APIResponse> onSubmitReport(
+      ReusableContainer container, String report) async {
+    if (container.status == ContainerStatus.DamagedLost) {
+      // ADD BACKEND CONNECTION
+    }
+    return await StudentService.reportContainer(
+        userAuth, container.qrCode, report);
   }
 
   @override
@@ -92,7 +97,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   void handleSubmitReport(int index, String message) {
-    widget.onSubmitReport(user.topContainers[index].qrCode, message);
+    widget.onSubmitReport(user.topContainers[index], message);
   }
 
   void handleViewAll(BuildContext context) {
