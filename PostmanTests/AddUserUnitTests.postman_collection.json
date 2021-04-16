@@ -33,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\",\n    \"firstName\" : \"{{firstName}}\",\n    \"lastName\" : \"{{lastName}}\",\n    \"middleName\" : \"{{middleName}}\",\n    \"phoneNum\" : \"{{phoneNum}}\",\n    \"role\" : \"{{role}}\",\n    \"classYear\" : \"{{classYear}}\"\n}\n    \n    \n    \n    \n    \n    ",
+					"raw": "{\n    \"email\" : \"{{email}}\",\n    \"password\" : \"{{password}}\",\n    \"firstName\" : \"{{firstName}}\",\n    \"lastName\" : \"{{lastName}}\",\n    \"middleName\" : \"{{middleName}}\",\n    \"phoneNum\" : \"{{phoneNum}}\",\n    \"role\" : \"{{role}}\"\n}\n    \n    \n    \n    \n    \n    ",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -41,12 +41,12 @@
 					}
 				},
 				"url": {
-					"raw": "{{baseUrl}}/addUser",
+					"raw": "{{baseUrl}}/secretAddUser",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"addUser"
+						"secretAddUser"
 					]
 				}
 			},
@@ -115,10 +115,12 @@
 	],
 	"variable": [
 		{
+			"id": "29124726-3417-4523-9967-1bdc7e9c8e40",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		},
 		{
+			"id": "8ceb1df8-981b-464b-b21a-63a1547462da",
 			"key": "localHost",
 			"value": "localhost:5000"
 		}
