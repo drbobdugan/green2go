@@ -1,4 +1,3 @@
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../components/reuse_containerList.dart';
@@ -6,6 +5,7 @@ import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
+import '../services/navigation_service.dart';
 import '../services/student_service.dart';
 import '../static/container.dart';
 import '../static/custom_theme.dart';
@@ -39,8 +39,13 @@ class ContainerListPage extends StatefulWidget {
     return await StudentService.getSortedContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    return await StudentService.reportContainer(userAuth, qrCode, report);
+  Future<APIResponse> onSubmitReport(
+      ReusableContainer container, String report) async {
+    if (container.status == ContainerStatus.DamagedLost) {
+      // ADD BACKEND CONNECTION
+    }
+    return await StudentService.reportContainer(
+        userAuth, container.qrCode, report);
   }
 
   @override
@@ -93,7 +98,13 @@ class _ContainerListPageState extends State<ContainerListPage> {
   }
 
   void handleSubmitReport(int index, String message) {
-    widget.onSubmitReport(filteredContainers[index].qrCode, message);
+    widget
+        .onSubmitReport(user.topContainers[index], message)
+        .then((APIResponse response) {
+      if (response.success) {
+        NavigationService(context: context).goHome(widget.userAuth);
+      }
+    });
     reFilter();
   }
 
@@ -106,83 +117,79 @@ class _ContainerListPageState extends State<ContainerListPage> {
       );
     }
 
-    return FontScaleBlocker(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: UserAppBar(userAuth: widget.userAuth),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  ReuseLabel(
-                    text: ReuseStrings.containerListTitle,
-                    textStyle: CustomTheme.primaryLabelStyle(),
-                    top: 30,
-                    left: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ReuseLabel(
-                        text: ReuseStrings.filterBy,
-                        top: 30,
-                        textStyle:
-                            CustomTheme.secondaryLabelStyle(fontSize: 16.0),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-                        child: Container(
-                          height: 50.0,
-                          width: 50.0,
-                          decoration: BoxDecoration(
-                              color: CustomTheme.getColor('light'),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50))),
-                          child: PopupMenuButton<String>(
-                            icon: const Icon(Icons.filter_alt,
-                                color: Colors.white),
-                            onSelected: (String value) {
-                              onFilter(value);
-                            },
-                            itemBuilder: (BuildContext context) {
-                              return items.map((FilterOptions option) {
-                                return PopupMenuItem<String>(
-                                  value: labels[option],
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        labels[option],
-                                        textScaleFactor: 1,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                              CustomTheme.getColor('primary'),
-                                        ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: UserAppBar(userAuth: widget.userAuth),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                ReuseLabel(
+                  text: ReuseStrings.containerListTitle,
+                  textStyle: CustomTheme.primaryLabelStyle(),
+                  top: 30,
+                  left: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ReuseLabel(
+                      text: ReuseStrings.filterBy,
+                      top: 30,
+                      textStyle:
+                          CustomTheme.secondaryLabelStyle(fontSize: 16.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+                      child: Container(
+                        height: 50.0,
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                            color: CustomTheme.getColor('light'),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50))),
+                        child: PopupMenuButton<String>(
+                          icon:
+                              const Icon(Icons.filter_alt, color: Colors.white),
+                          onSelected: (String value) {
+                            onFilter(value);
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return items.map((FilterOptions option) {
+                              return PopupMenuItem<String>(
+                                value: labels[option],
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      labels[option],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomTheme.getColor('primary'),
                                       ),
-                                    ],
-                                  ),
-                                );
-                              }).toList();
-                            },
-                          ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList();
+                          },
                         ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              ReuseContainerList(
-                  userAuth: widget.userAuth,
-                  containers: filteredContainers,
-                  submitReport: handleSubmitReport),
-            ],
-          ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            ReuseContainerList(
+                userAuth: widget.userAuth,
+                containers: filteredContainers,
+                submitReport: handleSubmitReport),
+          ],
         ),
       ),
     );
