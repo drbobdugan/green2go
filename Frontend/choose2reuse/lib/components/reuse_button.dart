@@ -25,11 +25,17 @@ class ReuseButton extends StatelessWidget {
       padding: EdgeInsets.fromLTRB(left, top, right, bottom),
       child: buttonType == 'text'
           ? TextButton(
-              child: Text(text),
+              child: Text(
+                text,
+                textScaleFactor: 1,
+              ),
               onPressed: onPressed,
             )
           : ElevatedButton(
-              child: Text(text),
+              child: Text(
+                text,
+                textScaleFactor: 1,
+              ),
               onPressed: onPressed,
               style: buttonStyle,
             ),

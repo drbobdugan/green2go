@@ -6,7 +6,6 @@ class NewUser {
     firstName = '';
     middleName = '';
     lastName = '';
-    classYear = '';
     phoneNum = '';
   }
 
@@ -16,7 +15,6 @@ class NewUser {
   String firstName;
   String middleName;
   String lastName;
-  String classYear;
   String phoneNum;
 }
 
