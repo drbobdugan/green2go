@@ -123,9 +123,6 @@ tbogart@students.stonehill.edu,password,Terry,Bogart,2,,,false,Please enter a va
 tbogart@students.stonehill.edu,password,Terry,Bogart,2,1234567890,,false,Please enter a valid Middle Name
 tbogart@students.stonehill.edu,password,Terry,Bogart,2,1234567890,RegularUser,false,Please enter a valid Middle Name
 tbogart@students.stonehill.edu,password,Terry,Bogart,2,1234567890,RegularUser,false,Please enter a valid Middle Name
-tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,1234567890,,false,Please enter a valid Role
-tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,12345678901,,false,Please enter a valid Role
-tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,123456789012,,false,Please enter a valid Role
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,,,false,Please enter a valid Phone Number
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,,RegularUser,false,Please enter a valid Phone Number
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,,RegularUser,false,Please enter a valid Phone Number
@@ -138,8 +135,5 @@ tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,123456789,Regular
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,hello,,false,Please enter a valid Phone Number
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,hello,RegularUser,false,Please enter a valid Phone Number
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,hello,RegularUser,false,Please enter a valid Phone Number
-tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,1234567890,,false,Please enter a valid Role
-tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,1234567890,hello,false,Please enter a valid Role
-tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,1234567890,hello,false,Please enter a valid Role
 tbogart@students.stonehill.edu,password,Terry,Bogart,Milktoast,1234567890,RegularUser,true,true
 tbogart@students.stonehill.edu,password,Terry,Bogart,,1234567890,RegularUser,true,true
