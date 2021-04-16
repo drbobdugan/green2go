@@ -152,12 +152,9 @@ class AuthHandler:
             return json.dumps({"success" : False, "message" : str(e)})
         
         user=User()
-        
-        try:
-            user = self.userDao.selectUser(dic["email"])
-           
-        except:
-            return json.dumps({"success" : False, "message" : "Email does not correspond to user"})
+        user = self.userDao.selectUser(dic["email"])
+        if user[0] == False:
+            return json.dumps({"success" : user[0], "message": user[1]})
         authtime=user[1].authTime
         authtimets=datetime.strptime(authtime, f)
         timepassed=datetime.now()-authtimets

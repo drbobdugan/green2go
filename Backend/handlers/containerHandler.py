@@ -152,6 +152,8 @@ class ContainerHandler:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
         rel = self.relationdao.selectRelationship(dictOfUserAttrib["email"], dictOfUserAttrib["qrcode"])
+        if rel[0] is False:
+            return json.dumps({"success" : res[0], "message" : res[1]})
         relationship = rel[1]
         relDict = relationship.relationshipToDict()
         for key in dictOfUserAttrib:
