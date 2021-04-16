@@ -1,52 +1,7 @@
 tr:hover{
-  color:#9fd4b9;
+  color:aqua;
 }
 
 tr{
-  cursor:pointer;
-}
-
-th {
-  background-color: #4CAF50;
-  color: white;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-table, th,td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-table{
-  padding-top: 2px;
-}
-
-h1{
-  font-size: 24px;
-  font-style: bold;
-}
-
-.center {
-  margin-left: auto;
-  margin-right: auto;
-}
-
-div {
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
-
-.column {
-  float: left;
-  width: 33.33%;
-}
-
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+    cursor:pointer;
 }

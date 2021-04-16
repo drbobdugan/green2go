@@ -1,4 +1,3 @@
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../components/reuse_containerList.dart';
@@ -111,83 +110,79 @@ class _ContainerListPageState extends State<ContainerListPage> {
       );
     }
 
-    return FontScaleBlocker(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: UserAppBar(userAuth: widget.userAuth),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  ReuseLabel(
-                    text: ReuseStrings.containerListTitle,
-                    textStyle: CustomTheme.primaryLabelStyle(),
-                    top: 30,
-                    left: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ReuseLabel(
-                        text: ReuseStrings.filterBy,
-                        top: 30,
-                        textStyle:
-                            CustomTheme.secondaryLabelStyle(fontSize: 16.0),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-                        child: Container(
-                          height: 50.0,
-                          width: 50.0,
-                          decoration: BoxDecoration(
-                              color: CustomTheme.getColor('light'),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(50))),
-                          child: PopupMenuButton<String>(
-                            icon: const Icon(Icons.filter_alt,
-                                color: Colors.white),
-                            onSelected: (String value) {
-                              onFilter(value);
-                            },
-                            itemBuilder: (BuildContext context) {
-                              return items.map((FilterOptions option) {
-                                return PopupMenuItem<String>(
-                                  value: labels[option],
-                                  child: Row(
-                                    children: <Widget>[
-                                      Text(
-                                        labels[option],
-                                        textScaleFactor: 1,
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          color:
-                                              CustomTheme.getColor('primary'),
-                                        ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: UserAppBar(userAuth: widget.userAuth),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                ReuseLabel(
+                  text: ReuseStrings.containerListTitle,
+                  textStyle: CustomTheme.primaryLabelStyle(),
+                  top: 30,
+                  left: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ReuseLabel(
+                      text: ReuseStrings.filterBy,
+                      top: 30,
+                      textStyle:
+                          CustomTheme.secondaryLabelStyle(fontSize: 16.0),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+                      child: Container(
+                        height: 50.0,
+                        width: 50.0,
+                        decoration: BoxDecoration(
+                            color: CustomTheme.getColor('light'),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50))),
+                        child: PopupMenuButton<String>(
+                          icon:
+                              const Icon(Icons.filter_alt, color: Colors.white),
+                          onSelected: (String value) {
+                            onFilter(value);
+                          },
+                          itemBuilder: (BuildContext context) {
+                            return items.map((FilterOptions option) {
+                              return PopupMenuItem<String>(
+                                value: labels[option],
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                      labels[option],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomTheme.getColor('primary'),
                                       ),
-                                    ],
-                                  ),
-                                );
-                              }).toList();
-                            },
-                          ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }).toList();
+                          },
                         ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-              ReuseContainerList(
-                  userAuth: widget.userAuth,
-                  containers: filteredContainers,
-                  submitReport: handleSubmitReport),
-            ],
-          ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
+            ReuseContainerList(
+                userAuth: widget.userAuth,
+                containers: filteredContainers,
+                submitReport: handleSubmitReport),
+          ],
         ),
       ),
     );

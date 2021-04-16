@@ -19,8 +19,6 @@ from flask_cors import CORS
 from pusher_push_notifications import PushNotifications
 sys.path.insert(0, os.getcwd()+'/Email/')
 sys.path.insert(0, os.getcwd()+'/handlers/')
-sys.path.insert(0, os.getcwd()+'/Notifications/')
-from notificationHelper import NotificationHelper
 from emailServer import EmailManager
 from authHandler import AuthHandler
 from helperHandler import HelperHandler
@@ -41,13 +39,12 @@ authDao = AuthDao()
 locationDao=LocationDao()
 relationshipDao = RelationshipDAO()
 emailServer = EmailManager()
-notificationHelper = NotificationHelper()
 
 #handlers
 helperHandler = HelperHandler(emailServer)
 authHandler = AuthHandler(helperHandler)
 userHandler = UserHandler(helperHandler)
-containerHandler = ContainerHandler(helperHandler, notificationHelper)
+containerHandler = ContainerHandler(helperHandler)
 locationHandler = LocationHandler(helperHandler)
 
 #----------------------------User Methods --------------------------------
@@ -86,7 +83,7 @@ def updateContainer():
 
 @app.route('/checkoutContainer', methods=['POST'])
 def checkoutContainer():
-    return containerHandler.addRelationship(request, containerDao, relationshipDao)
+    return containerHandler.checkoutContainer(request, containerDao)
 
 @app.route('/getContainersForUser', methods = ['GET'])
 def getContainersForUser():
@@ -102,11 +99,7 @@ def checkinContainer():
 
 @app.route('/reportContainer', methods=['POST'])
 def reportContainer():
-    return containerHandler.addRelationship(request, containerDao, relationshipDao)
-
-@app.route('/undoReportContainer', methods=['DELETE'])
-def undoReportContainer():
-    return containerHandler.deleteRelationship(request, relationshipDao, True)
+    return containerHandler.updateRelationship(request, relationshipDao)
 
 @app.route('/getallContainers', methods=['GET'])
 def getallContainers():
@@ -155,14 +148,5 @@ def secretGetUser():
 def secretDeleteRelationship():
     return containerHandler.deleteRelationship(request, relationshipDao, False)
 
-@app.route('/secretAddUser', methods=['POST'])
-def secretAddUser():
-    return userHandler.addUser(request, userDao)
-
-@app.route('/secretCheckout', methods=['POST'])
-def secretCheckout():
-    return containerHandler.addRelationship(request, containerDao, relationshipDao)
-
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
-

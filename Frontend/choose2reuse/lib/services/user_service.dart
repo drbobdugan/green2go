@@ -35,6 +35,7 @@ class UserService {
           'middleName': user.middleName,
           'lastName': user.lastName,
           'phoneNum': user.phoneNum,
+          'classYear': user.classYear,
           'role': 'RegularUser'
         }));
     return resp;

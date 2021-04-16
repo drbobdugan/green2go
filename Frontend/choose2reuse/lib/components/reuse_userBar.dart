@@ -1,5 +1,4 @@
 import 'dart:math' as math;
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../services/navigation_service.dart';
@@ -86,7 +85,6 @@ class _UserAppBarState extends State<UserAppBar> {
                               color: CustomTheme.getColor('attention'))),
                     ),
                     Text(labels[choice],
-                        textScaleFactor: 1,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: CustomTheme.getColor('darkPrimary')))
