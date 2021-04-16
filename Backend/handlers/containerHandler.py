@@ -204,10 +204,10 @@ class ContainerHandler:
         return self.helperHandler.handleResponse(rel)
 
     def GetCountsforSite(self,request,relationshipDao,hasAuth):
-        relDict = None
+        rel1Dict = None
         keys=['email','auth_token']
         try:
-            relDict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+            rel1Dict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
         except Exception as e:
     
             return json.dumps({"success" : False, "message" : str(e)})
