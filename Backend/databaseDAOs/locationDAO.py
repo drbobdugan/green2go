@@ -51,7 +51,7 @@ class LocationDao(dao):
             if(myresult[0]==False):
                 return myresult 
             myresult2 = myresult[1][0] #myresult looks like (true,[(qrcode,des,lastpickup)])
-            location = Location(myresult2[0],myresult2[1],myresult2[2])
+            location = Location(myresult2[0],myresult2[1],myresult2[2],)
             return True, location
         except Exception as e:
             logging.error("Error in selectByLocationQRcode")
@@ -76,16 +76,17 @@ class LocationDao(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+
     def deleteLocation(self,location):
         try:
+            logging.info("Entering deleteLocation")
             myresult = self.checkFormatting(location)
             if(myresult[0] == False):
                 return myresult
             myresult = self.selectByLocationQRcode(location.location_qrcode)
             if(myresult[0]==False):
                 return myresult
-            logging.info("Entering deleteLocation")
-            sql = "DELETE FROM location WHERE location_qrcode = '" + location.getQRcode() + "'"
+            sql = "DELETE FROM location WHERE location_qrcode = '" + location.location_qrcode + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
@@ -93,5 +94,22 @@ class LocationDao(dao):
             return True, ""
         except Exception as e:
             logging.error("Error in deleteLocation")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    def updateContainers(self,location):
+        try:
+            logging.info("Entering updateContainers")
+            myresult = self.checkFormatting(location)
+            if(myresult[0] == False):
+                return myresult
+            sql = "UPDATE location SET containers = '" + str(location.containers) + "' where location_qrcode = '" + location.location_qrcode + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("updateContainers successful")
+            return True, ""
+        except Exception as e:
+            logging.error("Error in updateContainers")
             logging.error(str(e))
             return self.handleError(e)

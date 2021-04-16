@@ -11,7 +11,7 @@ class StudentService {
         jsonEncode(<String, String>{
           'email': auth.email,
           'qrcode': qrCode,
-          'status': 'Checked out',
+          'status': 'Checked Out',
           'auth_token': auth.token,
           'location_qrcode': 'None'
         }));

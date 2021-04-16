@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown_flutter/countdown_flutter.dart';
@@ -95,62 +96,64 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: UserAppBar(userAuth: widget.userAuth),
-      body: Padding(
-        padding: const EdgeInsets.all(50.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            ReuseLabel(
-              text: containerScanActive
-                  ? ReuseStrings.scanBeforeTimer
-                  : ReuseStrings.scanLocationMessage,
-              textStyle: CustomTheme.primaryLabelStyle(),
-              isCenter: false,
-            ),
-            if (containerScanActive)
-              CountdownFormatted(
-                duration: Duration(seconds: secondsRemaining),
-                onFinish: () {
-                  resetTimer(true);
-                },
-                builder: (BuildContext ctx, String remaining) {
-                  return ReuseLabel(
-                    text: remaining,
-                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 35),
-                    top: 25,
-                    bottom: 15,
-                  );
-                },
+    return FontScaleBlocker(
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: UserAppBar(userAuth: widget.userAuth),
+        body: Padding(
+          padding: const EdgeInsets.all(50.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              ReuseLabel(
+                text: containerScanActive
+                    ? ReuseStrings.scanBeforeTimer
+                    : ReuseStrings.scanLocationMessage,
+                textStyle: CustomTheme.primaryLabelStyle(),
+                isCenter: false,
               ),
-            if (!containerScanActive)
-              const Image(
-                image: AssetImage('assets/images/sample_qr_code.png'),
-              ),
-            ReuseButton(
-              text: containerScanActive
-                  ? ReuseStrings.scanContainerButtonText
-                  : ReuseStrings.scanLocationButtonText,
-              onPressed: () => containerScanActive
-                  ? scanContainerQRCode()
-                  : scanLocationQRCode(),
-              buttonStyle: CustomTheme.primaryButtonStyle(),
-              top: 20.0,
-            ),
-            ReuseErrorMessage(text: errorMessage),
-            if (containerScanActive)
+              if (containerScanActive)
+                CountdownFormatted(
+                  duration: Duration(seconds: secondsRemaining),
+                  onFinish: () {
+                    resetTimer(true);
+                  },
+                  builder: (BuildContext ctx, String remaining) {
+                    return ReuseLabel(
+                      text: remaining,
+                      textStyle: CustomTheme.primaryLabelStyle(fontSize: 35),
+                      top: 25,
+                      bottom: 15,
+                    );
+                  },
+                ),
+              if (!containerScanActive)
+                const Image(
+                  image: AssetImage('assets/images/sample_qr_code.png'),
+                ),
               ReuseButton(
-                text: ReuseStrings.resetReturnButtonText,
-                onPressed: () {
-                  resetTimer(false);
-                },
+                text: containerScanActive
+                    ? ReuseStrings.scanContainerButtonText
+                    : ReuseStrings.scanLocationButtonText,
+                onPressed: () => containerScanActive
+                    ? scanContainerQRCode()
+                    : scanLocationQRCode(),
                 buttonStyle: CustomTheme.primaryButtonStyle(),
                 top: 20.0,
-              )
-          ],
+              ),
+              ReuseErrorMessage(text: errorMessage),
+              if (containerScanActive)
+                ReuseButton(
+                  text: ReuseStrings.resetReturnButtonText,
+                  onPressed: () {
+                    resetTimer(false);
+                  },
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 20.0,
+                )
+            ],
+          ),
         ),
       ),
     );
