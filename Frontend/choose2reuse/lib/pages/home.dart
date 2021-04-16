@@ -97,7 +97,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void handleSubmitReport(int index, String message) {
-    widget.onSubmitReport(user.topContainers[index], message);
+    widget
+        .onSubmitReport(user.topContainers[index], message)
+        .then((APIResponse response) {
+      if (response.success) {
+        NavigationService(context: context).goHome(widget.userAuth);
+      }
+    });
   }
 
   void handleViewAll(BuildContext context) {

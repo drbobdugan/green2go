@@ -5,6 +5,7 @@ import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
+import '../services/navigation_service.dart';
 import '../services/student_service.dart';
 import '../static/container.dart';
 import '../static/custom_theme.dart';
@@ -97,7 +98,13 @@ class _ContainerListPageState extends State<ContainerListPage> {
   }
 
   void handleSubmitReport(int index, String message) {
-    widget.onSubmitReport(filteredContainers[index], message);
+    widget
+        .onSubmitReport(user.topContainers[index], message)
+        .then((APIResponse response) {
+      if (response.success) {
+        NavigationService(context: context).goHome(widget.userAuth);
+      }
+    });
     reFilter();
   }
 
