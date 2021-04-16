@@ -9,7 +9,7 @@ function Table (props) {
         const [containers, setContainers] = useState([])
         const [filteredContainers, setFilteredContainers] = useState([])
         const [selected, setSelected] = useState()
-
+        const [limit, setLimit] = useState(20)
         const history = useHistory();
 
         function routeChangeLocationCount() { 
@@ -29,7 +29,7 @@ function Table (props) {
         async function getContainers(email, authToken){
          var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
-         setFilteredContainers(response.data.data)
+         setFilteredContainers(response.data.data.slice(0,limit))
         }
         
         function filterByStatus(e) {
@@ -59,9 +59,22 @@ function Table (props) {
           }
         }
 
+        function toggleLimit(){
+          if(limit == 20){
+            setLimit(containers.length)
+            setFilteredContainers(containers)
+          }else{
+            setLimit(20)
+            setFilteredContainers(containers.slice(0,20))
+          }
+        }
+
         function filterBySearch(e) {
           var filter = e.target.value
-          console.log(filter)     
+          console.log(filter) 
+          if(filter === ""){
+            setFilteredContainers(containers.slice(0,limit))
+          }else{    
           setFilteredContainers(containers.filter(container => {
             if(container.location_qrcode != null && container.description != null){
             return(
@@ -105,19 +118,22 @@ function Table (props) {
                   }
           }))
         }
+        }
 
-        if(containers.length === 0 && props.location && props.location.state)
+        if(containers.length === 0 && props.location && props.location.state){
         getContainers(props.location.state.email,props.location.state.authToken)
-
+        }else if(!props.location || !props.location.state){
+          history.push("/login");
+        }
         return (
             <div className="App">
             <h1>All Container Transactions</h1>
-            <div class="row">
-              <div class="column"><button type="button" onClick={() => { routeChangeLocationCount() } }>Location Container Counts</button></div>
-              <div class="column"><table className="tableTotals" class="center">
+            <div className="row">
+              <div className="column"><button type="button" onClick={() => { routeChangeLocationCount() } }>Location Container Counts</button></div>
+              <div className="column"><table className="tableTotals" className="center">
               <thead>
                 <tr>
-                <th colspan="3">Totals</th>
+                <th colSpan="3">Totals</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,16 +150,18 @@ function Table (props) {
               </tbody>
             </table></div>
               
-              <div class="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status Counts</button></div>
+              <div className="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status Counts</button></div>
            </div>
             
             <br></br>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
+            <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input> 
             <br></br>
             <br></br>
             <br></br>
-            <table className="tableInfo" class="center">
+            <div className = "containertable">
+            <table className="centerone">
             <thead>
              <tr>
                <th>Email</th>
@@ -178,6 +196,7 @@ function Table (props) {
                ))}
                 </tbody>
              </table>
+             </div>
            </div>    
         )
 }
