@@ -51,7 +51,6 @@ class ReuseLabel extends StatelessWidget {
             )
           : Text(
               text,
-              textScaleFactor: 1,
               textAlign: isCenter ? TextAlign.center : TextAlign.left,
               style: textStyle,
             ),

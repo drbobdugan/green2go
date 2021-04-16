@@ -50,7 +50,7 @@ class unitTestLocationDAO(unittest.TestCase):
         self.assertEqual(msg,"Duplicate Entry")
 
     def testInsertLocationNoneType(self):
-        loc = Location(None,"Drop-off bin outside Testing Center","2021-01-01 01:01:01",0) 
+        loc = Location(None,"Drop-off bin outside Testing Center","2021-01-01 01:01:01") 
         self.dao = LocationDao()
 
         rc, insertLocation = self.dao.insertLocation(loc)
@@ -157,12 +157,6 @@ class unitTestLocationDAO(unittest.TestCase):
 
         rc, insertLocation = self.dao.insertLocation(loc)
         self.assertFalse(rc)
-
-        
-
-
-        
-
 
 if __name__ == '__main__':
     unittest.main()

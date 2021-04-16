@@ -16,7 +16,16 @@ class UserHandler:
         self.helperHandler = helperHandler
         self.userDao = UserDAO()
         self.authDao = AuthDao()
-        self.formats = {
+
+    def getUser(self, request, userDao, hasAuth):
+        keys = ["email"]
+        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=1)
+
+    def addUser(self, request, userDao):
+        dictOfUserAttrib = None
+        # keys to scape from request
+        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear']
+        formats = {
             'email' : {
                 "format":"([a-zA-Z0-9_.+-]+@+((students\.stonehill\.edu)|(stonehill\.edu))$)",
                 "error":"Email"
@@ -44,23 +53,17 @@ class UserHandler:
             'role': {
                 "format":"(RegularUser$)|(Admin$)",
                 "error":"Role"
+                },
+            'classYear': {
+                "format":"(19[0-9]{2}$)|(20[0-2]{1}[0-9]{1}$)",
+                "error":"Class Year"
                 }
             
         }
-
-    def getUser(self, request, userDao, hasAuth):
-        keys = ["email"]
-        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=1)
-
-    def addUser(self, request, userDao):
-        dictOfUserAttrib = None
-        # keys to scape from request
-        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role']
-        
         #generate authCode
         authCode=self.helperHandler.genAuthcode()
         try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=self.formats, hasAuth=False)
+            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=False)
             pas=self.helperHandler.encrypt_password(dictOfUserAttrib["password"])
             dictOfUserAttrib["password"]=pas
             dictOfUserAttrib['authCode'] = authCode
@@ -73,13 +76,13 @@ class UserHandler:
         user = User()
         user.dictToUser(dictOfUserAttrib)
         res = self.userDao.insertUser(user)
-        if(res[0] and "/secretAddUser" not in str(request)):
+        if(res[0]):
             self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
 
 
     def updateUser(self, request, userDao):
-        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'authCode', 'auth_token']
+        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'classYear', 'authCode', 'auth_token']
         return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=True, f=3)
 
     def deleteUser(self, request, userDao, hasAuth):
@@ -91,16 +94,13 @@ class UserHandler:
         dictOfUserAttrib = None
         request = data[0]
         keys = data[1]
-        formats=None
         t= "json"
         if f == 1:
             t= "args"
-        if f==3:
-            formats = self.formats
         if hasAuth is True and "auth_token" not in keys:
             keys.append('auth_token')
         try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=hasAuth, t=t)
+            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth, t=t)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         res = self.sort(userDao, dictOfUserAttrib, f)

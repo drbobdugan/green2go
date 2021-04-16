@@ -91,7 +91,6 @@ class _UserAppBarState extends State<UserAppBar> {
                               color: CustomTheme.getColor('attention'))),
                     ),
                     Text(labels[choice],
-                        textScaleFactor: 1,
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: CustomTheme.getColor('darkPrimary')))

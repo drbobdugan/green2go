@@ -1,4 +1,3 @@
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../components/reuse_label.dart';
@@ -60,6 +59,7 @@ class ReuseContainerList extends StatelessWidget {
                   text2: container.dataRowText2(),
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
+                  status: container.status,
                   onSubmitDialog: (String message) =>
                       submitReport(index, message)),
             );

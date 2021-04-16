@@ -13,13 +13,12 @@ from relationship import Relationship
 from container import Container
 class ContainerHandler:
 
-    def __init__(self, helperHandler, notificationHelper):
+    def __init__(self, helperHandler):
         self.helperHandler = helperHandler
         self.validCodes = self.helperHandler.extractQRCodesFromFile()
         self.validLocations = self.helperHandler.getValidLocationCodes()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
-        self.notificationHelper = notificationHelper
 
     def validateQRCode(self, dic):
         # make sure valid qrcode
@@ -68,51 +67,23 @@ class ContainerHandler:
         return self.helperHandler.handleResponse(res)
 
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
-    def addRelationship(self, request, containerDao, relationshipDAO):
+    def checkoutContainer(self, request, containerDao):
         userContainer = None
-        hasAuth = True
-        if "/checkoutContainer" in str(request):
-            keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
-        elif "/reportContainer" in str(request):
-            keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
-        elif "/secretCheckout" in str(request):
-            keys = ['email']
-            hasAuth = False
+        keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
         try:
-            userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
-            if "/secretCheckout" not in str(request):
-                self.validateQRCode(userContainer)
+            userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
+            self.validateQRCode(userContainer)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if "/checkoutContainer" in str(request):
-                userContainer['description'] = None
-                userContainer['active'] = "1"
-            elif "/reportContainer" in str(request):
-                userContainer['location_qrcode'] = None
-                userContainer['active'] = "0"
-            elif "/secretCheckout" in str(request):
-                userContainer['status'] = "Pending Return"
-                res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
-                print(res)
-                userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
-                userContainer['status'] = "Checked Out"
-                userContainer['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            userContainer['description'] = None
+            userContainer['active'] = "1"
         except Exception as e:
             #print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
-
-        # send notification
-        old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
-        if old_code[0] is True and "/reportContainer" not in str(request):
-            self.notificationHelper.sendNotification(old_code[1])
-
         relationship=Relationship()
         relationship.dictToRelationship(userContainer)
         print(relationship.relationshipToList())
         res = self.relationdao.insertRelationship(relationship)
         print(res)
-        if "/secretCheckout" in str(request):
-            res = self.relationdao.deleteRelationship(relationship)
-        print("here?")
         return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao, isSorted):
@@ -129,7 +100,7 @@ class ContainerHandler:
         if res[0] is True and isSorted is True:
             sortDict={
                 'All' : res[1],
-                'Checked_Out':[],
+                'Checked_out':[],
                 'Pending_Return':[],
                 'Verified_Return':[],
                 'Damaged_Lost':[]
@@ -142,12 +113,18 @@ class ContainerHandler:
 
     def updateRelationship(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
         dictOfUserAttrib = None
-        keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
+        if "/checkinContainer" in str(request):
+            keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
+        elif "/reportContainer" in str(request):
+            keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
             self.validateQRCode(dictOfUserAttrib)
-            self.validateLocation(dictOfUserAttrib['location_qrcode'])
+            if "/checkinContainer" in str(request):
+                self.validateLocation(dictOfUserAttrib['location_qrcode'])
             dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            if "/reportContainer" in str(request):
+                dictOfUserAttrib['active'] = "0"
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
@@ -161,13 +138,11 @@ class ContainerHandler:
         res = self.relationdao.updateRelationship(relationship)
         return self.helperHandler.handleResponse(res)
 
-
+#THIS METHOD IS EXCLUSIVELY FOR TESTING
     def deleteRelationship(self, request, relationshipDao, hasAuth):
         relDict = None
-        #auth_token not required for testing
+        #auth_token not required
         keys = ['email', 'qrcode']
-        if "/undoReportContainer" in str(request):
-            keys.append('auth_token')
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
             self.validateQRCode(relDict)
@@ -178,16 +153,13 @@ class ContainerHandler:
         if rel[0] is False:
             return self.helperHandler.handleResponse(rel)
         relationship = rel[1]
-        relDict = relationship.relationshipToDict()
-        if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
-            return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
         #delete relationship from table
         res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
 # to get all containers for admin
 
     def GetallRelationships(self,request,relationshipDao,hasAuth):
-        relDict = None
+        relaDict = None
         keys=['email','auth_token']
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
@@ -199,5 +171,3 @@ class ContainerHandler:
             return self.helperHandler.handleResponse(rel)
 
         return self.helperHandler.handleResponse(rel)
-
-        

@@ -17,3 +17,13 @@ class Location:
 
     def locationToDict(self):
         return {"location_qrcode": self.location_qrcode,"description": self.description,"lastPickip": self.lastPickup}
+        
+    def getQRcode(self):
+        return self.location_qrcode
+
+    def getDescription(self):
+        return self.description
+
+    def getLastPickup(self):
+        return self.lastPickup
+
