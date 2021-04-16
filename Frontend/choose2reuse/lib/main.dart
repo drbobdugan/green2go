@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/pages/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pusher_beams/pusher_beams.dart';
@@ -56,6 +57,8 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
           switch (settings.name) {
             case '/home':
               return HomePage(userAuth: settings.arguments as StudentAuth);
+            case '/profile':
+              return ProfilePage(userAuth: settings.arguments as StudentAuth);
             case '/login':
               return const LoginPage();
             case '/signup':

@@ -6,10 +6,11 @@ import '../services/navigation_service.dart';
 import '../static/custom_theme.dart';
 import '../static/student.dart';
 
-enum AppBarItems { Home, Checkout, Return, Logout }
+enum AppBarItems { Home, Profile, Checkout, Return, Logout }
 
 const List<AppBarItems> items = <AppBarItems>[
   AppBarItems.Home,
+  AppBarItems.Profile,
   AppBarItems.Checkout,
   AppBarItems.Return,
   AppBarItems.Logout
@@ -17,6 +18,7 @@ const List<AppBarItems> items = <AppBarItems>[
 
 const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
   AppBarItems.Home: Icons.home,
+  AppBarItems.Profile: Icons.account_circle,
   AppBarItems.Checkout: Icons.rotate_right_rounded,
   AppBarItems.Return: Icons.rotate_right_rounded,
   AppBarItems.Logout: Icons.logout
@@ -24,6 +26,7 @@ const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
 
 const Map<AppBarItems, String> labels = <AppBarItems, String>{
   AppBarItems.Home: 'Dashboard',
+  AppBarItems.Profile: 'Profile',
   AppBarItems.Checkout: 'Check Out Container',
   AppBarItems.Return: 'Return Container',
   AppBarItems.Logout: 'Log Out'
@@ -53,6 +56,9 @@ class _UserAppBarState extends State<UserAppBar> {
           .goToPage(C2RPages.returnContainer, widget.userAuth);
     } else if (choice == labels[AppBarItems.Logout]) {
       NavigationService(context: context).logout();
+    } else if (choice == labels[AppBarItems.Profile]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.profile, widget.userAuth);
     }
   }
 

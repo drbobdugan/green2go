@@ -19,6 +19,7 @@ class ReuseStrings {
   static String homepageTitle = 'Dashboard';
   static String signUpPageTitle = 'Sign Up';
   static String containerListTitle = 'Container History';
+  static String profilePageTitle = 'Profile';
 
   //field text
   static String emailField = 'Email';
