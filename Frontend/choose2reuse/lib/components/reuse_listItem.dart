@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/font_scale_blocker.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_label.dart';
 import '../static/container.dart';
@@ -30,7 +31,8 @@ class ListItem extends StatelessWidget {
         textStyle: CustomTheme.primaryLabelStyle(),
         isCenter: true,
       ),
-      content: SingleChildScrollView(
+      content: FontScaleBlocker(
+          child: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[
             ReuseLabel(
@@ -62,7 +64,7 @@ class ListItem extends StatelessWidget {
                   ))
           ],
         ),
-      ),
+      )),
       actions: <Widget>[
         ReuseButton(
           text: ReuseStrings.cancel,
