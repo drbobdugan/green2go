@@ -40,10 +40,6 @@ class UserHandler:
             'phoneNum': {
                 "format":"([0-9]{10}$)|([0-9]{11}$)|([0-9]{12}$)",
                 "error":"Phone Number"
-                },
-            'role': {
-                "format":"(RegularUser$)|(Admin$)",
-                "error":"Role"
                 }
             
         }
@@ -79,7 +75,7 @@ class UserHandler:
 
 
     def updateUser(self, request, userDao):
-        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'role', 'authCode', 'auth_token']
+        keys = ['email', 'password', 'firstName', 'lastName', 'middleName', 'phoneNum', 'auth_token']
         return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=True, f=3)
 
     def deleteUser(self, request, userDao, hasAuth):
