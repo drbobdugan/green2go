@@ -19,6 +19,7 @@ class ContainerHandler:
         self.validLocations = self.helperHandler.getValidLocationCodes()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
+        self.locationdao= LocationDao()
         self.notificationHelper = notificationHelper
 
     def validateQRCode(self, dic):
@@ -202,4 +203,17 @@ class ContainerHandler:
 
         return self.helperHandler.handleResponse(rel)
 
+    def GetCountsforSite(self,request,relationshipDao,hasAuth):
+        relDict = None
+        keys=['email','auth_token']
+        try:
+            relDict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+        except Exception as e:
+    
+            return json.dumps({"success" : False, "message" : str(e)})
         
+        sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1]}
+        rel=[True,sitedic]
+        if rel[0] is False:
+            return self.helperHandler.handleResponse(rel)
+        return self.helperHandler.handleResponse(rel)      

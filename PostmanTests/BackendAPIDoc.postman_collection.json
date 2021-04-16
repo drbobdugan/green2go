@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "faf90c5c-642a-4613-a370-099f4e913d1a",
+		"_postman_id": "109e5ab5-0418-43e9-a3ea-860003acbbe1",
 		"name": "BackendAPIDoc",
 		"description": "Use the Choose2Reuse Environment",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -963,56 +963,7 @@
 							]
 						}
 					},
-					"response": [
-						{
-							"name": "Update user infomation",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"updatedpassword\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"reus\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"43523\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/updateUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"updateUser"
-									]
-								}
-							},
-							"status": "INTERNAL SERVER ERROR",
-							"code": 500,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "290"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 24 Feb 2021 23:49:39 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
-						}
-					]
+					"response": []
 				},
 				{
 					"name": "Refresh Token",
@@ -2031,6 +1982,33 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Counts for website",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/getCounts?email=test0@students.stonehill.edu&auth_token= {{authTokenLoginTest0}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"getCounts"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								},
+								{
+									"key": "auth_token",
+									"value": " {{authTokenLoginTest0}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -2331,6 +2309,7 @@
 	],
 	"variable": [
 		{
+			"id": "8eb14234-9e1b-44bc-9d93-030ee7f031a6",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}
