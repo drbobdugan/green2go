@@ -50,6 +50,19 @@ class API {
     });
   }
 
+  static Future<APIResponse> patchResponse(String path, dynamic params) async {
+    return getURL().then((String url) async {
+      final Response response = await patch(
+        'http://$url/$path',
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: params,
+      );
+      return formatResponse(response);
+    });
+  }
+
   static Future<APIResponse> getResponse(String path) async {
     return getURL().then((String url) async {
       final Response response = await get('http://$url/$path');

@@ -42,7 +42,7 @@ class ListItem extends StatelessWidget {
               textStyle: CustomTheme.primaryLabelStyle(fontSize: 16.0),
               isCenter: true,
             ),
-            if (isUndo)
+            if (!isUndo)
               Container(
                   margin: const EdgeInsets.only(top: 20.0),
                   padding: const EdgeInsets.all(8.0),

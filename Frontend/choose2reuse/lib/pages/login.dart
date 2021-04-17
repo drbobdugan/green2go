@@ -23,10 +23,6 @@ class LoginPage extends StatefulWidget {
     return await UserService.logIn(user);
   }
 
-  Future<APIResponse> onGetUser(ExistingUser user, StudentAuth auth) async {
-    return await UserService.getUser(user, auth);
-  }
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }

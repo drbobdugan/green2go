@@ -1,36 +1,55 @@
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
+
+import '../components/font_scale_blocker.dart';
+import '../components/reuse_button.dart';
 import '../components/reuse_label.dart';
+import '../components/reuse_loading.dart';
 import '../components/reuse_textField.dart';
 import '../components/reuse_userBar.dart';
+import '../services/api.dart';
+import '../services/user_service.dart';
 import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
+import '../static/user.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key, @required this.userAuth}) : super(key: key);
 
   final StudentAuth userAuth;
 
+  Future<APIResponse> onGetUser() async {
+    return await UserService.getUser(userAuth);
+  }
+
+  Future<APIResponse> onUpdateUser(DetailedUser detailedUser) async {
+    return await UserService.updateUser(userAuth, detailedUser);
+  }
+
   @override
   _ProfilePageState createState() => _ProfilePageState();
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  StudentDetails user;
   final FocusNode firstNameNode = FocusNode();
   final FocusNode middleNameNode = FocusNode();
   final FocusNode lastNameNode = FocusNode();
   final FocusNode emailNode = FocusNode();
   final FocusNode phoneNumNode = FocusNode();
-  final FocusNode passwordNode = FocusNode();
-  final FocusNode confirmPasswordNode = FocusNode();
+
+  DetailedUser detailedUser;
 
   @override
   void initState() {
     super.initState();
 
-    user = StudentDetails(widget.userAuth);
+    widget.onGetUser().then((APIResponse response) {
+      if (response.success) {
+        setState(() {
+          detailedUser = DetailedUser(response.data);
+        });
+      }
+    });
   }
 
   void fieldNextFocus(
@@ -41,8 +60,29 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void onSaveProfile() {
+    widget.onUpdateUser(detailedUser).then((APIResponse response) {
+      if (response.success) {
+        setState(() {
+          detailedUser = DetailedUser(response.data);
+        });
+      }
+    });
+  }
+
+  void onChangePassword() {
+    // TO DO
+  }
+
   @override
   Widget build(BuildContext context) {
+    if (detailedUser == null) {
+      return const Scaffold(
+        backgroundColor: Colors.white,
+        body: ReuseLoading(),
+      );
+    }
+
     return FontScaleBlocker(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -67,11 +107,22 @@ class _ProfilePageState extends State<ProfilePage> {
                   bottom: 20.0,
                 ),
                 ReuseTextField(
+                  text: ReuseStrings.emailField,
+                  initialValue: detailedUser.email,
+                  node: emailNode,
+                  enabled: false,
+                  showClearButton: false,
+                  onFieldSubmitted: () {
+                    fieldNextFocus(context, emailNode, firstNameNode);
+                  },
+                ),
+                ReuseTextField(
                   text: ReuseStrings.firstNameField,
+                  initialValue: detailedUser.firstName,
                   node: firstNameNode,
                   onChanged: (String value) {
                     setState(() {
-                      user.firstName = value;
+                      detailedUser.firstName = value;
                     });
                   },
                   autofillHints: const <String>[AutofillHints.givenName],
@@ -82,10 +133,11 @@ class _ProfilePageState extends State<ProfilePage> {
                 ),
                 ReuseTextField(
                     text: ReuseStrings.middleNameField,
+                    initialValue: detailedUser.middleName,
                     node: middleNameNode,
                     onChanged: (String value) {
                       setState(() {
-                        user.middleName = value;
+                        detailedUser.middleName = value;
                       });
                     },
                     autofillHints: const <String>[AutofillHints.middleName],
@@ -95,10 +147,11 @@ class _ProfilePageState extends State<ProfilePage> {
                     }),
                 ReuseTextField(
                     text: ReuseStrings.lastNameField,
+                    initialValue: detailedUser.lastName,
                     node: lastNameNode,
                     onChanged: (String value) {
                       setState(() {
-                        user.lastName = value;
+                        detailedUser.lastName = value;
                       });
                     },
                     autofillHints: const <String>[AutofillHints.familyName],
@@ -107,10 +160,29 @@ class _ProfilePageState extends State<ProfilePage> {
                       fieldNextFocus(context, lastNameNode, emailNode);
                     }),
                 ReuseTextField(
-                  text: ReuseStrings.emailField,
-                  initialValue: widget.userAuth.email,
-                  enabled: false,
-                  showClearButton: false,
+                  text: ReuseStrings.phoneNumberField,
+                  initialValue: detailedUser.phoneNum,
+                  node: phoneNumNode,
+                  onChanged: (String value) {
+                    setState(() {
+                      detailedUser.phoneNum = value;
+                    });
+                  },
+                  autofillHints: const <String>[AutofillHints.telephoneNumber],
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.phone,
+                ),
+                ReuseButton(
+                  text: ReuseStrings.save,
+                  onPressed: onSaveProfile,
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 20.0,
+                ),
+                ReuseButton(
+                  text: ReuseStrings.changePassword,
+                  onPressed: onChangePassword,
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 20.0,
                 ),
               ],
             ),
