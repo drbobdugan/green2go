@@ -114,11 +114,11 @@ def undoReportContainer():
 
 @app.route('/getallContainers', methods=['GET'])
 def getallContainers():
-    return containerHandler.GetallRelationships(request,relationshipDao,True)
+    return containerHandler.GetRelationships(request,relationshipDao,True)
 
 @app.route("/getCounts",methods =['GET'])
 def getCounts():
-    return containerHandler.GetCountsforSite(request,relationshipDao,True)
+    return containerHandler.GetRelationships(request,relationshipDao,True)
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
