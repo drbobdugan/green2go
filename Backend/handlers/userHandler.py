@@ -146,7 +146,8 @@ class UserHandler:
                 raise Exception("User does not exist")
              user = res[1]
              userAttrib = user.userToDict()
-             self.helperHandler.check_encrypted_password(userDic['oldPass'], userAttrib['password'])#check if password is correct
+             if not self.helperHandler.check_encrypted_password(userDic['oldPass'], userAttrib['password']):
+                 raise Exception("Incorrect password")#check if password is correct
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)}) 
         userAttrib['password'] = newPass #set newPass as user Password
