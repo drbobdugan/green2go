@@ -28,7 +28,7 @@ class ContainerHandler:
         if res[0] == False:
             raise Exception('That is not a valid QR code.')
 
-    def validateLocation(self, location, locationdao):
+    def validateLocation(self, location):
         res = self.locationdao.selectByLocationQRcode(location)
         if res[0] == False:
             raise Exception('That is not a valid Location.')
