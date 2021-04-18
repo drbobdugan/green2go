@@ -5,6 +5,59 @@ from container import Container
 from DAO import dao
 class ContainerDAO(dao):
 
+
+    def totalContainersCheckedOut(self):
+        try:
+            logging.info("Entering totalCheckedOutContainers")
+            sql = "select email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Pending Return' and location.lastPickup < hascontainer.statusUpdateTime and location.location_qrcode = hascontainer.location_qrcode order by hascontainer.location_qrcode"
+            myresult = self.handleSQL(sql,True,None)
+            temp = []
+            for result in myresult[1]:
+                temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
+            return True, temp
+        except Exception as e:
+            logging.error("Error in totalCheckedOutContainers")
+            logging.error(str(e))
+            return self.handleError(e)
+
+            
+    def totalContainersInBins(self):
+        try:
+            logging.info("Entering totalContainersInBins")
+            sql = "select email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Pending Return' and location.lastPickup < hascontainer.statusUpdateTime and location.location_qrcode = hascontainer.location_qrcode order by hascontainer.location_qrcode"
+            myresult = self.handleSQL(sql,True,None)
+            temp = []
+            for result in myresult[1]:
+                temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2]),"location_qrcode":result[3]})
+            return True, temp
+        except Exception as e:
+            logging.error("Error in totalContainersInBins")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    def totalContainersInStock(self):
+        try:
+            logging.info("Entering totalContainersInStock")
+            sql = "select hascontainer.qrcode from hascontainer, location where hascontainer.status = 'Pending Return' and location.lastPickup > hascontainer.statusUpdateTime and location.location_qrcode = hascontainer.location_qrcode"
+            sql1 = "SELECT container.qrcode FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode WHERE hascontainer.qrcode IS NULL;"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            myresult1 = self.handleSQL(sql1,True,None)
+            if(myresult1[0] == False):
+                return myresult
+            temp = []
+            for result in myresult[1]:
+                temp.append({"qrcode":result[0]})
+            for result in myresult1[1]:
+                temp.append({"qrcode":result[0]})
+            return True, temp
+        except Exception as e:
+            logging.error("Error in totalContainersInStock")
+            logging.error(str(e))
+            return self.handleError(e)
+
+
     # CREATE CONTAINER
     def insertContainer(self,c):
         try:

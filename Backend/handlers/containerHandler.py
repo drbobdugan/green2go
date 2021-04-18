@@ -19,15 +19,18 @@ class ContainerHandler:
         self.validLocations = self.helperHandler.getValidLocationCodes()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
+        self.locationdao= LocationDao()
         self.notificationHelper = notificationHelper
 
-    def validateQRCode(self, dic):
+    def validateQRCode(self, qrcode):
         # make sure valid qrcode
-        if dic['qrcode'] not in self.validCodes:
+        res = self.containerdao.selectContainer(qrcode)
+        if res[0] == False:
             raise Exception('That is not a valid QR code.')
 
     def validateLocation(self, location):
-        if location not in self.validLocations:
+        res = self.locationdao.selectByLocationQRcode(location)
+        if res[0] == False:
             raise Exception('That is not a valid Location.')
 
     def addContainer(self, request, containerDao):
@@ -51,8 +54,6 @@ class ContainerHandler:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
             else:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-            if function == "insertContainer":
-                self.validateQRCode(containerDic)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         container=Container()
@@ -81,7 +82,7 @@ class ContainerHandler:
         try:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
             if "/secretCheckout" not in str(request):
-                self.validateQRCode(userContainer)
+                self.validateQRCode(userContainer['qrcode'])
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             if "/checkoutContainer" in str(request):
                 userContainer['description'] = None
@@ -145,7 +146,7 @@ class ContainerHandler:
         keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
-            self.validateQRCode(dictOfUserAttrib)
+            self.validateQRCode(dictOfUserAttrib['qrcode'])
             self.validateLocation(dictOfUserAttrib['location_qrcode'])
             dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         except Exception as e:
@@ -172,7 +173,7 @@ class ContainerHandler:
             keys.append('auth_token')
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
-            self.validateQRCode(relDict)
+            self.validateQRCode(relDict['qrcode'])
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #get relationship object based on email and qrcode
@@ -202,4 +203,17 @@ class ContainerHandler:
 
         return self.helperHandler.handleResponse(rel)
 
+    def GetCountsforSite(self,request,relationshipDao,hasAuth):
+        rel1Dict = None
+        keys=['email','auth_token']
+        try:
+            rel1Dict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+        except Exception as e:
+    
+            return json.dumps({"success" : False, "message" : str(e)})
         
+        sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1]}
+        rel=[True,sitedic]
+        if rel[0] is False:
+            return self.helperHandler.handleResponse(rel)
+        return self.helperHandler.handleResponse(rel)      

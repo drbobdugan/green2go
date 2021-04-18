@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../components/font_scale_blocker.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_containerCounts.dart';
 import '../components/reuse_containerList.dart';
@@ -120,7 +121,8 @@ class _HomePageState extends State<HomePage> {
       );
     }
 
-    return Scaffold(
+    return FontScaleBlocker(
+        child: Scaffold(
       backgroundColor: Colors.white,
       appBar: UserAppBar(userAuth: widget.userAuth),
       body: SizedBox(
@@ -157,6 +159,6 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-    );
+    ));
   }
 }

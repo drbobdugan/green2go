@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:pusher_beams/pusher_beams.dart';
 
+import '../components/font_scale_blocker.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
@@ -20,10 +21,6 @@ class LoginPage extends StatefulWidget {
 
   Future<APIResponse> onLogIn(ExistingUser user) async {
     return await UserService.logIn(user);
-  }
-
-  Future<APIResponse> onGetUser(ExistingUser user, StudentAuth auth) async {
-    return await UserService.getUser(user, auth);
   }
 
   @override
@@ -115,7 +112,8 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: Colors.white, body: ReuseLoading());
     }
 
-    return Scaffold(
+    return FontScaleBlocker(
+        child: Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(ReuseStrings.appName),
@@ -217,6 +215,6 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-    );
+    ));
   }
 }

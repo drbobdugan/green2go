@@ -126,6 +126,8 @@ class UserHandler:
             dic = user.userToDict()
             res = [True, dic]
         elif f == 3: #UPDATE: update dic, convert to user, and update user table
+            d['password']=self.helperHandler.encrypt_password(d["password"])
+            print(UserDic['password'])
             for key in d:
                 UserDic[key] = d[key]
             user.dictToUser(UserDic)
@@ -133,3 +135,22 @@ class UserHandler:
             res = [True, UserDic]
         return res
 
+    def changePassword(self, request, userDao):
+        userDic = None
+        keys = ['email', 'oldPass', 'newPass', 'auth_token']
+        try:
+             userDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys) 
+             newPass=self.helperHandler.encrypt_password(userDic["newPass"]) #hash new password
+             res = self.userDao.selectUser(userDic['email'])
+             if res[0] == False: #check if user exists
+                raise Exception("User does not exist")
+             user = res[1]
+             userAttrib = user.userToDict()
+             if not self.helperHandler.check_encrypted_password(userDic['oldPass'], userAttrib['password']):
+                 raise Exception("Incorrect password")#check if password is correct
+        except Exception as e:
+            return json.dumps({"success" : False, "message" :str(e)}) 
+        userAttrib['password'] = newPass #set newPass as user Password
+        user.dictToUser(userAttrib)
+        res = self.userDao.updateUser(user) #Convert to object and update the database
+        return self.helperHandler.handleResponse(res)

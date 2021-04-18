@@ -14,6 +14,8 @@ class ReuseStrings {
   static String submit = 'Submit';
   static String cancel = 'Cancel';
   static String yes = 'Yes';
+  static String save = 'Save';
+  static String changePassword = 'Change Password';
 
   //page titles
   static String homepageTitle = 'Dashboard';
