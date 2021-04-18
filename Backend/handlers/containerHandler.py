@@ -127,6 +127,13 @@ class ContainerHandler:
         #print(res)
         
         res[1].reverse()
+        damagedQR = []
+        for item in res[1]:
+            if item['status'] == "Damaged Lost":
+                damagedQR.append(item['qrcode'])
+            else:
+                if item['qrcode'] in damagedQR and item['status'] == "Checked Out":
+                    res[1].remove(item)
         if res[0] is True and isSorted is True:
             sortDict={
                 'All' : res[1],
