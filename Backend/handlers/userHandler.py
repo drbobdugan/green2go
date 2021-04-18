@@ -126,7 +126,8 @@ class UserHandler:
             dic = user.userToDict()
             res = [True, dic]
         elif f == 3: #UPDATE: update dic, convert to user, and update user table
-            UserDic['password']=self.helperHandler.encrypt_password(UserDic["password"])
+            d['password']=self.helperHandler.encrypt_password(d["password"])
+            print(UserDic['password'])
             for key in d:
                 UserDic[key] = d[key]
             user.dictToUser(UserDic)
