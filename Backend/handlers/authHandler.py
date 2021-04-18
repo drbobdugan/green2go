@@ -105,6 +105,8 @@ class AuthHandler:
         auth.dictToAuth(authDic)
         res = self.authDao.updateAuth(auth)
         auth = res[1]
+        if res[0] == False:
+            return json.dumps({"success" : res[0], "data" : res[1]})
         # return it
         return json.dumps({"success" : res[0], "data" : auth.authToDict()})
             
