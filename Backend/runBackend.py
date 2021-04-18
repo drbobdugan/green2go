@@ -67,6 +67,10 @@ def updateUser():
 def deleteUser():
     return userHandler.deleteUser(request, userDao, True)
 
+@app.route('/changePassword', methods=['PATCH'])
+def changePassword():
+    return userHandler.changePassword(request, userDao)
+
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
