@@ -67,6 +67,10 @@ def updateUser():
 def deleteUser():
     return userHandler.deleteUser(request, userDao, True)
 
+@app.route('/changePassword', methods=['PATCH'])
+def changePassword():
+    return userHandler.changePassword(request, userDao)
+
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
@@ -112,6 +116,9 @@ def undoReportContainer():
 def getallContainers():
     return containerHandler.GetallRelationships(request,relationshipDao,True)
 
+@app.route("/getCounts",methods =['GET'])
+def getCounts():
+    return containerHandler.GetCountsforSite(request,relationshipDao,True)
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
@@ -161,7 +168,7 @@ def secretAddUser():
 
 @app.route('/secretCheckout', methods=['POST'])
 def secretCheckout():
-    return containerHandler.checkoutTool(request, containerDao, relationshipDao)
+    return containerHandler.addRelationship(request, containerDao, relationshipDao)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')

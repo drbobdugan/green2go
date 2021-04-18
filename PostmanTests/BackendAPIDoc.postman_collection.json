@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7e9e9f7e-4eb3-49a4-9631-24772545a7b5",
+		"_postman_id": "109e5ab5-0418-43e9-a3ea-860003acbbe1",
 		"name": "BackendAPIDoc",
 		"description": "Use the Choose2Reuse Environment",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -141,54 +141,6 @@
 					},
 					"response": [
 						{
-							"name": "Duplicate Entry",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/addUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addUser"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "48"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 16:01:27 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Duplicate Entry\"\n}"
-						},
-						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "POST",
@@ -283,6 +235,54 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": false,\n    \"message\": \"Please enter a valid email.\"\n}"
+						},
+						{
+							"name": "Duplicate Entry",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"classYear\" : \"2021\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addUser",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addUser"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:01:27 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Duplicate Entry\"\n}"
 						}
 					]
 				},
@@ -619,54 +619,6 @@
 							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"GertCXbYWFJwVMdISuumIQ3THdlC25XjURVCleZjpm2XI\",\n        \"refresh_token\": \"gO2ATkprtAU4Wez37k9MDFydPAk71TzsCjQTtfEMvLWGK\",\n        \"expires_at\": \"2021-03-09 17:07:27\"\n    }\n}"
 						},
 						{
-							"name": "User Login Attempt W/O Completing Registration",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "72"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 09 Mar 2021 16:07:56 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Email not found, please try signing up.\"\n}"
-						},
-						{
 							"name": "Incorrect Password",
 							"originalRequest": {
 								"method": "POST",
@@ -713,6 +665,54 @@
 							],
 							"cookie": [],
 							"body": "{\"success\": false, \"message\": \"Incorrect password.\"}"
+						},
+						{
+							"name": "User Login Attempt W/O Completing Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:07:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Email not found, please try signing up.\"\n}"
 						}
 					]
 				},
@@ -778,100 +778,6 @@
 					},
 					"response": [
 						{
-							"name": "Invalid Token",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/getUser?email=test0@students.stonehill.edu&auth_token=qwert",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test0@students.stonehill.edu"
-										},
-										{
-											"key": "auth_token",
-											"value": "qwert"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "46"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:30:58 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid token\"\n}"
-						},
-						{
-							"name": "User Does Not Exist",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/getUser?email=test100@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test100@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "57"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Fri, 26 Feb 2021 16:44:34 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
-						},
-						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "GET",
@@ -919,6 +825,100 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"email\": \"test0@students.stonehill.edu\",\n        \"password\": \"password\",\n        \"firstName\": \"Test\",\n        \"lastName\": \"User\",\n        \"middleName\": \"\",\n        \"phoneNum\": \"1234567890\",\n        \"role\": \"reus\",\n        \"classYear\": \"2021\",\n        \"authCode\": \"zdmdLvqvBXqF\",\n        \"authTime\": \"2021-02-24 23:49:33\",\n        \"lastLogIn\": \"2021-02-24 23:49:33\"\n    }\n}"
+						},
+						{
+							"name": "User Does Not Exist",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/getUser?email=test100@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test100@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "57"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Fri, 26 Feb 2021 16:44:34 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
+						},
+						{
+							"name": "Invalid Token",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/getUser?email=test0@students.stonehill.edu&auth_token=qwert",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test0@students.stonehill.edu"
+										},
+										{
+											"key": "auth_token",
+											"value": "qwert"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "46"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Mar 2021 23:30:58 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Invalid token\"\n}"
 						}
 					]
 				},
@@ -946,7 +946,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"authCode\" : \"{{authCodeLoginTest0}}\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -963,56 +963,50 @@
 							]
 						}
 					},
-					"response": [
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"event": [
 						{
-							"name": "Update user infomation",
-							"originalRequest": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"updatedpassword\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"2\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"reus\",\n    \"classYear\" : 2021,\n    \"authCode\" : \"43523\",\n    \"authTime\" : \"\",\n    \"lastLogIn\": \"\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/updateUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"updateUser"
-									]
-								}
-							},
-							"status": "INTERNAL SERVER ERROR",
-							"code": 500,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "290"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Wed, 24 Feb 2021 23:49:39 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 3.2 Final//EN\">\n<title>500 Internal Server Error</title>\n<h1>Internal Server Error</h1>\n<p>The server encountered an internal error and was unable to complete your request. Either the server is overloaded or there is an error in the application.</p>"
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Successful Patch Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
 						}
-					]
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"oldPass\" : \"password\",\n    \"newPass\" : \"password2\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/changePassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"changePassword"
+							]
+						}
+					},
+					"response": []
 				},
 				{
 					"name": "Refresh Token",
@@ -1326,54 +1320,6 @@
 					},
 					"response": [
 						{
-							"name": "Duplicate Entry",
-							"originalRequest": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"001\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/addContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addContainer"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "48"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:52:07 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": false, \"message\": \"Duplicate Entry\"}"
-						},
-						{
 							"name": "Success",
 							"originalRequest": {
 								"method": "POST",
@@ -1420,6 +1366,54 @@
 							],
 							"cookie": [],
 							"body": "{\"success\": true, \"message\": \"\"}"
+						},
+						{
+							"name": "Duplicate Entry",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addContainer",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addContainer"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "48"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Mar 2021 23:52:07 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": false, \"message\": \"Duplicate Entry\"}"
 						}
 					]
 				},
@@ -1486,59 +1480,6 @@
 					},
 					"response": [
 						{
-							"name": "Success",
-							"originalRequest": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{baseUrl}}/getContainer?qrcode=001&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2&email=test0@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"getContainer"
-									],
-									"query": [
-										{
-											"key": "qrcode",
-											"value": "001"
-										},
-										{
-											"key": "auth_token",
-											"value": "IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2"
-										},
-										{
-											"key": "email",
-											"value": "test0@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "html",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/html; charset=utf-8"
-								},
-								{
-									"key": "Content-Length",
-									"value": "44"
-								},
-								{
-									"key": "Server",
-									"value": "Werkzeug/1.0.1 Python/3.6.9"
-								},
-								{
-									"key": "Date",
-									"value": "Tue, 02 Mar 2021 23:48:50 GMT"
-								}
-							],
-							"cookie": [],
-							"body": "{\"success\": true, \"data\": {\"qrcode\": \"001\"}}"
-						},
-						{
 							"name": "Entry Not Found",
 							"originalRequest": {
 								"method": "GET",
@@ -1590,6 +1531,59 @@
 							],
 							"cookie": [],
 							"body": "{\n    \"success\": false,\n    \"message\": \"Entry could not be found\"\n}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/getContainer?qrcode=001&auth_token=IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2&email=test0@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getContainer"
+									],
+									"query": [
+										{
+											"key": "qrcode",
+											"value": "001"
+										},
+										{
+											"key": "auth_token",
+											"value": "IYsct8Fdykz8ZgeL247uocFuooHYBMrEgqANglnP0zUL2"
+										},
+										{
+											"key": "email",
+											"value": "test0@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "44"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 02 Mar 2021 23:48:50 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": true, \"data\": {\"qrcode\": \"001\"}}"
 						}
 					]
 				},
@@ -1897,15 +1891,6 @@
 							"originalRequest": {
 								"method": "GET",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{baseUrl}}/getSortedContainers?email=test0@students.stonehill.edu&auth_token={{authTokenLoginTest0}}",
 									"host": [
@@ -2036,6 +2021,47 @@
 							],
 							"path": [
 								"checkinContainer"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Counts for website",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/getCounts?email=test0@students.stonehill.edu&auth_token={{authTokenLoginTest0}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"getCounts"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authTokenLoginTest0}}"
+								}
 							]
 						}
 					},
@@ -2340,7 +2366,6 @@
 	],
 	"variable": [
 		{
-			"id": "c17ff0f1-0740-447b-b2e2-2e89a5348aa1",
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
 		}

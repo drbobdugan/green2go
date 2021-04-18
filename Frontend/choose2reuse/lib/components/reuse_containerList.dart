@@ -1,11 +1,8 @@
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../components/reuse_label.dart';
 import '../components/reuse_listItem.dart';
 import '../components/reuse_loading.dart';
-import '../services/api.dart';
-import '../services/student_service.dart';
 import '../static/container.dart';
 import '../static/custom_theme.dart';
 import '../static/strings.dart';
@@ -60,6 +57,7 @@ class ReuseContainerList extends StatelessWidget {
                   text2: container.dataRowText2(),
                   text3: container.dataRowText3(),
                   colorID: container.dataRowColorID(),
+                  status: container.status,
                   onSubmitDialog: (String message) =>
                       submitReport(index, message)),
             );

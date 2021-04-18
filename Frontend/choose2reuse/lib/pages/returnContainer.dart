@@ -15,6 +15,8 @@ import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
 
+const int initial_timer_seconds = 300;
+
 class ReturnContainerPage extends StatefulWidget {
   const ReturnContainerPage({Key key, @required this.userAuth})
       : super(key: key);
@@ -40,7 +42,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   String errorMessage = '';
   bool containerScanActive = false;
   String locationQR = '';
-  int secondsRemaining = 300;
+  int secondsRemaining = initial_timer_seconds;
 
   @override
   void initState() {
@@ -70,6 +72,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
 
     setState(() {
       containerScanActive = false;
+      secondsRemaining = initial_timer_seconds;
       if (showMessage) {
         errorMessage = ReuseStrings.timerOutErrorMessage;
       }
@@ -82,13 +85,15 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
 
     if (startTime != null) {
       final DateTime parsed = DateTime.parse(startTime);
-      final DateTime invalidAt = parsed.add(const Duration(seconds: 300));
+      final DateTime invalidAt =
+          parsed.add(const Duration(seconds: initial_timer_seconds));
       if (DateTime.now().isAfter(invalidAt)) {
         resetTimer(false);
       } else {
         setState(() {
+          secondsRemaining = initial_timer_seconds -
+              DateTime.now().difference(parsed).inSeconds;
           containerScanActive = true;
-          secondsRemaining = DateTime.now().difference(parsed).inSeconds;
         });
       }
     }

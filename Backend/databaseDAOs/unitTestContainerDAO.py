@@ -70,6 +70,18 @@ class unitTestContainerDAO(unittest.TestCase):
         rc, selectContainer = self.dao.selectContainer(qrcode)
         self.assertTrue(rc)
         self.assertEqual(qrcode,selectContainer.qrcode)
+
+    def testTotalContainersCheckedOut(self):
+        rc, msg = self.dao.totalContainersCheckedOut()
+        self.assertTrue(rc)
+
+    def testTotalContainersInStock(self):
+        rc, msg = self.dao.totalContainersInStock()
+        self.assertTrue(rc)
+
+    def testTotalContainersInBins(self):
+        rc, msg = self.dao.totalContainersInBins()
+        self.assertTrue(rc)
     
     def testSelectContainerDoesntExist(self):
         """

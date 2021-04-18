@@ -19,15 +19,18 @@ class ContainerHandler:
         self.validLocations = self.helperHandler.getValidLocationCodes()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
+        self.locationdao= LocationDao()
         self.notificationHelper = notificationHelper
 
-    def validateQRCode(self, dic):
+    def validateQRCode(self, qrcode):
         # make sure valid qrcode
-        if dic['qrcode'] not in self.validCodes:
+        res = self.containerdao.selectContainer(qrcode)
+        if res[0] == False:
             raise Exception('That is not a valid QR code.')
 
     def validateLocation(self, location):
-        if location not in self.validLocations:
+        res = self.locationdao.selectByLocationQRcode(location)
+        if res[0] == False:
             raise Exception('That is not a valid Location.')
 
     def addContainer(self, request, containerDao):
@@ -51,8 +54,6 @@ class ContainerHandler:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
             else:
                 containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
-            if function == "insertContainer":
-                self.validateQRCode(containerDic)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         container=Container()
@@ -75,9 +76,13 @@ class ContainerHandler:
             keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
         elif "/reportContainer" in str(request):
             keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
+        elif "/secretCheckout" in str(request):
+            keys = ['email']
+            hasAuth = False
         try:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
-            self.validateQRCode(userContainer)
+            if "/secretCheckout" not in str(request):
+                self.validateQRCode(userContainer['qrcode'])
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             if "/checkoutContainer" in str(request):
                 userContainer['description'] = None
@@ -85,13 +90,20 @@ class ContainerHandler:
             elif "/reportContainer" in str(request):
                 userContainer['location_qrcode'] = None
                 userContainer['active'] = "0"
+            elif "/secretCheckout" in str(request):
+                userContainer['status'] = "Pending Return"
+                res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
+                print(res)
+                userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+                userContainer['status'] = "Checked Out"
+                userContainer['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         except Exception as e:
             #print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
 
         # send notification
         old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
-        if old_code[0] is True and "/checkoutContainer" in str(request):
+        if old_code[0] is True and "/reportContainer" not in str(request):
             self.notificationHelper.sendNotification(old_code[1])
 
         relationship=Relationship()
@@ -99,6 +111,9 @@ class ContainerHandler:
         print(relationship.relationshipToList())
         res = self.relationdao.insertRelationship(relationship)
         print(res)
+        if "/secretCheckout" in str(request):
+            res = self.relationdao.deleteRelationship(relationship)
+        print("here?")
         return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao, isSorted):
@@ -131,13 +146,15 @@ class ContainerHandler:
         keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
-            self.validateQRCode(dictOfUserAttrib)
+            self.validateQRCode(dictOfUserAttrib['qrcode'])
             self.validateLocation(dictOfUserAttrib['location_qrcode'])
             dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
         rel = self.relationdao.selectRelationship(dictOfUserAttrib["email"], dictOfUserAttrib["qrcode"])
+        if rel[0] is False:
+            return json.dumps({"success" : res[0], "message" : res[1]})
         relationship = rel[1]
         relDict = relationship.relationshipToDict()
         for key in dictOfUserAttrib:
@@ -156,7 +173,7 @@ class ContainerHandler:
             keys.append('auth_token')
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
-            self.validateQRCode(relDict)
+            self.validateQRCode(relDict['qrcode'])
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #get relationship object based on email and qrcode
@@ -186,26 +203,17 @@ class ContainerHandler:
 
         return self.helperHandler.handleResponse(rel)
 
-# checkout Container Tool
-    def checkoutTool(self, request, relationshipDao, hasAuth=False):
-        relDict = None
-        keys=['email']
+    def GetCountsforSite(self,request,relationshipDao,hasAuth):
+        rel1Dict = None
+        keys=['email','auth_token']
         try:
-            relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
+            rel1Dict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
         except Exception as e:
+    
             return json.dumps({"success" : False, "message" : str(e)})
-        relDict['status'] = "Pending Return"
-        res = self.relationdao.selectAllByStatus(relDict['email'], relDict['status'])
-        relDict = (res[1][len(res[1])-1]) # retrieves the most recent pending return
-        relDict['status'] = "Checked Out"
-        relDict['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        relationship = Relationship()
-        relationship.dictToRelationship(relDict)
-        res = self.relationdao.insertRelationship(relationship)
-        print(res)
-        if (res[0] is True):
-            res = self.relationdao.deleteRelationship(relationship)
-        print(res)
-
-        return self.helperHandler.handleResponse(res)
         
+        sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1]}
+        rel=[True,sitedic]
+        if rel[0] is False:
+            return self.helperHandler.handleResponse(rel)
+        return self.helperHandler.handleResponse(rel)      

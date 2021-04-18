@@ -11,6 +11,7 @@ class C2RPages {
   static const String checkoutContainer = '/checkoutContainer';
   static const String returnContainer = '/returnContainer';
   static const String containerList = '/containerList';
+  static const String profile = '/profile';
 }
 
 class NavigationService {

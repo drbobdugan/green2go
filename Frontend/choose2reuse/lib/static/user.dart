@@ -27,3 +27,21 @@ class ExistingUser {
   String email;
   String password;
 }
+
+class DetailedUser {
+  DetailedUser(dynamic value) {
+    email = value['email'] as String;
+    firstName = value['firstName'] as String;
+    middleName = value['middleName'] as String;
+    lastName = value['lastName'] as String;
+    phoneNum = value['phoneNum'] as String;
+    password = value['password'] as String;
+  }
+
+  String email;
+  String firstName;
+  String middleName;
+  String lastName;
+  String phoneNum;
+  String password;
+}

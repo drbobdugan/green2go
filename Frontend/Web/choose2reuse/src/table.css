@@ -34,6 +34,17 @@ h1{
   margin-right: auto;
 }
 
+.containertable{
+  max-height: 1000px;
+}
+
+.centerone {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
 div {
   padding-top: 10px;
   padding-bottom: 10px;

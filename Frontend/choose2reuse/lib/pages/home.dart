@@ -1,6 +1,6 @@
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
+import '../components/font_scale_blocker.dart';
 import '../components/reuse_button.dart';
 import '../components/reuse_containerCounts.dart';
 import '../components/reuse_containerList.dart';
@@ -24,8 +24,13 @@ class HomePage extends StatefulWidget {
     return await StudentService.getContainers(userAuth);
   }
 
-  Future<APIResponse> onSubmitReport(String qrCode, String report) async {
-    return await StudentService.reportContainer(userAuth, qrCode, report);
+  Future<APIResponse> onSubmitReport(
+      ReusableContainer container, String report) async {
+    if (container.status == ContainerStatus.DamagedLost) {
+      // ADD BACKEND CONNECTION
+    }
+    return await StudentService.reportContainer(
+        userAuth, container.qrCode, report);
   }
 
   @override
@@ -93,7 +98,13 @@ class _HomePageState extends State<HomePage> {
   }
 
   void handleSubmitReport(int index, String message) {
-    widget.onSubmitReport(user.topContainers[index].qrCode, message);
+    widget
+        .onSubmitReport(user.topContainers[index], message)
+        .then((APIResponse response) {
+      if (response.success) {
+        NavigationService(context: context).goHome(widget.userAuth);
+      }
+    });
   }
 
   void handleViewAll(BuildContext context) {
@@ -111,44 +122,43 @@ class _HomePageState extends State<HomePage> {
     }
 
     return FontScaleBlocker(
-      child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: UserAppBar(userAuth: widget.userAuth),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              ReuseLabel(
-                text: ReuseStrings.homepageTitle,
-                textStyle: CustomTheme.primaryLabelStyle(),
-                top: 30.0,
-                bottom: 20.0,
+        child: Scaffold(
+      backgroundColor: Colors.white,
+      appBar: UserAppBar(userAuth: widget.userAuth),
+      body: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            ReuseLabel(
+              text: ReuseStrings.homepageTitle,
+              textStyle: CustomTheme.primaryLabelStyle(),
+              top: 30.0,
+              bottom: 20.0,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 0.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: getContainerDataSmall(),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 0.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: getContainerDataSmall(),
-                ),
-              ),
-              ReuseContainerList(
-                  userAuth: widget.userAuth,
-                  containers: user.topContainers.take(5).toList(),
-                  submitReport: handleSubmitReport),
-              ReuseButton(
-                text: ReuseStrings.viewAllButtonText,
-                onPressed: () => handleViewAll(context),
-                buttonStyle: CustomTheme.primaryButtonStyle(),
-                bottom: MediaQuery.of(context).size.height * 0.04,
-              ),
-            ],
-          ),
+            ),
+            ReuseContainerList(
+                userAuth: widget.userAuth,
+                containers: user.topContainers.take(5).toList(),
+                submitReport: handleSubmitReport),
+            ReuseButton(
+              text: ReuseStrings.viewAllButtonText,
+              onPressed: () => handleViewAll(context),
+              buttonStyle: CustomTheme.primaryButtonStyle(),
+              bottom: MediaQuery.of(context).size.height * 0.04,
+            ),
+          ],
         ),
       ),
-    );
+    ));
   }
 }

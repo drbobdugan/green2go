@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 
 class ReuseTextField extends StatefulWidget {
-  const ReuseTextField(
-      {Key key,
-      @required this.text,
-      this.visible,
-      this.onChanged,
-      this.obscureText,
-      this.autofillHints,
-      this.keyboardType,
-      this.onFieldSubmitted,
-      this.textInputAction,
-      this.node})
-      : super(key: key);
+  const ReuseTextField({
+    Key key,
+    @required this.text,
+    this.initialValue,
+    this.visible,
+    this.onChanged,
+    this.obscureText,
+    this.autofillHints,
+    this.keyboardType,
+    this.onFieldSubmitted,
+    this.textInputAction,
+    this.node,
+    this.enabled = true,
+    this.showClearButton = true,
+  }) : super(key: key);
 
   final String text;
+  final String initialValue;
   final bool visible;
   final ValueChanged<String> onChanged;
   final bool obscureText;
@@ -23,6 +27,8 @@ class ReuseTextField extends StatefulWidget {
   final Function onFieldSubmitted;
   final TextInputAction textInputAction;
   final FocusNode node;
+  final bool enabled;
+  final bool showClearButton;
 
   void onTextChange(String value) {
     onChanged(value);
@@ -33,7 +39,7 @@ class ReuseTextField extends StatefulWidget {
 }
 
 class _ReuseTextFieldState extends State<ReuseTextField> {
-  final TextEditingController _controller = TextEditingController();
+  TextEditingController _controller;
 
   bool isValidInput() {
     return _controller.text != null && _controller.text != '';
@@ -42,6 +48,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
   @override
   void initState() {
     super.initState();
+    _controller = TextEditingController(text: widget.initialValue);
     _controller.addListener(() {
       if (isValidInput()) {
         widget.onTextChange(_controller.text);
@@ -64,18 +71,21 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
           child: TextFormField(
               controller: _controller,
               focusNode: widget.node,
+              enabled: widget.enabled,
               decoration: InputDecoration(
                   labelText: widget.text,
                   contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(bottom: 0.0),
-                    child: isValidInput()
-                        ? IconButton(
-                            onPressed: () => _controller.clear(),
-                            icon: const Icon(Icons.clear, size: 16.0),
-                          )
-                        : null,
-                  )),
+                  suffixIcon: widget.showClearButton
+                      ? Padding(
+                          padding: const EdgeInsets.only(bottom: 0.0),
+                          child: isValidInput()
+                              ? IconButton(
+                                  onPressed: () => _controller.clear(),
+                                  icon: const Icon(Icons.clear, size: 16.0),
+                                )
+                              : null,
+                        )
+                      : null),
               obscureText: widget.obscureText == true,
               autofillHints: widget.autofillHints ?? widget.autofillHints,
               keyboardType: widget.keyboardType ?? TextInputType.text,

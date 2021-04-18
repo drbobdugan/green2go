@@ -13,11 +13,15 @@ class ReuseStrings {
   static String useCamera = 'Use Camera';
   static String submit = 'Submit';
   static String cancel = 'Cancel';
+  static String yes = 'Yes';
+  static String save = 'Save';
+  static String changePassword = 'Change Password';
 
   //page titles
   static String homepageTitle = 'Dashboard';
   static String signUpPageTitle = 'Sign Up';
   static String containerListTitle = 'Container History';
+  static String profilePageTitle = 'Profile';
 
   //field text
   static String emailField = 'Email';
@@ -26,6 +30,7 @@ class ReuseStrings {
   static String firstNameField = 'First Name';
   static String middleNameField = 'Middle Name (Optional)';
   static String lastNameField = 'Last Name';
+  static String classYearField = 'Class Year (Optional)';
   static String phoneNumberField = 'Phone Number';
   static String enterValidationCodeField = 'Enter code here';
 
@@ -45,13 +50,15 @@ class ReuseStrings {
       'Please scan the QR code on the container before the timer runs out:';
   static String welcomeLabel = 'Welcome!';
   static String validationInstruction =
-      'Thank you for signing up for the Choose2Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.';
+      'Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.';
   static String filterBy = 'Filter By';
   static String lostOrDamagedQuestion =
       'Please provide details to report this container as lost or damaged.';
   static String lostOrDamagedTitle = 'Report a Container';
   static String lostOrDamagedPrompt = 'Enter your reasoning here';
   static String noContainers = 'No containers found.';
+  static String undoLostOrDamagedQuestion =
+      'Are you sure you want to undo marking this container as damaged/lost?';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';

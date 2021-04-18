@@ -52,10 +52,25 @@ class UserService {
     return null;
   }
 
-  static Future<APIResponse> getUser(
-      ExistingUser user, StudentAuth auth) async {
+  static Future<APIResponse> getUser(StudentAuth auth) async {
     final APIResponse resp = await API
-        .getResponse('getUser?email=${user.email}&auth_token=${auth.token}');
+        .getResponse('getUser?email=${auth.email}&auth_token=${auth.token}');
+    return resp;
+  }
+
+  static Future<APIResponse> updateUser(
+      StudentAuth auth, DetailedUser user) async {
+    final APIResponse resp = await API.patchResponse(
+        'updateUser',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'firstName': user.firstName,
+          'middleName': user.middleName,
+          'lastName': user.lastName,
+          'phoneNum': user.phoneNum,
+          'password': user.password,
+          'auth_token': auth.token,
+        }));
     return resp;
   }
 }
