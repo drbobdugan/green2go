@@ -9,7 +9,8 @@ def main():
     #testinsertRelationship()
     #testSelectByEmail()  
     #testUpdateAuth()
-    testUpdateRelationship()
+    #testUpdateRelationship()
+    testSelectPendingReturns()
     #testDeleteAuth()
 
 def testinsertRelationship():
@@ -24,4 +25,7 @@ def testinsertRelationship():
 def testUpdateRelationship():
     r = Relationship("ruthie_test@students.stonehill.edu","101010","Pending Return","2021-01-01 01:01:01",None)
     dao.updateRelationship(r)
+
+def testSelectPendingReturns():
+    dao.selectPendingReturns()
 main()

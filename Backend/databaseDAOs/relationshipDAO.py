@@ -161,6 +161,21 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+    def selectPendingReturns(self): 
+        try: 
+            logging.info("Entering selectPendingReturns")
+            sql = "SELECT * from hascontainer WHERE status = 'Pending Return' "
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            myresult = myresult[1]
+            logging.info("selectRelationship successful")
+            return True, myresult
+        except Exception as e:
+            logging.error("Error in selectPendingReturns")
+            logging.error(str(e))
+            return self.handleError(e)
+
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r):
         try:
