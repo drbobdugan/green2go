@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-do
 import Login from './login';
 import Table from './table';
 import StatusCount from './statusCount';
-import LocationCount from './locationCount';
 import React,{Component} from 'react';
 
 export default class App extends Component {
@@ -18,7 +17,6 @@ export default class App extends Component {
           <Route exact path= "/login" component={Login} />
           <Route exact path= "/table" component={Table} />
           <Route exact path= "/statusCount" component={StatusCount} />
-          <Route exact path= "/locationCount" component={LocationCount} />
         </Switch>
       </Router>
     </div>
