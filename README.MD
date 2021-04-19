@@ -11,7 +11,7 @@ This project was created by the Stonehill College 2020-21 Spring C.S. capstone. 
 6. [Web App Installation](#web)
 7. [Testing](#test)
 8. [Tools](#tools)
-9. [How is The Stack Currently Implmented?](#stack)
+9. [How is The Stack Currently Implemented?](#stack)
 10. [Contributors](#contribs)
 11. [ToDo](#todo)
 12. [Additional Information](#additional)
@@ -106,7 +106,7 @@ Insert more testing info here... <br/>
 
 Insert Tools info here <br/>
 
-## How is The Stack Currently Implmented? <a name="stack"></a>
+## How is The Stack Currently Implemented? <a name="stack"></a>
 
 Currently, the server we are using is an ubuntu instance hosted on a droplet at digitalocean, a hosting site. <br/>
 
