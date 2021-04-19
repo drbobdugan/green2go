@@ -5,10 +5,10 @@ This project was created by the Stonehill College 2020-21 Spring C.S. capstone. 
 ## Table of Contents
 1. [Project Dependancies](#depend)
 2. [Project Installation](#install)
-3. [Front-End Installation](#front)
+3. [Database Installation](#db)
 4. [Back-End Installation](#back)
-5. [Web App Installation](#web)
-6. [Database Installation](#db)
+5. [Front-End Installation](#front)
+6. [Web App Installation](#web)
 7. [Testing](#test)
 8. [Tools](#tools)
 9. [How is The Stack Currently Implmented?](#stack)
@@ -17,24 +17,26 @@ This project was created by the Stonehill College 2020-21 Spring C.S. capstone. 
 12. [Additional Information](#additional)
 
 ## Project Dependancies <a name="depend"></a>
+- Android Studio
+  - https://developer.android.com/studio
+- dart
+  - https://dart.dev/get-dart
+- flutter
+  - https://flutter.dev/docs/get-started/install
+- git
+  - https://git-scm.com/downloads
+- New Relic (optional)
+  - https://docs.newrelic.com/docs/using-new-relic/cross-product-functions/install-configure/install-new-relic/
 - nodejs
   - https://nodejs.org/en/download/
 - npm
   - https://www.npmjs.com/get-npm
-- dart
-  - https://dart.dev/get-dart
-- python3
-  - https://www.python.org/downloads/
 - pip3
   - https://pypi.org/project/pip/
-- git
-  - https://git-scm.com/downloads
-- flutter
-  - https://flutter.dev/docs/get-started/install
+- python3
+  - https://www.python.org/downloads/
 - vscode (optional)
   - https://code.visualstudio.com/
-- New Relic (optional)
-  - https://docs.newrelic.com/docs/using-new-relic/cross-product-functions/install-configure/install-new-relic/
 
 ## Project Installation <a name="install"></a>
 
@@ -47,16 +49,17 @@ cd green2go
 
 Result: Project folder is cloned to current working directory
 
-## Front-End Installation (flutter) <a name="front"></a>
+## Database Installation <a name="db"></a>
 
-To install/run:
 ```bash
-cd Frontend/choose2reuse
-flutter doctor
-flutter run
+# download and install mysql installer on ubuntu
+sudo apt install mysql-server
+# run mysql installation
+# Note: to keep this working with stack make sure its on port 3306
+sudo mysql_secure_installation
 ```
 
-Result: Opens testing/non-production build on an emulator
+Result: Sets up database
 
 ## Back-End Installation (python3/flask) <a name="back"></a>
 
@@ -80,17 +83,17 @@ npm start
 
 Result: Opens browser to a new tab at localhost:3000 where the web server is running
 
-## Database Installation <a name="db"></a>
 
+## Front-End Installation (flutter) <a name="front"></a>
+
+To install/run:
 ```bash
-# download and install mysql installer on ubuntu
-sudo apt install mysql-server
-# run mysql installation
-# Note: to keep this working with stack make sure its on port 3306
-sudo mysql_secure_installation
+cd Frontend/choose2reuse
+flutter doctor
+flutter run
 ```
 
-Result: Sets up database
+Result: Opens testing/non-production build on an emulator
 
 ## Testing <a name="test"></a>
 
