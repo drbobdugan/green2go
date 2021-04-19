@@ -3863,7 +3863,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4279,7 +4279,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n    \"firstName\" : \"\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -20347,12 +20347,6 @@
 											"});",
 											"",
 											"",
-											"var DamagedLost= JSON.parse(responseBody).data.Damaged_Lost;",
-											"var len = DamagedLost.length;",
-											"",
-											"pm.test(\"Damaged Lost Container DNE\", function () {",
-											"    pm.expect(len).to.equal(0);",
-											"});",
 											"",
 											"",
 											""
@@ -20983,12 +20977,7 @@
 											"});",
 											"",
 											"",
-											"var DamagedLost= JSON.parse(responseBody).data.Damaged_Lost;",
-											"var len = DamagedLost.length;",
 											"",
-											"pm.test(\"Damaged Lost Container DNE\", function () {",
-											"    pm.expect(len).to.equal(1);",
-											"});",
 											"",
 											"",
 											""
@@ -21661,12 +21650,6 @@
 											"});",
 											"",
 											"",
-											"var DamagedLost= JSON.parse(responseBody).data.Damaged_Lost;",
-											"var len = DamagedLost.length;",
-											"",
-											"pm.test(\"Damaged Lost Container DNE\", function () {",
-											"    pm.expect(len).to.equal(1);",
-											"});",
 											"",
 											"",
 											""
