@@ -23,23 +23,14 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
             
-    # CREATE RELATIONSHIP
-    def insertRelationship(self, r):
-        try:
 
-            myresult = self.checkStatus(r)
-            if(myresult[0] == False):
-                return myresult
-            
-            logging.info("Entering insertRelationship")
-            r.active = '1'
-            r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            result = r.relationshipToList()
-            # change the old person's pending return status to verified return
+    def changeOldRelationship(self,result):
+        try:
+            logging.info("Entering changeOldRelationship")
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
-                return myresult
+                   return myresult
             if(myresult[1] != [] and myresult[1] is not None):
                 oldEmail = myresult[1][0]
                 tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
@@ -50,6 +41,27 @@ class RelationshipDAO(dao):
                 tempR.status="Verified Return"
                 tempR.active = '0'
                 self.updateRelationship(tempR)
+        except Exception as e:
+            logging.error("Error in changeOldRelationship")
+            logging.error(str(e))
+            return self.handleError(e)
+        
+
+
+    # CREATE RELATIONSHIP
+    def insertRelationship(self, r):
+        try:
+            logging.error("Entering changeOldRelationship")
+            myresult = self.checkStatus(r)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("Entering insertRelationship")
+            r.active = '1'
+            r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            result = r.relationshipToList()
+            # change the old person's pending return status to verified return
+            if(r.status != "Damaged Lost"):
+                self.changeOldRelationship(result)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode,active,description) VALUES (%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
