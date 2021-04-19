@@ -946,7 +946,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"firstName\" : \"Testname\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2368,6 +2368,11 @@
 		{
 			"key": "baseUrl",
 			"value": "http://198.199.77.174:5000"
+		},
+		{
+			"key": "baseUrl",
+			"value": "localhost:5000",
+			"disabled": true
 		}
 	]
 }

@@ -79,7 +79,7 @@ class ContainerHandler:
     def reportContainer(self, userContainer):
         try:
             userContainer['location_qrcode'] = None
-            userContainer['active'] = "0"
+            userContainer['active'] = "1"
             self.validateQRCode(userContainer['qrcode'], False)
         except Exception as e:
             raise Exception(e)
@@ -91,6 +91,7 @@ class ContainerHandler:
             self.helperHandler.falseQueryCheck(res)
             userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
             userContainer['status'] = "Checked Out"
+            userCOntainer['active'] = "1"
         except Exception as e:
             raise Exception(e) 
 
@@ -169,6 +170,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
+        #change over to search by qrcode and active = 1
         rel = self.relationdao.selectRelationship(dictOfUserAttrib["email"], dictOfUserAttrib["qrcode"])
         if rel[0] is False:
             return json.dumps({"success" : res[0], "message" : res[1]})

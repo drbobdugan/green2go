@@ -21,7 +21,11 @@ class unitTestRelationshipDAO(unittest.TestCase):
         """
         r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None) # r is relationship object
         self.dao.deleteRelationship(r)
-        r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None,"1",None) # r is relationship object
+        r.status = "Verified Return"
+        self.dao.deleteRelationship(r)
+        r.status = "Damaged Lost"
+        self.dao.deleteRelationship(r)
+        r.status = "Pending Return"
         self.dao.deleteRelationship(r)
 
     # TEST CREATE RELATIONSHIP
@@ -142,24 +146,6 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
-    def testCheckoutDamageLost(self):
-        rc, msg = self.testInsertRelationshipSmoke()
-        self.assertTrue(rc)
-
-        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None)
-        r.status = "Damaged Lost"
-        r.description = "Snapped in half"
-        rc, updateRelationship = self.dao.updateRelationship(r)
-        self.assertTrue(rc)
-
-        r.status = "Checked Out"
-        rc, msg = self.dao.insertRelationship(r)
-        self.assertFalse(rc)
-        self.assertTrue(msg == "Container has been marked as Damaged Lost")
-
-        r.status = "Damaged Lost"
-        rc, msg = self.dao.deleteRelationship(r)
-        self.assertTrue(rc)
 
 
     # TEST DELETE RELATIONSHIP
@@ -297,18 +283,6 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         r = Relationship("test42@students.stonehill.edu","101010","WRONG STATUS","2021-01-01 01:01:01",None,"0","Pending Return")
-        rc, updateRelationship = self.dao.updateRelationship(r)
-        self.assertFalse(rc)
-
-    def testUpdateDamagedNoDescription(self):
-        """
-        Test that we cannot mark a container as damaged or lost without a description
-        """
-        
-        rc, msg = self.testInsertRelationshipSmoke()
-        self.assertTrue(rc)
-
-        r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None,"0",None)
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertFalse(rc)
         

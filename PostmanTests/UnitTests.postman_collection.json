@@ -3863,7 +3863,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4251,54 +4251,6 @@
 							"response": []
 						},
 						{
-							"name": "Update user infomation (Empty Password)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Unsuccessful Patch Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"false\");",
-											"});",
-											"",
-											"",
-											"pm.test(\"Reason: Invalid Password\" , function () {",
-											"    pm.expect(pm.response.text()).to.include(\"Please enter a valid Password\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/updateUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"updateUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Update user infomation (Empty First Name)",
 							"event": [
 								{
@@ -4327,7 +4279,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4375,7 +4327,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul12\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul12\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4423,7 +4375,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul!!\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul!!\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4471,7 +4423,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4519,7 +4471,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe1\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe1\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4567,7 +4519,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe!\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe!\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4615,7 +4567,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"Happy123\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"Happy123\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4663,7 +4615,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"Happy!!\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"Happy!!\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4711,7 +4663,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234sasdaa567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234sasdaa567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4759,7 +4711,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234@567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234@567890\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4807,7 +4759,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890123456\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890123456\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5222,7 +5174,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"Updatedpassword#1\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"1234567890\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"firstName\" : \"Paul\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"auth_token\" : \"1234567890\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -20395,12 +20347,6 @@
 											"});",
 											"",
 											"",
-											"var DamagedLost= JSON.parse(responseBody).data.Damaged_Lost;",
-											"var len = DamagedLost.length;",
-											"",
-											"pm.test(\"Damaged Lost Container DNE\", function () {",
-											"    pm.expect(len).to.equal(0);",
-											"});",
 											"",
 											"",
 											""
@@ -21031,12 +20977,7 @@
 											"});",
 											"",
 											"",
-											"var DamagedLost= JSON.parse(responseBody).data.Damaged_Lost;",
-											"var len = DamagedLost.length;",
 											"",
-											"pm.test(\"Damaged Lost Container DNE\", function () {",
-											"    pm.expect(len).to.equal(1);",
-											"});",
 											"",
 											"",
 											""
@@ -21709,12 +21650,6 @@
 											"});",
 											"",
 											"",
-											"var DamagedLost= JSON.parse(responseBody).data.Damaged_Lost;",
-											"var len = DamagedLost.length;",
-											"",
-											"pm.test(\"Damaged Lost Container DNE\", function () {",
-											"    pm.expect(len).to.equal(1);",
-											"});",
 											"",
 											"",
 											""
@@ -23743,12 +23678,13 @@
 	],
 	"variable": [
 		{
-			"key": "localHost",
-			"value": "localhost:5000"
+			"key": "baseUrl",
+			"value": "http://198.199.77.174:5000"
 		},
 		{
 			"key": "baseUrl",
-			"value": "http://198.199.77.174:5000"
+			"value": "localhost:5000",
+			"disabled": true
 		}
 	]
 }
