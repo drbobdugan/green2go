@@ -130,28 +130,7 @@ function Table (props) {
             <div className="App">
             <h1>All Container Transactions</h1>
             <div className="row">
-              <div className="column"><button type="button" onClick={() => { routeChangeLocationCount() } }>Location Container Counts</button></div>
-              <div><table className="tableTotals">
-              <thead>
-                <tr>
-                <th colSpan="3">Totals</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th>Checked Out</th>
-                  <th>Pending Return</th>
-                  <th>Verified Return</th>
-                </tr>
-                <tr>
-                <th>0</th>
-                <th>0</th>
-                <th>0</th>
-                </tr>
-              </tbody>
-            </table></div>
-              
-              <div className="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status Counts</button></div>
+              <div className="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status and Location Counts</button></div>
            </div>
             
             <br></br>
