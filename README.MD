@@ -3,12 +3,13 @@
 # Table of Contents
 1. [Project Dependancies](#depend)
 2. [Project Installation](#install)
-3. [Front-End](#front)
-4. [Back-End](#back)
-5. [Web](#web)
+3. [Front-End Installation](#front)
+4. [Back-End Installation](#back)
+5. [Web App Installation](#web)
 6. [Testing](#test)
 7. [Tools](#tools)
 8. [Contributors](#contribs)
+9. [ToDo](#todo)
 
 ## Project Dependancies <a name="depend"></a>
 - nodejs
@@ -31,37 +32,44 @@
 ## Project Installation <a name="install"></a>
 
 To install:
-- git clone https://github.com/drbobdugan/green2go.git
-- cd greeen2go
+```bash
+git clone https://github.com/drbobdugan/green2go.git
+cd greeen2go
+```
 
 
 Result: Project folder is cloned to current working directory
 
-## Front-End (flutter) <a name="front"></a>
+## Front-End Installation (flutter) <a name="front"></a>
 
 To install/run:
-- cd Frontend/choose2reuse
-- (The next steps assume you have flutter installed and have a emulator running/available)
-- flutter doctor
-- flutter run
+```bash
+cd Frontend/choose2reuse
+flutter doctor
+flutter run
+```
 
 Result: Opens testing/non-production build on an emulator
 
-## Back-End (python3/flask) <a name="back"></a>
+## Back-End Installation (python3/flask) <a name="back"></a>
 
 To install/run:
-- cd Backend
-- pip3 install -r requirements.txt
-- python3 runBackend.py
+```bash
+cd Backend
+pip3 install -r requirements.txt
+python3 runBackend.py
+```
 
 Result: Runs flask server on port 5000 in terminal
 
-## Web (nodejs/react) <a name="web"></a>
+## Web App Installation (nodejs/react) <a name="web"></a>
 
 To install/run:
-- cd Frontend/Web/choose2reuse
-- npm i
-- npm start
+```bash
+cd Frontend/Web/choose2reuse
+npm i
+npm start
+```
 
 Result: Opens browser to a new tab at localhost:3000 where the web server is running
 
@@ -70,6 +78,8 @@ Result: Opens browser to a new tab at localhost:3000 where the web server is run
 Insert testing info here
 
 ## Tools <a name="tools"></a>
+
+Insert Tools info here
 
 ## Contributors <a name="contribs"></a>
 - Pat O'Shea
@@ -88,3 +98,13 @@ Insert testing info here
 - Dylan Vieira
 - Thomas Hines
 - Mike Sale
+
+## TODO: <a name="todo"></a>
+
+- [X] Begin updating documentation
+- [ ] Make everyone aware of Documentation and ask them to update it
+- [ ] Make sure all dependencies are listed
+- [ ] Add testing info to documentation
+- [ ] Add tools info to documentation
+- [ ] Have someone test installation flow
+- [ ] Finalize documentation
