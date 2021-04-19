@@ -1,6 +1,8 @@
-This project was created by the Stonehill College 2020-21 Spring C.S. capstone. It contains the full-stack for the choose2reuse app.
+# choose2reuse
 
-# Table of Contents
+This project was created by the Stonehill College 2020-21 Spring C.S. capstone. It contains the full-stack for the choose2reuse application.
+
+## Table of Contents
 1. [Project Dependancies](#depend)
 2. [Project Installation](#install)
 3. [Front-End Installation](#front)
