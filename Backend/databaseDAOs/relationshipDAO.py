@@ -32,8 +32,8 @@ class RelationshipDAO(dao):
                 return myresult
             
             logging.info("Entering insertRelationship")
+            r.active = '1'
             r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    
             result = r.relationshipToList()
             # change the old person's pending return status to verified return
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status <> 'Verified Return' ORDER BY statusUpdateTime DESC"
@@ -44,10 +44,12 @@ class RelationshipDAO(dao):
                 oldEmail = myresult[1][0]
                 tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
                 if(tempR.status=="Damaged Lost"):
-                    return False, "Container has been marked as Damaged Lost"
-                if(result[2] != "Damaged Lost"):
-                    tempR.status="Verified Return"
-                    self.updateRelationship(tempR)
+                    tempR.description = ""
+                    #return False, "Container has been marked as Damaged Lost"
+                #if(result[2] != "Damaged Lost"):
+                tempR.status="Verified Return"
+                tempR.active = '0'
+                self.updateRelationship(tempR)
             sql = "INSERT INTO hascontainer (email,qrcode,status,statusUpdateTime,location_qrcode,active,description) VALUES (%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,result)
             if(myresult[0] == False):
@@ -179,9 +181,7 @@ class RelationshipDAO(dao):
     def selectActiveQRcode(self,qrcode):
         try: 
             logging.info("Entering selectActiveQRcode")
-            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "'" 
-            #sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and active = '1' "
-            #how do we select if the status is damaged lost because active = 0
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and active = '1' "
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
@@ -203,9 +203,8 @@ class RelationshipDAO(dao):
             logging.info("Entering updateRelationship")
             r.statusUpdateTime = (datetime.now() + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S') 
             result = r.relationshipToList()
-            #select by just qrcode and active status to find who the container belongs to
-            #then we update the container's owner status = "Pending Return"
-            sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
+            #sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and active = '1'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
@@ -213,10 +212,10 @@ class RelationshipDAO(dao):
             myresult = list(myresult)
             myresult[3] = str(myresult[3])
             r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4],myresult[5],myresult[6])
-            if(r1.status=="Damaged Lost"):
-                return False, "Container has been marked as Damaged Lost"
-            if(r.status == "Damaged Lost" and r.description == None):
-                return False, "Damaged Lost Container lacks description"
+            #if(r1.status=="Damaged Lost"):
+                #return False, "Container has been marked as Damaged Lost"
+            #if(r.status == "Damaged Lost" and r.description == None):
+                #return False, "Damaged Lost Container lacks description"
             sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "', active = '" + str(r.active)+ "', description = '" + str(r.description)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
