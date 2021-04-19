@@ -142,7 +142,7 @@ class UserHandler:
              userDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys) 
              newPass=self.helperHandler.encrypt_password(userDic["newPass"]) #hash new password
              res = self.userDao.selectUser(userDic['email'])
-             self.helperHandler.falseEntryCheck(res)
+             self.helperHandler.falseQueryCheck(res)
              user = res[1]
              userAttrib = user.userToDict()
              if not self.helperHandler.check_encrypted_password(userDic['oldPass'], userAttrib['password']):
