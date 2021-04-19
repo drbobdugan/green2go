@@ -119,6 +119,16 @@ class unitTestRelationshipDAO(unittest.TestCase):
 
         rc, testSelectAll = self.dao.selectAll()
         self.assertTrue(rc)
+        
+    def testSelectPendingReturns(self):
+        """
+        Test that we can select all tuples with status = "Pending Return" 
+        """
+        rc, msg = self.testInsertRelationshipSmoke()
+        self.assertTrue(rc)
+
+        rc, testSelectPendingReturns = self.dao.selectPendingReturns()
+        self.assertTrue(rc)
 
     # TEST UPDATE RELATIONSHIP
     def testUpdateRelationship(self):

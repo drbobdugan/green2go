@@ -161,8 +161,41 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+    def selectPendingReturns(self): 
+        try: 
+            logging.info("Entering selectPendingReturns")
+            sql = "SELECT * from hascontainer WHERE status = 'Pending Return' "
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            myresult = myresult[1]
+            logging.info("selectPendingReturns successful")
+            return True, myresult
+        except Exception as e:
+            logging.error("Error in selectPendingReturns")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    def selectActiveQRcode(self,qrcode):
+        try: 
+            logging.info("Entering selectActiveQRcode")
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "'" 
+            #sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and active = '1' "
+            #how do we select if the status is damaged lost because active = 0
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            myresult = myresult[1]
+            print(myresult)
+            logging.info("selectActiveQRcode successful")
+            return True, myresult
+        except Exception as e:
+            logging.error("Error in selectActiveQRcode")
+            logging.error(str(e))
+            return self.handleError(e)
+
     # UPDATE RELATIONSHIP
-    def updateRelationship(self,r):
+    def updateRelationship(self,r): 
         try:
             myresult = self.checkStatus(r)
             if(myresult[0] == False):
@@ -170,6 +203,8 @@ class RelationshipDAO(dao):
             logging.info("Entering updateRelationship")
             r.statusUpdateTime = (datetime.now() + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S') 
             result = r.relationshipToList()
+            #select by just qrcode and active status to find who the container belongs to
+            #then we update the container's owner status = "Pending Return"
             sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):

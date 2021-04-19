@@ -93,7 +93,6 @@ class ContainerHandler:
             elif "/secretCheckout" in str(request):
                 userContainer['status'] = "Pending Return"
                 res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
-                print(res)
                 userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
                 userContainer['status'] = "Checked Out"
                 userContainer['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -108,12 +107,9 @@ class ContainerHandler:
 
         relationship=Relationship()
         relationship.dictToRelationship(userContainer)
-        print(relationship.relationshipToList())
         res = self.relationdao.insertRelationship(relationship)
-        print(res)
         if "/secretCheckout" in str(request):
             res = self.relationdao.deleteRelationship(relationship)
-        print("here?")
         return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao, isSorted):
@@ -127,6 +123,12 @@ class ContainerHandler:
         #print(res)
         
         res[1].reverse()
+        damagedQR = []
+        for item in res[1]:
+            if item['status'] == "Damaged Lost":
+                damagedQR.append(item['qrcode'])
+            if item['qrcode'] in damagedQR and item['status'] == "Checked Out":
+                res[1].remove(item)
         if res[0] is True and isSorted is True:
             sortDict={
                 'All' : res[1],
@@ -189,31 +191,20 @@ class ContainerHandler:
         return self.helperHandler.handleResponse(res)
 # to get all containers for admin
 
-    def GetallRelationships(self,request,relationshipDao,hasAuth):
+    def GetRelationships(self,request,relationshipDao,hasAuth):
         relDict = None
         keys=['email','auth_token']
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
         except Exception as e:
-    
             return json.dumps({"success" : False, "message" : str(e)})
-        rel=self.relationdao.selectAll()
-        if rel[0] is False:
-            return self.helperHandler.handleResponse(rel)
-
-        return self.helperHandler.handleResponse(rel)
-
-    def GetCountsforSite(self,request,relationshipDao,hasAuth):
-        rel1Dict = None
-        keys=['email','auth_token']
-        try:
-            rel1Dict = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
-        except Exception as e:
-    
-            return json.dumps({"success" : False, "message" : str(e)})
-        
-        sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1]}
-        rel=[True,sitedic]
-        if rel[0] is False:
-            return self.helperHandler.handleResponse(rel)
+        if '/getallContainers' in str(request):
+            rel=self.relationdao.selectAll()
+            if rel[0] is False:
+                return self.helperHandler.handleResponse(rel)
+        elif '/getCounts' in str(request):
+            sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1],"Pending Returns":self.relationdao.selectPendingReturns()[1]}
+            rel=[True,sitedic]
+            if rel[0] is False:
+                return self.helperHandler.handleResponse(rel)
         return self.helperHandler.handleResponse(rel)      
