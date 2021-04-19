@@ -207,7 +207,7 @@ class ContainerHandler:
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
         elif '/getCounts' in str(request):
-            sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1]}
+            sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1],"Pending Returns":self.relationdao.selectPendingReturns()[1]}
             rel=[True,sitedic]
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
