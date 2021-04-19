@@ -136,3 +136,7 @@ class HelperHandler:
         return self.pwd_context.hash(password)
     def check_encrypted_password(self,password, hashed):
         return self.pwd_context.verify(password, hashed)
+
+    def falseQueryCheck(self, res):
+        if res[0] == False:
+            raise Exception(res[1])

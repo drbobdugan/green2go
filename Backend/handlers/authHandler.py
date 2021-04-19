@@ -30,13 +30,11 @@ class AuthHandler:
         dic = None
         try:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
-        except :
-            return json.dumps({"success" : False, "message" : "Please enter a valid code."})
-        user = User()
-        res = self.userDao.selectUser(dic["email"])
+            res = self.userDao.selectUser(dic["email"])
+            self.helperHandler.falseQueryCheck(res)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
         user = res[1]
-        if res[0] is False:
-            return json.dumps({"success" : False, "message" : "Email does not correspond to user"})
         userDic = user.userToDict()
         codefromtable=userDic["authCode"]
         authtime=userDic["authTime"]
@@ -79,25 +77,20 @@ class AuthHandler:
         keys = ["email", "password"]
         try:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
-        except:
-            return json.dumps({"success" : False, "message" : "Please enter an email and password."})
-        #get user
-        res = self.userDao.selectUser(dic["email"])
-        # if not succesful then return why
-        if res[0] is False:
-            return json.dumps({"success" : res[0], "message" : res[1]})
+            resUser = self.userDao.selectUser(dic["email"])
+            self.helperHandler.falseQueryCheck(resUser)
+            resAuth = self.authDao.selectByEmail(dic['email'])
+            self.helperHandler.falseQueryCheck(resAuth)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
         # handle login errors
-        user = res[1]
+        user = resUser[1]
         userDic = user.userToDict()
         errorRes = self.loginErrorHandler(userDic, dic)
-        print(errorRes)
         if errorRes is not None:
             return json.dumps({"success" : False, "message" : errorRes})
         # retrieve auth
-        res = self.authDao.selectByEmail(dic["email"])
-        if res[0] is False:
-            return json.dumps({"success" : res[0], "message" : res[1]})
-        auth = res[1]
+        auth = resAuth[1]
         # update the auth
         authDic = auth.authToDict()
         authDic["auth_token"] = self.helperHandler.id_generator(size=45)
@@ -105,8 +98,8 @@ class AuthHandler:
         auth.dictToAuth(authDic)
         res = self.authDao.updateAuth(auth)
         auth = res[1]
-        if res[0] == False:
-            return json.dumps({"success" : res[0], "data" : res[1]})
+        if type(auth) == str:
+            return json.dumps({"success" : res[0], "data" : auth})
         # return it
         return json.dumps({"success" : res[0], "data" : auth.authToDict()})
             
