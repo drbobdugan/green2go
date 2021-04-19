@@ -19,11 +19,9 @@ class LocationHandler:
         keys = ["qrcode",'email','auth_token']
         try:
             locationDic = self.helperHandler.handleRequestAndAuth(request, keys)
+            res = self.locationdao.selectByLocationQRcode(locationDic['qrcode'])
+            self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-       
-        print(locationDic)
-        res = self.locationdao.selectByLocationQRcode(locationDic['qrcode']) #need to get the method for database team 
-        if (type(res[1])==type(Location)):
-            res=res[0],res[1].locationToDict()
+        res=res[0],res[1].locationToDict()
         return self.helperHandler.handleResponse(res)
