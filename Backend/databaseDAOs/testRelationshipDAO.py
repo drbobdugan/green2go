@@ -10,7 +10,8 @@ def main():
     #testSelectByEmail()  
     #testUpdateAuth()
     #testUpdateRelationship()
-    testSelectPendingReturns()
+    #testSelectPendingReturns()
+    testSelectActiveQRcode()
     #testDeleteAuth()
 
 def testinsertRelationship():
@@ -28,4 +29,8 @@ def testUpdateRelationship():
 
 def testSelectPendingReturns():
     dao.selectPendingReturns()
+
+def testSelectActiveQRcode():
+    dao.selectActiveQRcode("958bbde6-c11a-49fb-9952-70d95ce2e277")
 main()
+
