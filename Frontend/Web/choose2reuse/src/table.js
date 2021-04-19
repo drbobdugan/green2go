@@ -14,12 +14,13 @@ function Table (props) {
 
         function routeChangeLocationCount() { 
         let path = `/locationCount`; 
-        history.push(path);
+        //*
+        history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
         }
         function routeChangeStatusCount() { 
           let path = `/statusCount`; 
-          history.push(path);
-          }
+          history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
+        }
 
         function select(container){
           console.log(container)
@@ -130,7 +131,7 @@ function Table (props) {
             <h1>All Container Transactions</h1>
             <div className="row">
               <div className="column"><button type="button" onClick={() => { routeChangeLocationCount() } }>Location Container Counts</button></div>
-              <div className="column"><table className="tableTotals" className="center">
+              <div><table className="tableTotals">
               <thead>
                 <tr>
                 <th colSpan="3">Totals</th>
