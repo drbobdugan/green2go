@@ -93,7 +93,6 @@ class ContainerHandler:
             elif "/secretCheckout" in str(request):
                 userContainer['status'] = "Pending Return"
                 res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
-                print(res)
                 userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
                 userContainer['status'] = "Checked Out"
                 userContainer['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -108,12 +107,9 @@ class ContainerHandler:
 
         relationship=Relationship()
         relationship.dictToRelationship(userContainer)
-        print(relationship.relationshipToList())
         res = self.relationdao.insertRelationship(relationship)
-        print(res)
         if "/secretCheckout" in str(request):
             res = self.relationdao.deleteRelationship(relationship)
-        print("here?")
         return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao, isSorted):
