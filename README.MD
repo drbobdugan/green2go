@@ -34,7 +34,7 @@
 To install:
 ```bash
 git clone https://github.com/drbobdugan/green2go.git
-cd greeen2go
+cd green2go
 ```
 
 
