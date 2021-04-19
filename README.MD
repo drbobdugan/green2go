@@ -1,3 +1,5 @@
+This project was created by the Stonehill College 2020-21 Spring C.S. capstone. It contains the full-stack for the choose2reuse app.
+
 # Table of Contents
 1. [Project Dependancies](#depend)
 2. [Project Installation](#install)
@@ -7,9 +9,10 @@
 6. [Database Installation](#db)
 7. [Testing](#test)
 8. [Tools](#tools)
-9. [Contributors](#contribs)
-10. [ToDo](#todo)
-11. [Additional Information](#additional)
+9. [How is The Stack Currently Implmented?](#stack)
+10. [Contributors](#contribs)
+11. [ToDo](#todo)
+12. [Additional Information](#additional)
 
 ## Project Dependancies <a name="depend"></a>
 - nodejs
@@ -28,6 +31,8 @@
   - https://flutter.dev/docs/get-started/install
 - vscode (optional)
   - https://code.visualstudio.com/
+- New Relic (optional)
+  - https://docs.newrelic.com/docs/using-new-relic/cross-product-functions/install-configure/install-new-relic/
 
 ## Project Installation <a name="install"></a>
 
@@ -76,18 +81,83 @@ Result: Opens browser to a new tab at localhost:3000 where the web server is run
 ## Database Installation <a name="db"></a>
 
 ```bash
-
+# download and install mysql installer on ubuntu
+sudo apt install mysql-server
+# run mysql installation
+# Note: to keep this working with stack make sure its on port 3306
+sudo mysql_secure_installation
 ```
 
 Result: Sets up database
 
 ## Testing <a name="test"></a>
 
-Insert testing info here
+
+Testing schedule: https://docs.google.com/spreadsheets/d/1pLRcGYRma7AQFMuWo2ZMpMzEH3oFvBu0_HslGrhkKto/edit#gid=0 <br/>
+<br/>
+Insert more testing info here... <br/>
 
 ## Tools <a name="tools"></a>
 
-Insert Tools info here
+Insert Tools info here <br/>
+
+## How is The Stack Currently Implmented? <a name="stack"></a>
+
+Currently, the server we are using is an ubuntu instance hosted on a droplet at digitalocean, a hosting site. <br/>
+
+Open Ports (That I'm aware of): <br/>
+- 5000 (flask)
+- 5001 (tools)
+- 22 (ssh)
+- 3306 (mysql)
+
+Make sure the ubuntu vm stays up to date for security reasons:
+```bash
+# download updates
+sudo apt update
+# install updates (moat likely need to agree)
+sudo apt upgrade
+```
+
+<br/>
+The mysql server is running as a service:
+
+```bash
+# to start
+sudo service mysql start
+# to stop
+sudo service mysql stop
+# to restart
+sudo service mysql restart
+```
+
+The flask server is running as two processes (One logging and the other handling):
+
+```bash
+# to check if the server is running/list pids
+lsof -i:5000 -t
+# to kill the server and all instances based on port
+kill -9 $(lsof -i:5000 -t)
+# to start the backend and leave it running when you disconnect
+cd Backend
+# start server (w/o new relic)
+nohup python3 runBackend.py &
+  or
+# start with new relic
+NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program nohup python3 /root/green2go/Backend/runBackend.py &
+```
+
+Automatic updates to backend/web app and slack alerts:<br/>
+There is a file called pull.py currently located in /root/pull/ that controls slack alerts and controls anything on port 5001.
+```bash
+# to check if the server is running/list pids
+lsof -i:5001 -t
+# to kill the server and all instances based on port
+kill -9 $(lsof -i:5001 -t)
+# to start
+cd /root/pull/
+nohup python3 pull.py &
+```
 
 ## Contributors <a name="contribs"></a>
 - Pat O'Shea
@@ -111,7 +181,7 @@ Insert Tools info here
 ## TODO: <a name="todo"></a>
 
 - [X] Begin updating documentation
-- [ ] Make everyone aware of Documentation and ask them to update it
+- [X] Make everyone aware of Documentation and ask them to update it
 - [ ] Make sure all dependencies are listed
 - [ ] Add database setup to documentation along with sql files to create database
 - [ ] Add testing info to documentation
@@ -122,7 +192,7 @@ Insert Tools info here
 
 ## Additional Info. <a name="additional"></a>
 Server ip: 198.199.77.174 <br/>
-Follow Progress at: https://www.pivotaltracker.com/n/projects/2487958 <br/>
+Follow progress at: https://www.pivotaltracker.com/n/projects/2487958 <br/>
 Server logs: http://198.199.77.174:5001/server <br/>
 Restart Backend: http://198.199.77.174:5001/server <br/>
 Restart Database: http://198.199.77.174:5001/server <br/>
