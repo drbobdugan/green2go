@@ -48,12 +48,12 @@ class ContainerHandler:
     #function values 0->add 1->get 2->delete
     def containerCRUDS(self, request, containerDao, function):
         containerDic = None
+        t = "json"
         keys = ["qrcode","auth_token", "email"]
+        if function == ("selectContainer" or "updateContainer"):
+            t = "args"
         try:
-            if function == ("selectContainer" or "updateContainer"):
-                containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = "args", hasAuth=True)
-            else:
-                containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=True)
+            containerDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t = t, hasAuth=True)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         container=Container()
@@ -68,46 +68,61 @@ class ContainerHandler:
             res= res[0],res[1].containerToDict()
         return self.helperHandler.handleResponse(res)
 
+    def checkoutContainer(self, userContainer):
+        try:
+            self.validateQRCode(userContainer['qrcode'], False)
+            userContainer['description'] = None
+            userContainer['active'] = "1"
+        except Exception as e:
+            raise Exception(e)
+
+    def reportContainer(self, userContainer):
+        try:
+            userContainer['location_qrcode'] = None
+            userContainer['active'] = "0"
+            self.validateQRCode(userContainer['qrcode'], False)
+        except Exception as e:
+            raise Exception(e)
+
+    def secretCheckout(self, userContainer):
+        try:
+            userContainer['status'] = "Pending Return"
+            res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
+            self.helperHandler.falseQueryCheck(res)
+            userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+            userContainer['status'] = "Checked Out"
+        except Exception as e:
+            raise Exception(e) 
+
+
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
     def addRelationship(self, request, containerDao, relationshipDAO):
         userContainer = None
         hasAuth = True
         if "/checkoutContainer" in str(request):
-            keys=['email','qrcode','status','auth_token','location_qrcode'] # ask the database team if they are check for pendings that will switch to returned for older user
+            keys = ['email', 'qrcode', 'status', 'auth_token', 'location_qrcode']
+            func = "self.checkoutContainer(userContainer)" # ask the database team if they are check for pendings that will switch to returned for older user
         elif "/reportContainer" in str(request):
             keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
+            func = "self.reportContainer(userContainer)"
         elif "/secretCheckout" in str(request):
             keys = ['email']
+            func = "self.secretCheckout(userContainer)"
             hasAuth = False
         try:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
-            if "/secretCheckout" not in str(request):
-                self.validateQRCode(userContainer['qrcode'], False)
+            eval(func)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            if "/checkoutContainer" in str(request):
-                userContainer['description'] = None
-                userContainer['active'] = "1"
-            elif "/reportContainer" in str(request):
-                userContainer['location_qrcode'] = None
-                userContainer['active'] = "0"
-            elif "/secretCheckout" in str(request):
-                userContainer['status'] = "Pending Return"
-                res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
-                userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
-                userContainer['status'] = "Checked Out"
-                userContainer['statusUpdateTime'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
+            relationship=Relationship()
+            relationship.dictToRelationship(userContainer)
+            res = self.relationdao.insertRelationship(relationship)
+            self.helperHandler.falseQueryCheck(res)
         except Exception as e:
-            #print(str(e))
             return json.dumps({"success" : False, "message" : str(e)})
-
         # send notification
-        old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
         if old_code[0] is True and "/reportContainer" not in str(request):
             self.notificationHelper.sendNotification(old_code[1])
-
-        relationship=Relationship()
-        relationship.dictToRelationship(userContainer)
-        res = self.relationdao.insertRelationship(relationship)
         if "/secretCheckout" in str(request):
             res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
