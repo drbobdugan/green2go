@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:pusher_beams/pusher_beams.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'pages/changePassword.dart';
 import 'pages/checkoutContainer.dart';
 import 'pages/containerList.dart';
 import 'pages/home.dart';
@@ -73,6 +74,9 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
                   userAuth: settings.arguments as StudentAuth);
             case '/containerList':
               return ContainerListPage(
+                  userAuth: settings.arguments as StudentAuth);
+            case '/changePassword':
+              return ChangePasswordPage(
                   userAuth: settings.arguments as StudentAuth);
             default:
               break;

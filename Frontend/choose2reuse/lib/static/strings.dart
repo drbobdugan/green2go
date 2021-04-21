@@ -22,6 +22,7 @@ class ReuseStrings {
   static String signUpPageTitle = 'Sign Up';
   static String containerListTitle = 'Container History';
   static String profilePageTitle = 'Profile';
+  static String changePasswordPageTitle = 'Change Password';
 
   //field text
   static String emailField = 'Email';
@@ -33,6 +34,9 @@ class ReuseStrings {
   static String classYearField = 'Class Year (Optional)';
   static String phoneNumberField = 'Phone Number';
   static String enterValidationCodeField = 'Enter code here';
+  static String currentPasswordField = 'Current Password';
+  static String newPasswordField = 'New Password';
+  static String confirmNewPasswordField = 'Confirm New Password';
 
   //textButton text
   static String rememberPassword = 'Remember me';
@@ -50,7 +54,7 @@ class ReuseStrings {
       'Please scan the QR code on the container before the timer runs out:';
   static String welcomeLabel = 'Welcome!';
   static String validationInstruction =
-      'Thank you for signing up for the Choose 2 Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.';
+      'Thank you for signing up for the Choose2Reuse App! We’ve sent a code to the email that you’ve provided. Please enter the code to verify your email address. The code will expire in 5 minutes.';
   static String filterBy = 'Filter By';
   static String lostOrDamagedQuestion =
       'Please provide details to report this container as lost or damaged.';
@@ -59,9 +63,11 @@ class ReuseStrings {
   static String noContainers = 'No containers found.';
   static String undoLostOrDamagedQuestion =
       'Are you sure you want to undo marking this container as damaged/lost?';
+  static String changePassSuccess = 'Password changed successfully';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';
   static String invalidCodeErrorMessage = 'Please enter a valid code.';
   static String emptyEmailErrorMessage = 'Please enter an email address.';
+  static String passMismatchErrorMessage = 'New password fields do not match.';
 }
