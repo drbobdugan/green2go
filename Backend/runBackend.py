@@ -108,7 +108,7 @@ def checkinContainer():
 def reportContainer():
     return containerHandler.addRelationship(request, containerDao, relationshipDao)
 
-@app.route('/undoReportContainer', methods=['DELETE'])
+@app.route('/undoReportContainer', methods=['POST'])
 def undoReportContainer():
     return containerHandler.deleteRelationship(request, relationshipDao, True)
 

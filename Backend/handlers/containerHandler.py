@@ -167,17 +167,17 @@ class ContainerHandler:
             self.validateQRCode(dictOfUserAttrib['qrcode'], False)
             self.validateQRCode(dictOfUserAttrib['location_qrcode'], True)
             dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            rel = self.relationdao.selectActiveQRcode(dictOfUserAttrib["qrcode"])
+            self.helperHandler.falseQueryCheck(rel)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
         #change over to search by qrcode and active = 1
-        rel = self.relationdao.selectRelationship(dictOfUserAttrib["email"], dictOfUserAttrib["qrcode"])
-        if rel[0] is False:
-            return json.dumps({"success" : res[0], "message" : res[1]})
-        relationship = rel[1]
+        relationship = Relationship()
+        relationship.listToRelationship(rel[1][0])
         relDict = relationship.relationshipToDict()
         for key in dictOfUserAttrib:
-            if key != "auth_token":
+            if key != "auth_token" and key != "email":
                 relDict[key] = dictOfUserAttrib[key]
         relationship.dictToRelationship(relDict)
         res = self.relationdao.updateRelationship(relationship)

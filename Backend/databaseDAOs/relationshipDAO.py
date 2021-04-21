@@ -198,7 +198,6 @@ class RelationshipDAO(dao):
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1]
-            print(myresult)
             logging.info("selectActiveQRcode successful")
             return True, myresult
         except Exception as e:

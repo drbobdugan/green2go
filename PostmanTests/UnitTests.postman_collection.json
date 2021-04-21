@@ -20309,7 +20309,7 @@
 								}
 							],
 							"request": {
-								"method": "DELETE",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -20939,7 +20939,7 @@
 								}
 							],
 							"request": {
-								"method": "DELETE",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -21612,7 +21612,7 @@
 								}
 							],
 							"request": {
-								"method": "DELETE",
+								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -23683,8 +23683,7 @@
 		},
 		{
 			"key": "baseUrl",
-			"value": "localhost:5000",
-			"disabled": true
+			"value": "localhost:5000"
 		}
 	]
 }
