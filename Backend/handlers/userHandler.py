@@ -140,7 +140,10 @@ class UserHandler:
         else:
             keys = ['email', 'oldPass', 'newPass', 'auth_token']
         try:
-            userDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys) 
+            if "/forgetPassword" in str (request):
+                userDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys,hasAuth=False) 
+            else:
+                userDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys) 
             newPass=self.helperHandler.encrypt_password(userDic["newPass"]) #hash new password
             res = self.userDao.selectUser(userDic['email'])
             self.helperHandler.falseQueryCheck(res)

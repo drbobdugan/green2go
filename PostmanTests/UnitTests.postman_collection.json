@@ -6051,7 +6051,7 @@
 					]
 				},
 				{
-					"name": "Unit Test - Validate Code & Forget Password",
+					"name": "Unit Test - Forget Password",
 					"item": [
 						{
 							"name": "Delete user account",
@@ -6331,7 +6331,7 @@
 							"response": []
 						},
 						{
-							"name": "validateCodeForgetPassword",
+							"name": "Resend Auth Code Copy",
 							"event": [
 								{
 									"listen": "test",
@@ -6340,14 +6340,8 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
 											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"console.log(jsonData);",
-											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
-											"pm.environment.set(\"refreshToken\", jsonData[\"refresh_token\"]);"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -6358,7 +6352,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n    \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6366,12 +6360,109 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/validateCodeForgetPassword",
+									"raw": "{{baseUrl}}/resendAuthCode",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"validateCodeForgetPassword"
+										"resendAuthCode"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/resendAuthCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"resendAuthCode"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/html; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "29"
+										},
+										{
+											"key": "Server",
+											"value": "Werkzeug/1.0.1 Python/3.6.9"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 09 Mar 2021 16:17:20 GMT"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"data\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "GetAuthCode[testing] Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretGetUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test00@students.stonehill.edu"
+										}
 									]
 								}
 							},
@@ -6390,7 +6481,9 @@
 											"",
 											"pm.test(\"Successful Patch Response\", function () {",
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
+											"});",
+											"",
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -6401,7 +6494,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"auth_token\":\"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"code\" : \"{{authCode}}\",\n    \"auth_token\":\"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6440,7 +6533,7 @@
 											"var passwordRes = jsonData.password;",
 											"passwordRes = passwordRes.toString();",
 											"",
-											"pm.test(\"Success Passsword Change\", function (){",
+											"pm.test(\"Unsuccessful Passsword Change\", function (){",
 											"    pm.expect(password).not.be.equal(passwordRes);",
 											"});"
 										],
@@ -6476,752 +6569,6 @@
 											"key": "email",
 											"value": "test00@students.stonehill.edu"
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"// ",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.environment.set(\"authCode\", \"null\");",
-											"pm.environment.set(\"authToken\", \"null\");",
-											"pm.environment.set(\"password\", \"null\");"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Unit Test - Validate Code Forget Password - \"Invalid Auth Code\"",
-					"item": [
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New user test00",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status Code is 200-202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretAddUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretAddUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetAuthCode[testing]",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "javascript"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretGetUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test00@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Validate Code That was Emailed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Login Successful Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUser",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody).data;",
-											"var authorized = jsonData[\"authorized\"];",
-											"",
-											"",
-											"pm.test(\"Successful Authorization\", function () {",
-											"    pm.expect(authorized).to.equal(\"1\");",
-											"});",
-											"",
-											"pm.environment.set(\"password\", jsonData[\"password\"]);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "javascript"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretGetUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test00@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "validateCodeForgetPassword - \"Invalid Auth Code\"",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Unsuccessful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"false\");",
-											"});",
-											"",
-											"pm.test(\"Invalid verification code.\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"Invalid verification code\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"1232132\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCodeForgetPassword",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCodeForgetPassword"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"// ",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.environment.set(\"authCode\", \"null\");",
-											"pm.environment.set(\"authToken\", \"null\");",
-											"pm.environment.set(\"password\", \"null\");"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Unit Test - Validate Code Forget Password - \"Invalid Email\"",
-					"item": [
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New user test00",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status Code is 200-202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretAddUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretAddUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetAuthCode[testing]",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "javascript"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretGetUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test00@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Validate Code That was Emailed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User Login",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Login Successful Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUser",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"var jsonData = JSON.parse(responseBody).data;",
-											"var authorized = jsonData[\"authorized\"];",
-											"",
-											"",
-											"pm.test(\"Successful Authorization\", function () {",
-											"    pm.expect(authorized).to.equal(\"1\");",
-											"});",
-											"",
-											"pm.environment.set(\"password\", jsonData[\"password\"]);"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "javascript"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretGetUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test00@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "validateCodeForgetPassword - \"Invalid Email\"",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Unsuccessful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"false\");",
-											"});",
-											"",
-											"pm.test(\"Invalid Entry in Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"Entry could not be found\");",
-											"});",
-											"",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test0000@students.stonehill.edu\",\n    \"code\" : \"1232132\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCodeForgetPassword",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCodeForgetPassword"
 									]
 								}
 							},
@@ -7554,7 +6901,7 @@
 							"response": []
 						},
 						{
-							"name": "validateCodeForgetPassword",
+							"name": "Resend Auth Code",
 							"event": [
 								{
 									"listen": "test",
@@ -7563,14 +6910,8 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
 											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"console.log(jsonData);",
-											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
-											"pm.environment.set(\"refreshToken\", jsonData[\"refresh_token\"]);"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -7581,7 +6922,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n    \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7589,12 +6930,109 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/validateCodeForgetPassword",
+									"raw": "{{baseUrl}}/resendAuthCode",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"validateCodeForgetPassword"
+										"resendAuthCode"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/resendAuthCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"resendAuthCode"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/html; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "29"
+										},
+										{
+											"key": "Server",
+											"value": "Werkzeug/1.0.1 Python/3.6.9"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 09 Mar 2021 16:17:20 GMT"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"data\": \"\"\n}"
+								}
+							]
+						},
+						{
+							"name": "GetAuthCode[testing]",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										]
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretGetUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test00@students.stonehill.edu"
+										}
 									]
 								}
 							},
@@ -7615,8 +7053,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"false\");",
 											"});",
 											"",
-											"pm.test(\"Invalid User with Auth Token\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"No matching user with that authorization token\");",
+											"pm.test(\"User Does Not Exist\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Entry could not be found\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -7628,7 +7066,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test000000@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"auth_token\":\"{{authToken}}\"\n}",
+									"raw": "{\n    \"email\":\"test000000@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"code\" : \"{{authCode}}\",\n    \"auth_token\":\"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7648,7 +7086,7 @@
 							"response": []
 						},
 						{
-							"name": "GetAuthCode[testing]",
+							"name": "Get Check password",
 							"event": [
 								{
 									"listen": "test",
@@ -7755,7 +7193,7 @@
 					]
 				},
 				{
-					"name": "Unit Test - Forget Password - \"Invalid Auth Token\"",
+					"name": "Unit Test - Forget Password - \"Invalid Auth Code\"",
 					"item": [
 						{
 							"name": "Delete user account",
@@ -8035,7 +7473,7 @@
 							"response": []
 						},
 						{
-							"name": "validateCodeForgetPassword",
+							"name": "Resend Auth Code",
 							"event": [
 								{
 									"listen": "test",
@@ -8044,14 +7482,8 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
 											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"console.log(jsonData);",
-											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);",
-											"pm.environment.set(\"refreshToken\", jsonData[\"refresh_token\"]);"
+											""
 										],
 										"type": "text/javascript"
 									}
@@ -8062,7 +7494,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n    \n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8070,16 +7502,65 @@
 									}
 								},
 								"url": {
-									"raw": "{{baseUrl}}/validateCodeForgetPassword",
+									"raw": "{{baseUrl}}/resendAuthCode",
 									"host": [
 										"{{baseUrl}}"
 									],
 									"path": [
-										"validateCodeForgetPassword"
+										"resendAuthCode"
 									]
 								}
 							},
-							"response": []
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/resendAuthCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"resendAuthCode"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "text/html; charset=utf-8"
+										},
+										{
+											"key": "Content-Length",
+											"value": "29"
+										},
+										{
+											"key": "Server",
+											"value": "Werkzeug/1.0.1 Python/3.6.9"
+										},
+										{
+											"key": "Date",
+											"value": "Tue, 09 Mar 2021 16:17:20 GMT"
+										}
+									],
+									"cookie": [],
+									"body": "{\n    \"success\": true,\n    \"data\": \"\"\n}"
+								}
+							]
 						},
 						{
 							"name": "Forget Password - \"Invalid Auth Token\"",
@@ -8096,8 +7577,8 @@
 											"    pm.expect(pm.response.text()).to.include(\"false\");",
 											"});",
 											"",
-											"pm.test(\"Invalid Token in Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"Invalid token\");",
+											"pm.test(\"Invalid Auth Code in Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"Invalid verification code\");",
 											"});"
 										],
 										"type": "text/javascript"
@@ -8109,7 +7590,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"auth_token\":\"123122\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"auth_token\":\"{{authToken}}\",\n    \"code\" : \"1212312312\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
