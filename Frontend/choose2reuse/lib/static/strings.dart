@@ -16,6 +16,7 @@ class ReuseStrings {
   static String yes = 'Yes';
   static String save = 'Save';
   static String changePassword = 'Change Password';
+  static String logOut = 'Log Out';
 
   //page titles
   static String homepageTitle = 'Dashboard';

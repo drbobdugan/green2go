@@ -69,4 +69,16 @@ class StudentService {
         }));
     return resp;
   }
+
+  static Future<APIResponse> undoReportContainer(
+      StudentAuth auth, String qrCode) async {
+    final APIResponse resp = await API.postResponse(
+        'undoReportContainer',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'qrcode': qrCode,
+          'auth_token': auth.token,
+        }));
+    return resp;
+  }
 }

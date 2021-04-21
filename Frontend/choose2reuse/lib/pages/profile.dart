@@ -90,6 +90,10 @@ class _ProfilePageState extends State<ProfilePage> {
         .goToPage(C2RPages.changePassword, widget.userAuth);
   }
 
+  void onLogOut() {
+    NavigationService(context: context).logout();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (detailedUser == null) {
@@ -201,6 +205,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 ReuseButton(
                   text: ReuseStrings.changePassword,
                   onPressed: onChangePassword,
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 20.0,
+                ),
+                ReuseButton(
+                  text: ReuseStrings.logOut,
+                  onPressed: onLogOut,
                   buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),

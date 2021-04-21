@@ -27,7 +27,8 @@ class HomePage extends StatefulWidget {
   Future<APIResponse> onSubmitReport(
       ReusableContainer container, String report) async {
     if (container.status == ContainerStatus.DamagedLost) {
-      // ADD BACKEND CONNECTION
+      return await StudentService.undoReportContainer(
+          userAuth, container.qrCode);
     }
     return await StudentService.reportContainer(
         userAuth, container.qrCode, report);

@@ -6,30 +6,27 @@ import '../services/navigation_service.dart';
 import '../static/custom_theme.dart';
 import '../static/student.dart';
 
-enum AppBarItems { Home, Profile, Checkout, Return, Logout }
+enum AppBarItems { Home, Profile, Checkout, Return }
 
 const List<AppBarItems> items = <AppBarItems>[
   AppBarItems.Home,
   AppBarItems.Profile,
   AppBarItems.Checkout,
-  AppBarItems.Return,
-  AppBarItems.Logout
+  AppBarItems.Return
 ];
 
 const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
   AppBarItems.Home: Icons.home,
   AppBarItems.Profile: Icons.account_circle,
   AppBarItems.Checkout: Icons.rotate_right_rounded,
-  AppBarItems.Return: Icons.rotate_right_rounded,
-  AppBarItems.Logout: Icons.logout
+  AppBarItems.Return: Icons.rotate_right_rounded
 };
 
 const Map<AppBarItems, String> labels = <AppBarItems, String>{
   AppBarItems.Home: 'Dashboard',
   AppBarItems.Profile: 'Profile',
   AppBarItems.Checkout: 'Check Out Container',
-  AppBarItems.Return: 'Return Container',
-  AppBarItems.Logout: 'Log Out'
+  AppBarItems.Return: 'Return Container'
 };
 
 class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -54,8 +51,6 @@ class _UserAppBarState extends State<UserAppBar> {
     } else if (choice == labels[AppBarItems.Return]) {
       NavigationService(context: context)
           .goToPage(C2RPages.returnContainer, widget.userAuth);
-    } else if (choice == labels[AppBarItems.Logout]) {
-      NavigationService(context: context).logout();
     } else if (choice == labels[AppBarItems.Profile]) {
       NavigationService(context: context)
           .goToPage(C2RPages.profile, widget.userAuth);
