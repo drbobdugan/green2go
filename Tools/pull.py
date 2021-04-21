@@ -74,7 +74,7 @@ def checkoutByEmail():
     <br/>
     <input type="submit">
     <h2> Checkout Log </h2>
-    """ +str(userContainers)+ """
+    """ +type(userContainers)+ """
     </form>
     </body>
     </html>
