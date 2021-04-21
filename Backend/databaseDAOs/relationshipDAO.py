@@ -231,6 +231,12 @@ class RelationshipDAO(dao):
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
+            
+            sql2 = "DELETE from hascontainer where qrcode = '" + r.qrcode + "' and status = 'Damaged Lost'"
+            myresult = self.handleSQL(sql2,False,None)
+            if(myresult[0] == False):
+                return myresult
+
             return True, ""
         except Exception as e:
             logging.error("Error in updateRelationship")
