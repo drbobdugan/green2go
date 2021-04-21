@@ -94,6 +94,7 @@ class ContainerHandler:
             userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
             userContainer['status'] = "Checked Out"
             userContainer['active'] = "1"
+            userContainer['email'] = "Checkout@stonehill.edu"
         except Exception as e:
             raise Exception(e) 
         return userContainer
@@ -127,8 +128,6 @@ class ContainerHandler:
         # send notification
         if old_code[0] is True and "/reportContainer" not in str(request):
             self.notificationHelper.sendNotification(old_code[1])
-        if "/secretCheckout" in str(request):
-            res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)
 
     def getContainersForUser(self, request, containerDao, isSorted):
