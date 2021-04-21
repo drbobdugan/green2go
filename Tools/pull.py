@@ -64,7 +64,8 @@ def checkoutByEmail():
     userContainers = updateCheckout()
     dataBody = ""
     for item in userContainers['data']:
-        dataBody = dataBody + (item['qrcode']+" : "+item['status']+" \n")
+        dataBody = dataBody + (item['qrcode']+" : "+item['status']+"<br>")
+    print(dataBody)
     return """<!doctype html>
     <html>
     <body>
