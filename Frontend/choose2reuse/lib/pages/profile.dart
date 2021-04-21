@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../components/font_scale_blocker.dart';
 import '../components/reuse_button.dart';
+import '../components/reuse_errorMessage.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_textField.dart';
@@ -38,6 +39,8 @@ class _ProfilePageState extends State<ProfilePage> {
   final FocusNode emailNode = FocusNode();
   final FocusNode phoneNumNode = FocusNode();
 
+  String errorMessage = '';
+
   DetailedUser detailedUser;
 
   @override
@@ -61,11 +64,22 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  void showSuccess(BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(ReuseStrings.updateProfileSuccess)));
+  }
+
   void onSaveProfile() {
     widget.onUpdateUser(detailedUser).then((APIResponse response) {
       if (response.success) {
         setState(() {
           detailedUser = DetailedUser(response.data);
+          errorMessage = '';
+        });
+        showSuccess(context);
+      } else {
+        setState(() {
+          errorMessage = response.message;
         });
       }
     });
@@ -159,21 +173,25 @@ class _ProfilePageState extends State<ProfilePage> {
                     autofillHints: const <String>[AutofillHints.familyName],
                     textInputAction: TextInputAction.next,
                     onFieldSubmitted: () {
-                      fieldNextFocus(context, lastNameNode, emailNode);
+                      fieldNextFocus(context, lastNameNode, phoneNumNode);
                     }),
                 ReuseTextField(
-                  text: ReuseStrings.phoneNumberField,
-                  initialValue: detailedUser.phoneNum,
-                  node: phoneNumNode,
-                  onChanged: (String value) {
-                    setState(() {
-                      detailedUser.phoneNum = value;
-                    });
-                  },
-                  autofillHints: const <String>[AutofillHints.telephoneNumber],
-                  textInputAction: TextInputAction.next,
-                  keyboardType: TextInputType.phone,
-                ),
+                    text: ReuseStrings.phoneNumberField,
+                    initialValue: detailedUser.phoneNum,
+                    node: phoneNumNode,
+                    onChanged: (String value) {
+                      setState(() {
+                        detailedUser.phoneNum = value;
+                      });
+                    },
+                    autofillHints: const <String>[
+                      AutofillHints.telephoneNumber
+                    ],
+                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.phone,
+                    onFieldSubmitted: () {
+                      fieldNextFocus(context, phoneNumNode, null);
+                    }),
                 ReuseButton(
                   text: ReuseStrings.save,
                   onPressed: onSaveProfile,
@@ -186,6 +204,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),
+                ReuseErrorMessage(text: errorMessage),
               ],
             ),
           ),

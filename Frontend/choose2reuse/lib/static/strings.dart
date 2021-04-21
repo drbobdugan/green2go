@@ -63,7 +63,10 @@ class ReuseStrings {
   static String noContainers = 'No containers found.';
   static String undoLostOrDamagedQuestion =
       'Are you sure you want to undo marking this container as damaged/lost?';
+
+  //snackbar messages
   static String changePassSuccess = 'Password changed successfully';
+  static String updateProfileSuccess = 'Information updated successfully';
 
   //error message
   static String timerOutErrorMessage = 'Timer has ran out.';
