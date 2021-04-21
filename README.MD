@@ -188,14 +188,14 @@ NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program nohup python3 /roo
 ```
 
 Automatic updates to backend/web app and slack alerts:<br/>
-There is a file called pull.py currently located in /root/pull/ that controls slack alerts and controls anything on port 5001.
+There is a file called pull.py currently located in /Tools/ that controls slack alerts and controls anything on port 5001.
 ```bash
 # to check if the server is running/list pids
 lsof -i:5001 -t
 # to kill the server and all instances based on port
 kill -9 $(lsof -i:5001 -t)
 # to start
-cd /root/pull/
+cd /Tools/
 nohup python3 pull.py &
 ```
 
