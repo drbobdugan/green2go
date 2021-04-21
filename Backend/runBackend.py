@@ -158,6 +158,10 @@ def beams_auth():
 def selectLocation():
     return locationHandler.selectLocation(request, locationDao)
 
+@app.route('/clearLocation',methods=['PATCH'])
+def clearLocation():
+    return locationHandler.clearlocation(request,locationDao)
+
 #----------------------------Secret Methods --------------------------------
 
 @app.route('/secretDeleteUser', methods=['DELETE'])
