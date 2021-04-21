@@ -45,8 +45,7 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, msg = self.dao.selectByLocationQRcode("L042")
         self.assertTrue(rc)
 
-        self.assertTrue(str(msg.lastPickup)== "2021-02-02 01:01:01")
-        
+        self.assertTrue(str(msg.lastPickup)== "2021-02-02 01:01:01" and str(msg.description)== "Drop-off bin outside New Hall")
 
 
 

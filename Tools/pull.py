@@ -49,12 +49,19 @@ def renderDelete():
     </html>
     """
 
+def updateCheckout():
+    url = "http://198.199.77.174:5000/getContainersForUser"
+    myobj = {'email' : 'Checkout@stonehill.edu'}
+    x = requests.get(url, json=myobj)
+    return x
+
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkoutByEmail():
     if 'password' in request.form and 'email' in request.form and request.form['password'] == 'Capstone2021!':
         url = "http://198.199.77.174:5000/secretCheckout"
         myobj = {'email' : request.form['email']}
         x = requests.post(url, json=myobj)
+    userContainers = updateCheckout()
     return """<!doctype html>
     <html>
     <body>
@@ -66,6 +73,8 @@ def checkoutByEmail():
     <input type="text" name="password">
     <br/>
     <input type="submit">
+    <h2> Checkout Log </h2>
+    """ +type(userContainers)+ """
     </form>
     </body>
     </html>
