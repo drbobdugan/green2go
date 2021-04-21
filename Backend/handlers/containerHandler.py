@@ -132,10 +132,11 @@ class ContainerHandler:
 
     def getContainersForUser(self, request, containerDao, isSorted):
         relationship = None
-        hasAuth = False
-        keys=['email']
-        if "/secretGetRelationships" not in str(request):
-            keys.append['auth_token']
+        if "/secretGetRelationships" in str(request):
+            keys=['email']
+            hasAuth = False
+        else:
+            keys=['email', 'auth_token']
             hasAuth = True
         try:
             relationship = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=hasAuth)
