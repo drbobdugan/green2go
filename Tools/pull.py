@@ -7,13 +7,13 @@ app = Flask(__name__)
 
 @app.route('/pull', methods=['POST'])
 def hello(msg="Build has been Updated..."):
-    url = 'https://hooks.slack.com/services/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'
-    myobj = {'text': msg}
-    x = requests.post(url, json = myobj)
     os.system('sudo kill -9 $( lsof -i:5000 -t)')
     os.system('cd /root/green2go/ && git pull')
     os.system('cd /root/green2go/Backend && rm demo.log')
     test = os.system('cd /root/green2go/Backend/ && sudo NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program nohup python3 /root/green2go/Backend/runBackend.py &')
+    url = 'https://hooks.slack.com/services/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'
+    myobj = {'text': msg}
+    x = requests.post(url, json = myobj)
     return str(x.text)
 
 def restartDatabase():
