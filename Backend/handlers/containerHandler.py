@@ -138,7 +138,6 @@ class ContainerHandler:
         else:
             keys=['email', 'auth_token']
             hasAuth = True
-        print("abc")
         try:
             relationship = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=hasAuth)
         except Exception as e:
