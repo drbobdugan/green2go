@@ -20,7 +20,6 @@ class UserService {
         'resendAuthCode',
         jsonEncode(<String, String>{
           'email': email,
-          'auth_token': 'None',
         }));
     return resp;
   }
@@ -68,7 +67,19 @@ class UserService {
           'middleName': user.middleName,
           'lastName': user.lastName,
           'phoneNum': user.phoneNum,
-          'password': user.password,
+          'auth_token': auth.token,
+        }));
+    return resp;
+  }
+
+  static Future<APIResponse> changePassword(
+      StudentAuth auth, String oldPass, String newPass) async {
+    final APIResponse resp = await API.patchResponse(
+        'changePassword',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'oldPass': oldPass,
+          'newPass': newPass,
           'auth_token': auth.token,
         }));
     return resp;

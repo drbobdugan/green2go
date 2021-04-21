@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
         }
 
         try {
-          PusherBeams.addDeviceInterest(user.email);
+          PusherBeams.addDeviceInterest(user.email.replaceAll('.', ''));
         } catch (e) {
           print(e);
           print('Failed to add user interest');

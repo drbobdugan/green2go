@@ -7,6 +7,7 @@ import '../components/reuse_loading.dart';
 import '../components/reuse_textField.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
+import '../services/navigation_service.dart';
 import '../services/user_service.dart';
 import '../static/custom_theme.dart';
 import '../static/strings.dart';
@@ -71,7 +72,8 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void onChangePassword() {
-    // TO DO
+    NavigationService(context: context)
+        .goToPage(C2RPages.changePassword, widget.userAuth);
   }
 
   @override
