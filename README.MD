@@ -104,8 +104,7 @@ Insert more testing info here... <br/>
 
 ## Tools <a name="tools"></a>
 
-Insert Tools info here <br/>
-Release Beta Builds in Android Play Console:
+RELEASE ANDROID BETA BUILDS FOR TESTING:
 - IN REPOSITORY:
 - In the “pubspec.yaml” file within “Frontend/choose2reuse/“, find the line “version:  1.0.0+0” and increment build/version each time you build  (increment the values in position X)->   version:  1.0.X+X
 
