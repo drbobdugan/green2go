@@ -15,14 +15,14 @@ class NotificationHelper:
             'aps': {
                 'alert': {
                 'title': 'choose2reuse',
-                'body': 'One of your conatiners has been verified as returned!', 
+                'body': 'One of your containers has been verified as returned!', 
                 },
             },
             },
             'fcm': {
             'notification': {
                 'title': 'choose2reuse',
-                'body': 'One of your conatiners has been verified as returned!',
+                'body': 'One of your containers has been verified as returned!',
             },
             },
             'web': {
