@@ -67,9 +67,19 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg  = self.dao.insertRelationship(r)
         self.assertFalse(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010",None,"2021-01-01 01:01:01",None, None, None)
+        r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None, None, None)
         rc, msg  = self.dao.insertRelationship(r)
-        self.assertFalse(rc)
+        self.assertTrue(rc)
+        rc, msg = self.dao.selectRelationship(r.email,r.qrcode)
+        self.assertTrue(rc)
+        self.assertEqual(msg.active, "1")
+
+        r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None, None, None)
+        rc, msg  = self.dao.insertRelationship(r)
+        self.assertTrue(rc)
+        rc, msg = self.dao.selectRelationship(r.email,r.qrcode)
+        self.assertTrue(rc)
+        self.assertEqual(msg.active, "1")
 
     # TEST READ RELATIONSHIP
     def testSelectRelationship(self):
@@ -114,6 +124,10 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, testSelectAllByStatus = self.dao.selectAllByStatus(email,status)
         self.assertTrue(rc)
 
+        for i in testSelectAllByStatus:
+            self.assertEqual(i["status"], status)
+            self.assertEqual(i["email"], email)
+
     def testSelectAll(self):
         """
         Test that we can select all tuples in the hascontainer table
@@ -133,6 +147,9 @@ class unitTestRelationshipDAO(unittest.TestCase):
 
         rc, testSelectPendingReturns = self.dao.selectPendingReturns()
         self.assertTrue(rc)
+
+        for i in testSelectPendingReturns:
+            self.assertEqual(i["status"], "Pending Return")
 
     # TEST UPDATE RELATIONSHIP
     def testUpdateRelationship(self):
@@ -157,6 +174,12 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         r = Relationship("test42@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,"1",None)
+        rc, deleteRelationship = self.dao.deleteRelationship(r)
+        self.assertTrue(rc)
+
+        r = Relationship("test42@students.stonehill.edu","101010","Damaged Lost","2021-01-01 01:01:01",None,"1",None)
+        rc, msg = self.dao.insertRelationship(r)
+        self.assertTrue(rc)
         rc, deleteRelationship = self.dao.deleteRelationship(r)
         self.assertTrue(rc)
 
@@ -285,7 +308,18 @@ class unitTestRelationshipDAO(unittest.TestCase):
         r = Relationship("test42@students.stonehill.edu","101010","WRONG STATUS","2021-01-01 01:01:01",None,"0","Pending Return")
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertFalse(rc)
-        
+
+        r.status = "Checked out"
+        rc, updateRelationship = self.dao.updateRelationship(r)
+        self.assertFalse(rc)
+
+        r.status = "pending return"
+        rc, updateRelationship = self.dao.updateRelationship(r)
+        self.assertFalse(rc)
+
+        r.status = "VERIFIED RETURN"
+        rc, updateRelationship = self.dao.updateRelationship(r)
+        self.assertFalse(rc)        
 
 
 if __name__ == '__main__':

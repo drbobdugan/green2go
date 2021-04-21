@@ -50,9 +50,7 @@ class _ReuseTextFieldState extends State<ReuseTextField> {
     super.initState();
     _controller = TextEditingController(text: widget.initialValue);
     _controller.addListener(() {
-      if (isValidInput()) {
-        widget.onTextChange(_controller.text);
-      }
+      widget.onTextChange(_controller.text);
     });
   }
 

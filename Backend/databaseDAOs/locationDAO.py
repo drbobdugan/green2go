@@ -4,9 +4,9 @@ import json
 from datetime import datetime
 from DAO import dao
 from location import Location
-
+from relationship import Relationship
 class LocationDao(dao):
-    
+ 
     def checkFormatting(self,loc):
         myresult = self.checkLength(loc)
         if myresult[0] == False:
@@ -51,7 +51,7 @@ class LocationDao(dao):
             if(myresult[0]==False):
                 return myresult 
             myresult2 = myresult[1][0] #myresult looks like (true,[(qrcode,des,lastpickup)])
-            location = Location(myresult2[0],myresult2[1],myresult2[2],)
+            location = Location(myresult2[0],myresult2[1],myresult2[2])
             return True, location
         except Exception as e:
             logging.error("Error in selectByLocationQRcode")
@@ -111,5 +111,25 @@ class LocationDao(dao):
             return True, ""
         except Exception as e:
             logging.error("Error in updateContainers")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    def updateLocation(self,location):
+        try:
+            """
+            myresult = self.checkFormatting(c)
+            if(myresult[0] == False):
+                return myresult
+            """
+            logging.info("Entering updateLocation")
+            result = location.locationToList()
+            sql = "UPDATE location set description = '" + result[1] + "', lastPickup = '" + result[2] +"' WHERE location_qrcode = '" + result[0] + "'"
+            myresult = self.handleSQL(sql,False,None)
+            if(myresult[0] == False):
+                return myresult
+            logging.info("updateLocation successful")
+            return True, ""
+        except Exception as e:
+            logging.error("Error in updateLocations")
             logging.error(str(e))
             return self.handleError(e)

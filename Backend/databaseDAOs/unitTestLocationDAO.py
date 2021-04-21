@@ -34,6 +34,21 @@ class unitTestLocationDAO(unittest.TestCase):
         rc, msg = self.testInsertLocationSmoke()
         self.assertTrue(rc)
 
+    def testUpdateLocation(self):
+        rc, msg = self.testInsertLocationSmoke()
+        self.assertTrue(rc)
+
+        loc = Location("L042","Drop-off bin outside New Hall","2021-02-02 01:01:01")
+        rc, msg = self.dao.updateLocation(loc)
+        self.assertTrue(rc)
+
+        rc, msg = self.dao.selectByLocationQRcode("L042")
+        self.assertTrue(rc)
+
+        self.assertTrue(str(msg.lastPickup)== "2021-02-02 01:01:01" and str(msg.description)== "Drop-off bin outside New Hall")
+
+
+
     def testInsertLocationTwice(self):
         """
         Test that we can't add a location twice
