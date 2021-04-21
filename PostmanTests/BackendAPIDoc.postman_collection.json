@@ -1291,10 +1291,7 @@
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});",
 									"",
-									"var jsonData = JSON.parse(responseBody).data;",
-									"console.log(jsonData);",
-									"pm.environment.set(\"authTokenTest0\", jsonData[\"auth_token\"]);",
-									"pm.environment.set(\"refreshTokenTest0\", jsonData[\"refresh_token\"]);",
+									"pm.environment.set(\"passwordTest0\", \"password1\");",
 									""
 								],
 								"type": "text/javascript"
@@ -1324,6 +1321,198 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "User Login Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Login Successful Request\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
+									"var jsonData = JSON.parse(responseBody).data;",
+									"",
+									"pm.environment.set(\"authTokenTest0\", jsonData['auth_token']);",
+									"pm.environment.set(\"refreshTokenTest0\", jsonData[\"refresh_token\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"{{passwordTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "Incorrect Password",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"passwordwrong\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "html",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "52"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:16:19 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\"success\": false, \"message\": \"Incorrect password.\"}"
+						},
+						{
+							"name": "Success",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "233"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:07:27 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"data\": {\n        \"user\": \"test0@students.stonehill.edu\",\n        \"auth_token\": \"GertCXbYWFJwVMdISuumIQ3THdlC25XjURVCleZjpm2XI\",\n        \"refresh_token\": \"gO2ATkprtAU4Wez37k9MDFydPAk71TzsCjQTtfEMvLWGK\",\n        \"expires_at\": \"2021-03-09 17:07:27\"\n    }\n}"
+						},
+						{
+							"name": "User Login Attempt W/O Completing Registration",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/login",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/html; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "72"
+								},
+								{
+									"key": "Server",
+									"value": "Werkzeug/1.0.1 Python/3.6.9"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 09 Mar 2021 16:07:56 GMT"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": false,\n    \"message\": \"Email not found, please try signing up.\"\n}"
+						}
+					]
 				}
 			],
 			"description": "<p>The User Tests folder will be used to fully test out the user routes. Since we needed to add an auth_token to most of the fields. We have set up this folder to ensure successful results and there should be no need to worry about expired tokens. \nSo test0@students.stonehill.edu will be the account that is going to be used to preform each request.</p> \n<p>To ensure everything goes very well while testing in Postman and also once CI starts test0@students.stonehill.edu should <strong>always</strong> be inside of the database. This allows us to update the auth_token(login) so that each request in Postman will be able to update the environment variables.</p>\n<p>There are three environment variables that will get update after certain requests which include: <strong>authCodeLoginTest0, authTokenLoginTest0, refreshTokenLoginTest0</strong>  <br>\nSince there is a dependency on some methods being executed before others can be successfully run I ask if you are testing something that only involves one specific request that you copy the request and test there to have minimal errors when we start running the collection after each push of new code.</p>\n\n"
