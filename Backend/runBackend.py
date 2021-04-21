@@ -71,6 +71,10 @@ def deleteUser():
 def changePassword():
     return userHandler.changePassword(request, userDao)
 
+@app.route('/forgetPassword', methods=['PATCH'])
+def forgetPassword():
+    return userHandler.changePassword(request, userDao)
+
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
@@ -123,6 +127,10 @@ def getCounts():
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
     return authHandler.validateCode(request, userDao, authDao)
+
+@app.route('/validateCodeForgetPassword',methods=['POST'])
+def validateCodeForgetPassword():
+    return authHandler.validateCode(request,userDao,authDao)
 
 @app.route('/login', methods=['POST'])
 def login():

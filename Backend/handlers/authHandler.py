@@ -45,8 +45,24 @@ class AuthHandler:
         elif(timepassed.total_seconds()>=300):
             return json.dumps({"success" : False, "message" : "Expired verification code"})
         # create new auth
+        if "/validateCode" in str (request):
+            return self.newAuth(dic,userDic,user)
+        resAuth = self.authDao.selectByEmail(dic['email'])
+        auth = resAuth[1]
+        # update the auth
+        authDic = auth.authToDict()
+        authDic["auth_token"] = self.helperHandler.id_generator(size=45)
+        authDic["refresh_token"] = auth.refresh_token
+        auth.dictToAuth(authDic)
+        res = self.authDao.updateAuth(auth)
+        auth = res[1]
+        if type(auth) == str:
+            return json.dumps({"success" : res[0], "data" : auth})
+        return json.dumps({"success" : res[0], "data" : auth.authToDict()})
+    def newAuth(self,dic,userDic,user):
         authDic = {}
         authDic["user"] = dic["email"]
+
         authDic["auth_token"] = self.helperHandler.id_generator(size=45)
         authDic["refresh_token"] = self.helperHandler.id_generator(size=45)
         authDic["expires_at"] = ""
@@ -58,9 +74,9 @@ class AuthHandler:
         # fix userAuth as well
         userDic["authorized"] = "1"
         user.dictToUser(userDic)
-        userDao.updateUser(user)
-        # return it
+        self.userDao.updateUser(user)
         return json.dumps({"success" : res[0], "data" : data})
+        # return it
 
     def loginErrorHandler(self, userDic, dic):
         message = None
@@ -139,7 +155,7 @@ class AuthHandler:
         f='%Y-%m-%d %H:%M:%S'
         authCode=None
         dictOfUserAttrib = None
-        keys = ["email","auth_token"]
+        keys = ["email"]
         dic=None
         try:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
@@ -168,3 +184,4 @@ class AuthHandler:
 
 
         return json.dumps({"success" : False, "message" : "Error in resendAuthCode."})
+        

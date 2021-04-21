@@ -1113,7 +1113,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenLoginTest0}}\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\"\n    \n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1180,6 +1180,96 @@
 							"body": "{\n    \"success\": true,\n    \"data\": \"\"\n}"
 						}
 					]
+				},
+				{
+					"name": "forget Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Successful Patch Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"newPass\":\"password1\",\n    \"auth_token\":\"{{authTokenLoginTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/forgetPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"forgetPassword"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "validateCodeForgetPassword",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
+									"",
+									"var jsonData = JSON.parse(responseBody).data;",
+									"console.log(jsonData);",
+									"pm.environment.set(\"authTokenLoginTest0\", jsonData[\"auth_token\"]);",
+									"pm.environment.set(\"refreshTokenLoginTest0\", jsonData[\"refresh_token\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"code\" : \"{{authCodeLoginTest0}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/validateCodeForgetPassword",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"validateCodeForgetPassword"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "<p>The User Tests folder will be used to fully test out the user routes. Since we needed to add an auth_token to most of the fields. We have set up this folder to ensure successful results and there should be no need to worry about expired tokens. \nSo test0@students.stonehill.edu will be the account that is going to be used to preform each request.</p> \n<p>To ensure everything goes very well while testing in Postman and also once CI starts test0@students.stonehill.edu should <strong>always</strong> be inside of the database. This allows us to update the auth_token(login) so that each request in Postman will be able to update the environment variables.</p>\n<p>There are three environment variables that will get update after certain requests which include: <strong>authCodeLoginTest0, authTokenLoginTest0, refreshTokenLoginTest0</strong>  <br>\nSince there is a dependency on some methods being executed before others can be successfully run I ask if you are testing something that only involves one specific request that you copy the request and test there to have minimal errors when we start running the collection after each push of new code.</p>\n\n"
@@ -2367,12 +2457,12 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://198.199.77.174:5000"
+			"value": "http://198.199.77.174:5000",
+			"disabled": true
 		},
 		{
 			"key": "baseUrl",
-			"value": "localhost:5000",
-			"disabled": true
+			"value": "localhost:5000"
 		}
 	]
 }

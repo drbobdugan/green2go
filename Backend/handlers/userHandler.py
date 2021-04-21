@@ -135,7 +135,10 @@ class UserHandler:
 
     def changePassword(self, request, userDao):
         userDic = None
-        keys = ['email', 'oldPass', 'newPass', 'auth_token']
+        if "/forgetPassword" in str (request):
+            keys=['email','newPass', 'auth_token']
+        else:
+            keys = ['email', 'oldPass', 'newPass', 'auth_token']
         try:
             userDic = self.helperHandler.handleRequestAndAuth(request=request, keys=keys) 
             newPass=self.helperHandler.encrypt_password(userDic["newPass"]) #hash new password
@@ -143,8 +146,9 @@ class UserHandler:
             self.helperHandler.falseQueryCheck(res)
             user = res[1]
             userAttrib = user.userToDict()
-            if not self.helperHandler.check_encrypted_password(userDic['oldPass'], userAttrib['password']):
-                raise Exception("Incorrect password")#check if password is correct
+            if "/changePassword" in str (request):
+                if not self.helperHandler.check_encrypted_password(userDic['oldPass'], userAttrib['password']):
+                    raise Exception("Incorrect password")#check if password is correct
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)}) 
         userAttrib['password'] = newPass #set newPass as user Password
