@@ -1,0 +1,1300 @@
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+Traceback (most recent call last):
+  File "runBackend.py", line 140, in <module>
+    app.run(host='0.0.0.0', port='5000')
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 990, in run
+    run_simple(host, port, self, **options)
+  File "/usr/local/lib/python3.6/dist-packages/werkzeug/serving.py", line 1030, in run_simple
+    s.bind(server_address)
+OSError: [Errno 98] Address already in use
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+Traceback (most recent call last):
+  File "runBackend.py", line 140, in <module>
+    app.run(host='0.0.0.0', port='5000')
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 990, in run
+    run_simple(host, port, self, **options)
+  File "/usr/local/lib/python3.6/dist-packages/werkzeug/serving.py", line 1030, in run_simple
+    s.bind(server_address)
+OSError: [Errno 98] Address already in use
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+e module 'six' has no attribute 'ensure_text'
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Serving Flask app "runBackend" (lazy loading)
+ * Environment: production
+   WARNING: This is a development server. Do not use it in a production deployment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+('lgiannini@students.stonehill.edu', '31295386-9836-4f8c-a1da-3c4b3389a4a7', 'Checked Out', '2021-04-15 19:42:59', 'None', '1', None)
+(True, '')
+here?
+{'qrcode': 'L003', 'email': 'lgiannini@students.stonehill.edu', 'auth_token': 'Y8oHkGgSCljUi4AuqSl9XJVKSv4RPiZ2ZBPcQMTMXZqNv'}
+True
+None
+True
+None
+('test0@students.stonehill.edu', 'fac42674-8cee-4fbb-aa7c-0e58ec8aa768', 'Checked Out', '2021-04-15 19:43:16', 'None', '1', None)
+(True, '')
+here?
+{'qrcode': 'L001', 'email': 'test0@students.stonehill.edu', 'auth_token': 'MSWVqLdKEh7F5ma5aS36HMPAG84IIPE3Rk8K9ZflQ3xeN'}
+True
+None
+{'qrcode': 'L003', 'email': 'rspinello@students.stonehill.edu', 'auth_token': 'UsOOurCw0ZSSTut1kUPpDcILU3Bc0kkUvqinjnJfnlHEG'}
+True
+None
+False
+Incorrect password.
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:37', 'None', '1', None)
+(True, '')
+here?
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:40', 'None', '1', None)
+(True, '')
+here?
+success pubid-aeb1acfb-56cb-41b0-8c7e-e910d327678b
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:40', 'None', '1', None)
+(True, '')
+here?
+(True, [{'email': 'lgiannini@students.stonehill.edu', 'qrcode': '31295386-9836-4f8c-a1da-3c4b3389a4a7', 'status': 'Pending Return', 'statusUpdateTime': '2021-04-15 19:43:13', 'location_qrcode': 'L003', 'active': '1', 'description': 'None'}])
+success pubid-9321ed5b-2fe3-435b-84a1-6c62dea3f379
+('lgiannini@students.stonehill.edu', '31295386-9836-4f8c-a1da-3c4b3389a4a7', 'Checked Out', '2021-04-15 19:43:41', 'L003', '1', 'None')
+(True, '')
+here?
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:43', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:44', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:45', 'None', '1', None)
+(True, '')
+here?
+(True, [{'email': 'rspinello@students.stonehill.edu', 'qrcode': 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'status': 'Pending Return', 'statusUpdateTime': '2021-04-15 19:43:26', 'location_qrcode': 'L003', 'active': '1', 'description': 'None'}])
+success pubid-4213e48d-40dd-46f9-a4a6-096d49dd321f
+('rspinello@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Checked Out', '2021-04-15 19:43:46', 'L003', '1', 'None')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:47', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:48', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:49', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:51', 'None', '1', None)
+(True, '')
+here?
+success pubid-9e431c05-c2c2-4bbf-82f3-a797d028ed2e
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:51', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:52', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 19:43:54', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:43:55', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 19:43:55', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:43:56', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 19:43:56', None, '0', '')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:43:58', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:43:59', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:44:00', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 19:44:02', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:44:03', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 19:44:06', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 19:44:07', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 19:44:09', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+{'qrcode': 'L001', 'email': 'test00@students.stonehill.edu', 'auth_token': 'tZEcd4KCSlCQBwsDxowIdsxqka7KzEGTrUfpiZgSRvDJx'}
+True
+None
+True
+None
+{'qrcode': 'P001', 'email': 'test00@students.stonehill.edu', 'auth_token': 'HQYQ5ypDNxQ7sQMppfarULv3Y8NE65y729a47kGKPEDU0'}
+('rspinello@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Checked Out', '2021-04-15 19:46:19', 'None', '1', None)
+(True, '')
+here?
+{'qrcode': 'L003', 'email': 'rspinello@students.stonehill.edu', 'auth_token': 'UsOOurCw0ZSSTut1kUPpDcILU3Bc0kkUvqinjnJfnlHEG'}
+(True, [{'email': 'rspinello@students.stonehill.edu', 'qrcode': 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'status': 'Pending Return', 'statusUpdateTime': '2021-04-15 19:46:39', 'location_qrcode': 'L003', 'active': '1', 'description': 'None'}])
+success pubid-3d72a632-3e6c-4087-a9cf-7f74df8e7522
+('rspinello@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Checked Out', '2021-04-15 19:46:44', 'L003', '1', 'None')
+(True, '')
+here?
+('rspinello@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Checked Out', '2021-04-15 19:49:44', 'None', '1', None)
+(True, '')
+here?
+success pubid-905d5028-0f7e-495a-9886-079a2a8ec0f4
+('lgiannini@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Checked Out', '2021-04-15 19:50:20', 'None', '1', None)
+(True, '')
+here?
+{'qrcode': 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'email': 'lgiannini@students.stonehill.edu', 'auth_token': 'Y8oHkGgSCljUi4AuqSl9XJVKSv4RPiZ2ZBPcQMTMXZqNv'}
+{'qrcode': 'L003', 'email': 'lgiannini@students.stonehill.edu', 'auth_token': 'Y8oHkGgSCljUi4AuqSl9XJVKSv4RPiZ2ZBPcQMTMXZqNv'}
+('lgiannini@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Damaged Lost', '2021-04-15 19:50:47', None, '0', 'lost')
+(True, '')
+here?
+('rspinello@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Damaged Lost', '2021-04-15 19:51:25', None, '0', 'lost')
+(False, 'Container has been marked as Damaged Lost')
+here?
+success pubid-98a7a1e7-e94c-4824-aaf7-fed007e59a1d
+('rspinello@students.stonehill.edu', 'cbeb632b-64d2-4143-aeff-b9dbb934d93f', 'Checked Out', '2021-04-15 19:51:48', 'None', '1', None)
+(False, 'Container has been marked as Damaged Lost')
+here?
+('rspinello@students.stonehill.edu', '31295386-9836-4f8c-a1da-3c4b3389a4a7', 'Checked Out', '2021-04-15 19:51:55', 'None', '1', None)
+(True, '')
+here?
+('rspinello@students.stonehill.edu', '31295386-9836-4f8c-a1da-3c4b3389a4a7', 'Damaged Lost', '2021-04-15 19:52:07', None, '0', 'I lost it')
+(True, '')
+here?
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+('test0@students.stonehill.edu', 'fac42674-8cee-4fbb-aa7c-0e58ec8aa768', 'Checked Out', '2021-04-15 21:41:36', 'None', '1', None)
+(True, '')
+here?
+{'qrcode': 'L001', 'email': 'test0@students.stonehill.edu', 'auth_token': '2neb1XazGPlQqV7tQPwajnjzQ0Rr88StVPX8TBFp7GnpO'}
+True
+None
+True
+None
+False
+Incorrect password.
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:41:57', 'None', '1', None)
+(True, '')
+here?
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:00', 'None', '1', None)
+(True, '')
+here?
+success pubid-053cc0a2-642d-4335-8de9-93ec51bcdd5b
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:00', 'None', '1', None)
+(True, '')
+here?
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:02', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:04', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:05', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:06', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:08', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:09', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:10', 'None', '1', None)
+(True, '')
+here?
+success pubid-fc1fbcb9-0c5c-49d5-9e33-33fdc33d8a87
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:11', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:12', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:42:14', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:15', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:42:15', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:16', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:42:16', None, '0', '')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:18', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:19', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:20', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:42:22', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:23', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:42:25', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:42:27', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:42:29', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+{'qrcode': 'L001', 'email': 'test00@students.stonehill.edu', 'auth_token': 'UipMa2amN8fGip0xduQGBvoA4eWo04dSqlZ8qNbRNHwqT'}
+True
+None
+True
+None
+{'qrcode': 'P001', 'email': 'test00@students.stonehill.edu', 'auth_token': 'Wt6wk7XAM40GOyj7uU5kiX5mPYtFCkfMEW8o7Of5w8mrW'}
+True
+None
+True
+None
+('test0@students.stonehill.edu', 'fac42674-8cee-4fbb-aa7c-0e58ec8aa768', 'Checked Out', '2021-04-15 21:53:52', 'None', '1', None)
+(True, '')
+here?
+{'qrcode': 'L001', 'email': 'test0@students.stonehill.edu', 'auth_token': 'SlIwHegJ5BOgVA882VXbhIEDXQyvS1mlMDY4AQCFynPXs'}
+True
+None
+True
+None
+False
+Incorrect password.
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:13', 'None', '1', None)
+(True, '')
+here?
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:15', 'None', '1', None)
+(True, '')
+here?
+success pubid-affdd85f-d4c7-4ef3-9501-e1a08733d214
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:15', 'None', '1', None)
+(True, '')
+here?
+True
+None
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:18', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:19', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:20', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:22', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:23', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:24', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:25', 'None', '1', None)
+(True, '')
+here?
+success pubid-e55d53c3-352b-4b5e-93dd-8a99a1522103
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:26', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:27', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '4181385c-e916-48b8-8ecb-57c0696f2892', 'Checked Out', '2021-04-15 21:54:28', 'None', '1', None)
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:54:30', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:54:30', None, '0', 'I lost my container.')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:54:31', 'None', '1', None)
+(True, '')
+here?
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Damaged Lost', '2021-04-15 21:54:31', None, '0', '')
+(True, '')
+here?
+True
+None
+('test00@students.stonehill.edu', '9470db19-8ab7-4574-9933-47401df8a3e6', 'Checked Out', '2021-04-15 21:54:32', 'None', '1', None)Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2464, in __call__
+    return self.wsgi_app(environ, start_response)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 680, in _nr_wsgi_application_wrapper_
+    environ, _start_response, transaction)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/api/wsgi_application.py", line 208, in __init__
+    self.start_response)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2450, in wsgi_app
+    response = self.handle_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1867, in handle_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 2447, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1952, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.6/dist-packages/flask_cors/extension.py", line 165, in wrapped_function
+    return cors_after_request(app.make_response(f(*args, **kwargs)))
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 122, in _nr_wrapper_Flask_handle_exception_
+    return wrapped(*args, **kwargs)
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1821, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python3.6/dist-packages/flask/_compat.py", line 39, in reraise
+    raise value
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1950, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.6/dist-packages/flask/app.py", line 1936, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/usr/local/lib/python3.6/dist-packages/newrelic/hooks/framework_flask.py", line 60, in _nr_wrapper_handler_
+    return wrapped(*args, **kwargs)
+  File "/root/green2go/Backend/runBackend.py", line 101, in checkinContainer
+    return containerHandler.updateRelationship(request, relationshipDao)
+  File "/root/green2go/Backend/handlers/containerHandler.py", line 156, in updateRelationship
+    relDict = relationship.relationshipToDict()
+AttributeError: 'str' object has no attribute 'relationshipToDict'

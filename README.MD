@@ -104,7 +104,42 @@ Insert more testing info here... <br/>
 
 ## Tools <a name="tools"></a>
 
-Insert Tools info here <br/>
+RELEASE ANDROID BETA BUILDS FOR TESTING:
+- IN REPOSITORY:
+- In the “pubspec.yaml” file within “Frontend/choose2reuse/“, find the line “version:  1.0.0+0” and increment build/version each time you build  (increment the values in position X)->   version:  1.0.X+X
+
+- IN TERMINAL:
+- Run these commands in the ‘Frontend/choose2reuse/‘ directory:
+    - flutter clean 
+    -  flutter build appbundle
+
+- IN ANDROID PLAY CONSOLE:
+- Sign in using CapstoneSpring2021@gmail.com
+- Go to “All Apps” and click the “GreenZGo” app
+- Click on the Testing -> Internal testing tab
+- Click “Create new release”
+- Click “upload appbundle”, and select the file “app-release.aab” from “Frontend/choose2reuse/build/app/outputs/bundle/ “
+- Once the file loads, scroll to the bottom and click “save”
+- Click “Rollout to internal testers”
+
+
+
+DATABASE BACKUPS:
+- The “sys” database is being backed up every morning at 3:00am by a command running on the server in “/etc/crontab”
+- The command is: 
+"0 3 * * * root mysqldump -u root -p"put database password here" sys > ../../mysql_backup/backup_$(date +\%Y\%m\%d\%H\%M).sql"
+- The backups are saved to the “/mysql_backups” directory, and are called “backup_{YYYY-MM-DD}.sql
+- To restore the database, you must create an empty database and copy the backup into it. 
+- This can be done with the command: "mysql -u root -p newDatabase < /mysql_backups/{whatever file you want}.sql"
+
+
+TRAVIS-CI:
+- Go to travis-ci.org, and Sign in using Drbobdugan@gmail.com (the project GitHub account)
+- Select the repository you want to use (drbobdugan/green2go), and watch the progress of unit tests being performed in real time
+- Travis works by executing commands specified in the ".travis.yml" file in the root of the project.
+- You can learn how to use it here: https://docs.travis-ci.com/
+
+
 
 ## How is The Stack Currently Implemented? <a name="stack"></a>
 
@@ -153,14 +188,14 @@ NEW_RELIC_CONFIG_FILE=newrelic.ini newrelic-admin run-program nohup python3 /roo
 ```
 
 Automatic updates to backend/web app and slack alerts:<br/>
-There is a file called pull.py currently located in /root/pull/ that controls slack alerts and controls anything on port 5001.
+There is a file called pull.py currently located in /Tools/ that controls slack alerts and controls anything on port 5001.
 ```bash
 # to check if the server is running/list pids
 lsof -i:5001 -t
 # to kill the server and all instances based on port
 kill -9 $(lsof -i:5001 -t)
 # to start
-cd /root/pull/
+cd /Tools/
 nohup python3 pull.py &
 ```
 
