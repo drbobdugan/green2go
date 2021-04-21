@@ -180,6 +180,10 @@ def secretAddUser():
 def secretCheckout():
     return containerHandler.addRelationship(request, containerDao, relationshipDao)
 
+@app.route('/secretGetRelationships', methods = ['GET'])
+def secretGetRelationships():
+    return containerHandler.getContainersForUser(request, containerDao, False)
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port='5000')
 
