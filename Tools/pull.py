@@ -50,10 +50,10 @@ def renderDelete():
     """
 
 def updateCheckout():
-    url = "http://198.199.77.174:5000/getContainersForUser"
+    url = "http://198.199.77.174:5000/secretGetRelationships"
     myobj = {'email' : 'Checkout@stonehill.edu'}
     x = requests.get(url, json=myobj)
-    return x
+    return x.text
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkoutByEmail():
@@ -61,7 +61,7 @@ def checkoutByEmail():
         url = "http://198.199.77.174:5000/secretCheckout"
         myobj = {'email' : request.form['email']}
         x = requests.post(url, json=myobj)
-    userContainers = updateCheckout()
+    print(userContainers)
     return """<!doctype html>
     <html>
     <body>
@@ -74,7 +74,7 @@ def checkoutByEmail():
     <br/>
     <input type="submit">
     <h2> Checkout Log </h2>
-    """ +type(userContainers)+ """
+    """ +userContainers+ """
     </form>
     </body>
     </html>
