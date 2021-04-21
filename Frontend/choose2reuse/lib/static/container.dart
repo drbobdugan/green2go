@@ -88,7 +88,7 @@ const Map<ContainerStatus, String> containerIconColors =
 const Map<ContainerStatus, String> containerDataRowColors =
     <ContainerStatus, String>{
   ContainerStatus.CheckedOut: 'attention',
-  ContainerStatus.Pending: 'primary',
+  ContainerStatus.Pending: 'medium',
   ContainerStatus.Verified: 'darkPrimary',
   ContainerStatus.DamagedLost: 'disabled',
 };

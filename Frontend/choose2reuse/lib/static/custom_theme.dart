@@ -18,6 +18,7 @@ Map<String, Color> colors = <String, Color>{
   'darkPrimary': const Color(0xFF005E45),
   'attention': const Color(0xFF6ACB8C),
   'light': const Color(0xFF53DC98),
+  'medium': const Color(0xFF3FAD90),
   'disabled': Colors.grey,
 };
 
