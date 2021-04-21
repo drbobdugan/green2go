@@ -75,6 +75,7 @@ class ContainerHandler:
             userContainer['active'] = "1"
         except Exception as e:
             raise Exception(e)
+        return userContainer
 
     def reportContainer(self, userContainer):
         try:
@@ -83,6 +84,7 @@ class ContainerHandler:
             self.validateQRCode(userContainer['qrcode'], False)
         except Exception as e:
             raise Exception(e)
+        return userContainer
 
     def secretCheckout(self, userContainer):
         try:
@@ -91,9 +93,10 @@ class ContainerHandler:
             self.helperHandler.falseQueryCheck(res)
             userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
             userContainer['status'] = "Checked Out"
-            userCOntainer['active'] = "1"
+            userContainer['active'] = "1"
         except Exception as e:
             raise Exception(e) 
+        return userContainer
 
 
     #Accepts list val in format  val = (email, qrcode, status, statusUpdateTime)
@@ -112,7 +115,7 @@ class ContainerHandler:
             hasAuth = False
         try:
             userContainer = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, hasAuth=hasAuth)
-            eval(func)
+            userContainer = eval(func)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
             relationship=Relationship()

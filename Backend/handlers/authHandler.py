@@ -59,6 +59,7 @@ class AuthHandler:
         if type(auth) == str:
             return json.dumps({"success" : res[0], "data" : auth})
         return json.dumps({"success" : res[0], "data" : auth.authToDict()})
+        
     def newAuth(self,dic,userDic,user):
         authDic = {}
         authDic["user"] = dic["email"]
