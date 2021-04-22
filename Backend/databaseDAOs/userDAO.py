@@ -8,6 +8,8 @@ class UserDAO(dao):
     #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
 
     def checkFormatting(self,user):
+        if(user.email is None or user.password is None or user.firstName is None or user.lastName is None or user.phoneNum is None or user.role is None or user.authCode is None or user.authTime is None or user.lastLogIn is None or user.authorized is None or user.beams_token is None):
+            return False, "Unauthorized NoneType variable"
         myresult = self.checkLength(user)
         if myresult[0] == False:
             return myresult

@@ -152,6 +152,88 @@ class unitTestUserDAO(unittest.TestCase):
         self.assertFalse(rc)
         self.assertEqual(msg,"Duplicate Entry")
     
+    def addUserNoneType(self):
+        user = User(
+                None,
+                "password",
+                "Test",
+                "User",
+                "Example",
+                "7817817811",
+                "RegularUser",
+                "2021",
+                "1111111",
+                "2021-01-01 01:01:01",
+                "2021-01-01 01:01:01",
+                "0",
+                "exampletoken")
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.email = "test42@students.stonehill.edu"
+
+        user.password = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.password = "password"
+
+        user.firstName = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.firstName = "Test"
+
+        user.middleName = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertTrue(rc)
+        user.middleName = "Example"
+        rc, deleteUser = self.dao.deleteUser(user.email)
+        self.assertTrue(rc)
+
+        user.lastName = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.lastName = "User"
+
+        user.phoneNum = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.phoneNum = "7817817811"
+
+        user.role = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.role = "RegularUser"
+
+        user.classYear = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertTrue(rc)
+        user.role = "2021"
+        rc, deleteUser = self.dao.deleteUser(user.email)
+        self.assertTrue(rc)
+
+        user.authCode = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.authCode = "123456"
+
+        user.authTime = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.authTime = "123456"
+
+        user.lastLogIn = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.lastLogIn = "2021-01-01 01:01:01"
+
+        user.authorized = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.authorized = "0"
+
+        user.beams_token = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+
     def testRegularSelectUser(self):
         """
         Test that we can select a user that exists in the database already
