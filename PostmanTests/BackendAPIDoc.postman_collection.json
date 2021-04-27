@@ -2537,6 +2537,175 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "addLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"location_qrcode\":\"L005\",\n    \"description\":\"New Hall loby\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/addLocation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"addLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "locationList",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/locationList?email=test0@students.stonehill.edu&auth_token={{authTokenTest0}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"locationList"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "test0@students.stonehill.edu"
+								},
+								{
+									"key": "auth_token",
+									"value": "{{authTokenTest0}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"L005\",\n    \"description\":\"College Center\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/updateLocation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"updateLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteLocation",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"L005\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/deleteLocation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"deleteLocation"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

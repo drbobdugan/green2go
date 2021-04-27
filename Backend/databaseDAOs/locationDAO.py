@@ -123,7 +123,7 @@ class LocationDao(dao):
             """
             logging.info("Entering updateLocation")
             result = location.locationToList()
-            sql = "UPDATE location set description = '" + result[1] + "', lastPickup = '" + result[2] +"' WHERE location_qrcode = '" + result[0] + "'"
+            sql = "UPDATE location set description = '" + result[1] + "', lastPickup = '" +str(result[2]) +"' WHERE location_qrcode = '" + result[0] + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult

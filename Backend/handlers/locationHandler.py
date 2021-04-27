@@ -26,6 +26,8 @@ class LocationHandler:
             return self.selectLocation(request,locationDao,res)
         elif "/clearLocation" in str (request):
             return self.clearlocation(request,locationDao,res)
+        elif "/deleteLocation" in str (request):
+            return self.deleteLocation(request,locationDao,res)
 
 
     def selectLocation(self, request,locationDao,res):
@@ -37,3 +39,57 @@ class LocationHandler:
         res2=self.locationdao.updateLocation(res[1])
 
         return self.helperHandler.handleResponse(res2)
+
+    def addLocation(self,request,locationDao):
+        locationDic = None
+        keys = ['location_qrcode','email','auth_token','description']
+        try:
+            locationDic = self.helperHandler.handleRequestAndAuth(request, keys)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        locationDic['lastPickup'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        location = Location()
+        location.dictToLocation(locationDic)
+        res = self.locationdao.insertLocation(location)
+        return self.helperHandler.handleResponse(res)
+    
+    def deleteLocation(self,request,locationDao,res):
+        res2=self.locationdao.deleteLocation(res[1])
+        return self.helperHandler.handleResponse(res2)
+
+    def allLocations(self,request,locationDao):
+        locationDic = None
+        keys = ['email','auth_token']
+        locations=[]
+        try:
+            locationDic = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+            res = self.locationdao.selectAll()
+            self.helperHandler.falseQueryCheck(res)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        
+        for r in res[1]:
+            locations.append(r.locationToDict())
+        res=res[0],locations
+        return self.helperHandler.handleResponse(res)
+
+    def updateLocation(self,request,locationDao):
+        locationDic = None
+        keys = ['qrcode','email','auth_token','description']
+        try:
+            locationDic = self.helperHandler.handleRequestAndAuth(request, keys)
+            res = self.locationdao.selectByLocationQRcode(locationDic['qrcode'])
+            self.helperHandler.falseQueryCheck(res)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        
+        res[1].description=locationDic['description']
+        res2=self.locationdao.updateLocation(res[1])
+        return self.helperHandler.handleResponse(res2)
+
+
+
+
+
+
+

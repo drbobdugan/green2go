@@ -162,6 +162,22 @@ def selectLocation():
 def clearLocation():
     return locationHandler.locationcheckandAuth(request,locationDao)
 
+@app.route('/addLocation',methods=['POST'])
+def addLocation():
+    return locationHandler.addLocation(request,locationDao)
+
+@app.route('/deleteLocation',methods=['DELETE'])
+def deleteLocation():
+    return locationHandler.locationcheckandAuth(request,locationDao)
+
+@app.route('/locationList',methods=['GET'])
+def locationList():
+    return locationHandler.allLocations(request,locationDao)
+
+@app.route('/updateLocation',methods=['PATCH'])
+def updateLocation():
+    return locationHandler.updateLocation(request,locationDao)
+
 #----------------------------Secret Methods --------------------------------
 
 @app.route('/secretDeleteUser', methods=['DELETE'])
