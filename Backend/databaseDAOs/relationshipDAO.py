@@ -235,18 +235,22 @@ class RelationshipDAO(dao):
             #sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status != 'Verified Return'"
             myresult = self.handleSQL(sql,True,None)
+            #print(myresult,"here")
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1][0]
             myresult = list(myresult)
             myresult[3] = str(myresult[3])
-            r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4],myresult[5],myresult[6])
-            #if(r1.status=="Damaged Lost"):
+            
+            r1 = Relationship(myresult[0],myresult[1],myresult[2],myresult[3],myresult[4],myresult[5])
+            
+                  #if(r1.status=="Damaged Lost"):
                 #return False, "Container has been marked as Damaged Lost"
-            #if(r.status == "Damaged Lost" and r.description == None):
+                 #if(r.status == "Damaged Lost" and r.description == None):
                 #return False, "Damaged Lost Container lacks description"
             sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "', description = '" + str(r.description)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
+            
             if(myresult[0] == False):
                 return myresult
 

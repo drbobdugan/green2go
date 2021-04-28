@@ -19646,9 +19646,6 @@
 											"    pm.expect(DamagedLost.status).to.include(\"Damaged Lost\");",
 											"});",
 											"",
-											"pm.test(\"Container is marked active = 1\", function () {",
-											"    pm.expect(DamagedLost.active).to.equal(\"1\");",
-											"});",
 											"",
 											"pm.test(\"Container has description\", function () {",
 											"    pm.expect(DamagedLost.description).to.equal(\"I lost my container.\");",
@@ -19698,48 +19695,6 @@
 						},
 						{
 							"name": "Delete Relationship (Damaged Lost)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Delete Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteRelationship"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Relationship (Checked Out)",
 							"event": [
 								{
 									"listen": "test",
@@ -20284,9 +20239,6 @@
 											"    pm.expect(DamagedLost.status).to.include(\"Damaged Lost\");",
 											"});",
 											"",
-											"pm.test(\"Container is marked active = 1\", function () {",
-											"    pm.expect(DamagedLost.active).to.equal(\"1\");",
-											"});",
 											"",
 											"pm.test(\"Container has description\", function () {",
 											"    pm.expect(DamagedLost.description).to.equal(\"\");",
@@ -20336,48 +20288,6 @@
 						},
 						{
 							"name": "Delete Relationship (Damaged Lost)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Delete Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteRelationship"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Relationship (Checked Out)",
 							"event": [
 								{
 									"listen": "test",
@@ -22732,48 +22642,6 @@
 							"response": []
 						},
 						{
-							"name": "Delete Relationship (Checked Out)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Delete Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteRelationship"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Delete container",
 							"event": [
 								{
@@ -23363,48 +23231,6 @@
 						},
 						{
 							"name": "Delete Relationship (Damaged Lost)",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Delete Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"9470db19-8ab7-4574-9933-47401df8a3e6\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteRelationship"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete Relationship (Checked Out)",
 							"event": [
 								{
 									"listen": "test",
