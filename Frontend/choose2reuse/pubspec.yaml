@@ -17,28 +17,30 @@ dependencies:
   flutter:
     sdk: flutter
 
+  firebase_auth: ^1.1.2
+  cloud_firestore: ^1.0.7
   countdown_flutter: ^0.1.2
   cupertino_icons: ^1.0.0
 
-  http: ^0.12.0
-  email_validator: ^1.0.0
+  http: ^0.13.2
+  email_validator: ^2.0.1
   device_info: ^2.0.0
-  shared_preferences: ^0.5.1
-  intl: ^0.16.1
+  shared_preferences: ^2.0.5
+  intl: ^0.17.0
 
-  firebase_analytics: ^7.1.1
+  firebase_analytics: ^8.0.2
   firebase_core: ^1.0.2
   firebase_messaging: ^9.0.1
   pusher_beams: ^0.5.3+3
-  permission_handler: ^6.1.1
+  permission_handler: ^7.0.0
 
 dev_dependencies:
-  change_app_package_name: ^0.1.2
+  change_app_package_name: ^1.0.0
   flutter_test:
     sdk: flutter
   
-  flutter_launcher_icons: "^0.8.0"
-  flutter_barcode_scanner: ^1.0.2
+  flutter_launcher_icons: ^0.9.0
+  flutter_barcode_scanner: ^2.0.0
 
 flutter_icons:
   android: "launcher_icon"

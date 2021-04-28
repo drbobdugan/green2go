@@ -23,29 +23,43 @@ class API {
 
     final DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
     try {
+      print('getting info');
       final AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      print('done getting info');
       if (androidInfo.isPhysicalDevice) {
+        print('returning url 1');
+        print(remoteURL);
         return remoteURL;
       }
-      return localAndroidURL;
+      print('returning url 4');
+      print(localAndroidURL);
+      return remoteURL;
     } catch (error) {
+      print(error.toString());
       final IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
       if (iosInfo.isPhysicalDevice) {
+        print('returning url 2');
+        print(remoteURL);
         return remoteURL;
       }
+      print('returning url 3');
+      print(localURL);
       return localURL;
     }
   }
 
   static Future<APIResponse> postResponse(String path, dynamic params) async {
+    print('in post response');
     return getURL().then((String url) async {
       final Response response = await post(
-        'http://$url/$path',
+        Uri.parse('http://$url/$path'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
         body: params,
       );
+      print('leaving post response');
+      print(response);
       return formatResponse(response);
     });
   }
@@ -53,7 +67,7 @@ class API {
   static Future<APIResponse> patchResponse(String path, dynamic params) async {
     return getURL().then((String url) async {
       final Response response = await patch(
-        'http://$url/$path',
+        Uri.parse('http://$url/$path'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -65,7 +79,7 @@ class API {
 
   static Future<APIResponse> getResponse(String path) async {
     return getURL().then((String url) async {
-      final Response response = await get('http://$url/$path');
+      final Response response = await get(Uri.parse('http://$url/$path'));
       return formatResponse(response);
     });
   }

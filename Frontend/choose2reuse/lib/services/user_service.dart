@@ -25,6 +25,7 @@ class UserService {
   }
 
   static Future<APIResponse> signUp(NewUser user) async {
+    print('entering');
     final APIResponse resp = await API.postResponse(
         'addUser',
         jsonEncode(<String, String>{
@@ -36,6 +37,8 @@ class UserService {
           'phoneNum': user.phoneNum,
           'role': 'RegularUser'
         }));
+        print('here in reponse');
+        print(resp);
     return resp;
   }
 

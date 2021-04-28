@@ -36,7 +36,9 @@ class _SignUpPageState extends State<SignUpPage> {
   String errorMessage = '';
 
   void handleSignUp(BuildContext context) {
+    print('yellow');
     widget.onSignUp(user).then((APIResponse response) {
+      print(response);
       if (response.success) {
         NavigationService(context: context).goToPage(C2RPages.validation, user);
       } else {
