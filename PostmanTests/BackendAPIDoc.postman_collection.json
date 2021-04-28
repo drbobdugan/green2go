@@ -2406,6 +2406,46 @@
 			"name": "Location Tests",
 			"item": [
 				{
+					"name": "Delete Location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"L005\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/deleteLocation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"deleteLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Select Location",
 					"event": [
 						{
@@ -2508,6 +2548,10 @@
 									"pm.test(\"Status code is 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
+									"",
+									"pm.test(\"Successful Patch Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
 									""
 								],
 								"type": "text/javascript"
@@ -2539,12 +2583,17 @@
 					"response": []
 				},
 				{
-					"name": "addLocation",
+					"name": "Add Location",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
 									"pm.test(\"Successful Post Response\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
@@ -2558,7 +2607,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"location_qrcode\":\"L005\",\n    \"description\":\"New Hall loby\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"location_qrcode\":\"L005\",\n    \"description\":\"New Hall lobby\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2578,12 +2627,59 @@
 					"response": []
 				},
 				{
-					"name": "locationList",
+					"name": "Update Location",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"L005\",\n    \"description\":\"College Center\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/updateLocation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"updateLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Location List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
 									"pm.test(\"Successful Post Response\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
@@ -2628,53 +2724,23 @@
 						}
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Clean Up DB",
+			"item": [
 				{
-					"name": "updateLocation",
+					"name": "Delete Location",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
 								"exec": [
-									"pm.test(\"Successful Post Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"L005\",\n    \"description\":\"College Center\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/updateLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updateLocation"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "deleteLocation",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
 									"pm.test(\"Successful Post Response\", function () {",
 									"    pm.expect(pm.response.text()).to.include(\"true\");",
 									"});"
@@ -2706,12 +2772,7 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Clean Up DB",
-			"item": [
+				},
 				{
 					"name": "Delete Relationship",
 					"event": [
@@ -2918,8 +2979,7 @@
 		},
 		{
 			"key": "baseUrl",
-			"value": "localhost:5000",
-			"disabled": true
+			"value": "localhost:5000"
 		}
 	]
 }
