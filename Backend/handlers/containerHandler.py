@@ -76,14 +76,6 @@ class ContainerHandler:
             raise Exception(e)
         return userContainer
 
-    def reportContainer(self, userContainer):
-        try:
-            userContainer['location_qrcode'] = None
-            self.validateQRCode(userContainer['qrcode'], False)
-        except Exception as e:
-            raise Exception(e)
-        return userContainer
-
     def secretCheckout(self, userContainer):
         try:
             userContainer['status'] = "Pending Return"
@@ -104,9 +96,6 @@ class ContainerHandler:
         if "/checkoutContainer" in str(request):
             keys = ['email', 'qrcode', 'status', 'auth_token', 'location_qrcode']
             func = "self.checkoutContainer(userContainer)" # ask the database team if they are check for pendings that will switch to returned for older user
-        elif "/reportContainer" in str(request):
-            keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
-            func = "self.reportContainer(userContainer)"
         elif "/secretCheckout" in str(request):
             keys = ['email']
             func = "self.secretCheckout(userContainer)"
@@ -123,7 +112,7 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         # send notification
-        if old_code[0] is True and "/reportContainer" not in str(request):
+        if old_code[0] is True:
             self.notificationHelper.sendNotification(old_code[1])
         return self.helperHandler.handleResponse(res)
 
@@ -162,16 +151,46 @@ class ContainerHandler:
                 sortDict[item['status'].replace(' ', '_')].append(item)
             res= (True,sortDict)
         return self.helperHandler.handleResponse(res)
+    
+    def reportContainer(self, userContainer):
+        try:
+            userContainer['location_qrcode'] = None
+        except Exception as e:
+            raise Exception(e)
+        return userContainer
+
+    def checkinContainer(self, userContainer):
+        try:
+            self.validateQRCode(userContainer['location_qrcode'], True)
+            userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        except Exception as e:
+            raise Exception(e)
+        return userContainer
+    
+    def undoReport(self, userContainer):
+        try:
+            userContainer['status'] = 'Checked Out'
+            userContainer['description'] = None
+        except Exception as e:
+            raise Exception(e)
+        return userContainer
 
     def updateRelationship(self, request, containerDao):  # we are going to do loction than the container so get loction for the front end here
-        dictOfUserAttrib = None
-        keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
+        userContainer = None
+        if "/checkinContainer" in str(request):
+            keys = ['email', 'qrcode', 'status','auth_token','location_qrcode']
+            func = "self.checkinContainer(userContainer)"
+        elif "/reportContainer" in str(request):
+            keys = ['email', 'qrcode', 'status', 'auth_token', 'description']
+            func = "self.reportContainer(userContainer)"
+        elif "/undoReportContainer" in str(request):
+            keys = ['email', 'qrcode', 'auth_token']
+            func = "self.undoReport(userContainer)"
         try:
-            dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request, keys)
-            self.validateQRCode(dictOfUserAttrib['qrcode'], False)
-            self.validateQRCode(dictOfUserAttrib['location_qrcode'], True)
-            dictOfUserAttrib['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            rel = self.relationdao.selectActiveQRcode(dictOfUserAttrib["qrcode"])
+            userContainer = self.helperHandler.handleRequestAndAuth(request, keys)
+            userContainer = eval(func)
+            self.validateQRCode(userContainer['qrcode'], False)
+            rel = self.relationdao.selectActiveQRcode(userContainer["qrcode"])
             self.helperHandler.falseQueryCheck(rel)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
@@ -180,9 +199,11 @@ class ContainerHandler:
         relationship = Relationship()
         relationship.listToRelationship(rel[1][0])
         relDict = relationship.relationshipToDict()
-        for key in dictOfUserAttrib:
+        if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
+            return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
+        for key in userContainer:
             if key != "auth_token" and key != "email":
-                relDict[key] = dictOfUserAttrib[key]
+                relDict[key] = userContainer[key]
         relationship.dictToRelationship(relDict)
         res = self.relationdao.updateRelationship(relationship)
         return self.helperHandler.handleResponse(res)
@@ -192,8 +213,6 @@ class ContainerHandler:
         relDict = None
         #auth_token not required for testing
         keys = ['email', 'qrcode']
-        if "/undoReportContainer" in str(request):
-            keys.append('auth_token')
         try:
             relDict = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=hasAuth)
             self.validateQRCode(relDict['qrcode'], False)
@@ -205,8 +224,6 @@ class ContainerHandler:
             return self.helperHandler.handleResponse(rel)
         relationship = rel[1]
         relDict = relationship.relationshipToDict()
-        if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
-            return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
         #delete relationship from table
         res = self.relationdao.deleteRelationship(relationship)
         return self.helperHandler.handleResponse(res)

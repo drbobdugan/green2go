@@ -116,11 +116,11 @@ def checkinContainer():
 
 @app.route('/reportContainer', methods=['POST'])
 def reportContainer():
-    return containerHandler.addRelationship(request, containerDao, relationshipDao)
+    return containerHandler.updateRelationship(request, relationshipDao)
 
 @app.route('/undoReportContainer', methods=['POST'])
 def undoReportContainer():
-    return containerHandler.deleteRelationship(request, relationshipDao, True)
+    return containerHandler.updateRelationship(request, relationshipDao)
 
 @app.route('/getallContainers', methods=['GET'])
 def getallContainers():
