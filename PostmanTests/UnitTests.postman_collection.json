@@ -12836,49 +12836,6 @@
 							"response": []
 						},
 						{
-							"name": "Delete Relationship Second Relationship",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Unsuccessful Delete Second Relationship Request\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});"
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteRelationship"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "Delete container",
 							"event": [
 								{
