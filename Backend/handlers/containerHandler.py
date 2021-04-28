@@ -72,7 +72,6 @@ class ContainerHandler:
         try:
             self.validateQRCode(userContainer['qrcode'], False)
             userContainer['description'] = None
-            userContainer['active'] = "1"
         except Exception as e:
             raise Exception(e)
         return userContainer
@@ -80,7 +79,6 @@ class ContainerHandler:
     def reportContainer(self, userContainer):
         try:
             userContainer['location_qrcode'] = None
-            userContainer['active'] = "1"
             self.validateQRCode(userContainer['qrcode'], False)
         except Exception as e:
             raise Exception(e)
@@ -93,7 +91,6 @@ class ContainerHandler:
             self.helperHandler.falseQueryCheck(res)
             userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
             userContainer['status'] = "Checked Out"
-            userContainer['active'] = "1"
             userContainer['email'] = "Checkout@stonehill.edu"
         except Exception as e:
             raise Exception(e) 

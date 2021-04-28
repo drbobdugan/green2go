@@ -8,8 +8,6 @@ class Container:
     # list to object
     def listToContainer(self,list):
         self.qrcode = list[0]
-        self.active = 1
-        self.description = "active container"
        
     # object to list
     def containerToList(self):
@@ -24,9 +22,3 @@ class Container:
     # object to dictionary
     def containerToDict(self):
         return {"qrcode": self.qrcode}
-        
-    # getters and setters
-    def getQRcode(self):
-        return self.qrcode
-    def setQRcode(self,newQRcode):
-        self.qrcode=newQRcode
