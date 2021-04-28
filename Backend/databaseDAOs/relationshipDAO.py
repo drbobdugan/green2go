@@ -1,11 +1,12 @@
 import mysql.connector
-from datetime import datetime
 import logging
+from userDAO import UserDAO
 from relationship import Relationship
 from DAO import dao
+from datetime import datetime
 from datetime import timedelta
-class RelationshipDAO(dao):
 
+class RelationshipDAO(dao):
 
     def getRecentUser(self, qrcode):
         try:
@@ -23,7 +24,6 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
             
-
     def changeOldRelationship(self,result):
         try:
             logging.info("Entering changeOldRelationship")
@@ -44,9 +44,7 @@ class RelationshipDAO(dao):
             logging.error("Error in changeOldRelationship")
             logging.error(str(e))
             return self.handleError(e)
-        
-
-
+    
     # CREATE RELATIONSHIP
     def insertRelationship(self, r):
         try:
@@ -55,7 +53,6 @@ class RelationshipDAO(dao):
             if(myresult[0] == False):
                 return myresult
             logging.info("Entering insertRelationship")
-            r.statusUpdateTime = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             result = r.relationshipToList()
             # change the old person's pending return status to verified return
             if(r.status != "Damaged Lost"):
@@ -199,6 +196,32 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+    def updatePoints(self,r):
+        #when a user returns a container
+        #pass their relationship into this method
+        #get user object to get points
+        #check now-statusUpdateTime
+        #if less than 48 hours, user.points +15
+        #else user.points +5
+        #call update user with new points
+
+        userdao = UserDAO()
+        user = userdao.selectUser(r.email)
+        returnTime = datetime.strptime(r.statusUpdateTime, '%Y-%m-%d %H:%M:%S')
+        
+        timePassed = datetime.now() - returnTime #type is datetime.timedelta
+        #print("Time Passed:", timePassed)
+        hours48 = timedelta(hours = 48)
+        #print(hours48)
+        
+        if(timePassed < hours48):
+            #user.points = user.points + 15
+            print("true")
+        else:
+            #user.points = user.points + 5
+            print("false")
+        userdao.updateUser(user)
+
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r): 
         try:
@@ -206,7 +229,8 @@ class RelationshipDAO(dao):
             if(myresult[0] == False):
                 return myresult
             logging.info("Entering updateRelationship")
-            r.statusUpdateTime = (datetime.now() + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S') 
+            #r.statusUpdateTime = (r.statusUpdateTime + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S')
+            #if status is Pending Return, call updatePoints()
             result = r.relationshipToList()
             #sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status != 'Verified Return'"
@@ -223,11 +247,6 @@ class RelationshipDAO(dao):
                 #return False, "Damaged Lost Container lacks description"
             sql = "UPDATE hascontainer SET status = '" + str(r.status) + "', location_qrcode = '" + str(r.location_qrcode) +"',  statusUpdateTime = '" + str(r.statusUpdateTime)+ "', description = '" + str(r.description)+ "' WHERE email = '" + str(r1.email) + "' and " + "qrcode = '" + str(r1.qrcode) + "'" " and statusUpdateTime = '" + str(r1.statusUpdateTime) + "'"
             myresult = self.handleSQL(sql,False,None)
-            if(myresult[0] == False):
-                return myresult
-            
-            sql2 = "DELETE from hascontainer where qrcode = '" + r.qrcode + "' and status = 'Damaged Lost'"
-            myresult = self.handleSQL(sql2,False,None)
             if(myresult[0] == False):
                 return myresult
 

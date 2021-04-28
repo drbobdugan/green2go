@@ -11,8 +11,9 @@ def main():
     #testUpdateAuth()
     #testUpdateRelationship()
     #testSelectPendingReturns()
-    testSelectActiveQRcode()
+    #testSelectActiveQRcode()
     #testDeleteAuth()
+    testUpdatePoints()
 
 def testinsertRelationship():
     #relationship 1
@@ -32,5 +33,10 @@ def testSelectPendingReturns():
 
 def testSelectActiveQRcode():
     dao.selectActiveQRcode("958bbde6-c11a-49fb-9952-70d95ce2e277")
+
+def testUpdatePoints():
+    r = Relationship('eblake1@students.stonehill.edu', '742598cc-7281-4b0a-a401-3bf9da6d7200', 'Checked Out', '2021-04-20 20:11:17', 'None', '1', None)
+    dao.updatePoints(r)
+
 main()
 
