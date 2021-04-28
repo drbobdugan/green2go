@@ -6,11 +6,10 @@ class unitTestUserDAO(unittest.TestCase):
     Test the userDAO class methods using the unit test framework.  
     To run these tests:
          python3 -m unittest unitTestUserDao.py
-
     """
+
     def setUp(self):
         """
-        
         Setup a temporary database
         """
         self.dao = UserDAO()
@@ -38,7 +37,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0",
-                "exampletoken")
+                "exampletoken",
+                "5")
         return self.dao.insertUser(user)
     
     def testUserSizeLimits(self):
@@ -56,7 +56,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0",
-                "exampletoken")
+                "exampletoken",
+                "5")
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         self.assertTrue("email is too long" in msg)
@@ -130,6 +131,12 @@ class unitTestUserDAO(unittest.TestCase):
         self.assertFalse(rc)
         self.assertTrue("beams_token is too long" in msg)
 
+        points = user.points
+        user.points = lim45
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        self.assertTrue("points is too long" in msg)
+
     def testRegularAddUser(self):
         """
         Test that we can add a user that doesn't exist in the database
@@ -166,7 +173,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0",
-                "exampletoken")
+                "exampletoken",
+                "5")
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         user.email = "test42@students.stonehill.edu"
@@ -233,6 +241,12 @@ class unitTestUserDAO(unittest.TestCase):
         user.beams_token = None
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
+        user.beams_token = "exampletoken"
+
+        user.points = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.points = "5"
 
     def testRegularSelectUser(self):
         """
@@ -279,7 +293,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0",
-                "exampletoken")
+                "exampletoken",
+                "5")
 
         rc, msg = self.dao.updateUser(user)
         self.assertTrue(rc)
@@ -306,7 +321,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0",
-                "exampletoken")
+                "exampletoken",
+                "5")
 
         rc, msg = self.dao.updateUser(user)
         self.assertFalse(rc)
@@ -315,30 +331,26 @@ class unitTestUserDAO(unittest.TestCase):
         self.assertFalse(rc)         
 
     def testDeleteUser(self):
-
         """
         Test that we can delete a user from the database.
         """
         rc, msg = self.addTest42User()
         self.assertTrue(rc)
-
+        
+        #get user
         email="test42@students.stonehill.edu"
         rc, getUser = self.dao.selectUser(email)
         self.assertTrue(rc)
-        """
-        Delete the user
-        """
+
+        #delete user
         rc, deleteUser = self.dao.deleteUser(getUser)
         self.assertTrue(rc)
 
-        """
-        Check if container is actually deleted
-        """
+        #check if user is actually deleted
         rc, getUser = self.dao.selectUser(email)
         self.assertFalse(rc)
 
     def testDeleteUserDoesntExist(self):
-
         rc, msg = self.addTest42User()
         self.assertTrue(rc)
 
@@ -372,7 +384,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "2021-01-01 01:01:01",
                 "0",
-                "exampletoken")
+                "exampletoken",
+                "5")
 
         rc, msg = self.dao.deleteUser(user)
         self.assertFalse(rc)
@@ -380,7 +393,6 @@ class unitTestUserDAO(unittest.TestCase):
         """
         Can't delete a NoneType user
         """
-
         rc, msg = self.dao.deleteUser(None)
         self.assertFalse(rc)
 
