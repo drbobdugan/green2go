@@ -64,11 +64,13 @@ class UserHandler:
             dictOfUserAttrib['lastLogIn'] = "None"
             dictOfUserAttrib['authorized'] = "0"
             dictOfUserAttrib['beams_token'] = self.helperHandler.beams_auth(dictOfUserAttrib['email'])
+            dictOfUserAttrib['points']="0"
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)})
         user = User()
         user.dictToUser(dictOfUserAttrib)
         res = self.userDao.insertUser(user)
+        print(res)
         if(res[0] and "/secretAddUser" not in str(request)):
             self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
