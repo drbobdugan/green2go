@@ -10,9 +10,17 @@ class ContainerDAO(dao):
         try:
             logging.info("Entering totalCheckedOutContainers")
             sql = "select email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Pending Return' and location.lastPickup < hascontainer.statusUpdateTime and location.location_qrcode = hascontainer.location_qrcode order by hascontainer.location_qrcode"
+            sql1 = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Checked Out'"
             myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            myresult1 = self.handleSQL(sql1,True,None)
+            if(myresult1[0] == False):
+                return myresult
             temp = []
             for result in myresult[1]:
+                temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
+            for result in myresult1[1]:
                 temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
             return True, temp
         except Exception as e:
@@ -149,25 +157,12 @@ class ContainerDAO(dao):
     
     def checkLength(self,c):
         maxLength = {
-        "qrcode" : 45,
-        "active" : 45,
-        "description" : 45}
+        "qrcode" : 45}
         var = "None"
         if(len(c.qrcode)>maxLength["qrcode"]):
             var = "qrcode"
-        """
-        if(len(c.active) > maxLength["active"]):
-            var = "active"
-        if(len(r.description) > maxLength["description"]):
-            var = "desctiption" 
-        """
         if(var == "None"):
             return True, ""
         else:
             temp = var + " is too long, maximum length: " + str(maxLength[var])
             return False, temp
-
-    def markContainerLostDamaged(self,c):
-        print("hello world")
-        # use SQL to update active to 0 and description to whatever the person typed in
-        # update the relationship status to "Lost/Damaged"
