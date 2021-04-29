@@ -196,31 +196,33 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
-    def updatePoints(self,r):
-        #when a user returns a container
-        #pass their relationship into this method
-        #get user object to get points
-        #check now-statusUpdateTime
-        #if less than 48 hours, user.points +15
-        #else user.points +5
-        #call update user with new points
-
+    def updatePoints(self,r): #when a user returns a container
         userdao = UserDAO()
         user = userdao.selectUser(r.email)
         returnTime = datetime.strptime(r.statusUpdateTime, '%Y-%m-%d %H:%M:%S')
-        
+        #check now-statusUpdateTime
         timePassed = datetime.now() - returnTime #type is datetime.timedelta
-        #print("Time Passed:", timePassed)
         hours48 = timedelta(hours = 48)
-        #print(hours48)
-        
-        if(timePassed < hours48):
-            #user.points = user.points + 15
-            print("true")
-        else:
-            #user.points = user.points + 5
-            print("false")
-        userdao.updateUser(user)
+
+        #select user to get points
+        result = userdao.selectUser(r.email)
+
+        if(timePassed < hours48): #if less than 48 hours, user.points +15
+            tempUser = result[1]
+            parsePoints = int(tempUser.points) #need to parse to int and then back to str
+            temp2 = parsePoints + 15
+            newPoints = str(temp2)
+            tempUser.points = newPoints
+            userdao.updateUser(tempUser) #call update user with new points
+            
+        else:  #else user.points +5
+            tempUser = result[1]
+            parsePoints = int(tempUser.points) #need to parse to int and then back to str
+            temp2 = parsePoints + 5
+            newPoints = str(temp2)
+            tempUser.points = newPoints
+            userdao.updateUser(tempUser) #call update user with new points
+            
 
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r): 
@@ -231,6 +233,8 @@ class RelationshipDAO(dao):
             logging.info("Entering updateRelationship")
             #r.statusUpdateTime = (r.statusUpdateTime + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S')
             #if status is Pending Return, call updatePoints()
+            if(r.status == "Pending Return"):
+                updatePoints(r)
             result = r.relationshipToList()
             #sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status != 'Verified Return'"

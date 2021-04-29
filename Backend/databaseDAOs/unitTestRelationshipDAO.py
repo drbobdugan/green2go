@@ -146,7 +146,8 @@ class unitTestRelationshipDAO(unittest.TestCase):
         rc, msg = self.testInsertRelationshipSmoke()
         self.assertTrue(rc)
 
-        r = Relationship("test42@students.stonehill.edu","101010","Pending Return","2021-01-01 01:01:01",None,"Pending Return")
+        #r = Relationship("test42@students.stonehill.edu","101010","Pending Return","2021-01-01 01:01:01",None,"Pending Return")
+        r = Relationship("test43@students.stonehill.edu","101010","Checked Out","2021-01-01 01:01:01",None,None)
         rc, updateRelationship = self.dao.updateRelationship(r)
         self.assertTrue(rc)
 
