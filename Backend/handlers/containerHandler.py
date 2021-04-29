@@ -126,18 +126,13 @@ class ContainerHandler:
             hasAuth = True
         try:
             relationship = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=hasAuth)
+            res = self.relationdao.selectAllByEmail(relationship['email'])
+            self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = self.relationdao.selectAllByEmail(relationship['email'])
         #print(res)
-        
+        print(res)
         res[1].reverse()
-        damagedQR = []
-        for item in res[1]:
-            if item['status'] == "Damaged Lost":
-                damagedQR.append(item['qrcode'])
-            if item['qrcode'] in damagedQR and item['status'] == "Checked Out":
-                res[1].remove(item)
         if res[0] is True and isSorted is True:
             sortDict={
                 'All' : res[1],
