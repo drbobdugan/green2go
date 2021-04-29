@@ -233,8 +233,10 @@ class RelationshipDAO(dao):
             logging.info("Entering updateRelationship")
             #r.statusUpdateTime = (r.statusUpdateTime + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S')
             #if status is Pending Return, call updatePoints()
-            if(r.status == "Pending Return"):
-                updatePoints(r)
+            
+            #if(r.status == "Pending Return"):
+             #   updatePoints(r)
+                
             result = r.relationshipToList()
             #sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status != 'Verified Return'"
