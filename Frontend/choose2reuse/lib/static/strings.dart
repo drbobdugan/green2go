@@ -24,6 +24,7 @@ class ReuseStrings {
   static String containerListTitle = 'Container History';
   static String profilePageTitle = 'Profile';
   static String changePasswordPageTitle = 'Change Password';
+  static String forgotPasswordPageTitle = 'Forgot Password';
 
   //field text
   static String emailField = 'Email';
@@ -45,6 +46,8 @@ class ReuseStrings {
   static String goToValidationPageText =
       'Have a verification code? Enter it here!';
   static String requestNewCode = 'Request a new code';
+  static String forgotPassword = 'Forgot Password';
+  static String sendCode = 'Send Code';
 
   //label text/instructions
   static String scanLocationMessage =

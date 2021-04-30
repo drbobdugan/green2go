@@ -37,8 +37,6 @@ class UserService {
           'phoneNum': user.phoneNum,
           'role': 'RegularUser'
         }));
-        print('here in reponse');
-        print(resp);
     return resp;
   }
 
@@ -84,6 +82,19 @@ class UserService {
           'oldPass': oldPass,
           'newPass': newPass,
           'auth_token': auth.token,
+        }));
+    return resp;
+  }
+
+  static Future<APIResponse> forgotPassword(
+      String authCode, String email, String password) async {
+    final APIResponse resp = await API.patchResponse(
+        'forgetPassword',
+        jsonEncode(<String, String>{
+          'code': authCode,
+          'email': email,
+          'newPass': password,
+          'auth_token': 'None'
         }));
     return resp;
   }

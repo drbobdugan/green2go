@@ -6,6 +6,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'pages/changePassword.dart';
 import 'pages/checkoutContainer.dart';
 import 'pages/containerList.dart';
+import 'pages/forgotPassword.dart';
 import 'pages/home.dart';
 import 'pages/login.dart';
 import 'pages/returnContainer.dart';
@@ -78,6 +79,8 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
             case '/changePassword':
               return ChangePasswordPage(
                   userAuth: settings.arguments as StudentAuth);
+            case '/forgotPassword':
+              return const ForgotPasswordPage();
             default:
               break;
           }

@@ -101,6 +101,10 @@ class _LoginPageState extends State<LoginPage> {
     NavigationService(context: context).goToPage(C2RPages.signup, user);
   }
 
+  void handleForgotPassword(BuildContext context) {
+    NavigationService(context: context).goToPage(C2RPages.forgotPassword, user);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (isLoggedIn == true) {
@@ -169,12 +173,6 @@ class _LoginPageState extends State<LoginPage> {
                         onFieldSubmitted: () {
                           fieldNextFocus(context, passwordNode, null);
                         }),
-                    ReuseButton(
-                      text: ReuseStrings.loginButtonText,
-                      onPressed: () => handleLogIn(context),
-                      buttonStyle: CustomTheme.primaryButtonStyle(),
-                      top: 10.0,
-                    ),
                     Align(
                       alignment: Alignment.bottomRight,
                       child: SizedBox(
@@ -201,6 +199,17 @@ class _LoginPageState extends State<LoginPage> {
                           ],
                         ),
                       ),
+                    ),
+                    ReuseButton(
+                      text: ReuseStrings.loginButtonText,
+                      onPressed: () => handleLogIn(context),
+                      buttonStyle: CustomTheme.primaryButtonStyle(),
+                      top: 10.0,
+                    ),
+                    ReuseButton(
+                      text: ReuseStrings.forgotPassword,
+                      onPressed: () => handleForgotPassword(context),
+                      buttonType: 'text',
                     ),
                     ReuseButton(
                       text: ReuseStrings.goToSignUpPageText,

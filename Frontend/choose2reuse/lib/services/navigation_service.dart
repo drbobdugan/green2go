@@ -13,6 +13,7 @@ class C2RPages {
   static const String containerList = '/containerList';
   static const String profile = '/profile';
   static const String changePassword = '/changePassword';
+  static const String forgotPassword = '/forgotPassword';
 }
 
 class NavigationService {

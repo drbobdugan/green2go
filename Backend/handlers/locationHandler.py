@@ -6,12 +6,15 @@ from datetime import datetime
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from locationDAO import LocationDao
 from location import Location
+from containerDAO import ContainerDAO
+from container import Container
 # test
 class LocationHandler:
 
     def __init__(self, helperHandler):
         self.helperHandler = helperHandler
         self.locationdao = LocationDao()
+        self.containerdao = ContainerDAO()
 
     def locationcheckandAuth(self,request,locationDao):
         locationDic = None
@@ -67,9 +70,16 @@ class LocationHandler:
             self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        
+        BinCounts = self.containerdao.totalContainersInBins()[1]
         for r in res[1]:
-            locations.append(r.locationToDict())
+            tempLoc = r.locationToDict()
+            counter = 0
+            for item in BinCounts:
+                if item['location_qrcode'] == tempLoc['location_qrcode']:
+                    counter = counter + 1
+            tempLoc.update({'count' : counter})
+            locations.append(tempLoc)
+        print(locations)
         res=res[0],locations
         return self.helperHandler.handleResponse(res)
 
