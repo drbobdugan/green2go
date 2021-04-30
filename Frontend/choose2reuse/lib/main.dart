@@ -1,14 +1,15 @@
-import 'package:Choose2Reuse/pages/profile.dart';
+import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:pusher_beams/pusher_beams.dart';
-import 'package:permission_handler/permission_handler.dart';
+
 import 'pages/changePassword.dart';
 import 'pages/checkoutContainer.dart';
 import 'pages/containerList.dart';
 import 'pages/forgotPassword.dart';
 import 'pages/home.dart';
 import 'pages/login.dart';
+import 'pages/points.dart';
+import 'pages/profile.dart';
 import 'pages/returnContainer.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
@@ -57,30 +58,33 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
       onGenerateRoute: (RouteSettings settings) {
         return MaterialPageRoute<dynamic>(builder: (BuildContext context) {
           switch (settings.name) {
-            case '/home':
+            case C2RPages.home:
               return HomePage(userAuth: settings.arguments as StudentAuth);
-            case '/profile':
+            case C2RPages.profile:
               return ProfilePage(userAuth: settings.arguments as StudentAuth);
-            case '/login':
+            case C2RPages.login:
               return const LoginPage();
-            case '/signup':
+            case C2RPages.signup:
               return const SignUpPage();
-            case '/validation':
+            case C2RPages.validation:
               return ValidationPage(user: settings.arguments as NewUser);
-            case '/checkoutContainer':
+            case C2RPages.checkoutContainer:
               return CheckoutContainerPage(
                   userAuth: settings.arguments as StudentAuth);
-            case '/returnContainer':
+            case C2RPages.returnContainer:
               return ReturnContainerPage(
                   userAuth: settings.arguments as StudentAuth);
-            case '/containerList':
+            case C2RPages.containerList:
               return ContainerListPage(
                   userAuth: settings.arguments as StudentAuth);
-            case '/changePassword':
+            case C2RPages.changePassword:
               return ChangePasswordPage(
                   userAuth: settings.arguments as StudentAuth);
-            case '/forgotPassword':
+            case C2RPages.forgotPassword:
               return const ForgotPasswordPage();
+            case C2RPages.points:
+              return PointsPage(
+                  userAuth: settings.arguments as StudentAuth);
             default:
               break;
           }

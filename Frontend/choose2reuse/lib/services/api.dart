@@ -49,7 +49,6 @@ class API {
   }
 
   static Future<APIResponse> postResponse(String path, dynamic params) async {
-    print('in post response');
     return getURL().then((String url) async {
       final Response response = await post(
         Uri.parse('http://$url/$path'),
@@ -58,8 +57,7 @@ class API {
         },
         body: params,
       );
-      print('leaving post response');
-      print(response);
+      print(response.body);
       return formatResponse(response);
     });
   }
@@ -73,6 +71,7 @@ class API {
         },
         body: params,
       );
+      print(response.body);
       return formatResponse(response);
     });
   }
@@ -80,6 +79,7 @@ class API {
   static Future<APIResponse> getResponse(String path) async {
     return getURL().then((String url) async {
       final Response response = await get(Uri.parse('http://$url/$path'));
+      print(response.body);
       return formatResponse(response);
     });
   }

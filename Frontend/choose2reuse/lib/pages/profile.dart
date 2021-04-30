@@ -205,13 +205,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 ReuseButton(
                   text: ReuseStrings.changePassword,
                   onPressed: onChangePassword,
-                  buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),
                 ReuseButton(
                   text: ReuseStrings.logOut,
                   onPressed: onLogOut,
-                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  buttonType: 'text',
                   top: 20.0,
                 ),
                 ReuseErrorMessage(text: errorMessage),

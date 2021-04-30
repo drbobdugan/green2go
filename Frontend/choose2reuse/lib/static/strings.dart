@@ -25,6 +25,7 @@ class ReuseStrings {
   static String profilePageTitle = 'Profile';
   static String changePasswordPageTitle = 'Change Password';
   static String forgotPasswordPageTitle = 'Forgot Password';
+  static String pointsPageTitle = 'My Points & Rewards';
 
   //field text
   static String emailField = 'Email';
@@ -67,6 +68,7 @@ class ReuseStrings {
   static String noContainers = 'No containers found.';
   static String undoLostOrDamagedQuestion =
       'Are you sure you want to undo marking this container as damaged/lost?';
+  static String myPoints = 'Points';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';

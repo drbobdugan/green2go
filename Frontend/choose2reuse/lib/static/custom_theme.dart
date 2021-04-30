@@ -58,6 +58,15 @@ class CustomTheme {
     );
   }
 
+  static TextStyle brightLabelStyle(
+      {double fontSize = 24.0, bool isBold = true}) {
+    return TextStyle(
+      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+      fontSize: fontSize,
+      color: colors['attention']
+    );
+  }
+
   static TextStyle leftListStyle({double fontSize = 16.0, bool isBold = true}) {
     return TextStyle(
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
