@@ -11,7 +11,6 @@ class User:
                 self.middleName,
                 self.phoneNum,
                 self.role,
-                self.classYear,
                 self.authCode,
                 self.authTime,
                 self.lastLogIn,
@@ -27,13 +26,12 @@ class User:
         self.middleName = list[4]
         self.phoneNum = list[5]
         self.role = list[6]
-        self.classYear = "2021"
-        self.authCode = list[8]
-        self.authTime = list[9]
-        self.lastLogIn = list[10]
-        self.authorized = list[11]
-        self.beams_token = list[12]
-        self.points = list[13]
+        self.authCode = list[7]
+        self.authTime = list[8]
+        self.lastLogIn = list[9]
+        self.authorized = list[10]
+        self.beams_token = list[11]
+        self.points = list[12]
         
     def dictToUser(self,dict):
         self.listToUser((dict["email"],
@@ -43,7 +41,6 @@ class User:
                         dict["middleName"],
                         dict["phoneNum"],
                         dict["role"],
-                        "2021",
                         dict["authCode"],
                         dict["authTime"],
                         dict["lastLogIn"],
