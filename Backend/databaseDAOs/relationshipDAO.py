@@ -33,7 +33,7 @@ class RelationshipDAO(dao):
                    return myresult
             if(myresult[1] != [] and myresult[1] is not None):
                 oldEmail = myresult[1][0]
-                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
+                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4], None)
                 if(tempR.status=="Damaged Lost"):
                     tempR.description = ""
                     #return False, "Container has been marked as Damaged Lost"

@@ -11,12 +11,15 @@ from locationDAO import LocationDao
 from relationshipDAO import RelationshipDAO
 from relationship import Relationship
 from container import Container
+from userDAO import UserDAO
+from user import User
 class ContainerHandler:
 
     def __init__(self, helperHandler, notificationHelper):
         self.helperHandler = helperHandler
         self.validCodes = self.helperHandler.extractQRCodesFromFile()
         self.validLocations = self.helperHandler.getValidLocationCodes()
+        self.userDao = UserDAO()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
         self.locationdao= LocationDao()
@@ -186,6 +189,8 @@ class ContainerHandler:
             userContainer = eval(func)
             self.validateQRCode(userContainer['qrcode'], False)
             rel = self.relationdao.selectActiveQRcode(userContainer["qrcode"])
+            if "/checkinContainer" in str(request):
+                self.addPoints(rel[1], userContainer)
             self.helperHandler.falseQueryCheck(rel)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
@@ -193,19 +198,43 @@ class ContainerHandler:
         #change over to search by qrcode and active = 1
         relationship = Relationship()
         relationship.listToRelationship(rel[1][0])
-
         relDict = relationship.relationshipToDict()
-        
         if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
             return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
         for key in userContainer:
             if key != "auth_token" and key != "email":
                 relDict[key] = userContainer[key]
         relationship.dictToRelationship(relDict)
-       
         res = self.relationdao.updateRelationship(relationship)
         return self.helperHandler.handleResponse(res)
 
+    def addPoints(self, rel, userContainer):
+        try:
+            f='%Y-%m-%d %H:%M:%S'
+            relationship = Relationship()
+            res = self.userDao.selectUser(userContainer['email'])
+            self.helperHandler.falseQueryCheck(res)
+            user = res[1]
+            userDict = user.userToDict()
+            points = userDict['points']
+            print(rel)
+            print(rel[0])
+            relationship.listToRelationship(rel[0])
+            relDict = relationship.relationshipToDict()
+            checkoutTime = str(relDict['statusUpdateTime'])
+            authtimets=datetime.strptime(checkoutTime, f)
+            timepassed=datetime.now()-authtimets
+            if (int(timepassed.total_seconds()) / 3600) >= 48:
+                points = points + 5
+            elif (int(timepassed.total_seconds()) / 3600) < 48:
+                points = points + 15
+            print(points)
+            userDict['points'] = points
+            user.dictToUser(userDict)
+            res = self.userDao.updateUser(user)
+            self.helperHandler.falseQueryCheck(res)
+        except Exception as e:
+            raise Exception(e)
 
     def deleteRelationship(self, request, relationshipDao, hasAuth):
         relDict = None
