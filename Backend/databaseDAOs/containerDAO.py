@@ -9,18 +9,12 @@ class ContainerDAO(dao):
     def totalContainersCheckedOut(self):
         try:
             logging.info("Entering totalCheckedOutContainers")
-            sql = "select email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Pending Return' and location.lastPickup < hascontainer.statusUpdateTime and location.location_qrcode = hascontainer.location_qrcode order by hascontainer.location_qrcode"
-            sql1 = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Checked Out'"
+            sql = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Checked Out'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
-            myresult1 = self.handleSQL(sql1,True,None)
-            if(myresult1[0] == False):
-                return myresult
             temp = []
             for result in myresult[1]:
-                temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
-            for result in myresult1[1]:
                 temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
             return True, temp
         except Exception as e:
