@@ -8,6 +8,7 @@ app = Flask(__name__)
 @app.route('/pull', methods=['POST'])
 def hello(msg="Build has been Updated..."):
     test = os.system('cd /root/green2go/Tools/ && ./startBackend.sh')
+    os.system('cd /root/green2go/Tools/ && nohup ./startWeb.sh &')
     url = 'https://hooks.slack.com/services/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'
     myobj = {'text': msg}
     x = requests.post(url, json = myobj)
