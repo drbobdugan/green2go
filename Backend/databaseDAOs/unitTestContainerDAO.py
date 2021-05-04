@@ -82,6 +82,9 @@ class unitTestContainerDAO(unittest.TestCase):
     def testTotalContainersInBins(self):
         rc, msg = self.dao.totalContainersInBins()
         self.assertTrue(rc)
+    def testSelectRecentStatus(self):
+        rc, msg = self.dao.selectRecentStatus()
+        self.assertTrue(rc)
     
     def testSelectContainerDoesntExist(self):
         """
