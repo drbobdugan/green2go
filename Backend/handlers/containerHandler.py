@@ -151,6 +151,7 @@ class ContainerHandler:
                 #print(item['status'].replace(' ', '_'))
                 sortDict[item['status'].replace(' ', '_')].append(item)
             res= (True,sortDict)
+        res = (True, dictList)
         return self.helperHandler.handleResponse(res)
     
     def reportContainer(self, userContainer):
