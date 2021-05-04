@@ -135,18 +135,20 @@ class ContainerHandler:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(res)
         res[1].reverse()
+        dictList = []
+        for item in res[1]:
+            item = item.relationshipToDict()
+            dictList.append(item)
         if res[0] is True and isSorted is True:
             sortDict={
-                'All' : [],
+                'All' : dictList,
                 'Checked_Out':[],
                 'Pending_Return':[],
                 'Verified_Return':[],
                 'Damaged_Lost':[]
             }
-            for item in res[1]:
-                item = item.relationshipToDict()
+            for item in dictList:
                 #print(item['status'].replace(' ', '_'))
-                sortDict['All'].append(item)
                 sortDict[item['status'].replace(' ', '_')].append(item)
             res= (True,sortDict)
         return self.helperHandler.handleResponse(res)
