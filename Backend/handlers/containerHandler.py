@@ -267,4 +267,9 @@ class ContainerHandler:
             rel=[True,sitedic]
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
+        elif '/getCurrent' in str(request):
+            rel=self.containerdao.selectRecentStatus()
+            if rel[0] is False:
+                return self.helperHandler.handleResponse(rel)
+        
         return self.helperHandler.handleResponse(rel)      

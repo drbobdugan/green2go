@@ -12,6 +12,7 @@ from containerDAO import ContainerDAO
 from authDAO import AuthDao
 from locationDAO import LocationDao
 from relationshipDAO import RelationshipDAO
+from appInfoDAO import appInfoDAO
 from datetime import datetime
 import re
 import logging
@@ -39,6 +40,7 @@ userDao=UserDAO()
 containerDao=ContainerDAO()
 authDao = AuthDao()
 locationDao=LocationDao()
+appinfoDao=appInfoDAO()
 relationshipDao = RelationshipDAO()
 emailServer = EmailManager()
 notificationHelper = NotificationHelper()
@@ -129,6 +131,10 @@ def getallContainers():
 @app.route("/getCounts",methods =['GET'])
 def getCounts():
     return containerHandler.GetRelationships(request,relationshipDao,True)
+
+@app.route("/getCurrent",methods =['GET'])
+def getCurrent():
+    return containerHandler.GetRelationships(request,relationshipDao,True)
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
@@ -152,6 +158,29 @@ def beams_auth():
         return "true"
     val = request.args.get('id')
     return authHandler.beams_auth(val)
+
+@app.route('/getVersion', methods=['GET'])
+def getVersion():
+    return helperHandler.getVersion(request,appinfoDao)
+
+@app.route('/updateMajor', methods=['PATCH'])
+def updateMajor():
+    print(request)
+    return helperHandler.updateVersion(request,appinfoDao)
+@app.route('/updateMinor', methods=['PATCH'])
+def updateMinor():
+    return helperHandler.updateVersion(request,appinfoDao)
+@app.route('/updatePatch', methods=['PATCH'])
+def updatePatch():
+    return helperHandler.updateVersion(request,appinfoDao)
+@app.route('/deleteVersion',methods={'DELETE'})
+def deleteVersion():
+    return helperHandler.deleteAppInfo(request,appinfoDao)
+
+@app.route('/insertVersion',methods={'POST'})
+def insertVersion():
+    return helperHandler.insertAppInfo(request,appinfoDao)
+
 
 #----------------------------Location Methods --------------------------------
 @app.route('/selectLocation',methods=['POST'])
