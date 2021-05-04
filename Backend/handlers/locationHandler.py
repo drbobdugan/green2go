@@ -79,7 +79,6 @@ class LocationHandler:
                     counter = counter + 1
             tempLoc.update({'count' : counter})
             locations.append(tempLoc)
-        print(locations)
         res=res[0],locations
         return self.helperHandler.handleResponse(res)
 

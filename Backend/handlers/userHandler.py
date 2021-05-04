@@ -70,7 +70,6 @@ class UserHandler:
         user = User()
         user.dictToUser(dictOfUserAttrib)
         res = self.userDao.insertUser(user)
-        print(res)
         if(res[0] and "/secretAddUser" not in str(request)):
             self.helperHandler.sendEmail(dictOfUserAttrib['email'], dictOfUserAttrib['authCode'])
         return self.helperHandler.handleResponse(res)
@@ -116,6 +115,7 @@ class UserHandler:
         #get the user from the auth table
         #tempUser = None
         if f == 1: #GET
+            UserDic.update({'badges' : UserDic['points'] // 300})
             res = [True, UserDic]
         elif f == 2: #DELETE: delete user and auth
             try:

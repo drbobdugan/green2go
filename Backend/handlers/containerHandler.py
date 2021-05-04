@@ -134,18 +134,19 @@ class ContainerHandler:
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(res)
-        print(res)
         res[1].reverse()
         if res[0] is True and isSorted is True:
             sortDict={
-                'All' : res[1],
+                'All' : [],
                 'Checked_Out':[],
                 'Pending_Return':[],
                 'Verified_Return':[],
                 'Damaged_Lost':[]
             }
             for item in res[1]:
+                item = item.relationshipToDict()
                 #print(item['status'].replace(' ', '_'))
+                sortDict['All'].append(item)
                 sortDict[item['status'].replace(' ', '_')].append(item)
             res= (True,sortDict)
         return self.helperHandler.handleResponse(res)
@@ -190,14 +191,13 @@ class ContainerHandler:
             self.validateQRCode(userContainer['qrcode'], False)
             rel = self.relationdao.selectActiveQRcode(userContainer["qrcode"])
             if "/checkinContainer" in str(request):
-                self.addPoints(rel[1], userContainer)
+                self.addPoints(rel[1][0], userContainer)
             self.helperHandler.falseQueryCheck(rel)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
         #change over to search by qrcode and active = 1
-        relationship = Relationship()
-        relationship.listToRelationship(rel[1][0])
+        relationship = rel[1][0]
         relDict = relationship.relationshipToDict()
         if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
             return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
@@ -211,24 +211,19 @@ class ContainerHandler:
     def addPoints(self, rel, userContainer):
         try:
             f='%Y-%m-%d %H:%M:%S'
-            relationship = Relationship()
             res = self.userDao.selectUser(userContainer['email'])
             self.helperHandler.falseQueryCheck(res)
             user = res[1]
             userDict = user.userToDict()
             points = userDict['points']
-            print(rel)
-            print(rel[0])
-            relationship.listToRelationship(rel[0])
-            relDict = relationship.relationshipToDict()
+            relDict = rel.relationshipToDict()
             checkoutTime = str(relDict['statusUpdateTime'])
             authtimets=datetime.strptime(checkoutTime, f)
             timepassed=datetime.now()-authtimets
-            if (int(timepassed.total_seconds()) / 3600) >= 48:
+            if (timepassed.total_seconds() / 3600) >= 48:
                 points = points + 5
-            elif (int(timepassed.total_seconds()) / 3600) < 48:
+            elif (timepassed.total_seconds() / 3600) < 48:
                 points = points + 15
-            print(points)
             userDict['points'] = points
             user.dictToUser(userDict)
             res = self.userDao.updateUser(user)
