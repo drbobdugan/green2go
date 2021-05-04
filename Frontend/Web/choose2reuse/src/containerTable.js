@@ -5,20 +5,26 @@ import './table.css';
 import { useHistory } from "react-router-dom";
 
 
-function Table (props) {
+function ContainerTable (props) {
         const [containers, setContainers] = useState([])
         const [filteredContainers, setFilteredContainers] = useState([])
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
         const history = useHistory();
+        const [email,setEmail] = useState()
+        const [authToken,setAuthToken] = useState()
 
-        function routeChangeContainerTable() { 
-        let path = `/containerTable`; 
-        history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
+        async function markDamagedLost(qr_code) { 
+          const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
+          console.log(obj)
+          var response = await axios.post('http://198.199.77.174:5000/reportContainer', obj)
+          getContainers(email,authToken)
         }
-        function routeChangeStatusCount() { 
-          let path = `/statusCount`; 
-          history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
+
+        async function revertDamagedLost(qr_code) { 
+          const obj = {email: email, qrcode: qr_code, auth_token: authToken};
+          var response = await axios.post('http://198.199.77.174:5000/undoReportContainer', obj)
+          getContainers(email,authToken)
         }
 
         function select(container){
@@ -27,10 +33,11 @@ function Table (props) {
          }
         
         async function getContainers(email, authToken){
-         var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
+         var response = await axios.get('http://198.199.77.174:5000/getCurrent?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
-         console.log(response)
-         setFilteredContainers(response.data.data.slice(0,limit))
+         setFilteredContainers(response.data.data)
+         setEmail(email);
+         setAuthToken(authToken);
         }
         
         function filterByStatus(e) {
@@ -60,16 +67,6 @@ function Table (props) {
           }
         }
 
-        function toggleLimit(){
-          if(limit == 20){
-            setLimit(containers.length)
-            setFilteredContainers(containers)
-          }else{
-            setLimit(20)
-            setFilteredContainers(containers.slice(0,20))
-          }
-        }
-
         function filterBySearch(e) {
           var filter = e.target.value
           console.log(filter) 
@@ -77,65 +74,42 @@ function Table (props) {
             setFilteredContainers(containers.slice(0,limit))
           }else{    
           setFilteredContainers(containers.filter(container => {
-            if(container.location_qrcode != null && container.description != null){
-            return(
-              container.email.includes(filter) || 
-              container.qrcode.includes(filter) ||
-              container.status.includes(filter) ||
-              container.statusUpdateTime.includes(filter) ||
-              container.location_qrcode.includes(filter) ||
-              container.description.includes(filter)
-            )
-            }
-            else if(container.location_qrcode == null && container.description != null){
+            if(container.status == null){
               return(
-                container.email.includes(filter) || 
-                container.qrcode.includes(filter) ||
-                container.status.includes(filter) ||
-                container.statusUpdateTime.includes(filter) ||
-                container.description.includes(filter)
+                container.qrcode.includes(filter)
               )
-              }
-              else if(container.location_qrcode != null && container.description == null){
-                return(
-                  container.email.includes(filter) || 
-                  container.qrcode.includes(filter) ||
-                  container.status.includes(filter) ||
-                  container.statusUpdateTime.includes(filter) ||
-                  container.location_qrcode.includes(filter) 
-                )
-                }
-                else if(container.location_qrcode == null && container.description == null){
-                  return(
-                    container.email.includes(filter) || 
-                    container.qrcode.includes(filter) ||
-                    container.status.includes(filter) ||
-                    container.statusUpdateTime.includes(filter)
-                  )
-                  }
+            }
+            else if(container.status != null && container.qrcode != null){
+              return( 
+                container.qrcode.includes(filter) ||
+                container.status.includes(filter)
+              )
+            }
           }))
         }
         }
 
+        function backPage(){
+          history.goBack()
+      }
+
         if(containers.length === 0 && props.location && props.location.state){
-        getContainers(props.location.state.email,props.location.state.authToken)
+          getContainers(props.location.state.email,props.location.state.authToken)
         }else if(!props.location || !props.location.state){
           history.push("/login");
         }
         return (
             <div className="App">
-              <div className="nav">
-                <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>Container Status and Location Counts</button>
-                <button className="navButton1" type="button" onClick={() => { routeChangeContainerTable() } }>All Containers</button>
+              <div className ="back">
+                <input type='button' value='Back' onClick={() => {backPage()}}/>
               </div>
             <br></br>
             <div className="title">
-            <h1>All Container Transactions</h1>
+            <h1>All Containers</h1>
             </div>
             <br></br>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
-            <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input> 
             <br></br>
             <br></br>
             <br></br>
@@ -143,7 +117,6 @@ function Table (props) {
             <table className="centerone">
             <thead>
              <tr>
-               <th>Email</th>
                <th>QR Code</th>
                <th>Status
                 <select name="status" id="status" onChange={filterByStatus}>
@@ -154,21 +127,17 @@ function Table (props) {
                   <option value="Damaged Lost">Damaged Lost</option>
                 </select>
                </th>
-               <th>Status Update Time</th>
-               <th>Location QR Code</th>
-               <th>Description</th>
-               
+               <th>Mark Damaged Lost</th>
+               <th>Revert Damaged Lost</th>
              </tr>
              </thead>
              <tbody>
                {filteredContainers.map((elem)=>(
                 <tr onClick={()=>{select(elem)}}>
-                 <td>{elem.email}</td>
                  <td>{elem.qrcode}</td>
                  <td>{elem.status}</td>
-                 <td>{elem.statusUpdateTime}</td>
-                 <td>{elem.location_qrcode}</td>
-                 <td>{elem.description}</td>
+                 <td><input type="button" value="Damaged Lost" onClick ={() => {markDamagedLost(elem.qrcode)}}/></td>
+                 <td><input type="button" value="Revert" onClick ={() => {revertDamagedLost(elem.qrcode)}}/></td>
                 </tr>
                ))}
                 </tbody>
@@ -178,4 +147,4 @@ function Table (props) {
         )
 }
 
-export default Table
+export default ContainerTable

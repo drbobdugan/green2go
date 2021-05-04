@@ -2,6 +2,10 @@ tr:hover{
   color:#9fd4b9;
 }
 
+.title{
+  text-align: center;
+}
+
 tr{
   cursor:pointer;
 }
@@ -50,6 +54,11 @@ h1{
   margin-right: auto;
 }
 
+.addLocation{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .statuscounts{
   margin-left: auto;
   margin-right: auto;
@@ -61,8 +70,29 @@ div {
 }
 
 .column {
+  float: right;
+  width: 33.33
+}
+
+.back{
   float: left;
-  width: 33.33%;
+  padding-left: 50px;
+}
+
+.nav{
+  align-self: center;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.navButton2{
+  float: right;
+  width: 20%;
+}
+
+.navButton1{
+  float: left;
+  width: 20%;
 }
 
 /* Clear floats after the columns */
