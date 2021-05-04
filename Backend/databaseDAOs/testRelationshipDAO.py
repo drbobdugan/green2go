@@ -11,10 +11,13 @@ def main():
     #testUpdateAuth()
     #testUpdateRelationship()
     #testSelectPendingReturns()
+    #testSelectAll()
+    #testselectAllByEmail()
+    #testselectAllByStatus()
     #testSelectActiveQRcode()
     #testDeleteAuth()
-    testUpdatePoints()
-    testUpdateUser()
+    #testUpdatePoints()
+    #testUpdateUser()
 
 def testinsertRelationship():
     #relationship 1
@@ -31,6 +34,15 @@ def testUpdateRelationship():
 
 def testSelectPendingReturns():
     dao.selectPendingReturns()
+
+def testSelectAll():
+    dao.selectAll()
+
+def testselectAllByEmail():
+    dao.selectAllByEmail('rmissett@students.stonehill.edu')
+
+def testselectAllByStatus():
+    dao.selectAllByStatus('rmissett@students.stonehill.edu','Verified Return')
 
 def testSelectActiveQRcode():
     dao.selectActiveQRcode("958bbde6-c11a-49fb-9952-70d95ce2e277")

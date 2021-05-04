@@ -112,8 +112,8 @@ class unitTestRelationshipDAO(unittest.TestCase):
         self.assertTrue(rc)
 
         for i in testSelectAllByStatus:
-            self.assertEqual(i["status"], status)
-            self.assertEqual(i["email"], email)
+            self.assertEqual(i.status, status)
+            self.assertEqual(i.email, email)
 
     def testSelectAll(self):
         """

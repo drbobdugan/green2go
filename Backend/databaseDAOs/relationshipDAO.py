@@ -101,13 +101,14 @@ class RelationshipDAO(dao):
                 return myresult
             temp = []
             for x in myresult[1]:
-                relDict={
-                "qrcode": x[1],
-                "status": x[2],
-                "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4],
-                "description": x[5]}
-                temp.append(relDict)
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectAllByEmail successful")
             return True, temp
         except Exception as e:
@@ -127,14 +128,14 @@ class RelationshipDAO(dao):
                 return myresult
             temp = []
             for x in myresult[1]:
-                relDict={
-                "email": x[0],
-                "qrcode": x[1],
-                "status": x[2],
-                "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4],
-                "description": x[5]}
-                temp.append(relDict)
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectAllByStatus successful")
             return True, temp
         except Exception as e:
@@ -151,14 +152,14 @@ class RelationshipDAO(dao):
                 return myresult
             temp = []
             for x in myresult[1]:
-                relDict={
-                "email": x[0],
-                "qrcode": x[1],
-                "status": x[2],
-                "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4],
-                "description": x[5]}
-                temp.append(relDict)
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectAll successful")
             return True, temp
         except Exception as e:
@@ -173,14 +174,27 @@ class RelationshipDAO(dao):
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
-            myresult = myresult[1]
+            #myresult = myresult[1]
+            #print(myresult)
+            temp = []
+            for x in myresult[1]:
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
+            #print(temp)
             logging.info("selectPendingReturns successful")
-            return True, myresult
+            return True, temp
         except Exception as e:
             logging.error("Error in selectPendingReturns")
             logging.error(str(e))
             return self.handleError(e)
 
+    #DELETE THIS
     def selectActiveQRcode(self,qrcode):
         try: 
             logging.info("Entering selectActiveQRcode")
