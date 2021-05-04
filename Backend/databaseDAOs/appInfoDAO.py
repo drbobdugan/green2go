@@ -5,15 +5,15 @@ from appInfo import appInfo
 from DAO import dao
 class appInfoDAO(dao):
 
-    def selectAppInfo(self):
+    def selectAppInfo(self,host):
         try:
             logging.info("Entering selectAppInfo")
-            sql = "select * from appInfo"
+            sql = "select * from appInfo where host = '"+ host +"'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1][0]
-            temp = appInfo(myresult[0],myresult[1],myresult[2])
+            temp = appInfo(myresult[0],myresult[1],myresult[2],myresult[3])
             logging.info("selectAppInfo successful")
             return True, temp
         except Exception as e:
@@ -24,7 +24,7 @@ class appInfoDAO(dao):
     def updateAppInfo(self,appInfoObject):
         try:
             logging.info("Entering updateAppInfo")
-            myresult = self.deleteAppInfo()
+            myresult = self.deleteAppInfo(appInfoObject)
             if(myresult[0] == False):
                 return myresult
             myresult = self.insertAppInfo(appInfoObject)
@@ -36,10 +36,10 @@ class appInfoDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
-    def deleteAppInfo(self):
+    def deleteAppInfo(self,appInfo):
         try:
             logging.info("Entering deleteAppInfo")
-            sql = "delete from appInfo"
+            sql = "delete from appInfo where host = '" + appInfo.host + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult
@@ -52,7 +52,7 @@ class appInfoDAO(dao):
     def insertAppInfo(self,appInfoObject):
         try:
             logging.info("Entering insertAppInfo")
-            sql = "insert into appInfo (major,minor,patch) values (%s,%s,%s)"
+            sql = "insert into appInfo (major,minor,patch,host) values (%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False,appInfoObject.appInfoToList())
             if(myresult[0] == False):
                 return myresult
