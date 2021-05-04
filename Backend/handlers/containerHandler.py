@@ -139,7 +139,8 @@ class ContainerHandler:
         for item in res[1]:
             item = item.relationshipToDict()
             dictList.append(item)
-        if res[0] is True and isSorted is True:
+        res = (True, dictList)
+        if isSorted is True:
             sortDict={
                 'All' : dictList,
                 'Checked_Out':[],
@@ -150,8 +151,7 @@ class ContainerHandler:
             for item in dictList:
                 #print(item['status'].replace(' ', '_'))
                 sortDict[item['status'].replace(' ', '_')].append(item)
-            res= (True,sortDict)
-        res = (True, dictList)
+            res = (True,sortDict)
         return self.helperHandler.handleResponse(res)
     
     def reportContainer(self, userContainer):
