@@ -265,6 +265,10 @@ class ContainerHandler:
             rel=self.relationdao.selectAll()
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
+            relDict = []
+            for item in rel[1]:
+                relDict.append(item.relationshipToDict())
+            rel = (True, relDict)
         elif '/getCounts' in str(request):
             sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1],"Pending Returns":self.relationdao.selectPendingReturns()[1]}
             rel=[True,sitedic]
