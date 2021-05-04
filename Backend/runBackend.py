@@ -165,7 +165,6 @@ def getVersion():
 
 @app.route('/updateMajor', methods=['PATCH'])
 def updateMajor():
-    print(request)
     return helperHandler.updateVersion(request,appinfoDao)
 @app.route('/updateMinor', methods=['PATCH'])
 def updateMinor():
