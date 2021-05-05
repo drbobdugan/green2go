@@ -65,7 +65,7 @@ class UserHandler:
             dictOfUserAttrib['authorized'] = "0"
             dictOfUserAttrib['beams_token'] = self.helperHandler.beams_auth(dictOfUserAttrib['email'])
             dictOfUserAttrib['points']="0"
-            dictOfUserAttrib['reward_date']= "None"
+            dictOfUserAttrib['reward_date']= "2021-01-01 01:01:01"
         except Exception as e:
             return json.dumps({"success" : False, "message" :str(e)})
         user = User()
