@@ -8,11 +8,15 @@ import { useHistory } from "react-router-dom";
 function ContainerTable (props) {
         const [containers, setContainers] = useState([])
         const [filteredContainers, setFilteredContainers] = useState([])
+        const [retrieved, setRetrieved] = useState(false)
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
         const history = useHistory();
         const [email,setEmail] = useState()
         const [authToken,setAuthToken] = useState()
+        const [checkedOut, setCheckedOut] = useState()
+        const [inStock, setInStock] = useState()
+        const [pendingReturn, setPendingReturn] = useState()
 
         async function markDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
@@ -33,12 +37,31 @@ function ContainerTable (props) {
          }
         
         async function getContainers(email, authToken){
-         var response = await axios.get('http://198.199.77.174:5000/getCurrent?email='+email+'&auth_token='+authToken)
-         setContainers(response.data.data)
-         setFilteredContainers(response.data.data)
-         setEmail(email);
-         setAuthToken(authToken);
+          try{
+            var response = await axios.get('http://198.199.77.174:5000/getCurrent?email='+email+'&auth_token='+authToken)
+            setContainers(response.data.data)
+            setFilteredContainers(response.data.data)
+            setEmail(email);
+            setAuthToken(authToken);
+          }
+        catch(e){
+          console.log(e)
         }
+        }
+
+        async function getCounts(email, authToken){
+          try{
+            var response = await axios.get('http://198.199.77.174:5000/getCounts?email='+email+'&auth_token='+authToken)
+            console.log(response.data.data)
+            setRetrieved(true)
+            setCheckedOut(response.data.data["Checked Out"].length)
+            setInStock(response.data.data["In Stock"].length)
+            setPendingReturn(response.data.data["Pending Returns"].length)
+          }
+          catch(e){
+            console.log(e)
+          }
+         }
         
         function filterByStatus(e) {
           var filter = e.target.value        
@@ -98,16 +121,49 @@ function ContainerTable (props) {
         }else if(!props.location || !props.location.state){
           history.push("/login");
         }
+
+        if(containers.length != 0 && props.location && props.location.state){
+          getCounts(props.location.state.email,props.location.state.authToken)
+        }else if(!props.location || !props.location.state){
+          history.push("/login");
+        }
+
         return (
             <div className="App">
               <div className ="back">
                 <input type='button' value='Back' onClick={() => {backPage()}}/>
               </div>
             <br></br>
+            <br></br>
             <div className="title">
             <h1>All Containers</h1>
             </div>
             <br></br>
+            <h2>Container Status Counts</h2>
+            <div className = "statustable">
+                <table className="statuscounts">
+                    <thead>
+                    <tr>
+                      <th>Status</th>
+                      <th>Quantity</th>
+                    </tr>
+                    </thead>
+                <tbody>
+                    <tr>
+                        <td>Checked Out</td> 
+                        <td>{checkedOut}</td>
+                    </tr>
+                    <tr>
+                        <td>Pending Return</td> 
+                        <td>{pendingReturn}</td>
+                    </tr>
+                    <tr>
+                        <td>In Stock</td> 
+                        <td>{inStock}</td>
+                    </tr>
+                </tbody>
+             </table>
+             </div>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
             <br></br>

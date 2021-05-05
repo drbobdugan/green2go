@@ -32,27 +32,27 @@ function StatusCount (props) {
         async function clearLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
             var response = await axios.patch('http://198.199.77.174:5000/clearLocation', obj)
-            getContainers(email,authToken)
+            getLocationInfo(email,authToken)
         }
 
         async function removeLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
             var response = await axios.delete('http://198.199.77.174:5000/deleteLocation', obj)
-            getContainers(email,authToken)
+            getLocationInfo(email,authToken)
         }
 
         async function addLocation(description,location_qrcode){
             const obj = {location_qrcode: location_qrcode, email: email, auth_token: authToken, description: description};
             var response = await axios.post('http://198.199.77.174:5000/addLocation', obj)
             console.log(response)
-            getContainers(email,authToken)
+            getLocationInfo(email,authToken)
         }
 
         async function updateLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
-            var response = await axios.patch('http://198.199.77.174:5000/updateLocation', obj)
-            console.log(response)
-            getContainers(email,authToken)
+            //var response = await axios.patch('http://198.199.77.174:5000/updateLocation', obj)
+            //console.log(response)
+            getLocationInfo(email,authToken)
         }
 
         function select(container){
@@ -61,11 +61,13 @@ function StatusCount (props) {
         
         
         async function getLocationInfo(email, authToken){
-            var response2 = await axios.get('http://198.199.77.174:5000/locationList?email='+email+'&auth_token='+authToken)
-            //console.log(response2)
+            var response = await axios.get('http://198.199.77.174:5000/locationList?email='+email+'&auth_token='+authToken)
+            console.log(response.data.data)
+            setLocations(response.data.data)
+            /*
             if(locInfo.length == 0)
             {
-               setNumLocations(response2.data.data)
+               setNumLocations(response.data.data)
                var l = numLocations
                for(const j of l)
                {
@@ -76,23 +78,11 @@ function StatusCount (props) {
                    locInfo.push([j.location_qrcode,j.description,j.lastPickip,j.count])
                }
             }   
+            */
         }
         
-        
-         
-        async function getContainers(email, authToken){
-         var response = await axios.get('http://198.199.77.174:5000/getCounts?email='+email+'&auth_token='+authToken)
-         console.log(response.data)
-            setRetrieved(true)
-            setCheckedOut(response.data.data["Checked Out"].length)
-            //getting undefined error from setCheckedOut() line
-            setInStock(response.data.data["In Stock"].length)
-            setPendingReturn(response.data.data["Pending Returns"].length)
-            //getLocationInfo(email,authToken)
-        }
-
-        if(locationQRCode.length == 0 && !retrieved && props.location && props.location.state){
-            getContainers(props.location.state.email,props.location.state.authToken)
+        if(locationQRCode.length == 0 && props.location && props.location.state){
+            getLocationInfo(props.location.state.email,props.location.state.authToken)
         }else if(!props.location || !props.location.state){
             history.push("/login");
         }
@@ -112,6 +102,7 @@ function StatusCount (props) {
                 <table className="locationcounts">
                     <thead>
                     <tr>
+                      <th>Location QR Code</th>
                       <th>Location</th>
                       <th>Number of Containers</th>
                       <th>Clear Containers</th>
@@ -120,14 +111,16 @@ function StatusCount (props) {
                     </tr>
                     </thead>
                 <tbody>
-                    {locInfo.map((elem)=>(
-                    <tr>
-                        <td>{elem[1]}</td> 
-                        <td>{elem[3]}</td>
+                    
+                    {locations.map((elem)=>(
+                        <tr onClick={()=>{select(elem)}}>
+                        <td>{elem.location_qrcode}</td>
+                        <td>{elem.description}</td>
+                        <td>{elem.count}</td>
                         <td><input type='button' value='Clear' /*onClick ={() => {clearLocation(elem[0])}}*//></td>
-                        <td>{elem[2]}</td>
+                        <td>{elem.lastPickip}</td>
                         <td><input type='button' value='Remove' /*onClick ={() => {removeLocation(elem[0])}}*//></td>
-                    </tr>
+                        </tr>
                     ))}
                 </tbody>
              </table>
@@ -141,7 +134,7 @@ function StatusCount (props) {
                 <tbody>
                     <tr>
                         <td><input type='text' onChange= {description => setDescription(description)}/></td> 
-                        <td><input type='button' value='Add' onClick ={newLoc_qr(), () => {updateLocation(description, newLoc_QR)}}/></td>
+                        <td><input type='button' value='Add' onClick ={() => {addLocation('test', newLoc_QR)}}/></td>
                     </tr>
                 </tbody>
              </table>
@@ -153,38 +146,12 @@ function StatusCount (props) {
             history.goBack()
         }
         
-
         return (
             <div className="App">
             <div className ="back">
                 <input type='button' value='Back' onClick={() => {backPage()}}/>
             </div>
-            <h1>Container Status Counts</h1>
-            <div className = "statustable">
-                <table className="statuscounts">
-                    <thead>
-                    <tr>
-                      <th>Status</th>
-                      <th>Quantity</th>
-                    </tr>
-                    </thead>
-                <tbody>
-                    <tr>
-                        <td>Checked Out</td> 
-                        <td>{checkedOut}</td>
-                    </tr>
-                    <tr>
-                        <td>Pending Return</td> 
-                        <td>{pendingReturn}</td>
-                    </tr>
-                    <tr>
-                        <td>In Stock</td> 
-                        <td>{inStock}</td>
-                    </tr>
-                </tbody>
-             </table>
-             </div> 
-             <h1>Location Status Counts</h1>
+             <h1>All Locations</h1>
             {displayLocationCounts()}
            </div>    
         )
