@@ -3049,45 +3049,6 @@
 			"name": "Appinfo Tests",
 			"item": [
 				{
-					"name": "Insert Version",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/insertVersion",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"insertVersion"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Get Version",
 					"event": [
 						{
@@ -3134,18 +3095,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/getVersion?host=test",
+							"raw": "{{baseUrl}}/getVersion",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"getVersion"
-							],
-							"query": [
-								{
-									"key": "host",
-									"value": "test"
-								}
 							]
 						}
 					},
@@ -3168,11 +3123,11 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3207,17 +3162,8 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{baseUrl}}/updateMinor",
 							"host": [
@@ -3246,17 +3192,8 @@
 						}
 					],
 					"request": {
-						"method": "POST",
+						"method": "PATCH",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{baseUrl}}/updatePatch",
 							"host": [
@@ -3287,15 +3224,6 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
 						"url": {
 							"raw": "{{baseUrl}}/deleteVersion",
 							"host": [
@@ -3303,6 +3231,45 @@
 							],
 							"path": [
 								"deleteVersion"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Insert Version",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"major\":{{majorTest0}},\n    \"minor\":{{minorTest0}},\n    \"patch\":{{patchTest0}}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/insertVersion",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"insertVersion"
 							]
 						}
 					},
