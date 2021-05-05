@@ -139,7 +139,8 @@ class ContainerHandler:
         for item in res[1]:
             item = item.relationshipToDict()
             dictList.append(item)
-        if res[0] is True and isSorted is True:
+        res = (True, dictList)
+        if isSorted is True:
             sortDict={
                 'All' : dictList,
                 'Checked_Out':[],
@@ -150,7 +151,7 @@ class ContainerHandler:
             for item in dictList:
                 #print(item['status'].replace(' ', '_'))
                 sortDict[item['status'].replace(' ', '_')].append(item)
-            res= (True,sortDict)
+            res = (True,sortDict)
         return self.helperHandler.handleResponse(res)
     
     def reportContainer(self, userContainer):
@@ -264,6 +265,10 @@ class ContainerHandler:
             rel=self.relationdao.selectAll()
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
+            relDict = []
+            for item in rel[1]:
+                relDict.append(item.relationshipToDict())
+            rel = (True, relDict)
         elif '/getCounts' in str(request):
             sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1],"Pending Returns":self.relationdao.selectPendingReturns()[1]}
             rel=[True,sitedic]

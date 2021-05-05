@@ -3,31 +3,26 @@ from appInfoDAO import appInfoDAO
 from appInfo import appInfo
 
 class unitTestAppInfoDAO(unittest.TestCase):
-    backup = appInfo(0,0,0)
     """
     Test the containerDAO class methods using the unit test framework.  
     To run these tests:
          python3 -m unittest unitTestAppInfoDAO.py
     """
     def setUp(self):
-        global backup
         self.dao = appInfoDAO()
-        backup = self.dao.selectAppInfo()[1]
-        self.dao.deleteAppInfo()
 
 
     def tearDown(self):
         """
         Delete the temporary database
         """
-        global backup
-        self.dao.deleteAppInfo()
-        self.dao.insertAppInfo(backup)
+        temp = appInfo(0,0,0,"test")
+        self.dao.deleteAppInfo(temp)
         del self.dao
     
     # TEST CREATE CONTAINER
     def testInsertAppInfoSmoke(self):
-        a = appInfo(0,0,0)
+        a = appInfo(0,0,0,"test")
         return self.dao.insertAppInfo(a)
     
     def testInsertAppInfo(self):
@@ -39,8 +34,8 @@ class unitTestAppInfoDAO(unittest.TestCase):
         """
         Check to see that the add went through
         """
-        temp = appInfo(0,0,0)
-        rc, selectAppInfo = self.dao.selectAppInfo()
+        temp = appInfo(0,0,0,"test")
+        rc, selectAppInfo = self.dao.selectAppInfo("test")
         self.assertTrue(rc)
         self.assertEqual(temp.appInfoToList(),selectAppInfo.appInfoToList())
     
@@ -52,8 +47,8 @@ class unitTestAppInfoDAO(unittest.TestCase):
         rc, msg = self.testInsertAppInfoSmoke()
         self.assertTrue(rc)
         
-        a = appInfo(0,0,0)
-        rc, selectAppInfo = self.dao.selectAppInfo()
+        a = appInfo(0,0,0,"test")
+        rc, selectAppInfo = self.dao.selectAppInfo("test")
         self.assertTrue(rc)
         self.assertEqual(a.appInfoToList(),selectAppInfo.appInfoToList())
     
@@ -62,7 +57,7 @@ class unitTestAppInfoDAO(unittest.TestCase):
         """
         Test that we can update a container in the database
         """
-        a = appInfo(0,0,0)
+        a = appInfo(0,0,0,"test")
         rc, msg = self.dao.insertAppInfo(a)
         self.assertTrue(rc)
 
@@ -70,7 +65,7 @@ class unitTestAppInfoDAO(unittest.TestCase):
         rc, updateAppInfo = self.dao.updateAppInfo(a)
         self.assertTrue(rc)
 
-        rc, temp = self.dao.selectAppInfo()
+        rc, temp = self.dao.selectAppInfo("test")
         self.assertTrue(rc)
         self.assertTrue(temp.major == a.major)
 
@@ -82,13 +77,14 @@ class unitTestAppInfoDAO(unittest.TestCase):
         rc, msg = self.testInsertAppInfoSmoke()
         self.assertTrue(rc)
 
-        rc, deleteAppInfo= self.dao.deleteAppInfo()
+        a = appInfo(0,0,0,"test")
+        rc, deleteAppInfo= self.dao.deleteAppInfo(a)
         self.assertTrue(rc)
 
         """
         Verify that the container has actually been deleted.
         """
-        rc, selectAppInfo= self.dao.selectAppInfo()
+        rc, selectAppInfo= self.dao.selectAppInfo("test")
         self.assertFalse(rc)
     
    

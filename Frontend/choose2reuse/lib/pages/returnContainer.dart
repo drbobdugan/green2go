@@ -11,17 +11,29 @@ import '../components/reuse_userBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
 import '../services/student_service.dart';
+import '../static/container.dart';
 import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
 
 const int initial_timer_seconds = 300;
 
+class NavArguments {
+  NavArguments(this.user, this.points15);
+
+  final StudentAuth user;
+  final bool points15;
+}
+
 class ReturnContainerPage extends StatefulWidget {
   const ReturnContainerPage({Key key, @required this.userAuth})
       : super(key: key);
 
   final StudentAuth userAuth;
+
+  Future<APIResponse> onGetSortedContainers() async {
+    return await StudentService.getSortedContainers(userAuth);
+  }
 
   Future<APIResponse> onScanLocationQR(String locationqrCode) async {
     return await StudentService.checkLocation(userAuth, locationqrCode);
@@ -43,6 +55,9 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   bool containerScanActive = false;
   String locationQR = '';
   int secondsRemaining = initial_timer_seconds;
+  bool points15;
+  StudentDetails user;
+  List<ReusableContainer> checkedOut;
 
   @override
   void initState() {
@@ -164,6 +179,25 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
     );
   }
 
+  /*void testMethod() {
+    user = StudentDetails(widget.userAuth);
+          
+          widget.onGetSortedContainers().then((APIResponse response) {
+            if (response.success) {
+              setState(() {
+                user.sortedContainers = SortedReusableContainers(
+                    response.data as Map<String, dynamic>);
+                checkedOut = user.sortedContainers.checkedOut;
+              });
+            }
+          });
+    
+    points15 = false;
+
+    NavigationService(context: context).goToPage(
+        C2RPages.returnConfirmation, NavArguments(widget.userAuth, points15));
+  }*/
+
   Future<void> scanLocationQRCode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     locationQR = await FlutterBarcodeScanner.scanBarcode(
@@ -192,7 +226,10 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
         .then((String code) {
       widget.onScanContainerQR(code, locationQR).then((APIResponse response) {
         if (response.success) {
-          NavigationService(context: context).goHome(widget.userAuth);
+          points15 = true;
+          NavigationService(context: context).goToPage(
+              C2RPages.returnConfirmation,
+              NavArguments(widget.userAuth, points15));
         } else {
           setState(() {
             errorMessage = response.message;

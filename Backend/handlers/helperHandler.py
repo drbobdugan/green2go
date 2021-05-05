@@ -148,15 +148,30 @@ class HelperHandler:
     # these methods are for the version control
 
     def getVersion(self,request,appInfoDao):
-      rel=self.appInfoDao.selectAppInfo()
-      self.falseQueryCheck(rel)
-      version=rel[1]
-      rel=rel[0],str(version.major)+"."+str(version.minor)+"."+str(version.patch)
-      return self.handleResponse(rel)
+        relDict = None
+        keys=['host']
+        try:
+            relDict = self.handleRequestAndAuth(request, keys, t="args", hasAuth=False )
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        rel=self.appInfoDao.selectAppInfo(relDict['host'])
+        self.falseQueryCheck(rel)
+        version=rel[1]
+        rel=rel[0],str(version.major)+"."+str(version.minor)+"."+str(version.patch)
+        return self.handleResponse(rel)
 
     def updateVersion(self,request,appInfoDao):
         # may want to add auth not sure
-        rel=self.appInfoDao.selectAppInfo()
+        relDict = None
+        keys=['host']
+        try:
+            
+            relDict = self.handleRequestAndAuth(request, keys, hasAuth=False )
+        except Exception as e:
+            
+            return json.dumps({"success" : False, "message" : str(e)})
+        
+        rel=self.appInfoDao.selectAppInfo(relDict['host'])
         self.falseQueryCheck(rel)
         appinfo=rel[1]
         if '/updateMajor' in str(request):
@@ -172,12 +187,20 @@ class HelperHandler:
         return self.handleResponse(res)
 
     def deleteAppInfo(self,request,appInfoDao):
-        res=self.appInfoDao.deleteAppInfo()
+        relDict = None
+        keys=['host']
+        try:
+            relDict = self.handleRequestAndAuth(request, keys,hasAuth=False )
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        rel=self.appInfoDao.selectAppInfo(relDict['host'])
+        self.falseQueryCheck(rel)
+        res=self.appInfoDao.deleteAppInfo(rel[1])
         return self.handleResponse(res)
     def insertAppInfo(self,request,appInfoDao):
         appInfodic=None
         t = "json"
-        keys = ["major","minor", "patch"]
+        keys = ["major","minor", "patch","host"]
         try:
             appInfodic = self.handleRequestAndAuth(request=request, keys=keys, t = t, hasAuth=False)
         except Exception as e:

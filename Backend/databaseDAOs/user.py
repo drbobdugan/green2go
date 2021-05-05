@@ -16,7 +16,8 @@ class User:
                 self.lastLogIn,
                 self.authorized,
                 self.beams_token,
-                self.points)
+                self.points,
+                self.reward_date)
 
     def listToUser(self,list):
         self.email = list[0]
@@ -32,6 +33,7 @@ class User:
         self.authorized = list[10]
         self.beams_token = list[11]
         self.points = list[12]
+        self.reward_date = list[13]
         
     def dictToUser(self,dict):
         self.listToUser((dict["email"],
@@ -46,7 +48,8 @@ class User:
                         dict["lastLogIn"],
                         dict["authorized"],
                         dict["beams_token"],
-                        dict["points"]))
+                        dict["points"],
+                        dict["reward_date"]))
 
     def userToDict(self):
         return {"email": self.email,
@@ -61,4 +64,5 @@ class User:
                 "lastLogIn": self.lastLogIn,
                 "authorized":self.authorized,
                 "beams_token":self.beams_token,
-                "points": self.points}
+                "points": self.points,
+                "reward_date": self.reward_date}

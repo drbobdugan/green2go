@@ -163,14 +163,13 @@ def beams_auth():
 def getVersion():
     return helperHandler.getVersion(request,appinfoDao)
 
-@app.route('/updateMajor', methods=['PATCH'])
+@app.route('/updateMajor', methods=['POST'])
 def updateMajor():
-    print(request)
     return helperHandler.updateVersion(request,appinfoDao)
-@app.route('/updateMinor', methods=['PATCH'])
+@app.route('/updateMinor', methods=['POST'])
 def updateMinor():
     return helperHandler.updateVersion(request,appinfoDao)
-@app.route('/updatePatch', methods=['PATCH'])
+@app.route('/updatePatch', methods=['POST'])
 def updatePatch():
     return helperHandler.updateVersion(request,appinfoDao)
 @app.route('/deleteVersion',methods={'DELETE'})
