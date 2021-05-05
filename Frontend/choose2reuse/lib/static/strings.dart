@@ -75,6 +75,8 @@ class ReuseStrings {
       'Thank you for returning a container! You have earned 15 points.';
   static String returnConfirmation5PointsText =
       'Thank you for returning a container! You have earned 5 points.';
+  static String appError =
+      'Please update the Choose2Reuse app to the latest version in order to continue using the app.';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';
