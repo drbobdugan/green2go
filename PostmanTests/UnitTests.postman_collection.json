@@ -34364,6 +34364,973 @@
 					]
 				}
 			]
+		},
+		{
+			"name": "AppInfoUnitTests",
+			"item": [
+				{
+					"name": "Unit Test - Update Major Check",
+					"item": [
+						{
+							"name": "Insert Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/insertVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"insertVersion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Save Current Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"pm.environment.set(\"version\", version);",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"pm.environment.set(\"major\", parseInt(major));",
+											"pm.environment.set(\"minor\", parseInt(minor));",
+											"pm.environment.set(\"patch\", parseInt(patch));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Major",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updateMajor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updateMajor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Major",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Major Update\", function (){",
+											"    pm.expect(major).to.be.greaterThan(pm.environment.get(\"major\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Minor and Patch set to 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Minor Reset\", function (){",
+											"    pm.expect(minor).to.equal(0);",
+											"});",
+											"",
+											"pm.test(\"Successful Patch Reset\", function (){",
+											"    pm.expect(patch).to.equal(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteVersion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Unit Test - Update Minor Check",
+					"item": [
+						{
+							"name": "Insert Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/insertVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"insertVersion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Save Current Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"pm.environment.set(\"version\", version);",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"pm.environment.set(\"major\", parseInt(major));",
+											"pm.environment.set(\"minor\", parseInt(minor));",
+											"pm.environment.set(\"patch\", parseInt(patch));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Minor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updateMinor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updateMinor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Minor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Minor Update\", function (){",
+											"    pm.expect(minor).to.be.greaterThan(pm.environment.get(\"minor\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Major is unchanged and Patch = 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"pm.test(\"Major is Unchanged\", function (){",
+											"    pm.expect(major).to.equal(pm.environment.get(\"major\"));",
+											"});",
+											"",
+											"pm.test(\"Successful Patch Reset\", function (){",
+											"    pm.expect(patch).to.equal(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteVersion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Unit Test - Update Patch Check",
+					"item": [
+						{
+							"name": "Insert Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/insertVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"insertVersion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Save Current Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"pm.environment.set(\"version\", version);",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"pm.environment.set(\"major\", parseInt(major));",
+											"pm.environment.set(\"minor\", parseInt(minor));",
+											"pm.environment.set(\"patch\", parseInt(patch));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updatePatch",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updatePatch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Patch Update\", function (){",
+											"    pm.expect(patch).to.be.greaterThan(pm.environment.get(\"patch\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Major and Minor are unchanged",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"pm.test(\"Major is Unchanged\", function (){",
+											"    pm.expect(major).to.equal(pm.environment.get(\"major\"));",
+											"});",
+											"",
+											"pm.test(\"Minor is Unchanged\", function (){",
+											"    pm.expect(minor).to.equal(pm.environment.get(\"minor\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteVersion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	],
 	"event": [
