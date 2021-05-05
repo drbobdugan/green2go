@@ -11,11 +11,12 @@ import '../static/student.dart';
 
 class ReturnConfirmationPage extends StatefulWidget {
   const ReturnConfirmationPage(
-      {Key key, @required this.userAuth, this.points15})
+      {Key key, @required this.userAuth, this.points15, this.earnedBadge})
       : super(key: key);
 
   final StudentAuth userAuth;
   final bool points15;
+  final bool earnedBadge;
 
   @override
   _ReturnConfirmationPageState createState() => _ReturnConfirmationPageState();
@@ -23,12 +24,14 @@ class ReturnConfirmationPage extends StatefulWidget {
 
 class _ReturnConfirmationPageState extends State<ReturnConfirmationPage> {
   bool points15;
+  bool earnedBadge;
 
   @override
   void initState() {
     super.initState();
 
     points15 = widget.points15;
+    earnedBadge = widget.earnedBadge;
   }
 
   void onDone() {
@@ -59,6 +62,12 @@ class _ReturnConfirmationPageState extends State<ReturnConfirmationPage> {
                 textStyle: CustomTheme.primaryLabelStyle(isBold: false),
                 bottom: 15.0,
               ),
+              if (earnedBadge)
+                ReuseLabel(
+                  text: ReuseStrings.earnedBadgeText,
+                  textStyle: CustomTheme.primaryLabelStyle(isBold: false),
+                  bottom: 15.0,
+                ),
               ReuseButton(
                 text: ReuseStrings.done,
                 onPressed: () => onDone(),
