@@ -56,14 +56,12 @@ def updateCheckout():
 def checkoutByEmail():
     if 'password' in request.form and 'email' in request.form and request.form['password'] == 'Capstone2021!':
         url = "http://198.199.77.174:5000/secretCheckout"
-        print(request.form['email'])
         myobj = {'email' : request.form['email']}
         x = requests.post(url, json=myobj)
     userContainers = updateCheckout()
     dataBody = ""
     for item in userContainers['data']:
         dataBody = dataBody + (item['qrcode']+" : "+item['status']+"<br>")
-    print(dataBody)
     return """<!doctype html>
     <html>
     <body>
@@ -77,6 +75,48 @@ def checkoutByEmail():
     <input type="submit">
     <h2> Checkout Log </h2>
     """ +dataBody+ """
+    </form>
+    </body>
+    </html>
+    """
+
+def getVersion(host):
+    url="http://198.199.77.174/getVersion?host="+host
+    x = requests.get(url)
+    return x.json()
+
+def updateVersion(version):
+    url="http://198.199.77.174:5000/update"+version
+    myobj = {'host' : 'iOS'}
+    x = requests.post(url, json=myobj)
+    myobj = {'host' : 'Android'}
+    x = requests.post(url, json=myobj)
+
+@app.route('/version', methods=['GET', 'POST'])
+def version():
+    if "update" in request.form and request.form['update'] != " ":
+        updateVersion(request.form['update'])
+    apple = getVersion('iOS')
+    apple = apple['data']
+    android = getVersion('Android')
+    android = android['data']
+    return """<!doctype html>
+    <html>
+    <body>
+    <form method='POST'>
+    <h1> Current versions <h1>
+    <h3> iOS : """ + apple + """ </h3>
+    <h3> Android : """ + android + """ </h3>
+    <h2> Update Version </h2>
+    <label for="update"> Choose an update: </label>
+    <select name="update" id="update">
+    <option value=" "></option>
+    <option value="Major">Major</option>
+    <option value="Minor">Minor</option>
+    <option value="Patch">Patch</option>
+    </select>
+    <br><br>
+    <input type="submit">
     </form>
     </body>
     </html>
