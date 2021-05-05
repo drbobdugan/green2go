@@ -10,6 +10,7 @@ import 'pages/home.dart';
 import 'pages/login.dart';
 import 'pages/points.dart';
 import 'pages/profile.dart';
+import 'pages/returnConfirmation.dart';
 import 'pages/returnContainer.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
@@ -83,8 +84,11 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
             case C2RPages.forgotPassword:
               return const ForgotPasswordPage();
             case C2RPages.points:
-              return PointsPage(
-                  userAuth: settings.arguments as StudentAuth);
+              return PointsPage(userAuth: settings.arguments as StudentAuth);
+            case C2RPages.returnConfirmation:
+              final NavArguments args = settings.arguments as NavArguments;
+              return ReturnConfirmationPage(
+                  userAuth: args.user, points15: args.points15);
             default:
               break;
           }
