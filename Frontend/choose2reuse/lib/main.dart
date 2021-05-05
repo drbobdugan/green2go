@@ -88,7 +88,9 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
             case C2RPages.returnConfirmation:
               final NavArguments args = settings.arguments as NavArguments;
               return ReturnConfirmationPage(
-                  userAuth: args.user, points15: args.points15);
+                  userAuth: args.user,
+                  points15: args.points15,
+                  earnedBadge: args.earnedBadge);
             default:
               break;
           }

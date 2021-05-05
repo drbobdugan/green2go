@@ -19,10 +19,11 @@ import '../static/student.dart';
 const int initial_timer_seconds = 300;
 
 class NavArguments {
-  NavArguments(this.user, this.points15);
+  NavArguments(this.user, this.points15, this.earnedBadge);
 
   final StudentAuth user;
   final bool points15;
+  final bool earnedBadge;
 }
 
 class ReturnContainerPage extends StatefulWidget {
@@ -56,6 +57,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   String locationQR = '';
   int secondsRemaining = initial_timer_seconds;
   bool points15;
+  bool earnedBadge;
   StudentDetails user;
   List<ReusableContainer> checkedOut;
 
@@ -179,24 +181,13 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
     );
   }
 
-  /*void testMethod() {
-    user = StudentDetails(widget.userAuth);
-          
-          widget.onGetSortedContainers().then((APIResponse response) {
-            if (response.success) {
-              setState(() {
-                user.sortedContainers = SortedReusableContainers(
-                    response.data as Map<String, dynamic>);
-                checkedOut = user.sortedContainers.checkedOut;
-              });
-            }
-          });
-    
+  void testMethod() {
     points15 = false;
+    earnedBadge = false;
 
-    NavigationService(context: context).goToPage(
-        C2RPages.returnConfirmation, NavArguments(widget.userAuth, points15));
-  }*/
+    NavigationService(context: context).goToPage(C2RPages.returnConfirmation,
+        NavArguments(widget.userAuth, points15, earnedBadge));
+  }
 
   Future<void> scanLocationQRCode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -227,9 +218,10 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
       widget.onScanContainerQR(code, locationQR).then((APIResponse response) {
         if (response.success) {
           points15 = true;
+          earnedBadge = false;
           NavigationService(context: context).goToPage(
               C2RPages.returnConfirmation,
-              NavArguments(widget.userAuth, points15));
+              NavArguments(widget.userAuth, points15, earnedBadge));
         } else {
           setState(() {
             errorMessage = response.message;
