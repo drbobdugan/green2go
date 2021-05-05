@@ -24,6 +24,7 @@ matrix:
         - python3 -m unittest unitTestLocationDAO.py
         - python3 -m unittest unitTestRelationshipDAO.py
         - python3 -m unittest unitTestUserDao.py
+        - python3 -m unittest unitTestAppInfoDAO.py
 
 
 

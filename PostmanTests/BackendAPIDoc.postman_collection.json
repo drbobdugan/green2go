@@ -122,7 +122,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Test\",\n    \"lastName\" : \"User\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"None\"\n\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -293,7 +293,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Successful Get Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
+									"",
 									"var jsonData = JSON.parse(responseBody).data;",
+									"",
 									"",
 									"pm.environment.set(\"authCodeTest0\", jsonData[\"authCode\"]);"
 								],
@@ -1188,6 +1197,16 @@
 							"listen": "test",
 							"script": {
 								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Successful Get Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});",
+									"",
+									"",
+									"",
 									"var jsonData = JSON.parse(responseBody).data;",
 									"",
 									"pm.environment.set(\"authCodeTest0\", jsonData[\"authCode\"]);",
@@ -2540,6 +2559,50 @@
 					"response": []
 				},
 				{
+					"name": "Add Location",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Successful Post Response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"true\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"location_qrcode\":\"L005\",\n    \"description\":\"New Hall lobby\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/addLocation",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"addLocation"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Select Location",
 					"event": [
 						{
@@ -2560,7 +2623,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"L001\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenTest0}}\"\n}",
+							"raw": "{\n    \"qrcode\" : \"L005\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2657,7 +2720,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"qrcode\" : \"L004\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenTest0}}\"\n}",
+							"raw": "{\n    \"qrcode\" : \"L005\",\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"auth_token\" : \"{{authTokenTest0}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2671,50 +2734,6 @@
 							],
 							"path": [
 								"clearLocation"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add Location",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"",
-									"pm.test(\"Successful Post Response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"true\");",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"location_qrcode\":\"L005\",\n    \"description\":\"New Hall lobby\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/addLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"addLocation"
 							]
 						}
 					},

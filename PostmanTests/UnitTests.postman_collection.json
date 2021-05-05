@@ -76,7 +76,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -101,12 +101,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -399,7 +407,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -425,6 +433,14 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
@@ -433,10 +449,10 @@
 											"",
 											"pm.test(\"Check that Auth Code Contains 6 numbers only\", function () {",
 											"    if(jsonData[\"authCode\"].match(numbers) && jsonData[\"authCode\"].length == 6){",
-											"          return true;",
+											"          pm.expect(true).to.equal(true)",
 											"      }",
 											"      else{",
-											"          return false;",
+											"          pm.expect(true).to.equal(false)",
 											"      }",
 											"});",
 											"      "
@@ -634,7 +650,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -680,7 +696,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -811,7 +827,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -836,12 +852,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1100,7 +1124,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1125,12 +1149,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1389,7 +1421,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1414,12 +1446,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1681,7 +1721,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1856,7 +1896,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1881,12 +1921,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2126,7 +2174,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2151,12 +2199,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2396,7 +2452,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -2421,12 +2477,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2791,13 +2855,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status Code is 200-202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
 											"});",
-											"pm.test(\"Successful Post Response\", function () {",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
-											""
+											"",
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
 										],
 										"type": "text/javascript"
 									}
@@ -2808,7 +2876,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3704,7 +3772,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -3729,12 +3797,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4119,7 +4195,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4144,12 +4220,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4443,7 +4527,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4468,12 +4552,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4849,7 +4941,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4874,12 +4966,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5163,7 +5263,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5188,12 +5288,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5481,7 +5589,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5506,12 +5614,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5799,7 +5915,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -5824,12 +5940,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6117,7 +6241,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6142,12 +6266,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6426,12 +6558,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6687,7 +6827,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -6712,12 +6852,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -7259,7 +7407,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7284,12 +7432,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -7788,7 +7944,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -7813,12 +7969,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -8183,7 +8347,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8208,12 +8372,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -8580,7 +8752,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -8605,14 +8777,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9021,7 +9199,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9046,14 +9224,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9417,7 +9601,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9442,14 +9626,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9858,7 +10048,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -9883,14 +10073,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -10317,7 +10513,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10342,14 +10538,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -10776,7 +10978,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -10801,14 +11003,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -11235,7 +11443,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11260,14 +11468,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -11816,7 +12030,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -11841,14 +12055,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -12362,7 +12582,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -12387,14 +12607,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -12989,7 +13215,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -13014,14 +13240,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -13533,7 +13765,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -13558,14 +13790,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14119,7 +14357,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -14144,14 +14382,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14709,7 +14953,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -14734,14 +14978,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -15299,7 +15549,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -15324,14 +15574,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -15892,7 +16148,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test000@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Jimmy\",\n    \"lastName\" : \"Fallman\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test000@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"Jimmy\",\n    \"lastName\" : \"Fallman\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -15918,6 +16174,14 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode000\", jsonData[\"authCode\"]);"
@@ -16169,7 +16433,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -16194,14 +16458,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -16796,7 +17066,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -16821,14 +17091,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -17437,7 +17713,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -17462,14 +17738,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -18083,7 +18365,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18108,14 +18390,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -18874,7 +19162,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -18899,14 +19187,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -19521,7 +19815,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -19546,14 +19840,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -20218,7 +20518,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -20243,12 +20543,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -20809,7 +21117,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -20834,12 +21142,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -21402,7 +21718,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -21427,12 +21743,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -21930,7 +22254,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -21955,12 +22279,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -22458,7 +22790,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -22483,12 +22815,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -23084,7 +23424,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -23109,12 +23449,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -23715,7 +24063,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -23740,12 +24088,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -24345,7 +24703,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -24370,12 +24728,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -24673,7 +25039,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -24698,12 +25064,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -25013,7 +25387,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -25038,12 +25412,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -25475,7 +25857,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -25500,12 +25882,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -25933,7 +26323,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -25958,12 +26348,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -26391,7 +26789,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -26416,12 +26814,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -26846,7 +27252,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -26871,12 +27277,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -27058,6 +27472,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation",
 							"event": [
 								{
@@ -27081,7 +27538,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"L004\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"qrcode\" : \"L010\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -27095,6 +27552,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -27212,7 +27709,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -27237,12 +27734,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -27424,6 +27929,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation - \"Invalid Auth Token\"",
 							"event": [
 								{
@@ -27464,6 +28012,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -27581,7 +28169,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -27606,12 +28194,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -27793,6 +28389,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation - \"User Does Not Exist\"",
 							"event": [
 								{
@@ -27834,6 +28473,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -27951,7 +28630,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -27976,12 +28655,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -28163,6 +28850,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation - \"Invalid Location QR Code\"",
 							"event": [
 								{
@@ -28204,6 +28934,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -28324,7 +29094,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -28349,12 +29119,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -28782,7 +29560,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -28807,12 +29585,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -29156,7 +29942,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -29181,12 +29967,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -29530,7 +30324,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -29555,12 +30349,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -29990,7 +30792,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -30015,12 +30817,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -30453,7 +31263,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -30478,12 +31288,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -30914,7 +31732,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -30939,12 +31757,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -31375,7 +32201,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -31400,12 +32226,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -31883,7 +32717,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -31908,12 +32742,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -32345,7 +33187,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -32370,12 +33212,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -32807,7 +33657,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -32832,12 +33682,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -33269,7 +34127,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -33294,12 +34152,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -33657,7 +34523,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -33682,12 +34548,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -34045,7 +34919,7 @@
 										"header": [],
 										"body": {
 											"mode": "raw",
-											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\"\n}",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
 											"options": {
 												"raw": {
 													"language": "json"
@@ -34070,12 +34944,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -34356,6 +35238,973 @@
 									],
 									"path": [
 										"secretDeleteUser"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "AppInfoUnitTests",
+			"item": [
+				{
+					"name": "Unit Test - Update Major Check",
+					"item": [
+						{
+							"name": "Insert Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/insertVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"insertVersion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Save Current Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"pm.environment.set(\"version\", version);",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"pm.environment.set(\"major\", parseInt(major));",
+											"pm.environment.set(\"minor\", parseInt(minor));",
+											"pm.environment.set(\"patch\", parseInt(patch));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Major",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updateMajor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updateMajor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Major",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Major Update\", function (){",
+											"    pm.expect(major).to.be.greaterThan(pm.environment.get(\"major\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Minor and Patch set to 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Minor Reset\", function (){",
+											"    pm.expect(minor).to.equal(0);",
+											"});",
+											"",
+											"pm.test(\"Successful Patch Reset\", function (){",
+											"    pm.expect(patch).to.equal(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteVersion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Unit Test - Update Minor Check",
+					"item": [
+						{
+							"name": "Insert Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/insertVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"insertVersion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Save Current Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"pm.environment.set(\"version\", version);",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"pm.environment.set(\"major\", parseInt(major));",
+											"pm.environment.set(\"minor\", parseInt(minor));",
+											"pm.environment.set(\"patch\", parseInt(patch));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Minor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updateMinor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updateMinor"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Minor",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Minor Update\", function (){",
+											"    pm.expect(minor).to.be.greaterThan(pm.environment.get(\"minor\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Major is unchanged and Patch = 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"pm.test(\"Major is Unchanged\", function (){",
+											"    pm.expect(major).to.equal(pm.environment.get(\"major\"));",
+											"});",
+											"",
+											"pm.test(\"Successful Patch Reset\", function (){",
+											"    pm.expect(patch).to.equal(0);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteVersion"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Unit Test - Update Patch Check",
+					"item": [
+						{
+							"name": "Insert Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/insertVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"insertVersion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Save Current Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"pm.environment.set(\"version\", version);",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"pm.environment.set(\"major\", parseInt(major));",
+											"pm.environment.set(\"minor\", parseInt(minor));",
+											"pm.environment.set(\"patch\", parseInt(patch));",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/updatePatch",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"updatePatch"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Patch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"",
+											"pm.test(\"Successful Patch Update\", function (){",
+											"    pm.expect(patch).to.be.greaterThan(pm.environment.get(\"patch\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Version Check Major and Minor are unchanged",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"var version = JSON.parse(responseBody).data;",
+											"",
+											"",
+											"",
+											"var res = version.split(\".\");",
+											"",
+											"var major = res[0];",
+											"var minor = res[1];",
+											"var patch = res[2];",
+											"major = parseInt(major)",
+											"minor = parseInt(minor)",
+											"patch = parseInt(patch)",
+											"pm.test(\"Major is Unchanged\", function (){",
+											"    pm.expect(major).to.equal(pm.environment.get(\"major\"));",
+											"});",
+											"",
+											"pm.test(\"Minor is Unchanged\", function (){",
+											"    pm.expect(minor).to.equal(pm.environment.get(\"minor\"));",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getVersion?host=test",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getVersion"
+									],
+									"query": [
+										{
+											"key": "host",
+											"value": "test"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Version",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"host\":\"test\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteVersion",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteVersion"
 									]
 								}
 							},

@@ -12,9 +12,8 @@ function Table (props) {
         const [limit, setLimit] = useState(20)
         const history = useHistory();
 
-        function routeChangeLocationCount() { 
-        let path = `/locationCount`; 
-        //*
+        function routeChangeContainerTable() { 
+        let path = `/containerTable`; 
         history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
         }
         function routeChangeStatusCount() { 
@@ -30,6 +29,7 @@ function Table (props) {
         async function getContainers(email, authToken){
          var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
+         console.log(response)
          setFilteredContainers(response.data.data.slice(0,limit))
         }
         
@@ -84,7 +84,6 @@ function Table (props) {
               container.status.includes(filter) ||
               container.statusUpdateTime.includes(filter) ||
               container.location_qrcode.includes(filter) ||
-              container.active.includes(filter) ||
               container.description.includes(filter)
             )
             }
@@ -94,7 +93,6 @@ function Table (props) {
                 container.qrcode.includes(filter) ||
                 container.status.includes(filter) ||
                 container.statusUpdateTime.includes(filter) ||
-                container.active.includes(filter) ||
                 container.description.includes(filter)
               )
               }
@@ -104,7 +102,6 @@ function Table (props) {
                   container.qrcode.includes(filter) ||
                   container.status.includes(filter) ||
                   container.statusUpdateTime.includes(filter) ||
-                  container.active.includes(filter) ||
                   container.location_qrcode.includes(filter) 
                 )
                 }
@@ -113,8 +110,7 @@ function Table (props) {
                     container.email.includes(filter) || 
                     container.qrcode.includes(filter) ||
                     container.status.includes(filter) ||
-                    container.statusUpdateTime.includes(filter) ||
-                    container.active.includes(filter)  
+                    container.statusUpdateTime.includes(filter)
                   )
                   }
           }))
@@ -128,11 +124,14 @@ function Table (props) {
         }
         return (
             <div className="App">
+              <div className="nav">
+                <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>Container Status and Location Counts</button>
+                <button className="navButton1" type="button" onClick={() => { routeChangeContainerTable() } }>All Containers</button>
+              </div>
+            <br></br>
+            <div className="title">
             <h1>All Container Transactions</h1>
-            <div className="row">
-              <div className="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status and Location Counts</button></div>
-           </div>
-            
+            </div>
             <br></br>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
@@ -157,7 +156,6 @@ function Table (props) {
                </th>
                <th>Status Update Time</th>
                <th>Location QR Code</th>
-               <th>Active</th>
                <th>Description</th>
                
              </tr>
@@ -170,7 +168,6 @@ function Table (props) {
                  <td>{elem.status}</td>
                  <td>{elem.statusUpdateTime}</td>
                  <td>{elem.location_qrcode}</td>
-                 <td>{elem.active}</td>
                  <td>{elem.description}</td>
                 </tr>
                ))}

@@ -77,6 +77,8 @@ class ReuseStrings {
       'Thank you for returning a container! You have earned 5 points.';
   static String appError =
       'Please update the Choose2Reuse app to the latest version in order to continue using the app.';
+  static String earnedBadgeText =
+      'You have also earned a C2R badge! Your reward will expire in 5 days. To view your rewards, go to the Points & Rewards page.';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';
