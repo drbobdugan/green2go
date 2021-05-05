@@ -101,12 +101,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -425,6 +433,14 @@
 									"listen": "test",
 									"script": {
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
@@ -433,10 +449,10 @@
 											"",
 											"pm.test(\"Check that Auth Code Contains 6 numbers only\", function () {",
 											"    if(jsonData[\"authCode\"].match(numbers) && jsonData[\"authCode\"].length == 6){",
-											"          return true;",
+											"          pm.expect(true).to.equal(true)",
 											"      }",
 											"      else{",
-											"          return false;",
+											"          pm.expect(true).to.equal(false)",
 											"      }",
 											"});",
 											"      "
@@ -836,12 +852,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1125,12 +1149,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1414,12 +1446,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -1881,12 +1921,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2151,12 +2199,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2421,12 +2477,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -2791,13 +2855,17 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status Code is 200-202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
 											"});",
-											"pm.test(\"Successful Post Response\", function () {",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
 											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
-											""
+											"",
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
 										],
 										"type": "text/javascript"
 									}
@@ -3729,12 +3797,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4144,12 +4220,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4468,12 +4552,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -4874,12 +4966,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5188,12 +5288,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5506,12 +5614,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -5824,12 +5940,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6142,12 +6266,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6426,12 +6558,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -6712,12 +6852,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -7284,12 +7432,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -7813,12 +7969,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -8208,12 +8372,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -8605,14 +8777,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9046,14 +9224,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9442,14 +9626,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -9883,14 +10073,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -10342,14 +10538,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -10801,14 +11003,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -11260,14 +11468,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -11841,14 +12055,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -12387,14 +12607,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -13014,14 +13240,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -13558,14 +13790,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14144,14 +14382,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -14734,14 +14978,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -15324,14 +15574,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -15918,6 +16174,14 @@
 											"listen": "test",
 											"script": {
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode000\", jsonData[\"authCode\"]);"
@@ -16194,14 +16458,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											""
-										]
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -16821,14 +17091,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -17462,14 +17738,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -18108,14 +18390,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -18899,14 +19187,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -19546,14 +19840,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
-													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-													"",
-													""
-												]
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -20243,12 +20543,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -20834,12 +21142,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -21427,12 +21743,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -21955,12 +22279,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -22483,12 +22815,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -23109,12 +23449,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -23740,12 +24088,22 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"",
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -24370,12 +24728,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -24698,12 +25064,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -25038,12 +25412,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -25500,12 +25882,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -25958,12 +26348,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -26416,12 +26814,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -26871,12 +27277,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -27058,6 +27472,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation",
 							"event": [
 								{
@@ -27081,7 +27538,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"L004\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"qrcode\" : \"L010\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -27095,6 +27552,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -27237,12 +27734,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -27424,6 +27929,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation - \"Invalid Auth Token\"",
 							"event": [
 								{
@@ -27464,6 +28012,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -27606,12 +28194,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -27793,6 +28389,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation - \"User Does Not Exist\"",
 							"event": [
 								{
@@ -27834,6 +28473,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -27976,12 +28655,20 @@
 								{
 									"listen": "test",
 									"script": {
-										"type": "text/javascript",
 										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
 											"var jsonData = JSON.parse(responseBody).data;",
 											"",
 											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-										]
+										],
+										"type": "text/javascript"
 									}
 								}
 							],
@@ -28163,6 +28850,49 @@
 							"response": []
 						},
 						{
+							"name": "Add Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\": \"{{authToken}}\",\n    \"location_qrcode\":\"L010\",\n    \"description\":\"Du Lac Lobby\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/addLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"addLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "ClearLocation - \"Invalid Location QR Code\"",
 							"event": [
 								{
@@ -28204,6 +28934,46 @@
 									],
 									"path": [
 										"clearLocation"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Location",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L010\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/deleteLocation",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"deleteLocation"
 									]
 								}
 							},
@@ -28349,12 +29119,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -28807,12 +29585,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -29181,12 +29967,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -29555,12 +30349,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -30015,12 +30817,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -30478,12 +31288,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -30939,12 +31757,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -31400,12 +32226,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -31908,12 +32742,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -32370,12 +33212,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -32832,12 +33682,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -33294,12 +34152,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -33682,12 +34548,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -34070,12 +34944,20 @@
 										{
 											"listen": "test",
 											"script": {
-												"type": "text/javascript",
 												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
 													"var jsonData = JSON.parse(responseBody).data;",
 													"",
 													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
-												]
+												],
+												"type": "text/javascript"
 											}
 										}
 									],
@@ -35356,12 +36238,12 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://198.199.77.174:5000"
+			"value": "http://198.199.77.174:5000",
+			"disabled": true
 		},
 		{
 			"key": "baseUrl",
-			"value": "localhost:5000",
-			"disabled": true
+			"value": "localhost:5000"
 		}
 	]
 }
