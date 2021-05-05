@@ -3068,7 +3068,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"major\":1,\n    \"minor\":3,\n    \"patch\":6,\n    \"host\":\"test\"\n}",
+							"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3168,7 +3168,7 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -3207,7 +3207,7 @@
 						}
 					],
 					"request": {
-						"method": "PATCH",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
