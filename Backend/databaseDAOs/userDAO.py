@@ -4,8 +4,7 @@ import mysql.connector
 from DAO import dao
 from user import User
 class UserDAO(dao):
-    #Accepts list val in format  val = (email, password, firstName, lastName, middleName, phoneNum, role, classYear, authCode,authTime,lastLogIn)
-    #authTime and lastLogIn format (YYYY-MM-DD HH:MM:SS)
+    #datetime format is (YYYY-MM-DD HH:MM:SS)
 
     def checkFormatting(self,user):
         if(user.email is None or user.password is None or user.firstName is None or user.lastName is None or user.phoneNum is None or user.role is None or user.authCode is None or user.authTime is None or user.lastLogIn is None or user.authorized is None or user.beams_token is None or user.points is None):
@@ -63,7 +62,7 @@ class UserDAO(dao):
             if(myresult[0] == False):
                 return myresult
             user.lastLogIn = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, authCode, authTime, lastLogIn,authorized,beams_token,points) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            sql = "INSERT INTO user (email, password, firstName, lastName, middleName, phoneNum, role, authCode, authTime, lastLogIn,authorized,beams_token,points,reward_date) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
             myresult = self.handleSQL(sql,False, user.userToList())
             if(myresult[0] == False):
                 return myresult
@@ -83,7 +82,7 @@ class UserDAO(dao):
             if(myresult[0] == False):
                 return myresult
             myresult = myresult[1][0]
-            user = User(myresult[0], myresult[1], myresult[2], myresult[3], myresult[4], myresult[5],myresult[6],myresult[7], str(myresult[8]), str(myresult[9]),str(myresult[10]),myresult[11],myresult[12])
+            user = User(myresult[0], myresult[1], myresult[2], myresult[3], myresult[4], myresult[5],myresult[6],myresult[7], str(myresult[8]), str(myresult[9]),str(myresult[10]),myresult[11],myresult[12],str(myresult[13]))
             logging.info("selectUser successful")
             return True, user
         except Exception as e:
@@ -98,7 +97,7 @@ class UserDAO(dao):
             if(myresult[0] == False):
                 return myresult
             logging.info("Entering updateUser")
-            sql = "UPDATE user set password = '" + user.password + "', firstName = '" + user.firstName + "', lastName ='" + user.lastName+ "', middleName = '" + user.middleName+ "', phoneNum = '" + user.phoneNum + "', role = '" + user.role + "', authCode = '" + user.authCode + "', authTime = '" + user.authTime + "', lastLogIn = '" + user.lastLogIn+ "', authorized = '" + user.authorized + "', beams_token = '" + user.beams_token + "', points = '" + str(user.points) + "' where email = '" + user.email + "'"
+            sql = "UPDATE user set password = '" + user.password + "', firstName = '" + user.firstName + "', lastName ='" + user.lastName + "', middleName = '" + user.middleName + "', phoneNum = '" + user.phoneNum + "', role = '" + user.role + "', authCode = '" + user.authCode + "', authTime = '" + user.authTime + "', lastLogIn = '" + user.lastLogIn + "', authorized = '" + user.authorized + "', beams_token = '" + user.beams_token + "', points = '" + str(user.points) + "', reward_date = '" + str(user.reward_date) + "' where email = '" + user.email + "'"
             myresult = self.handleSQL(sql,False,None)
             if(myresult[0] == False):
                 return myresult

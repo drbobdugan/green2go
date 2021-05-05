@@ -36,7 +36,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0",
                 "exampletoken",
-                5)
+                5,
+                "2021-01-01 02:02:02")
         return self.dao.insertUser(user)
     
     def testUserSizeLimits(self):
@@ -54,7 +55,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0",
                 "exampletoken",
-                5)
+                5,
+                "2021-01-01 02:02:02")
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         self.assertTrue("email is too long" in msg)
@@ -100,7 +102,6 @@ class unitTestUserDAO(unittest.TestCase):
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         self.assertTrue("role is too long" in msg)
-
 
         authCode = user.authCode
         user.authCode = lim45
@@ -163,7 +164,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0",
                 "exampletoken",
-                5)
+                5,
+                "2021-01-01 02:02:02")
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         user.email = "test42@students.stonehill.edu"
@@ -200,7 +202,6 @@ class unitTestUserDAO(unittest.TestCase):
         self.assertFalse(rc)
         user.role = "RegularUser"
 
-
         user.authCode = None
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
@@ -230,6 +231,11 @@ class unitTestUserDAO(unittest.TestCase):
         rc, msg = self.dao.insertUser(user)
         self.assertFalse(rc)
         user.points = 5
+
+        user.reward_date = None
+        rc, msg = self.dao.insertUser(user)
+        self.assertFalse(rc)
+        user.reward_date = "2021-01-01 02:02:02"
 
     def testRegularSelectUser(self):
         """
@@ -276,7 +282,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0",
                 "exampletoken",
-                5)
+                5,
+                "2021-01-01 02:02:02")
 
         rc, msg = self.dao.updateUser(user)
         self.assertTrue(rc)
@@ -303,7 +310,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0",
                 "exampletoken",
-                5)
+                5,
+                "2021-01-01 02:02:02")
 
         #rc, msg = self.dao.updateUser(user)
         #self.assertFalse(rc)
@@ -365,7 +373,8 @@ class unitTestUserDAO(unittest.TestCase):
                 "2021-01-01 01:01:01",
                 "0",
                 "exampletoken",
-                5)
+                5,
+                "2021-01-01 02:02:02")
 
         rc, msg = self.dao.deleteUser(user)
         self.assertFalse(rc)
