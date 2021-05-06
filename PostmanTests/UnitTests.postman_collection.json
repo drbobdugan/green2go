@@ -13,6 +13,249 @@
 					"name": "AccountCreation Unit Test - Success",
 					"item": [
 						{
+							"name": "Unit Test - Check Auth Code is 6 numbers long",
+							"item": [
+								{
+									"name": "Delete user account",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"",
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/secretDeleteUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"secretDeleteUser"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "New user test00",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status Code is 200-202\", function () {",
+													"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+													"});",
+													"pm.test(\"Successful Post Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/secretAddUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"secretAddUser"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "GetAuthCode[testing]",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.test(\"Successful Get Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
+													"var jsonData = JSON.parse(responseBody).data;",
+													"",
+													"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
+													"",
+													"var numbers = /^[0-9]+$/;",
+													"",
+													"pm.test(\"Check that Auth Code Contains 6 numbers only\", function () {",
+													"    if(jsonData[\"authCode\"].match(numbers) && jsonData[\"authCode\"].length == 6){",
+													"          pm.expect(true).to.equal(true)",
+													"      }",
+													"      else{",
+													"          pm.expect(true).to.equal(false)",
+													"      }",
+													"});",
+													"      "
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "",
+											"options": {
+												"raw": {
+													"language": "javascript"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"secretGetUser"
+											],
+											"query": [
+												{
+													"key": "email",
+													"value": "test00@students.stonehill.edu"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Validate Code That was Emailed",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"pm.test(\"Successful Post Response\", function () {",
+													"    pm.expect(pm.response.text()).to.include(\"true\");",
+													"});",
+													"",
+													""
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/validateCode",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"validateCode"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Delete user account",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"type": "text/javascript",
+												"exec": [
+													"// ",
+													"pm.test(\"Status code is 200\", function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"pm.environment.set(\"authCode\", \"null\");",
+													"pm.environment.set(\"authToken\", \"null\");"
+												]
+											}
+										}
+									],
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/secretDeleteUser",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"secretDeleteUser"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
 							"name": "Delete user account",
 							"event": [
 								{
@@ -290,249 +533,6 @@
 											"key": "email",
 											"value": "test00@students.stonehill.edu"
 										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"// ",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.environment.set(\"authCode\", \"null\");",
-											"pm.environment.set(\"authToken\", \"null\");"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "Unit Test - Check Auth Code is 6 numbers long",
-					"item": [
-						{
-							"name": "Delete user account",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"",
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});"
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretDeleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretDeleteUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "New user test00",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status Code is 200-202\", function () {",
-											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											""
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretAddUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretAddUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetAuthCode[testing]",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"",
-											"pm.test(\"Successful Get Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											"var jsonData = JSON.parse(responseBody).data;",
-											"",
-											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);",
-											"",
-											"var numbers = /^[0-9]+$/;",
-											"",
-											"pm.test(\"Check that Auth Code Contains 6 numbers only\", function () {",
-											"    if(jsonData[\"authCode\"].match(numbers) && jsonData[\"authCode\"].length == 6){",
-											"          pm.expect(true).to.equal(true)",
-											"      }",
-											"      else{",
-											"          pm.expect(true).to.equal(false)",
-											"      }",
-											"});",
-											"      "
-										],
-										"type": "text/javascript"
-									}
-								}
-							],
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "",
-									"options": {
-										"raw": {
-											"language": "javascript"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"secretGetUser"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "test00@students.stonehill.edu"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Validate Code That was Emailed",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"type": "text/javascript",
-										"exec": [
-											"pm.test(\"Status code is 200\", function () {",
-											"    pm.response.to.have.status(200);",
-											"});",
-											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
-											"});",
-											"",
-											""
-										]
-									}
-								}
-							],
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
 									]
 								}
 							},
@@ -16794,6 +16794,10 @@
 											"pm.test(\"Status code is 200\", function () {",
 											"    pm.response.to.have.status(200);",
 											"});",
+											"",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
 											""
 										],
 										"type": "text/javascript"
@@ -27081,7 +27085,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"qrcode\" : \"L011\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"raw": "{\n    \"qrcode\" : \"L111\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -32023,7 +32027,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L011\"\n}",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"auth_token\":\"{{authToken}}\",\n    \"qrcode\":\"L111\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
