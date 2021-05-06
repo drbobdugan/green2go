@@ -39,8 +39,10 @@ function ContainerTable (props) {
         async function getContainers(email, authToken){
           try{
             var response = await axios.get('http://198.199.77.174:5000/getCurrent?email='+email+'&auth_token='+authToken)
-            setContainers(response.data.data)
-            setFilteredContainers(response.data.data)
+            if(response && response.data && response.data.data && response.data.data.length){
+              setContainers(response.data.data)
+              setFilteredContainers(response.data.data)
+            }
             setEmail(email);
             setAuthToken(authToken);
           }
