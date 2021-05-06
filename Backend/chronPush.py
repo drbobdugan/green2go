@@ -19,7 +19,7 @@ keys = {}
 for x in containerList:
     if x['status']=='Checked Out':
       timeobj=datetime.datetime.strptime(x["statusUpdateTime"], '%Y-%m-%d %H:%M:%S')
-      hours_added = datetime.timedelta(minutes= 1)
+      hours_added = datetime.timedelta(hours = 48)
       future_date_and_time = timeobj + hours_added
       # it has been over 48 hours
       if (datetime.datetime.now() > future_date_and_time):
@@ -51,14 +51,14 @@ for b in batch:
                 'aps': {
                     'alert': {
                         'title': 'choose2reuse',
-                        'body': 'You have a container that has been checked out for over 48 hours... Please consider returning it...', 
+                        'body': 'You have a container that has been checked out for over 48 hours, please consider returning it!', 
                     },
                 },
             },
             'fcm': {
                 'notification': {
                     'title': 'choose2reuse',
-                    'body': 'You have a container that has been checked out for over 48 hours... Please consider returning it...',
+                    'body': 'You have a container that has been checked out for over 48 hours, please consider returning it!',
                 },
             },
             'web': {
