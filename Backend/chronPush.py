@@ -19,7 +19,7 @@ keys = {}
 for x in containerList:
     if x['status']=='Checked Out':
       timeobj=datetime.datetime.strptime(x["statusUpdateTime"], '%Y-%m-%d %H:%M:%S')
-      hours_added = datetime.timedelta(minutes= 5)
+      hours_added = datetime.timedelta(minutes= 1)
       future_date_and_time = timeobj + hours_added
       # it has been over 48 hours
       if (datetime.datetime.now() > future_date_and_time):
