@@ -68,13 +68,15 @@ class LocationHandler:
             locationDic = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
             res = self.locationdao.selectAll()
             self.helperHandler.falseQueryCheck(res)
+            BinCounts = self.containerdao.totalContainersInBins()
+            self.helperHandler.falseQueryCheck(BinCounts)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        BinCounts = self.containerdao.totalContainersInBins()[1]
+        Bin = BinCounts[1]
         for r in res[1]:
             tempLoc = r.locationToDict()
             counter = 0
-            for item in BinCounts:
+            for item in Bin:
                 if item['location_qrcode'] == tempLoc['location_qrcode']:
                     counter = counter + 1
             tempLoc.update({'count' : counter})

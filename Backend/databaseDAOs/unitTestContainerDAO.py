@@ -74,6 +74,9 @@ class unitTestContainerDAO(unittest.TestCase):
     def testTotalContainersCheckedOut(self):
         rc, msg = self.dao.totalContainersCheckedOut()
         self.assertTrue(rc)
+    def testTotalContainersDamagedLost(self):
+        rc, msg = self.dao.totalContainersDamagedLost()
+        self.assertTrue(rc)
 
     def testTotalContainersInStock(self):
         rc, msg = self.dao.totalContainersInStock()

@@ -6,10 +6,27 @@ from DAO import dao
 class ContainerDAO(dao):
 
 
+    def totalContainersDamagedLost(self):
+        try:
+            logging.info("Entering totalDamagedLostContainers")
+            sql = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer where hascontainer.status = 'Damaged Lost'"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            temp = []
+            for result in myresult[1]:
+                temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
+            print(temp)
+            return True, temp
+        except Exception as e:
+            logging.error("Error in totalDamagedLostContainers")
+            logging.error(str(e))
+            return self.handleError(e)
+
     def totalContainersCheckedOut(self):
         try:
             logging.info("Entering totalCheckedOutContainers")
-            sql = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Checked Out'"
+            sql = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer where hascontainer.status = 'Checked Out'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
