@@ -18,6 +18,7 @@ class ReuseStrings {
   static String changePassword = 'Change Password';
   static String logOut = 'Log Out';
   static String done = 'Done';
+  static String claimReward = 'Claim Reward';
 
   //page titles
   static String homepageTitle = 'Dashboard';
@@ -26,7 +27,9 @@ class ReuseStrings {
   static String profilePageTitle = 'Profile';
   static String changePasswordPageTitle = 'Change Password';
   static String forgotPasswordPageTitle = 'Forgot Password';
-  static String pointsPageTitle = 'My Points & Rewards';
+  static String pointsPageTitle = 'My Points';
+  static String badgesPageTitle = 'My Badges';
+  static String rewardsPageTitle = 'My Reward';
   static String returnConfirmationTitle = 'Return Confirmation';
 
   //field text
@@ -71,6 +74,7 @@ class ReuseStrings {
   static String undoLostOrDamagedQuestion =
       'Are you sure you want to undo marking this container as damaged/lost?';
   static String myPoints = 'Points';
+  static String myBadges = 'Badges';
   static String returnConfirmation15PointsText =
       'Thank you for returning a container! You have earned 15 points.';
   static String returnConfirmation5PointsText =
@@ -78,7 +82,9 @@ class ReuseStrings {
   static String appError =
       'Please update the Choose2Reuse app to the latest version in order to continue using the app.';
   static String earnedBadgeText =
-      'You have also earned a C2R badge! Your reward will expire in 5 days. To view your rewards, go to the Points & Rewards page.';
+      'You have also earned a C2R badge! Your reward will expire in 5 days. To use your reward, go to the Points & Rewards page.';
+  static String rewardInstructions =
+      'Only press this button if you are ready to show it to a cashier! The page will only be active for 60 seconds.';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';

@@ -37,6 +37,7 @@ class DetailedUser {
     phoneNum = value['phoneNum'] as String;
     password = value['password'] as String;
     points = value['points'] as int;
+    badges = value['badges'] as int;
   }
 
   String email;
@@ -46,4 +47,5 @@ class DetailedUser {
   String phoneNum;
   String password;
   int points;
+  int badges;
 }

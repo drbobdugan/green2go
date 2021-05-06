@@ -19,10 +19,10 @@ import '../static/student.dart';
 const int initial_timer_seconds = 300;
 
 class NavArguments {
-  NavArguments(this.user, this.points15, this.earnedBadge);
+  NavArguments(this.user, this.points, this.earnedBadge);
 
   final StudentAuth user;
-  final bool points15;
+  final int points;
   final bool earnedBadge;
 }
 
@@ -56,7 +56,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   bool containerScanActive = false;
   String locationQR = '';
   int secondsRemaining = initial_timer_seconds;
-  bool points15;
+  int points;
   bool earnedBadge;
   StudentDetails user;
   List<ReusableContainer> checkedOut;
@@ -182,11 +182,11 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   }
 
   void testMethod() {
-    points15 = false;
-    earnedBadge = false;
+    points = 5;
+    earnedBadge = true;
 
     NavigationService(context: context).goToPage(C2RPages.returnConfirmation,
-        NavArguments(widget.userAuth, points15, earnedBadge));
+        NavArguments(widget.userAuth, points, earnedBadge));
   }
 
   Future<void> scanLocationQRCode() async {
@@ -217,11 +217,19 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
         .then((String code) {
       widget.onScanContainerQR(code, locationQR).then((APIResponse response) {
         if (response.success) {
-          points15 = true;
-          earnedBadge = false;
-          NavigationService(context: context).goToPage(
-              C2RPages.returnConfirmation,
-              NavArguments(widget.userAuth, points15, earnedBadge));
+          if (response.data ==
+              '') //data will be empty if user is returning someone else's container
+          {
+            NavigationService(context: context).goHome(widget.userAuth);
+          } else {
+            final Map<String, dynamic> data =
+                response.data as Map<String, dynamic>;
+            points = data['points'] as int;
+            earnedBadge = data['newReward'] as bool;
+            NavigationService(context: context).goToPage(
+                C2RPages.returnConfirmation,
+                NavArguments(widget.userAuth, points, earnedBadge));
+          }
         } else {
           setState(() {
             errorMessage = response.message;
