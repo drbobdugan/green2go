@@ -125,7 +125,7 @@ function Table (props) {
         return (
             <div className="App">
               <div className="nav">
-                <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>Container Status and Location Counts</button>
+                <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>All Locations</button>
                 <button className="navButton1" type="button" onClick={() => { routeChangeContainerTable() } }>All Containers</button>
               </div>
             <br></br>

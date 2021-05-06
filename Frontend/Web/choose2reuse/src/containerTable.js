@@ -58,7 +58,7 @@ function ContainerTable (props) {
             setRetrieved(true)
             setCheckedOut(response.data.data["Checked Out"].length)
             setInStock(response.data.data["In Stock"].length)
-            setPendingReturn(response.data.data["Pending Returns"].length)
+            setPendingReturn(response.data.data["In Bin"].length)
           }
           catch(e){
             console.log(e)

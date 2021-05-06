@@ -1,18 +1,14 @@
-tr:hover{
-  color:#9fd4b9;
-}
-
 .title{
   text-align: center;
-}
-
-tr{
-  cursor:pointer;
 }
 
 th {
   background-color: #4CAF50;
   color: white;
+}
+
+input{
+  cursor: pointer;
 }
 
 tr:nth-child(even) {
