@@ -228,6 +228,7 @@ class ContainerHandler:
             elif (timepassed.total_seconds() / 3600) < 48:
                 points = points + 15
             userDict['points'] = points
+            userDict['reward_date'] = '2021-01-01 01:01:01'
             user.dictToUser(userDict)
             res = self.userDao.updateUser(user)
             self.helperHandler.falseQueryCheck(res)
