@@ -12,9 +12,10 @@ This project was created by the Stonehill College 2020-21 Spring C.S. capstone. 
 7. [Testing](#test)
 8. [Tools](#tools)
 9. [How is The Stack Currently Implemented?](#stack)
-10. [Contributors](#contribs)
-11. [ToDo](#todo)
-12. [Additional Information](#additional)
+10. [Database Tables and DAO Information](#databaseInfo)
+11. [Contributors](#contribs)
+12. [ToDo](#todo)
+13. [Additional Information](#additional)
 
 ## Project Dependancies <a name="depend"></a>
 - Android Studio
@@ -199,6 +200,11 @@ cd /Tools/
 nohup python3 pull.py &
 ```
 
+## Database Tables and DAO Information <a name="databaseInfo"></a>
+
+Each table in the database as a corresponding object, DAO (data access object), and unit test. These tables include location, container, hascontainer (relationship), user, and auth. To view the fields of each table, you can check MySQL or the .py file for the object. Each DAO contains methods which create, read, update and delete (CRUD) from the database. Make sure to run the corresponding unit test each time you make a change to the DAO and object. The unit test will write all errors to the DAO.log file for debugging purposes.
+
+
 ## Contributors <a name="contribs"></a>
 - Pat O'Shea
 - Ethan Batt
@@ -206,24 +212,24 @@ nohup python3 pull.py &
 - Luciano Giannini
 - Bob Dugan
 - Ruthie Missett
-- Samantha Salvas :)
-- Andrew Petti :)
-- Elizabeth R Blake
+- Samantha Salvas
+- Andrew Petti
+- Elizabeth Blake
 - Parker Rowley
-- Marianne Kenney √
-- Taylor Li:)
+- Marianne Kenney
+- Taylor Li
 - Aaron Jones
 - Dylan Vieira
 - Thomas Hines
 - Mike Sale
 - Caleb Hadley
 
-## TODO: <a name="todo"></a>
+## TO DO: <a name="todo"></a>
 
 - [X] Begin updating documentation
 - [X] Make everyone aware of Documentation and ask them to update it
 - [ ] Make sure all dependencies are listed
-- [ ] Add database setup to documentation along with sql files to create database
+- [X] Add database setup to documentation along with sql files to create database
 - [ ] Add testing info to documentation
 - [ ] Add tools info to documentation
 - [ ] Have someone test installation flow
