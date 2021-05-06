@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../components/font_scale_blocker.dart';
+import '../components/reuse_button.dart';
 import '../components/reuse_label.dart';
 import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
@@ -12,8 +13,7 @@ import '../static/student.dart';
 import '../static/user.dart';
 
 class PointsPage extends StatefulWidget {
-  const PointsPage({Key key, @required this.userAuth})
-      : super(key: key);
+  const PointsPage({Key key, @required this.userAuth}) : super(key: key);
 
   final StudentAuth userAuth;
 
@@ -26,8 +26,8 @@ class PointsPage extends StatefulWidget {
 }
 
 class _PointsPageState extends State<PointsPage> {
-
   DetailedUser detailedUser;
+  final bool hasReward = false;
 
   @override
   void initState() {
@@ -40,6 +40,10 @@ class _PointsPageState extends State<PointsPage> {
         });
       }
     });
+  }
+
+  void testMethod() {
+    print('Claiming reward');
   }
 
   @override
@@ -57,25 +61,55 @@ class _PointsPageState extends State<PointsPage> {
         resizeToAvoidBottomInset: true,
         appBar: UserAppBar(userAuth: widget.userAuth),
         body: SingleChildScrollView(
-            padding: const EdgeInsets.only(top: 30.0, left: 50.0, right: 50.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
+          padding: const EdgeInsets.only(top: 30.0, left: 50.0, right: 50.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              ReuseLabel(
+                text: ReuseStrings.pointsPageTitle,
+                textStyle: CustomTheme.primaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: '${detailedUser.points} ${ReuseStrings.myPoints}',
+                textStyle: CustomTheme.brightLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.badgesPageTitle,
+                textStyle: CustomTheme.primaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: '${detailedUser.badges} ${ReuseStrings.myBadges}',
+                textStyle: CustomTheme.brightLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              if (hasReward)
                 ReuseLabel(
-                  text: ReuseStrings.pointsPageTitle,
+                  text: ReuseStrings.rewardsPageTitle,
                   textStyle: CustomTheme.primaryLabelStyle(),
                   bottom: 20.0,
                 ),
+              if (hasReward)
                 ReuseLabel(
-                  text: "${detailedUser.points} ${ReuseStrings.myPoints}",
-                  textStyle: CustomTheme.brightLabelStyle(),
-                  top: 10.0,
+                  text: ReuseStrings.rewardInstructions,
+                  textStyle: CustomTheme.primaryLabelStyle(isBold: false),
                   bottom: 20.0,
                 ),
-              ],
-            ),
+              if (hasReward)
+                ReuseButton(
+                  text: ReuseStrings.claimReward,
+                  onPressed: testMethod,
+                  buttonStyle: CustomTheme.primaryButtonStyle(),
+                  top: 20.0,
+                ),
+            ],
           ),
+        ),
       ),
     );
   }
