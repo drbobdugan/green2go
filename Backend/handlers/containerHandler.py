@@ -246,9 +246,9 @@ class ContainerHandler:
     def rewardCheck(self, newPoints, userDic):
         if userDic['points'] // 300 > 0 and userDic['points'] % 300 < newPoints:
             userDic['reward_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            return {'newReward' : 'True', 'points' : newPoints}
+            return {'newReward' : True, 'points' : newPoints}
         else:
-            return {'newReward' : 'False', 'points' : newPoints}
+            return {'newReward' : False, 'points' : newPoints}
 
     def deleteRelationship(self, request, relationshipDao, hasAuth):
         relDict = None
