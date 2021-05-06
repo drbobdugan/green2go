@@ -10,7 +10,8 @@ function StatusCount (props) {
         const [retrieved, setRetrieved] = useState(false)
         const [selected, setSelected] = useState()
         const history = useHistory();
-        const [description, setDescription] = useState()
+        const [description, setDescription] = useState('')
+        const [loc_qr, setLoc_qr] = useState('')
         const [newLoc_QR, setNewLoc_QR] = useState()
         const [checkedOut, setCheckedOut] = useState()
         const [inStock, setInStock] = useState()
@@ -29,6 +30,11 @@ function StatusCount (props) {
             setAuthToken(props.location.state.authToken);
         }
 
+        function handleAdd(){
+            setDescription("")
+            setLoc_qr("")
+        }
+
         async function clearLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
             var response = await axios.patch('http://198.199.77.174:5000/clearLocation', obj)
@@ -36,8 +42,11 @@ function StatusCount (props) {
         }
 
         async function removeLocation(qr_code){
-            const obj = {email: email, qrcode: qr_code, auth_token: authToken};
+            
+            const obj = {qrcode: qr_code, email: email,  auth_token: authToken};
+            console.log(obj)
             var response = await axios.delete('http://198.199.77.174:5000/deleteLocation', obj)
+            console.log(response)
             getLocationInfo(email,authToken)
         }
 
@@ -64,35 +73,12 @@ function StatusCount (props) {
             var response = await axios.get('http://198.199.77.174:5000/locationList?email='+email+'&auth_token='+authToken)
             console.log(response.data.data)
             setLocations(response.data.data)
-            /*
-            if(locInfo.length == 0)
-            {
-               setNumLocations(response.data.data)
-               var l = numLocations
-               for(const j of l)
-               {
-                   locationQRCode.push(j.location_qrcode)
-                   locationDescription.push(j.description)
-                   lastPickup.push(j.lastPickip)
-                   count.push(j.count)
-                   locInfo.push([j.location_qrcode,j.description,j.lastPickip,j.count])
-               }
-            }   
-            */
         }
         
-        if(locationQRCode.length == 0 && props.location && props.location.state){
+        if(locations.length == 0 && props.location && props.location.state){
             getLocationInfo(props.location.state.email,props.location.state.authToken)
         }else if(!props.location || !props.location.state){
             history.push("/login");
-        }
-
-        function newLoc_qr(){
-            if(locInfo.length < 9){
-                setNewLoc_QR('L00' + (locInfo.length+1))
-            }else if(locInfo.length > 8){
-                setNewLoc_QR('L0' + (locInfo.length+1))
-            }
         }
 
 //NEED TO MAP ARRAYS TO LOCATION TABLE
@@ -117,9 +103,9 @@ function StatusCount (props) {
                         <td>{elem.location_qrcode}</td>
                         <td>{elem.description}</td>
                         <td>{elem.count}</td>
-                        <td><input type='button' value='Clear' /*onClick ={() => {clearLocation(elem[0])}}*//></td>
+                        <td><input type='button' value='Clear' onClick ={() => {clearLocation(elem.location_qrcode)}}/></td>
                         <td>{elem.lastPickip}</td>
-                        <td><input type='button' value='Remove' /*onClick ={() => {removeLocation(elem[0])}}*//></td>
+                        <td><input type='button' value='Remove' onClick ={() => {removeLocation(elem.location_qrcode)}}/></td>
                         </tr>
                     ))}
                 </tbody>
@@ -133,8 +119,9 @@ function StatusCount (props) {
                     </thead>
                 <tbody>
                     <tr>
-                        <td><input type='text' onChange= {description => setDescription(description)}/></td> 
-                        <td><input type='button' value='Add' onClick ={() => {addLocation('test', newLoc_QR)}}/></td>
+                        <td><input type='text' placeholder="qr_code" onChange={event => setLoc_qr(event.target.value)}/></td> 
+                        <td><input type='text' placeholder="description" onChange={event => setDescription(event.target.value)}/></td> 
+                        <td><input type='button' value='Add' onClick ={() => {addLocation(description, loc_qr);handleAdd()}}/></td>
                     </tr>
                 </tbody>
              </table>

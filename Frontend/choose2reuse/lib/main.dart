@@ -1,7 +1,7 @@
-import 'package:Choose2Reuse/services/navigation_service.dart';
 import 'package:flutter/material.dart';
 import 'package:pusher_beams/pusher_beams.dart';
 
+import 'pages/appError.dart';
 import 'pages/changePassword.dart';
 import 'pages/checkoutContainer.dart';
 import 'pages/containerList.dart';
@@ -14,6 +14,9 @@ import 'pages/returnConfirmation.dart';
 import 'pages/returnContainer.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
+import 'services/api.dart';
+import 'services/navigation_service.dart';
+import 'services/user_service.dart';
 import 'static/custom_theme.dart';
 import 'static/strings.dart';
 import 'static/student.dart';
@@ -41,17 +44,39 @@ void main() async {
 class Choose2ReuseApp extends StatefulWidget {
   const Choose2ReuseApp({Key key}) : super(key: key);
 
+  Future<APIResponse> onVersionCheck() async {
+    return await UserService.versionCheck();
+  }
+
   @override
   _Choose2ReuseAppState createState() => _Choose2ReuseAppState();
 }
 
 class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
+  bool isVersionLatest = true;
+
   @override
   void initState() {
     super.initState();
+    checkVersion();
   }
 
+  void checkVersion() {
+    widget.onVersionCheck().then((APIResponse resp) {
+      //isVersionLatest = resp.data['isVersionGood'] as bool;
+      isVersionLatest = true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!isVersionLatest) {
+      return MaterialApp(
+          title: ReuseStrings.appName,
+          theme: CustomTheme.appTheme(),
+          home: const AppErrorPage());
+    }
+
     return MaterialApp(
       title: ReuseStrings.appName,
       theme: CustomTheme.appTheme(),

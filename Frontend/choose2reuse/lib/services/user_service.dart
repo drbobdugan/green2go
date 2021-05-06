@@ -98,4 +98,9 @@ class UserService {
         }));
     return resp;
   }
+
+  static Future<APIResponse> versionCheck() async {
+    final APIResponse resp = await API.getResponse('getVersion');
+    return resp;
+  }
 }

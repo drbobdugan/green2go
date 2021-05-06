@@ -57,7 +57,7 @@ class LocationHandler:
         return self.helperHandler.handleResponse(res)
     
     def deleteLocation(self,request,locationDao,res):
-        res2=self.locationdao.deleteLocation(res[1])
+        res2=locationDao.deleteLocation(res[1])
         return self.helperHandler.handleResponse(res2)
 
     def allLocations(self,request,locationDao):
