@@ -9,10 +9,14 @@ from relationshipDAO import RelationshipDAO
 need_to_be_messaged = []
 relationshipDao = RelationshipDAO()
 all_containers = relationshipDao.selectAll()[1]
+containerList = []
+for item in all_containers:
+    containerDic = item.relationshipToDict()
+    containerList.append(containerDic)
 biggestSeen = 1
 batch = [[]]
 keys = {}
-for x in all_containers:
+for x in containerList:
     if x['status']=='Checked Out':
       timeobj=datetime.datetime.strptime(x["statusUpdateTime"], '%Y-%m-%d %H:%M:%S')
       hours_added = datetime.timedelta(minutes= 5)
