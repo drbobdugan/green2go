@@ -66,4 +66,3 @@ class dao:
             return False, "Entry could not be found"
         if "NoneType" in error:
             return False, "Null value passed in"
-        return False, error
