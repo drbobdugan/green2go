@@ -30,21 +30,7 @@ class RewardPage extends StatefulWidget {
 }
 
 class _RewardPageState extends State<RewardPage> {
-  DetailedUser detailedUser;
   String timeStamp = DateFormat('MM/dd/yyyy hh:mm a').format(DateTime.now());
-
-  @override
-  void initState() {
-    super.initState();
-
-    widget.onGetUser().then((APIResponse response) {
-      if (response.success) {
-        setState(() {
-          detailedUser = DetailedUser(response.data);
-        });
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +73,7 @@ class _RewardPageState extends State<RewardPage> {
                 bottom: 20.0,
               ),
               CountdownFormatted(
-                duration: Duration(seconds: 60),
+                duration: const Duration(seconds: 300),
                 onFinish: () {
                   NavigationService(context: context).goHome(widget.userAuth);
                 },
