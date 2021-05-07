@@ -31,6 +31,7 @@ class ReuseStrings {
   static String badgesPageTitle = 'My Badges';
   static String rewardsPageTitle = 'My Reward';
   static String returnConfirmationTitle = 'Return Confirmation';
+  static String containerPassPageTitle = 'Container Pass';
 
   //field text
   static String emailField = 'Email';
@@ -86,6 +87,8 @@ class ReuseStrings {
   static String rewardInstructions =
       'Only press this button if you are ready to show it to a cashier! The page will only be active for 60 seconds.';
   static String redeemedAt = 'Redeemed At:';
+  static String freeContainer = 'This container is free!';
+  static String paidContainer = 'You need to pay for this container!';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';

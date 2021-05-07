@@ -7,6 +7,7 @@ import '../components/reuse_loading.dart';
 import '../components/reuse_userBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
+import '../services/student_service.dart';
 import '../services/user_service.dart';
 import '../static/custom_theme.dart';
 import '../static/strings.dart';
@@ -22,13 +23,18 @@ class PointsPage extends StatefulWidget {
     return await UserService.getUser(userAuth);
   }
 
+  Future<APIResponse> onClaimReward() async {
+    return await StudentService.claimReward(userAuth);
+  }
+
   @override
   _PointsPageState createState() => _PointsPageState();
 }
 
 class _PointsPageState extends State<PointsPage> {
   DetailedUser detailedUser;
-  final bool hasReward = true;
+  bool hasReward;
+  Map<String, dynamic> data;
 
   @override
   void initState() {
@@ -38,15 +44,20 @@ class _PointsPageState extends State<PointsPage> {
       if (response.success) {
         setState(() {
           detailedUser = DetailedUser(response.data);
+          data = response.data as Map<String, dynamic>;
+          hasReward = data['rewardCheck'] as bool;
         });
       }
     });
   }
 
-  void testMethod() {
-    print('Claiming reward');
-    NavigationService(context: context)
-        .goToPage(C2RPages.reward, widget.userAuth);
+  void claimReward() {
+    widget.onClaimReward().then((APIResponse response) {
+      if (response.success) {
+        NavigationService(context: context)
+            .goToPage(C2RPages.reward, widget.userAuth);
+      }
+    });
   }
 
   @override
@@ -106,7 +117,7 @@ class _PointsPageState extends State<PointsPage> {
               if (hasReward)
                 ReuseButton(
                   text: ReuseStrings.claimReward,
-                  onPressed: testMethod,
+                  onPressed: claimReward,
                   buttonStyle: CustomTheme.primaryButtonStyle(),
                   top: 20.0,
                 ),

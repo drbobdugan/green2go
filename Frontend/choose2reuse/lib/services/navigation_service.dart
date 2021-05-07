@@ -17,6 +17,7 @@ class C2RPages {
   static const String points = '/points';
   static const String returnConfirmation = '/returnConfirmation';
   static const String reward = '/reward';
+  static const String containerPass = '/containerPass';
 }
 
 class NavigationService {
