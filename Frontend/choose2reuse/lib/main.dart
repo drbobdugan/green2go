@@ -12,6 +12,7 @@ import 'pages/points.dart';
 import 'pages/profile.dart';
 import 'pages/returnConfirmation.dart';
 import 'pages/returnContainer.dart';
+import 'pages/reward.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
 import 'services/api.dart';
@@ -116,6 +117,8 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
                   userAuth: args.user,
                   points: args.points,
                   earnedBadge: args.earnedBadge);
+            case C2RPages.reward:
+              return RewardPage(userAuth: settings.arguments as StudentAuth);
             default:
               break;
           }

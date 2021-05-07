@@ -1,5 +1,6 @@
 import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
+import 'package:pusher_beams/pusher_beams.dart';
 
 import '../components/reuse_button.dart';
 import '../components/reuse_errorMessage.dart';
@@ -59,6 +60,13 @@ class _ValidationPageState extends State<ValidationPage> {
       }
       widget.onVerify(email, code).then((APIResponse response) {
         if (response.success) {
+          try {
+            PusherBeams.addDeviceInterest(email.replaceAll('.', ''));
+          } catch (e) {
+            print(e);
+            print('Failed to add user interest');
+          }
+
           NavigationService(context: context)
               .goHome(StudentAuth(response.data as Map<String, dynamic>));
         } else {
