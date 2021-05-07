@@ -16,11 +16,13 @@ for item in all_containers:
 for x in containerList:
     if x['status']=='Checked Out':
       timeobj=datetime.datetime.strptime(x["statusUpdateTime"], '%Y-%m-%d %H:%M:%S')
-      hours_added = datetime.timedelta(minutes = 1)
+      hours_added = datetime.timedelta(hours = 48)
       future_date_and_time = timeobj + hours_added
       # it has been over 48 hours
       if (datetime.datetime.now() > future_date_and_time):
-        need_to_be_messaged.append(x['email'])
+        timediff = datetime.datetime.now() - future_date_and_time
+        if (timediff.total_seconds() / 3600) % 24 == 0:
+            need_to_be_messaged.append(x['email'])
 for i in range(len(need_to_be_messaged)):
   need_to_be_messaged[i] = need_to_be_messaged[i].replace('.', '')
 beams_client = PushNotifications(
