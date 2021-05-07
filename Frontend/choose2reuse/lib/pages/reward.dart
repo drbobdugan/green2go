@@ -89,8 +89,7 @@ class _RewardPageState extends State<RewardPage> {
               CountdownFormatted(
                 duration: Duration(seconds: 60),
                 onFinish: () {
-                  NavigationService(context: context)
-                      .goToPage(C2RPages.points, widget.userAuth);
+                  NavigationService(context: context).goHome(widget.userAuth);
                 },
                 builder: (BuildContext context, String remaining) {
                   return ReuseLabel(
