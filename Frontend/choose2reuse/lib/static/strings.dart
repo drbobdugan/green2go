@@ -85,6 +85,7 @@ class ReuseStrings {
       'You have also earned a C2R badge! Your reward will expire in 5 days. To use your reward, go to the Points & Rewards page.';
   static String rewardInstructions =
       'Only press this button if you are ready to show it to a cashier! The page will only be active for 60 seconds.';
+  static String redeemedAt = 'Redeemed At:';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';
