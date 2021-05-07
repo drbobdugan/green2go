@@ -199,7 +199,7 @@ def clearLocation():
 def addLocation():
     return locationHandler.addLocation(request,locationDao)
 
-@app.route('/deleteLocation',methods=['DELETE'])
+@app.route('/deleteLocation',methods=['POST'])
 def deleteLocation():
     return locationHandler.locationcheckandAuth(request,locationDao)
 
