@@ -32144,7 +32144,7 @@
 								}
 							],
 							"request": {
-								"method": "POST",
+								"method": "DELETE",
 								"header": [],
 								"body": {
 									"mode": "raw",
@@ -32613,7 +32613,7 @@
 								}
 							],
 							"request": {
-								"method": "POST",
+								"method": "DELETE",
 								"header": [],
 								"body": {
 									"mode": "raw",
