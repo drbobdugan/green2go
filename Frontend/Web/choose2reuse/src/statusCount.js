@@ -38,9 +38,9 @@ function StatusCount (props) {
 
         async function removeLocation(qr_code){
             
-            const obj = {qrcode: qr_code, email: email,  auth_token: authToken};
+            const obj = {email: email, qrcode: qr_code, auth_token: authToken};
             console.log(obj)
-            var response = await axios.delete('http://198.199.77.174:5000/deleteLocation', obj)
+            var response = await axios.post('http://198.199.77.174:5000/deleteLocation', obj)
             console.log(response)
             getLocationInfo(email,authToken)
         }

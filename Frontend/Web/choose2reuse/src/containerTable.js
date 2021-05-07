@@ -17,6 +17,7 @@ function ContainerTable (props) {
         const [checkedOut, setCheckedOut] = useState()
         const [inStock, setInStock] = useState()
         const [pendingReturn, setPendingReturn] = useState()
+        const [damagedLost, setDamagedLost] = useState()
 
         async function markDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
@@ -59,6 +60,7 @@ function ContainerTable (props) {
             setCheckedOut(response.data.data["Checked Out"].length)
             setInStock(response.data.data["In Stock"].length)
             setPendingReturn(response.data.data["In Bin"].length)
+            setDamagedLost(response.data.data["Damaged Lost"].length)
           }
           catch(e){
             console.log(e)
@@ -140,7 +142,6 @@ function ContainerTable (props) {
             <div className="title">
             <h1>All Containers</h1>
             </div>
-            <br></br>
             <h2>Container Status Counts</h2>
             <div className = "statustable">
                 <table className="statuscounts">
@@ -162,6 +163,10 @@ function ContainerTable (props) {
                     <tr>
                         <td>In Stock</td> 
                         <td>{inStock}</td>
+                    </tr>
+                    <tr>
+                        <td>Damaged Lost</td> 
+                        <td>{damagedLost}</td>
                     </tr>
                 </tbody>
              </table>
