@@ -30,11 +30,6 @@ function StatusCount (props) {
             setAuthToken(props.location.state.authToken);
         }
 
-        function handleAdd(){
-            setDescription("")
-            setLoc_qr("")
-        }
-
         async function clearLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
             var response = await axios.patch('http://198.199.77.174:5000/clearLocation', obj)
@@ -54,7 +49,9 @@ function StatusCount (props) {
             const obj = {location_qrcode: location_qrcode, email: email, auth_token: authToken, description: description};
             var response = await axios.post('http://198.199.77.174:5000/addLocation', obj)
             console.log(response)
-            getLocationInfo(email,authToken)
+            await getLocationInfo(email,authToken)
+            setLoc_qr('')
+            setDescription('')
         }
 
         async function updateLocation(qr_code){
@@ -72,7 +69,10 @@ function StatusCount (props) {
         async function getLocationInfo(email, authToken){
             var response = await axios.get('http://198.199.77.174:5000/locationList?email='+email+'&auth_token='+authToken)
             console.log(response.data.data)
-            setLocations(response.data.data)
+            if(response && response.data && response.data.data)
+            {
+                setLocations(response.data.data)
+            }
         }
         
         if(locations.length == 0 && props.location && props.location.state){
@@ -113,15 +113,16 @@ function StatusCount (props) {
              <table className="addLocation">
                     <thead>
                     <tr>
+                      <th>Location QR Code</th>
                       <th>Location Name</th>
                       <th>Add Location</th>
                     </tr>
                     </thead>
                 <tbody>
                     <tr>
-                        <td><input type='text' placeholder="qr_code" onChange={event => setLoc_qr(event.target.value)}/></td> 
-                        <td><input type='text' placeholder="description" onChange={event => setDescription(event.target.value)}/></td> 
-                        <td><input type='button' value='Add' onClick ={() => {addLocation(description, loc_qr);handleAdd()}}/></td>
+                        <td><input type='text' value={loc_qr} placeholder="qr_code" onChange={event => setLoc_qr(event.target.value)}/></td> 
+                        <td><input type='text' value={description} placeholder="description" onChange={event => setDescription(event.target.value)}/></td> 
+                        <td><input type='button' value='Add' onClick ={() => {addLocation(description, loc_qr)}}/></td>
                     </tr>
                 </tbody>
              </table>

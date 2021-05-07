@@ -84,7 +84,8 @@ class ContainerHandler:
             userContainer['status'] = "Pending Return"
             res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
             self.helperHandler.falseQueryCheck(res)
-            userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+            rel = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+            userContainer = rel.relationshipToDict()
             userContainer['status'] = "Checked Out"
             userContainer['email'] = "Checkout@stonehill.edu"
         except Exception as e:
@@ -194,7 +195,7 @@ class ContainerHandler:
             self.validateQRCode(userContainer['qrcode'], False)
             rel = self.relationdao.selectActiveQRcode(userContainer["qrcode"])
             if "/checkinContainer" in str(request):
-                reward = self.addPoints(rel[1][0], userContainer)
+                reward = self.addPoints(rel[1][0])
             self.helperHandler.falseQueryCheck(rel)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
@@ -213,15 +214,15 @@ class ContainerHandler:
             res = reward
         return self.helperHandler.handleResponse(res)
 
-    def addPoints(self, rel, userContainer):
+    def addPoints(self, rel):
         try:
             f='%Y-%m-%d %H:%M:%S'
-            res = self.userDao.selectUser(userContainer['email'])
+            relDict = rel.relationshipToDict()
+            res = self.userDao.selectUser(relDict['email'])
             self.helperHandler.falseQueryCheck(res)
             user = res[1]
             userDict = user.userToDict()
             points = userDict['points']
-            relDict = rel.relationshipToDict()
             checkoutTime = str(relDict['statusUpdateTime'])
             authtimets=datetime.strptime(checkoutTime, f)
             timepassed=datetime.now()-authtimets
@@ -245,9 +246,9 @@ class ContainerHandler:
     def rewardCheck(self, newPoints, userDic):
         if userDic['points'] // 300 > 0 and userDic['points'] % 300 < newPoints:
             userDic['reward_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-            return {'newReward' : 'True', 'points' : newPoints}
+            return {'newReward' : True, 'points' : newPoints}
         else:
-            return {'newReward' : 'False', 'points' : newPoints}
+            return {'newReward' : False, 'points' : newPoints}
 
     def deleteRelationship(self, request, relationshipDao, hasAuth):
         relDict = None

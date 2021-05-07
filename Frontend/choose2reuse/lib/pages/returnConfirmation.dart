@@ -11,11 +11,11 @@ import '../static/student.dart';
 
 class ReturnConfirmationPage extends StatefulWidget {
   const ReturnConfirmationPage(
-      {Key key, @required this.userAuth, this.points15, this.earnedBadge})
+      {Key key, @required this.userAuth, this.points, this.earnedBadge})
       : super(key: key);
 
   final StudentAuth userAuth;
-  final bool points15;
+  final int points;
   final bool earnedBadge;
 
   @override
@@ -23,14 +23,14 @@ class ReturnConfirmationPage extends StatefulWidget {
 }
 
 class _ReturnConfirmationPageState extends State<ReturnConfirmationPage> {
-  bool points15;
+  int points;
   bool earnedBadge;
 
   @override
   void initState() {
     super.initState();
 
-    points15 = widget.points15;
+    points = widget.points;
     earnedBadge = widget.earnedBadge;
   }
 
@@ -56,7 +56,7 @@ class _ReturnConfirmationPageState extends State<ReturnConfirmationPage> {
                 bottom: 20.0,
               ),
               ReuseLabel(
-                text: points15
+                text: points == 15
                     ? ReuseStrings.returnConfirmation15PointsText
                     : ReuseStrings.returnConfirmation5PointsText,
                 textStyle: CustomTheme.primaryLabelStyle(isBold: false),

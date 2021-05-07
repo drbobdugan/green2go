@@ -12,6 +12,7 @@ import 'pages/points.dart';
 import 'pages/profile.dart';
 import 'pages/returnConfirmation.dart';
 import 'pages/returnContainer.dart';
+import 'pages/reward.dart';
 import 'pages/signup.dart';
 import 'pages/validation.dart';
 import 'services/api.dart';
@@ -114,8 +115,10 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
               final NavArguments args = settings.arguments as NavArguments;
               return ReturnConfirmationPage(
                   userAuth: args.user,
-                  points15: args.points15,
+                  points: args.points,
                   earnedBadge: args.earnedBadge);
+            case C2RPages.reward:
+              return RewardPage(userAuth: settings.arguments as StudentAuth);
             default:
               break;
           }

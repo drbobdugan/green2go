@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:countdown_flutter/countdown_flutter.dart';
 
 import '../components/font_scale_blocker.dart';
 import '../components/reuse_button.dart';
@@ -8,13 +10,14 @@ import '../components/reuse_userBar.dart';
 import '../services/api.dart';
 import '../services/navigation_service.dart';
 import '../services/user_service.dart';
+import '../static/container.dart';
 import '../static/custom_theme.dart';
 import '../static/strings.dart';
 import '../static/student.dart';
 import '../static/user.dart';
 
-class PointsPage extends StatefulWidget {
-  const PointsPage({Key key, @required this.userAuth}) : super(key: key);
+class RewardPage extends StatefulWidget {
+  const RewardPage({Key key, @required this.userAuth}) : super(key: key);
 
   final StudentAuth userAuth;
 
@@ -23,12 +26,12 @@ class PointsPage extends StatefulWidget {
   }
 
   @override
-  _PointsPageState createState() => _PointsPageState();
+  _RewardPageState createState() => _RewardPageState();
 }
 
-class _PointsPageState extends State<PointsPage> {
+class _RewardPageState extends State<RewardPage> {
   DetailedUser detailedUser;
-  final bool hasReward = true;
+  String timeStamp = DateFormat('MM/dd/yyyy hh:mm a').format(DateTime.now());
 
   @override
   void initState() {
@@ -43,21 +46,8 @@ class _PointsPageState extends State<PointsPage> {
     });
   }
 
-  void testMethod() {
-    print('Claiming reward');
-    NavigationService(context: context)
-        .goToPage(C2RPages.reward, widget.userAuth);
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (detailedUser == null) {
-      return const Scaffold(
-        backgroundColor: Colors.white,
-        body: ReuseLoading(),
-      );
-    }
-
     return FontScaleBlocker(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -69,47 +59,48 @@ class _PointsPageState extends State<PointsPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              ReuseLabel(
-                text: ReuseStrings.pointsPageTitle,
-                textStyle: CustomTheme.primaryLabelStyle(),
-                bottom: 20.0,
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 30.0, horizontal: 10.0),
+                child: FittedBox(
+                  fit: BoxFit.fitHeight,
+                  alignment: Alignment.center,
+                  child: ConstrainedBox(
+                    constraints:
+                        const BoxConstraints(minWidth: 1, minHeight: 1),
+                    child: Image.asset(
+                      'assets/images/cookie.gif',
+                    ),
+                  ),
+                ),
               ),
               ReuseLabel(
-                text: '${detailedUser.points} ${ReuseStrings.myPoints}',
-                textStyle: CustomTheme.brightLabelStyle(),
+                text: ReuseStrings.redeemedAt,
+                textStyle: CustomTheme.primaryLabelStyle(),
                 top: 10.0,
                 bottom: 20.0,
               ),
               ReuseLabel(
-                text: ReuseStrings.badgesPageTitle,
-                textStyle: CustomTheme.primaryLabelStyle(),
-                bottom: 20.0,
-              ),
-              ReuseLabel(
-                text: '${detailedUser.badges} ${ReuseStrings.myBadges}',
+                text: timeStamp,
                 textStyle: CustomTheme.brightLabelStyle(),
                 top: 10.0,
                 bottom: 20.0,
               ),
-              if (hasReward)
-                ReuseLabel(
-                  text: ReuseStrings.rewardsPageTitle,
-                  textStyle: CustomTheme.primaryLabelStyle(),
-                  bottom: 20.0,
-                ),
-              if (hasReward)
-                ReuseLabel(
-                  text: ReuseStrings.rewardInstructions,
-                  textStyle: CustomTheme.primaryLabelStyle(isBold: false),
-                  bottom: 20.0,
-                ),
-              if (hasReward)
-                ReuseButton(
-                  text: ReuseStrings.claimReward,
-                  onPressed: testMethod,
-                  buttonStyle: CustomTheme.primaryButtonStyle(),
-                  top: 20.0,
-                ),
+              CountdownFormatted(
+                duration: Duration(seconds: 60),
+                onFinish: () {
+                  NavigationService(context: context)
+                      .goToPage(C2RPages.points, widget.userAuth);
+                },
+                builder: (BuildContext context, String remaining) {
+                  return ReuseLabel(
+                    text: remaining,
+                    textStyle: CustomTheme.primaryLabelStyle(fontSize: 35),
+                    top: 25,
+                    bottom: 15,
+                  );
+                },
+              ),
             ],
           ),
         ),

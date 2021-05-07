@@ -83,6 +83,10 @@ def forgetPassword():
     else: 
         return res
 
+@app.route("/claimReward", methods = ['POST'])
+def claimReward():
+    return userHandler.claimReward(request, userDao)
+
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
 def addContainer():
@@ -135,6 +139,7 @@ def getCounts():
 @app.route("/getCurrent",methods =['GET'])
 def getCurrent():
     return containerHandler.GetRelationships(request,relationshipDao,True)
+
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
@@ -158,7 +163,7 @@ def beams_auth():
         return "true"
     val = request.args.get('id')
     return authHandler.beams_auth(val)
-
+#-----------------------------Version Methods---------------------------
 @app.route('/getVersion', methods=['GET'])
 def getVersion():
     return helperHandler.getVersion(request,appinfoDao)
@@ -194,7 +199,7 @@ def clearLocation():
 def addLocation():
     return locationHandler.addLocation(request,locationDao)
 
-@app.route('/deleteLocation',methods=['DELETE'])
+@app.route('/deleteLocation',methods=['POST'])
 def deleteLocation():
     return locationHandler.locationcheckandAuth(request,locationDao)
 
