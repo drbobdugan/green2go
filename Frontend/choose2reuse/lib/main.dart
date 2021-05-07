@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/pages/containerPass.dart';
 import 'package:flutter/material.dart';
 import 'package:pusher_beams/pusher_beams.dart';
 
@@ -119,6 +120,8 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
                   earnedBadge: args.earnedBadge);
             case C2RPages.reward:
               return RewardPage(userAuth: settings.arguments as StudentAuth);
+            case C2RPages.containerPass:
+              return ContainerPass(userAuth: settings.arguments as StudentAuth);
             default:
               break;
           }
