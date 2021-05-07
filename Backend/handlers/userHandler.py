@@ -99,24 +99,24 @@ class UserHandler:
             keys.append('auth_token')
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=hasAuth, t=t)
+            res = self.userDao.selectUser(dictOfUserAttrib["email"])
+            self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = self.sort(userDao, dictOfUserAttrib, f)
+        res = self.sort(userDao, dictOfUserAttrib, f, res)
         return self.helperHandler.handleResponse(res)
 
-    def sort(self, userDao, d, f):
-        res = None
+
+    def sort(self, userDao, d, f, res):
         # get user from table to get missing fields
-        res = self.userDao.selectUser(d["email"])
         user = res[1]
-        if res[0] is False:
-            return False, res[1]
         # convert user obj to dict for simplicity
         UserDic = user.userToDict()
         #get the user from the auth table
         #tempUser = None
         if f == 1: #GET
             UserDic.update({'badges' : UserDic['points'] // 300})
+            UserDic.update({'rewardCheck' : self.rewardEligible(UserDic)})
             res = [True, UserDic]
         elif f == 2: #DELETE: delete user and auth
             try:
@@ -135,6 +135,18 @@ class UserHandler:
             self.userDao.updateUser(user)
             res = [True, UserDic]
         return res
+    
+    def rewardEligible(self, UserDic):
+        f='%Y-%m-%d %H:%M:%S'
+        rewardTime = UserDic['reward_date']
+        if rewardTime == "2021-01-01 01:01:01":
+            return False
+        authtimets=datetime.strptime(rewardTime, f)
+        timepassed=datetime.now()-authtimets
+        if (timepassed.total_seconds() / 3600) > 120:
+            return False
+        else:
+            return True
 
     def changePassword(self, request, userDao):
         userDic = None
@@ -161,3 +173,24 @@ class UserHandler:
         user.dictToUser(userAttrib)
         res = self.userDao.updateUser(user) #Convert to object and update the database
         return self.helperHandler.handleResponse(res)
+
+    def claimReward(self, request, userDao):
+        UserDic = None
+        keys = ['email', 'auth_token']
+        try:
+            UserDic = self.helperHandler.handleRequestAndAuth(request = request, keys = keys)
+            res = self.userDao.selectUser(UserDic['email'])
+            self.helperHandler.falseQueryCheck(res)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" :str(e)})
+        user = res[1]
+        UserDic = user.userToDict()
+        UserDic['reward_date']= "2021-01-01 01:01:01"
+        user.dictToUser(UserDic)
+        res = self.userDao.updateUser(user)
+        if res[0] == False:
+            return json.dumps({"success" : False, "message" :str(e)})
+        else:
+            return self.helperHandler.handleResponse(res)
+
+
