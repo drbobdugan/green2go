@@ -2359,7 +2359,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\" : \"test0@students.stonehill.edu\",\n    \"qrcode\" : \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"status\" : \"Pending Return\",\n    \"auth_token\" : \"{{authTokenTest0}}\",\n    \"location_qrcode\" : \"L002\"\n}",
+							"raw": "{\n    \"email\": \"test0@students.stonehill.edu\",\n    \"qrcode\": \"fac42674-8cee-4fbb-aa7c-0e58ec8aa768\",\n    \"status\": \"Pending Return\",\n    \"auth_token\": \"{{authTokenTest0}}\",\n    \"location_qrcode\": \"L002\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2432,7 +2432,7 @@
 					]
 				},
 				{
-					"name": "getCurrent",
+					"name": "Get Current",
 					"event": [
 						{
 							"listen": "test",
@@ -2535,11 +2535,11 @@
 						}
 					],
 					"request": {
-						"method": "DELETE",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"L005\"\n}",
+							"raw": "{\n    \"email\":\"test0@students.stonehill.edu\",\n    \"auth_token\":\"{{authTokenTest0}}\",\n    \"qrcode\":\"tests\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
