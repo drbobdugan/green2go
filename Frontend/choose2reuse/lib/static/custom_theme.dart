@@ -18,7 +18,7 @@ Map<String, Color> colors = <String, Color>{
   'darkPrimary': const Color(0xFF005E45),
   'attention': const Color(0xFF6ACB8C),
   'light': const Color(0xFF53DC98),
-  'medium': const Color(0xFF3FAD90),
+  'medium': const Color(0xFF44A68C),
   'disabled': Colors.grey,
 };
 
@@ -61,10 +61,9 @@ class CustomTheme {
   static TextStyle brightLabelStyle(
       {double fontSize = 24.0, bool isBold = true}) {
     return TextStyle(
-      fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
-      fontSize: fontSize,
-      color: colors['attention']
-    );
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        fontSize: fontSize,
+        color: colors['attention']);
   }
 
   static TextStyle leftListStyle({double fontSize = 16.0, bool isBold = true}) {

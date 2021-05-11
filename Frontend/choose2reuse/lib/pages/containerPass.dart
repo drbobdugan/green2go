@@ -27,7 +27,7 @@ class ContainerPass extends StatefulWidget {
 class _ContainerPassState extends State<ContainerPass> {
   StudentDetails user;
   bool freeContainer;
-  String timestamp;
+  String timestamp = '', displayText = ReuseStrings.noContainers;
 
   @override
   void initState() {
@@ -43,7 +43,12 @@ class _ContainerPassState extends State<ContainerPass> {
           user.sortedContainers.checkedOut.length <= 2
               ? freeContainer = true
               : freeContainer = false;
-          timestamp = user.sortedContainers.checkedOut.first.dataRowText2();
+          if (user.sortedContainers.checkedOut.isNotEmpty) {
+            timestamp = user.sortedContainers.checkedOut.first.dataRowText2();
+            freeContainer
+                ? displayText = ReuseStrings.freeContainer
+                : displayText = ReuseStrings.paidContainer;
+          }
         });
       }
     });
@@ -51,7 +56,7 @@ class _ContainerPassState extends State<ContainerPass> {
 
   @override
   Widget build(BuildContext context) {
-    if (freeContainer == null || timestamp == null) {
+    if (freeContainer == null) {
       return const Scaffold(
         backgroundColor: Colors.white,
         body: ReuseLoading(),
@@ -85,9 +90,7 @@ class _ContainerPassState extends State<ContainerPass> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     ReuseLabel(
-                      text: freeContainer
-                          ? ReuseStrings.freeContainer
-                          : ReuseStrings.paidContainer,
+                      text: displayText,
                       textStyle: CustomTheme.primaryLabelStyle(fontSize: 23),
                       left: 10,
                       right: 10,
