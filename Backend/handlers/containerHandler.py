@@ -3,7 +3,7 @@ import string
 import os
 import sys
 from datetime import datetime
-
+import logging
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from containerDAO import ContainerDAO
 from authDAO import AuthDao
@@ -109,6 +109,13 @@ class ContainerHandler:
             userContainer = eval(func)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
+
+            if(old_code[0]==userContainer['email'] and old_code[2]=='Checked Out' and userContainer['status']=='Checked Out'):
+                logging.info('In testmethod()')
+                return json.dumps({"success" : False, "message" : "Container is already Checked Out"})
+            else:
+                logging.info("Not in testmethod()")
+
             relationship=Relationship()
             relationship.dictToRelationship(userContainer)
             res = self.relationdao.insertRelationship(relationship)
@@ -295,4 +302,4 @@ class ContainerHandler:
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
         
-        return self.helperHandler.handleResponse(rel)      
+        return self.helperHandler.handleResponse(rel)
