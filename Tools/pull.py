@@ -92,6 +92,7 @@ def updateVersion(version):
     myobj = {'host' : 'Android'}
     x = requests.post(url, json=myobj)
 
+
 @app.route('/version', methods=['GET', 'POST'])
 def version():
     if "update" in request.form and request.form['update'] != " ":
