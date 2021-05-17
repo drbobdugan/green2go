@@ -114,7 +114,9 @@ class ContainerHandler:
 
             if(containerIsCheckedOut[0]):
                 logging.info('In testmethod()')
-                return json.dumps({"success" : False, "message" : "Container is already Checked Out"})
+                logging.info('EMPTY SUCCESS!!!')
+
+                #return json.dumps({"success" : False, "message" : "Container is already Checked Out"})
             else:
                 logging.info("Not in testmethod()")
                 logging.info('In addRelationship. isCheckedOut %s', containerIsCheckedOut)
