@@ -306,17 +306,17 @@ class RelationshipDAO(dao):
 
 
     #Returns true if container is checked out (and email matches passed email). 
-    def isCheckedOut(self,email,qrcode):
-        logging.info("Entering selectCheckoutByEmail")
-        try:
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = 'Checked Out'"
-            result = self.handleSQL(sql,True,None)
-            if(result[1] == []):
-                return False, "container doesn't exist"
-            else:
-                return True, "container exists"
-        except Exception as e:
-            return False, "error"
+    #def isCheckedOut(self,email,qrcode):
+       # logging.info("Entering selectCheckoutByEmail")
+        #try:
+        #    sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = 'Checked Out'"
+        #    result = self.handleSQL(sql,True,None)
+        #    if(result[1] == []):
+         ##       return False, "container doesn't exist"
+         #   else:
+         #       return True, "container exists"
+        #except Exception as e:
+         #   return False, "error"
 
 
 
