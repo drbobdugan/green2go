@@ -112,7 +112,7 @@ class ContainerHandler:
             containerIsCheckedOut = relationshipDAO.isCheckedOut(userContainer['email'],userContainer['qrcode'])
 
 
-            if(containerIsCheckedOut):
+            if(containerIsCheckedOut[0]):
                 logging.info('In testmethod()')
                 return json.dumps({"success" : False, "message" : "Container is already Checked Out"})
             else:

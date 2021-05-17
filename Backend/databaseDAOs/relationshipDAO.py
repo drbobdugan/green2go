@@ -312,11 +312,11 @@ class RelationshipDAO(dao):
             sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = 'Checked Out'"
             result = self.handleSQL(sql,True,None)
             if(result[1] == []):
-                return False
+                return False, "container doesn't exist"
             else:
-                return True
+                return True, "container exists"
         except Exception as e:
-            return None
+            return False, "error"
 
 
 
