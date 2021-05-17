@@ -91,29 +91,6 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
-    # RETURN CONTAINER IF CHECKED OUT
-    def selectCheckedOutByEmailAndQrCode(self,email,qrcode): 
-        try: 
-            logging.info("Entering selectRelationship")
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = 'Checked Out'"
-            myresult = self.handleSQL(sql,True,None)
-            if(myresult[0] == False):
-                return myresult
-            myresult = myresult[1][0]
-            email=myresult[0]
-            qrcode=myresult[1]
-            status=myresult[2]
-            statusUpdateTime=str(myresult[3])
-            location_qrcode=myresult[4]
-            descrption = myresult[5]
-            x = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
-            logging.info("selectRelationship successful")
-            return True, x
-        except Exception as e:
-            logging.error("Error in selectRelationship")
-            logging.error(str(e))
-            return self.handleError(e)
-
 
 
     def selectAllByEmail(self,email):
@@ -330,10 +307,17 @@ class RelationshipDAO(dao):
 
     #Returns true if container is checked out (and email matches passed email). 
     def isCheckedOut(self,email,qrcode):
-        relationship = self.selectCheckedOutByEmailAndQrCode(email,qrcode)
-        if(relationship.status == "Checked Out"):
-            return True
-        return False
+        logging.info("Entering selectCheckoutByEmail")
+        try:
+            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = 'Checked Out'"
+            result = self.handleSQL(sql,True,None)
+            if(result[1] == []):
+                return False
+            else:
+                return True
+        except Exception as e:
+            return None
+
 
 
 
