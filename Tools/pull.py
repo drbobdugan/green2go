@@ -81,7 +81,7 @@ def checkoutByEmail():
     """
 
 def getVersion(host):
-    url="http://198.199.77.174/getVersion?host="+host
+    url="http://198.199.77.174:5000/getVersion?host="+host
     x = requests.get(url)
     return x.json()
 
