@@ -109,13 +109,19 @@ class ContainerHandler:
             userContainer = eval(func)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
-            logging.info('In addRelationship. old_code[0]: ',old_code[0],' old_code[2]: ',old_code[2],'userContainer[email]: ',userContainer['email'],'userContainer[status]: ',userContainer['status'])
+            containerIsCheckedOut = relationshipDAO.isCheckedOut(userContainer['email'],userContainer['qrcode'])
 
-            if(old_code[0]==userContainer['email'] and old_code[2]=='Checked Out' and userContainer['status']=='Checked Out'):
+
+            if(containerIsCheckedOut):
                 logging.info('In testmethod()')
                 return json.dumps({"success" : False, "message" : "Container is already Checked Out"})
             else:
                 logging.info("Not in testmethod()")
+                logging.info('In addRelationship. isCheckedOut %s', containerIsCheckedOut)
+                logging.info('In addRelationship. userContainer[status]: %s', userContainer['status'])
+                logging.info("leaving (Not) in testmethod()")
+
+
 
             relationship=Relationship()
             relationship.dictToRelationship(userContainer)
