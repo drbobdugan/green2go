@@ -169,7 +169,7 @@ def control():
 
 
 def initializeConfigInfo(self):
-    configData = {}
+    configData = {} 
     p = "../../credentials.txt"
     path = Path(__file__).parent / p
     file = path.open()
