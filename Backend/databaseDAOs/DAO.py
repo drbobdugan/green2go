@@ -17,13 +17,11 @@ class dao:
 
     
     def initializeConfigInfo(self):
-        p = "../../../credentials.txt"
-        path = Path(__file__).parent / p
-        file = path.open()
-        
-        for line in file:
-            (key,value) = line.split()
-            self.configData[key] = value 
+        path = os.path.abspath('/root/credentials.txt')
+        with open(path) as file:
+            for line in file:
+                (key,value) = line.split()
+                self.configData[key] = value
 
         file.close()
 
