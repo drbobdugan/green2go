@@ -2,7 +2,9 @@ from flask import Flask, request
 import os
 import subprocess
 import requests
+from pathlib import Path
 app = Flask(__name__)
+
 
 
 @app.route('/pull', methods=['POST'])
@@ -29,7 +31,9 @@ def deleteUser(email):
 
 @app.route('/deleteUser', methods=['GET', 'POST'])
 def renderDelete():
-    if 'password' in request.form and 'email'in request.form and request.form['password'] == 'Capstone2021!':
+    configData = initializeConfigInfo()
+
+    if 'password' in request.form and 'email'in request.form and request.form['password'] == configData['password']:
         deleteUser(request.form['email'].replace(' ', '').replace('\n', ''))
     return """<!doctype html>
     <html>
@@ -54,7 +58,8 @@ def updateCheckout():
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkoutByEmail():
-    if 'password' in request.form and 'email' in request.form and request.form['password'] == 'Capstone2021!':
+    configData = initializeConfigInfo()
+    if 'password' in request.form and 'email' in request.form and request.form['password'] == configData['password']:
         url = "http://198.199.77.174:5000/secretCheckout"
         myobj = {'email' : request.form['email']}
         x = requests.post(url, json=myobj)
@@ -125,6 +130,7 @@ def version():
 
 @app.route('/server', methods=['GET', 'POST'])
 def control():
+    configData = initializeConfigInfo()
     status = os.popen('lsof -i:5000 -t').read()
     val = None
     f = open('/root/green2go/Backend/demo.log')
@@ -137,9 +143,9 @@ def control():
         val = "Online"
     else:
         val = "Offline"
-    if 'Password' in request.form and request.form['Password'] == 'Capstone2021!':
+    if 'Password' in request.form and request.form['Password'] == configData['password']:
         hello("Server has been restarted...")
-    if 'Password1' in request.form and request.form['Password1'] == 'Capstone2021!':
+    if 'Password1' in request.form and request.form['Password1'] == configData['password']:
         restartDatabase()
     return """<!doctype html>
     <html>
@@ -159,6 +165,22 @@ def control():
     """+ str(linesTemp) + """
     </body>
     </html>"""
+
+
+
+def initializeConfigInfo(self):
+    configData = {}
+    p = "../../credentials.txt"
+    path = Path(__file__).parent / p
+    file = path.open()
+
+    for line in file:
+        (key,value) = line.split()
+        configData[key] = value 
+
+    file.close()
+    return configData
+        
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
