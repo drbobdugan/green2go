@@ -28,7 +28,7 @@ def restartDatabase():
 def deleteUser(email):
     url = "http://198.199.77.174:5000/secretDeleteUser"
     myobj = {'email': email}
-    x = requests.delete(url, json=myobj)
+    x = requests.delete(url, json=myobj) 
     print(x.text)
 
 @app.route('/deleteUser', methods=['GET', 'POST'])
