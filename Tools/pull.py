@@ -1,8 +1,10 @@
 from flask import Flask, request
 import os
+import sys
 import subprocess
 import requests
 from pathlib import Path
+sys.path.insert(0, os.getcwd())
 app = Flask(__name__)
 
 
