@@ -110,7 +110,16 @@ class ContainerHandler:
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
 
-
+            #If user has already checked out the container they cannot check it out
+            if "/checkoutContainer" in str(request):
+                logging.info("Entering isCheckedOut testing")
+                try:
+                    containerStatus = relationshipDAO.isCheckedOut(userContainer['email'],userContainer['qrcode'])
+                    if(containerStatus==True):
+                        logging.info("Container is checked out already")
+                        return json.dumps({"success" : False, "message" : "You already have this container Checked Out"})
+                except Exception as e:
+                    logging.info("Exiting checked out testing")
             relationship=Relationship()
             relationship.dictToRelationship(userContainer)
             res = self.relationdao.insertRelationship(relationship)
