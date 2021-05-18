@@ -173,12 +173,12 @@ def control():
 def initializeConfigInfo(self):
     configData = {} 
     path = os.path.abspath('/root/credentials.txt')
-        with open(path) as file:
-            for line in file:
-                (key,value) = line.split()
-                self.configData[key] = value
-        file.close()
-        
+    with open(path) as file:
+        for line in file:
+            (key,value) = line.split()
+            self.configData[key] = value
+    file.close()
+
     return configData
         
 
