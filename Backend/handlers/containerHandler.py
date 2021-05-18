@@ -115,7 +115,7 @@ class ContainerHandler:
                 logging.info("Entering isCheckedOut testing")
                 try:
                     containerStatus = relationshipDAO.isCheckedOut(userContainer['email'],userContainer['qrcode'])
-                    if(containerStatus==True):
+                    if(containerStatus[0]==True):
                         logging.info("Container is checked out already")
                         return json.dumps({"success" : False, "message" : "You already have this container Checked Out"})
                 except Exception as e:
