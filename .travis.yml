@@ -46,5 +46,9 @@ matrix:
         - node_modules/.bin/newman run PostmanTests/AddUserUnitTests.postman_collection.json -d PostmanTests/accountCreationTests.csv
 
 
+
+
+notifications:
+  slack: csc400a-sp21:NFRJA3Yrzv6TnIBprGZlpYWd
       
   
