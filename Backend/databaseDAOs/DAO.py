@@ -10,24 +10,10 @@ class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-        self.host = ""
-        self.user = ""
-        self.password = ""
         
 
     def changeDatabase(self,database):
         self.database = database
-
-
-    def initConfig(self):
-        os.chdir('/root')
-        with open('credentials.json') as file:
-            data = json.load(file)
-            self.host = data['host']
-            self.user = data['user']
-            self.password = data['password']
-        file.close()
-    
 
 
 
@@ -38,11 +24,22 @@ class dao:
             #logging.error("Error closing connection: Already disconnected")
             test = 1
 
-        self.initConfig()
+        hostStr = ""
+        userStr = ""
+        passwordStr = ""
+
+        os.chdir('/root')
+        with open('credentials.json') as file:
+            data = json.load(file)
+            hostStr = data['host']
+            userStr = data['user']
+            passwordStr = data['password']
+        file.close()
+
         self.mydb = mysql.connector.connect(
-            host = self.host,
-            user = self.user,
-            password = self.password,
+            host = hostStr,
+            user = userStr,
+            password = passwordStr,
             database=self.database,
             buffered=True)
             
