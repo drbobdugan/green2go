@@ -10,15 +10,20 @@ class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-        self.host = "198.199.77.174"
-        self.user = "root"
-        self.password = "Capstone2021!"
+        self.configData = {"host" : "198.199.77.174", "user" : "root", "password" : "Capstone2021!"}
         
 
     def changeDatabase(self,database):
         self.database = database
 
-
+    def initConfig(self):
+        config = {}
+        os.chdir("/root")
+        with open("credentials.json") as file:
+            config = json.load(file)
+        file.close()
+        return config
+        
 
     def reconnectSql(self):
         try:
@@ -30,9 +35,9 @@ class dao:
         
 
         self.mydb = mysql.connector.connect(
-            host=self.host,
-            user=self.user,
-            password=self.password,
+            host=self.configData['host'],
+            user=self.configData['user'],
+            password=self.configData['password'],
             database=self.database,
             buffered=True)
             
