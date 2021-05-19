@@ -9,7 +9,6 @@ sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
-        self.configData = {}
         self.database = "sys"
 
     def changeDatabase(self,database):
@@ -17,13 +16,14 @@ class dao:
 
     
     def initializeConfigInfo(self):
+        configData = {}
         path = os.path.abspath('/root/credentials.txt')
         with open(path) as file:
             for line in file:
                 (key,value) = line.split()
-                self.configData[key] = value
-
+                configData[key] = value
         file.close()
+        return configData
 
     
 
@@ -34,13 +34,12 @@ class dao:
             #logging.error("Error closing connection: Already disconnected")
             test = 1
 
-        if(bool(self.configData) is False):
-            self.initializeConfigInfo()
 
+        configData = self.initializeConfigInfo()
         self.mydb = mysql.connector.connect(
-            host = self.configData['host'],
-            user = self.configData['user'],
-            password = self.configData['password'],
+            host = configData['host'],
+            user = configData['user'],
+            password = configData['password'],
             database=self.database,
             buffered=True)
     def disconnectedSql(self):
