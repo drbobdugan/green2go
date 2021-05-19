@@ -10,7 +10,8 @@ class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-        self.configData = {"host" : "198.199.77.174", "user" : "root", "password" : "Capstone2021!"}
+        self.configData = self.initConfig()
+
         
 
     def changeDatabase(self,database):
@@ -21,8 +22,11 @@ class dao:
         os.chdir("/root")
         with open("credentials.json") as file:
             config = json.load(file)
+            
         file.close()
         return config
+
+        
         
 
     def reconnectSql(self):
