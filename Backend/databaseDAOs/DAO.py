@@ -19,7 +19,7 @@ class dao:
 
     def initConfig(self):
         config = {}
-        os.chdir("/root")
+        
         with open("credentials.json") as file:
             config = json.load(file)
             
