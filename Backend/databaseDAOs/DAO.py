@@ -11,31 +11,32 @@ class dao:
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
         self.configData = {}
-        self.initConfig()
+        
 
         
     def changeDatabase(self,database):
         self.database = database
 
     def initConfig(self):
+        config = {}
         with open("credentials.json") as file:
-            self.configData = json.load(file)
+            config = json.load(file)
         file.close()
+        return config
         
 
     def reconnectSql(self):
+        configData = self.initConfig()
         try:
             self.mydb.shutdown()
         except:
             #logging.error("Error closing connection: Already disconnected")
             test = 1
 
-        
-
         self.mydb = mysql.connector.connect(
-            host=self.configData['host'],
-            user=self.configData['user'],
-            password=self.configData['password'],
+            host=configData['host'],
+            user=configData['user'],
+            password=configData['password'],
             database=self.database,
             buffered=True)
             
