@@ -10,20 +10,21 @@ class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
+        self.configData = {}
 
     def changeDatabase(self,database):
         self.database = database
 
     
     def initializeConfigInfo(self):
-        configData = {}
-        path = os.path.abspath('/root/credentials.txt')
+        os.chdir("/root")
+        path = os.path.abspath('credentials.txt')
         with open(path) as file:
             for line in file:
                 (key,value) = line.split()
-                configData[key] = value
+                self.configData[key] = value
         file.close()
-        return configData
+        #return configData
 
     
 
@@ -34,14 +35,14 @@ class dao:
             #logging.error("Error closing connection: Already disconnected")
             test = 1
 
-
-        configData = self.initializeConfigInfo()
+        self.initializeConfigInfo()
         self.mydb = mysql.connector.connect(
-            host = configData['host'],
-            user = configData['user'],
-            password = configData['password'],
+            host = self.configData['host'],
+            user = self.configData['user'],
+            password= self.configData['password'],
             database=self.database,
             buffered=True)
+            
     def disconnectedSql(self):
         try:
             self.mydb.shutdown()
