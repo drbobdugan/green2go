@@ -3,7 +3,7 @@ import React,{Component, useState} from 'react';
 import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
-
+import ExportCSV from './ExportCSV';
 
 function ContainerTable (props) {
         const [containers, setContainers] = useState([])
@@ -18,6 +18,7 @@ function ContainerTable (props) {
         const [inStock, setInStock] = useState()
         const [pendingReturn, setPendingReturn] = useState()
         const [damagedLost, setDamagedLost] = useState()
+        const fileName = 'Container Status Counts';
 
         async function markDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
@@ -173,6 +174,9 @@ function ContainerTable (props) {
              </div>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
+            <div>
+              <ExportCSV csvData={filteredContainers} fileName={fileName} />
+            </div>
             <br></br>
             <br></br>
             <br></br>

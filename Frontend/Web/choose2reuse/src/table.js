@@ -11,7 +11,7 @@ function Table (props) {
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
         const history = useHistory();
-        const fileName = 'Table Transactions';
+        const fileName = 'Container Transactions';
 
         function routeChangeContainerTable() { 
         let path = `/containerTable`; 

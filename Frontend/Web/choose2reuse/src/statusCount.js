@@ -4,7 +4,6 @@ import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
 
-
 function StatusCount (props) {
         const [locations, setLocations] = useState([])
         const [retrieved, setRetrieved] = useState(false)
