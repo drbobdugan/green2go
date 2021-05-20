@@ -3,7 +3,7 @@ import React,{Component, useState} from 'react';
 import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
-
+import ExportCSV from './ExportCSV';
 
 function Table (props) {
         const [containers, setContainers] = useState([])
@@ -11,6 +11,7 @@ function Table (props) {
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
         const history = useHistory();
+        const fileName = 'Table Transactions';
 
         function routeChangeContainerTable() { 
         let path = `/containerTable`; 
@@ -135,7 +136,10 @@ function Table (props) {
             <br></br>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
-            <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input> 
+            <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input>
+            <div>
+              <ExportCSV csvData={filteredContainers} fileName={fileName} />
+            </div>
             <br></br>
             <br></br>
             <br></br>
