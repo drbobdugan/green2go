@@ -61,6 +61,7 @@ class _CheckoutContainerPageState extends State<CheckoutContainerPage> {
     );
   }
 
+
   Future<void> scanQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
             '#FF2E856E', ReuseStrings.cancel, false, ScanMode.QR)

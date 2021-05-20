@@ -192,7 +192,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
   Future<void> scanLocationQRCode() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     locationQR = await FlutterBarcodeScanner.scanBarcode(
-        '#FF2E856E', ReuseStrings.cancel, true, ScanMode.QR);
+        '#FF2E856E', ReuseStrings.cancel, false, ScanMode.QR);
 
     widget.onScanLocationQR(locationQR).then((APIResponse response) {
       if (response.success) {
@@ -213,7 +213,7 @@ class _ReturnContainerPageState extends State<ReturnContainerPage>
 
   Future<void> scanContainerQRCode() async {
     await FlutterBarcodeScanner.scanBarcode(
-            '#FF2E856E', ReuseStrings.cancel, true, ScanMode.QR)
+            '#FF2E856E', ReuseStrings.cancel, false, ScanMode.QR)
         .then((String code) {
       widget.onScanContainerQR(code, locationQR).then((APIResponse response) {
         if (response.success) {
