@@ -19,6 +19,8 @@ function ContainerTable (props) {
         const [pendingReturn, setPendingReturn] = useState()
         const [damagedLost, setDamagedLost] = useState()
         const fileName = 'Container Status Counts';
+        const [cont_qr, setCont_qr] = useState('')
+
 
         async function markDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
@@ -32,6 +34,25 @@ function ContainerTable (props) {
           var response = await axios.post('http://198.199.77.174:5000/undoReportContainer', obj)
           getContainers(email,authToken)
         }
+
+        async function addContainer(qrcode){
+          const obj = {qrcode: qrcode, email: email, auth_token: authToken};
+          var response = await axios.post('http://198.199.77.174:5000/addContainer', obj)
+          console.log(response)
+          await getContainerInfo(email,authToken)
+          setCont_qr('')
+      }
+
+      async function getContainerInfo(email, authToken){
+        var response = await axios.get('http://198.199.77.174:5000/containerList?email='+email+'&auth_token='+authToken)
+        console.log(response.data.data)
+        if(response && response.data && response.data.data)
+        {
+            console.log("Setting containers")
+            setContainers(response.data.data)
+            setFilteredContainers(response.data.data)
+        }
+      }
 
         function select(container){
           console.log(container)
@@ -207,6 +228,20 @@ function ContainerTable (props) {
                  <td><input type="button" value="Revert" onClick ={() => {revertDamagedLost(elem.qrcode)}}/></td>
                 </tr>
                ))}
+                </tbody>
+             </table>
+             <table className="addLocation">
+                <thead>
+                    <tr>
+                      <th>Container QR Code</th>
+                      <th>Add Container</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input type='text' value={cont_qr} placeholder="qr_code" onChange={event => setCont_qr(event.target.value)}/></td> 
+                        <td><input type='button' value='Add' onClick ={() => {addContainer(cont_qr)}}/></td>
+                    </tr>
                 </tbody>
              </table>
              </div>
