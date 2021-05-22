@@ -322,9 +322,6 @@ class RelationshipDAO(dao):
             logging.info("Exception")
             return False, "error"
 
-
-
-
     def checkLength(self,r):
         maxLength = {
         "email" : 45,

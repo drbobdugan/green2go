@@ -12331,6 +12331,544 @@
 					]
 				},
 				{
+					"name": "Unit Test - CheckIn Container that is Already CheckedIn",
+					"item": [
+						{
+							"name": "Delete user account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/secretDeleteUser"
+							},
+							"response": []
+						},
+						{
+							"name": "New user test00",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status Code is 200-202\", function () {",
+											"    pm.expect(pm.response.code).to.be.oneOf([200, 202]);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\",\n    \"firstName\" : \"John\",\n    \"lastName\" : \"Doe\",\n    \"middleName\" : \"\",\n    \"phoneNum\" : \"1234567890\",\n    \"role\" : \"RegularUser\",\n    \"reward_date\" : \"2021-01-01 01:01:01\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/secretAddUser"
+							},
+							"response": []
+						},
+						{
+							"name": "GetAuthCode[testing]",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authCode\", jsonData[\"authCode\"]);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "javascript"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/secretGetUser?email=test00@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"secretGetUser"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "test00@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Validate Code That was Emailed",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
+											""
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"code\" : \"{{authCode}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/validateCode"
+							},
+							"response": []
+						},
+						{
+							"name": "User Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.test(\"Login Successful Request\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
+											"var jsonData = JSON.parse(responseBody).data;",
+											"",
+											"pm.environment.set(\"authToken\", jsonData[\"auth_token\"]);"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"password\" : \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/login"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete container (check if in database)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/deleteContainer"
+							},
+							"response": []
+						},
+						{
+							"name": "New container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response \", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"auth_token\" : \"{{authToken}}\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/addContainer"
+							},
+							"response": []
+						},
+						{
+							"name": "Get Container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Get Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											"",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/getContainer?qrcode=4181385c-e916-48b8-8ecb-57c0696f2892&auth_token={{authToken}}&email=test00@students.stonehill.edu",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"getContainer"
+									],
+									"query": [
+										{
+											"key": "qrcode",
+											"value": "4181385c-e916-48b8-8ecb-57c0696f2892"
+										},
+										{
+											"key": "auth_token",
+											"value": "{{authToken}}"
+										},
+										{
+											"key": "email",
+											"value": "test00@students.stonehill.edu"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Checkout Container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\":\"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Checked Out\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"None\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/checkoutContainer"
+							},
+							"response": []
+						},
+						{
+							"name": "Checkin Container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Pending Return\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"L001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/checkinContainer"
+							},
+							"response": []
+						},
+						{
+							"name": "Checkin Container Copy",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Post Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"false\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"status\" : \"Pending Return\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"location_qrcode\" : \"L001\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/checkinContainer"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Relationship",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"",
+											"pm.test(\"Successful Delete Relationship Request\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\",\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/secretDeleteRelationship"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete container",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"pm.test(\"Successful Delete Response\", function () {",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"qrcode\" : \"4181385c-e916-48b8-8ecb-57c0696f2892\",\n    \"auth_token\" : \"{{authToken}}\",\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/deleteContainer"
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"type": "text/javascript",
+										"exec": [
+											"// ",
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});",
+											"",
+											"pm.environment.set(\"authCode\", \"null\");",
+											"pm.environment.set(\"authToken\", \"null\");"
+										]
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\" : \"test00@students.stonehill.edu\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/secretDeleteUser"
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "Unit Test - CheckIn Container \"Invalid QR Code\"",
 					"item": [
 						{
@@ -14484,7 +15022,7 @@
 											"});",
 											"",
 											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"true\");",
+											"    pm.expect(pm.response.text()).to.include(\"false\");",
 											"});",
 											""
 										],
@@ -32182,7 +32720,8 @@
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://198.199.77.174:5000"
+			"value": "http://198.199.77.174:5000",
+			"disabled": true
 		},
 		{
 			"key": "baseUrl",
