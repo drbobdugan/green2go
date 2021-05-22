@@ -140,6 +140,10 @@ def getCounts():
 def getCurrent():
     return containerHandler.GetRelationships(request,relationshipDao,True)
 
+@app.route('/containerList',methods=['GET'])
+def containerList():
+    return containerHandler.allContainers(request,containerDao)
+
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():

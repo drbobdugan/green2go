@@ -119,6 +119,26 @@ class ContainerDAO(dao):
             logging.error("Error in insertContainer")
             logging.error(str(e))
             return self.handleError(e)
+
+    #READ ALL CONTAINERS
+    def selectAll(self): #returns --> "true, list of location objects"
+        try:
+            logging.info("Entering selectAll")
+            sql = "SELECT * FROM container"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0]==False):
+                return myresult
+            result = []
+            for row in myresult[1]:
+                #container = Container(row[0],row[1],row[2])
+                #result.append(container)
+                container = Container(row[0])
+                result.append(container)
+            return True, result
+        except Exception as e:
+            logging.error("Error in selectAll")
+            logging.error(str(e))
+            return self.handleError(e)
     
     # READ CONTAINER
     def selectContainer(self,qrcode):

@@ -71,6 +71,25 @@ class ContainerHandler:
             res= res[0],res[1].containerToDict()
         return self.helperHandler.handleResponse(res)
 
+    def allContainers(self,request,containerDao):
+        containerDic = None
+        keys = ['email','auth_token']
+        containers=[]
+        try:
+            containerDic = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+            res = self.containerdao.selectAll()
+            self.helperHandler.falseQueryCheck(res)
+            #BinCounts = self.containerdao.totalContainersInBins()
+            #self.helperHandler.falseQueryCheck(BinCounts)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        #Bin = BinCounts[1]
+        for r in res[1]:
+            tempCont = r.containerToDict()
+            containers.append(tempCont)
+        res=res[0],containers
+        return self.helperHandler.handleResponse(res)
+
     def checkoutContainer(self, userContainer):
         try:
             self.validateQRCode(userContainer['qrcode'], False)
