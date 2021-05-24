@@ -28,7 +28,7 @@ class ReuseStrings {
   static String changePasswordPageTitle = 'Change Password';
   static String forgotPasswordPageTitle = 'Forgot Password';
   static String pointsPageTitle = 'My Points';
-  static String badgesPageTitle = 'My C2R VIP Badges';
+  static String badgesPageTitle = 'My Climate Champ Badges';
   static String rewardsPageTitle = 'My Reward';
   static String returnConfirmationTitle = 'Return Confirmation';
   static String containerPassPageTitle = 'Container Pass';
@@ -83,7 +83,7 @@ class ReuseStrings {
   static String appError =
       'Please update the Choose2Reuse app to the latest version in order to continue using the app.';
   static String earnedBadgeText =
-      'You have also earned a C2R VIP Badge! Your reward will expire in 5 days. To use your reward, go to the Points & Rewards page.';
+      'You have also earned a Climate Champ Badge! Your reward will expire in 5 days. To use your reward, go to the Points & Rewards page.';
   static String rewardInstructions =
       'Only press this button if you are ready to show it to a cashier! The page will only be active for 5 minutes.';
   static String redeemedAt = 'Redeemed At:';
