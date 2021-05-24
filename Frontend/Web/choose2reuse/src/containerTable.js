@@ -78,9 +78,9 @@ function ContainerTable (props) {
             
           const obj = {email: email, qrcode: qr_code, auth_token: authToken};
           console.log(obj)
-          var response = await axios.delete('http://198.199.77.174:5000/deleteContainer', obj)
+          var response = await axios.delete('http://198.199.77.174:5000/deleteContainer', { data: obj })
           console.log(response)
-          getContainerInfo(email,authToken)
+          await getContainerInfo(email,authToken)
       }
 
 
