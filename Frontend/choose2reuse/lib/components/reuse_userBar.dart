@@ -5,7 +5,7 @@ import '../services/navigation_service.dart';
 import '../static/custom_theme.dart';
 import '../static/student.dart';
 
-enum AppBarItems { Home, Profile, Checkout, Return, Points, containerPass }
+enum AppBarItems { Home, Profile, Checkout, Return, Points, containerPass, FAQ }
 
 const List<AppBarItems> items = <AppBarItems>[
   AppBarItems.Home,
@@ -13,7 +13,8 @@ const List<AppBarItems> items = <AppBarItems>[
   AppBarItems.Checkout,
   AppBarItems.Return,
   AppBarItems.Points,
-  AppBarItems.containerPass
+  AppBarItems.containerPass,
+  AppBarItems.FAQ
 ];
 
 const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
@@ -22,7 +23,8 @@ const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
   AppBarItems.Checkout: Icons.rotate_right_rounded,
   AppBarItems.Return: Icons.rotate_right_rounded,
   AppBarItems.Points: Icons.stars_rounded,
-  AppBarItems.containerPass: Icons.ad_units
+  AppBarItems.containerPass: Icons.ad_units,
+  AppBarItems.FAQ: Icons.question_answer_rounded
 };
 
 const Map<AppBarItems, String> labels = <AppBarItems, String>{
@@ -31,7 +33,8 @@ const Map<AppBarItems, String> labels = <AppBarItems, String>{
   AppBarItems.Checkout: 'Check Out Container',
   AppBarItems.Return: 'Return Container',
   AppBarItems.Points: 'Points & Rewards',
-  AppBarItems.containerPass: 'Container Pass'
+  AppBarItems.containerPass: 'Container Pass',
+  AppBarItems.FAQ: 'FAQ',
 };
 
 class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -65,6 +68,9 @@ class _UserAppBarState extends State<UserAppBar> {
     } else if (choice == labels[AppBarItems.containerPass]) {
       NavigationService(context: context)
           .goToPage(C2RPages.containerPass, widget.userAuth);
+    } else if (choice == labels[AppBarItems.FAQ]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.FAQ, widget.userAuth);
     }
   }
 

@@ -32,6 +32,7 @@ class ReuseStrings {
   static String rewardsPageTitle = 'My Reward';
   static String returnConfirmationTitle = 'Return Confirmation';
   static String containerPassPageTitle = 'Container Pass';
+  static String faqPageTitle = 'Frequently Asked Questions';
 
   //field text
   static String emailField = 'Email';
@@ -99,4 +100,15 @@ class ReuseStrings {
   static String invalidCodeErrorMessage = 'Please enter a valid code.';
   static String emptyEmailErrorMessage = 'Please enter an email address.';
   static String passMismatchErrorMessage = 'New password fields do not match.';
+
+  //faq sections
+  static String faqSectionPoints = 'Points and Rewards';
+  //faq questions and answer
+  static String faqQuestion1 =
+      'How many points do I earn when I return a container?';
+  static String faqAnswer1 =
+      'Returning a container within 48 hours of checking it out will reward you 15 points. Otherwise you will recieve 5 points.';
+  static String faqQuestion2 = 'What can I do with points?';
+  static String faqAnswer2 =
+      'With every 300 points you earn you will recieve a Climate Champ Badge. With this badge you can redeem a reward at the bakery for a free big cookie!';
 }

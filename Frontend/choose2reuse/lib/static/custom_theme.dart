@@ -66,6 +66,14 @@ class CustomTheme {
         color: colors['attention']);
   }
 
+  static TextStyle secondaryDarkLabelStyle(
+      {double fontSize = 13.0, bool isBold = false}) {
+    return TextStyle(
+        fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+        fontSize: fontSize,
+        color: colors['darkPrimary']);
+  }
+
   static TextStyle leftListStyle({double fontSize = 16.0, bool isBold = true}) {
     return TextStyle(
         fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
