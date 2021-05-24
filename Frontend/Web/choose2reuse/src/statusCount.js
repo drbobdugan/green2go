@@ -104,7 +104,8 @@ function StatusCount (props) {
                         <td>{elem.count}</td>
                         <td><input type='button' value='Clear' onClick ={() => {clearLocation(elem.location_qrcode)}}/></td>
                         <td>{elem.lastPickip}</td>
-                        <td><input type='button' value='Remove' onClick ={() => {removeLocation(elem.location_qrcode)}}/></td>
+                        <td><input type="button" value="Remove" onClick ={() => { if (window.confirm('Are you sure you wish to remove this location?'))  removeLocation(elem.location_qrcode)} }/></td>
+
                         </tr>
                     ))}
                 </tbody>

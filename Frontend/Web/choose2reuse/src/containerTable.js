@@ -74,6 +74,16 @@ function ContainerTable (props) {
         }
         }
 
+        async function removeContainer(qr_code){
+            
+          const obj = {email: email, qrcode: qr_code, auth_token: authToken};
+          console.log(obj)
+          var response = await axios.delete('http://198.199.77.174:5000/deleteContainer', obj)
+          console.log(response)
+          getContainerInfo(email,authToken)
+      }
+
+
         async function getCounts(email, authToken){
           try{
             var response = await axios.get('http://198.199.77.174:5000/getCounts?email='+email+'&auth_token='+authToken)
@@ -217,6 +227,7 @@ function ContainerTable (props) {
                </th>
                <th>Mark Damaged Lost</th>
                <th>Revert Damaged Lost</th>
+               <th>Remove Container</th>
              </tr>
              </thead>
              <tbody>
@@ -226,6 +237,7 @@ function ContainerTable (props) {
                  <td>{elem.status}</td>
                  <td><input type="button" value="Damaged Lost" onClick ={() => {markDamagedLost(elem.qrcode)}}/></td>
                  <td><input type="button" value="Revert" onClick ={() => {revertDamagedLost(elem.qrcode)}}/></td>
+                 <td><input type="button" value="Remove" onClick ={() => { if (window.confirm('Are you sure you wish to remove this container?')) removeContainer(elem.qrcode) } }/></td>
                 </tr>
                ))}
                 </tbody>
