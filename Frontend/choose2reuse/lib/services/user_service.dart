@@ -104,24 +104,4 @@ class UserService {
     final APIResponse resp = await API.getResponse('getVersion');
     return resp;
   }
-
-  static Future<String> onSendEmailContactUs(
-      StudentAuth auth, String userEmail, String subject, String body) async {
-    final Email email = Email(
-      body: 'Email body',
-      subject: 'Email subject',
-      recipients: ['capstonespring2021@gmail.com'],
-      cc: ['calebhadley101@gmail.com'],
-      isHTML: false,
-    );
-
-    String resp;
-    try {
-      await FlutterEmailSender.send(email);
-      resp = 'success';
-    } catch (error) {
-      resp = error.toString();
-    }
-    return resp;
-  }
 }

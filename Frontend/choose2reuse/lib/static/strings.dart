@@ -19,7 +19,6 @@ class ReuseStrings {
   static String logOut = 'Log Out';
   static String done = 'Done';
   static String claimReward = 'Claim Reward';
-  static String sendEmail = 'Send Email';
 
   //page titles
   static String homepageTitle = 'Dashboard';
@@ -49,8 +48,6 @@ class ReuseStrings {
   static String currentPasswordField = 'Current Password';
   static String newPasswordField = 'New Password';
   static String confirmNewPasswordField = 'Confirm New Password';
-  static String emailSubject = 'Email Subject';
-  static String emailBody = 'Email Body';
 
   //textButton text
   static String rememberPassword = 'Remember me';
@@ -94,6 +91,8 @@ class ReuseStrings {
   static String redeemedAt = 'Redeemed At:';
   static String freeContainer = 'This container is free!';
   static String paidContainer = 'You need to pay for this container!';
+  static String contactUsMessage =
+      'Have any questions or concerns about Choose2Reuse? Email us at capstonespring2021@gmail.com';
 
   //snackbar messages
   static String changePassSuccess = 'Password changed successfully';

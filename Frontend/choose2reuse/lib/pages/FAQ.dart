@@ -29,7 +29,6 @@ class FAQPage extends StatefulWidget {
 
 class _FAQPageState extends State<FAQPage> {
   DetailedUser detailedUser;
-  Map<String, dynamic> data;
 
   @override
   void initState() {
@@ -39,7 +38,6 @@ class _FAQPageState extends State<FAQPage> {
       if (response.success) {
         setState(() {
           detailedUser = DetailedUser(response.data);
-          data = response.data as Map<String, dynamic>;
         });
       }
     });
