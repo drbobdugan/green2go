@@ -1,3 +1,4 @@
+import 'package:Choose2Reuse/pages/contactUs.dart';
 import 'package:Choose2Reuse/pages/containerPass.dart';
 import 'package:flutter/material.dart';
 import 'package:pusher_beams/pusher_beams.dart';
@@ -5,6 +6,7 @@ import 'pages/FAQ.dart';
 import 'pages/appError.dart';
 import 'pages/changePassword.dart';
 import 'pages/checkoutContainer.dart';
+import 'pages/contactUs.dart';
 import 'pages/containerList.dart';
 import 'pages/forgotPassword.dart';
 import 'pages/home.dart';
@@ -124,6 +126,8 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
               return ContainerPass(userAuth: settings.arguments as StudentAuth);
             case C2RPages.FAQ:
               return FAQPage(userAuth: settings.arguments as StudentAuth);
+            case C2RPages.contactUs:
+              return ContactUsPage(userAuth: settings.arguments as StudentAuth);
             default:
               break;
           }

@@ -19,6 +19,7 @@ class ReuseStrings {
   static String logOut = 'Log Out';
   static String done = 'Done';
   static String claimReward = 'Claim Reward';
+  static String sendEmail = 'Send Email';
 
   //page titles
   static String homepageTitle = 'Dashboard';
@@ -33,6 +34,7 @@ class ReuseStrings {
   static String returnConfirmationTitle = 'Return Confirmation';
   static String containerPassPageTitle = 'Container Pass';
   static String faqPageTitle = 'Frequently Asked Questions';
+  static String contactUsPageTitle = 'Contact Us';
 
   //field text
   static String emailField = 'Email';
@@ -47,6 +49,8 @@ class ReuseStrings {
   static String currentPasswordField = 'Current Password';
   static String newPasswordField = 'New Password';
   static String confirmNewPasswordField = 'Confirm New Password';
+  static String emailSubject = 'Email Subject';
+  static String emailBody = 'Email Body';
 
   //textButton text
   static String rememberPassword = 'Remember me';
