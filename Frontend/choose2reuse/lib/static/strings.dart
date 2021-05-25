@@ -107,8 +107,8 @@ class ReuseStrings {
   static String faqQuestion1 =
       'How many points do I earn when I return a container?';
   static String faqAnswer1 =
-      'Returning a container within 48 hours of checking it out will reward you 15 points. Otherwise you will recieve 5 points.';
+      'Returning a container within 48 hours of checking it out will reward you 15 points; otherwise, you will recieve 5 points.';
   static String faqQuestion2 = 'What can I do with points?';
   static String faqAnswer2 =
-      'With every 300 points you earn you will recieve a Climate Champ Badge. With this badge you can redeem a reward at the bakery for a free sweet treat!';
+      'With every 300 points you earn, you will recieve a Climate Champ Badge. With this badge, you can redeem a reward at the bakery for a free sweet treat!';
 }
