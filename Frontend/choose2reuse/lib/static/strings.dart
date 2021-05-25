@@ -103,6 +103,8 @@ class ReuseStrings {
 
   //faq sections
   static String faqSectionPoints = 'Points and Rewards';
+  static String faqSectionContainers = 'Containers';
+
   //faq questions and answer
   static String faqQuestion1 =
       'How many points do I earn when I return a container?';
@@ -111,4 +113,21 @@ class ReuseStrings {
   static String faqQuestion2 = 'What can I do with points?';
   static String faqAnswer2 =
       'With every 300 points you earn, you will recieve a Climate Champ Badge. With this badge, you can redeem a reward at the bakery for a free sweet treat!';
+  static String faqQuestion3 = 'How do I check out a container?';
+  static String faqAnswer3 =
+      'First, scan the QR code on a container at a check out location using the Check Out Container feature. Then, show a cashier your Container Pass.';
+  static String faqQuestion4 = 'How do I return a container?';
+  static String faqAnswer4 =
+      'First, scan the QR code on a return location using the Return Container feature. Then, scan the QR code of the container and leave it at the return location.';
+  static String faqQuestion5 =
+      'How many containers can I have checked out at once?';
+  static String faqAnswer5 =
+      'You can have two containers checked out at once. Checking out more than two containers will incur a \$5 fee per container over two.';
+  static String faqQuestion6 =
+      'Do I own the containers that I have checked out?';
+  static String faqAnswer6 =
+      'No, the containers and QR codes are the property of Stonehill College. All containers must be returned in good condition. The user will incur a \$5 fee per container that is damaged, lost, or not returned by the end of the academic year.';
+  static String faqQuestion7 = 'May I return someone else\'s container?';
+  static String faqAnswer7 =
+      'Yes, you can return any containers. However, you will only recieve points for returning your own containers.';
 }

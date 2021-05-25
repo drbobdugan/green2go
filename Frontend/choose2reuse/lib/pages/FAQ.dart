@@ -71,6 +71,66 @@ class _FAQPageState extends State<FAQPage> {
                 bottom: 20.0,
               ),
               ReuseLabel(
+                text: ReuseStrings.faqSectionContainers,
+                textStyle: CustomTheme.brightLabelStyle(fontSize: 18),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqQuestion3,
+                textStyle: CustomTheme.secondaryDarkLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqAnswer3,
+                textStyle: CustomTheme.secondaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqQuestion4,
+                textStyle: CustomTheme.secondaryDarkLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqAnswer4,
+                textStyle: CustomTheme.secondaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqQuestion5,
+                textStyle: CustomTheme.secondaryDarkLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqAnswer5,
+                textStyle: CustomTheme.secondaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqQuestion6,
+                textStyle: CustomTheme.secondaryDarkLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqAnswer6,
+                textStyle: CustomTheme.secondaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqQuestion7,
+                textStyle: CustomTheme.secondaryDarkLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqAnswer7,
+                textStyle: CustomTheme.secondaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
                 text: ReuseStrings.faqSectionPoints,
                 textStyle: CustomTheme.brightLabelStyle(fontSize: 18),
                 bottom: 20.0,
