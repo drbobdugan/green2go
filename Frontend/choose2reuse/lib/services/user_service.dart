@@ -3,6 +3,7 @@ import 'dart:convert';
 import '../static/student.dart';
 import '../static/user.dart';
 import 'api.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class UserService {
   static Future<APIResponse> validateCode(String email, String code) async {
@@ -101,6 +102,26 @@ class UserService {
 
   static Future<APIResponse> versionCheck() async {
     final APIResponse resp = await API.getResponse('getVersion');
+    return resp;
+  }
+
+  static Future<String> onSendEmailContactUs(
+      StudentAuth auth, String userEmail, String subject, String body) async {
+    final Email email = Email(
+      body: 'Email body',
+      subject: 'Email subject',
+      recipients: ['capstonespring2021@gmail.com'],
+      cc: ['calebhadley101@gmail.com'],
+      isHTML: false,
+    );
+
+    String resp;
+    try {
+      await FlutterEmailSender.send(email);
+      resp = 'success';
+    } catch (error) {
+      resp = error.toString();
+    }
     return resp;
   }
 }
