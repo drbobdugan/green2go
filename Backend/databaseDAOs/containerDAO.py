@@ -43,7 +43,8 @@ class ContainerDAO(dao):
     def selectRecentStatus(self):
         try:
             logging.info("Entering selectRecentStatus")
-            sql = "SELECT container.qrcode, hascontainer.status, container.name FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
+            #sql = "SELECT container.qrcode, hascontainer.status, container.name FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
+            sql = "SELECT container.qrcode, hascontainer.status FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
@@ -54,12 +55,13 @@ class ContainerDAO(dao):
                     status = result[1]
                 except:
                     status = None
-                try:
-                    name = result[2]
-                except:
-                    name = None
+                #try:
+                #    name = result[2]
+                #except:
+                #    name = None
                 if status != 'Verified Return':
-                    temp.append({"qrcode":qrcode,"name":name,"status":status})
+                    temp.append({"qrcode":qrcode,"status":status})
+                    #temp.append({"qrcode":qrcode,"name":name,"status":status})
             return True, temp
         except Exception as e:
             logging.error("Error in selectRecentStatus")
