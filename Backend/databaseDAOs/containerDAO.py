@@ -50,11 +50,14 @@ class ContainerDAO(dao):
             temp = []
             for result in myresult[1]:
                 qrcode = result[0]
-                name = result[2]
                 try:
                     status = result[1]
                 except:
                     status = None
+                try:
+                    name = result[2]
+                except:
+                    name = None
                 if status != 'Verified Return':
                     temp.append({"qrcode":qrcode,"name":name,"status":status})
             return True, temp
