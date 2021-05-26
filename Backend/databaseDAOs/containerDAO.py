@@ -55,10 +55,10 @@ class ContainerDAO(dao):
                     status = result[1]
                 except:
                     status = None
-                #try:
-                #    name = result[2]
-                #except:
-                #    name = None
+                try:
+                    name = result[2]
+                except:
+                    name = ''
                 if status != 'Verified Return':
                     #temp.append({"qrcode":qrcode,"status":status})
                     temp.append({"qrcode":qrcode,"name":name,"status":status})
