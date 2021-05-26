@@ -43,7 +43,7 @@ class ContainerDAO(dao):
     def selectRecentStatus(self):
         try:
             logging.info("Entering selectRecentStatus")
-            sql = "SELECT container.qrcode, hascontainer.status, container.name, FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
+            sql = "SELECT container.qrcode, hascontainer.status, container.name FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
