@@ -31,7 +31,12 @@ function Table (props) {
          var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
          console.log(response)
-         setFilteredContainers(response.data.data.slice(0,limit))
+         try{
+          setFilteredContainers(response.data.data.slice(0,limit))
+         }
+         catch (error) {
+          history.push('/login')
+        }
         }
         
         function filterByStatus(e) {
@@ -117,11 +122,16 @@ function Table (props) {
           }))
         }
         }
-
-        if(containers.length === 0 && props.location && props.location.state){
-        getContainers(props.location.state.email,props.location.state.authToken)
-        }else if(!props.location || !props.location.state){
-          history.push("/login");
+        
+        try{
+          if(containers.length === 0 && props.location && props.location.state){
+          getContainers(props.location.state.email,props.location.state.authToken)
+          }else if(!props.location || !props.location.state){
+            history.push("/login");
+          }
+        }
+        catch(error) {
+          history.push('/login')
         }
         return (
             <div className="App">

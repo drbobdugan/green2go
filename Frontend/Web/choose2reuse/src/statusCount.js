@@ -96,7 +96,6 @@ function StatusCount (props) {
                     </tr>
                     </thead>
                 <tbody>
-                    
                     {locations.map((elem)=>(
                         <tr onClick={()=>{select(elem)}}>
                         <td>{elem.location_qrcode}</td>
@@ -108,6 +107,14 @@ function StatusCount (props) {
 
                         </tr>
                     ))}
+                    <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><input type='button' value='Clear All' onClick ={() => {locations.map((elem)=>{clearLocation(elem.location_qrcode)})}}/></td>
+                    <td></td>
+                    <td></td>
+                    </tr>
                 </tbody>
              </table>
              <table className="addLocation">
