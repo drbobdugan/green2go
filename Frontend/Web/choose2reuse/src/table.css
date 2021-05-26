@@ -81,6 +81,11 @@ div {
   padding-right: 10%;
 }
 
+.navButton3{
+  float: center;
+  width: 20%;
+}
+
 .navButton2{
   float: right;
   width: 20%;

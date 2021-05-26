@@ -21,6 +21,10 @@ function Table (props) {
           let path = `/statusCount`; 
           history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
         }
+        function routeChangeEmailUsers() { 
+          let path = `/emailUsers`; 
+          history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
+        }
 
         function select(container){
           console.log(container)
@@ -137,6 +141,7 @@ function Table (props) {
             <div className="App">
               <div className="nav">
                 <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>All Locations</button>
+                <button className="navButton3" type="button" onClick={() => { routeChangeEmailUsers() } }>Email Users</button>
                 <button className="navButton1" type="button" onClick={() => { routeChangeContainerTable() } }>All Containers</button>
               </div>
             <br></br>

@@ -5,6 +5,7 @@ import Table from './table';
 import StatusCount from './statusCount';
 import ContainerTable from './containerTable';
 import ExportCSV from './ExportCSV';
+import EmailUsers from './emailUsers';
 import React,{Component} from 'react';
 
 export default class App extends Component {
@@ -20,6 +21,7 @@ export default class App extends Component {
           <Route exact path= "/table" component={Table} />
           <Route exact path= "/statusCount" component={StatusCount} />
           <Route exact path= "/containerTable" component={ContainerTable} />
+          <Route exact path= "/emailUsers" component={EmailUsers} />
         </Switch>
       </Router>
     </div>
