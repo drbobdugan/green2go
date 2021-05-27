@@ -3,7 +3,6 @@ import 'dart:convert';
 import '../static/student.dart';
 import '../static/user.dart';
 import 'api.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class UserService {
   static Future<APIResponse> validateCode(String email, String code) async {
