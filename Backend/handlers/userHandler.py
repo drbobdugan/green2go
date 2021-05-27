@@ -109,6 +109,10 @@ class UserHandler:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=hasAuth, t=t)
             if(isSelectAll==True):
                 res = self.userDao.selectAll()
+                temp=[]
+                for row in res[1]:
+                    temp.append(row.userToDict())
+                res = [True,temp]
                 self.helperHandler.falseQueryCheck(res)
                 return self.helperHandler.handleResponse(res)
             else:
