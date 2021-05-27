@@ -90,6 +90,24 @@ class UserDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
     
+    def selectAll(self): #returns --> "true, list of user objects"
+        try:
+            logging.info("Entering selectAll")
+            sql = "SELECT * FROM user"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0]==False):
+                return myresult
+            result = []
+            for row in myresult[1]:
+                user = User(row[0], row[1], row[2], row[3], row[4], row[5],row[6],row[7], str(row[8]), str(row[9]),str(row[10]),row[11],row[12],str(row[13]))
+                result.append(user)
+            logging.info("Successful selectAll")
+            return True, result
+        except Exception as e:
+            logging.error("Error in selectAll")
+            logging.error(str(e))
+            return self.handleError(e)
+    
     #FOR BACKEND -> BEFORE CALLING UPDATE PLEASE DO A GETUSER CALL SO THAT ALL OF THE VALUES ARE FILLED OUT
     def updateUser(self,user):
         try:

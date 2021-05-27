@@ -57,6 +57,10 @@ locationHandler = LocationHandler(helperHandler)
 def getUser():
     return userHandler.getUser(request, userDao, True)
 
+@app.route('/getAllUsers', methods=['GET'])
+def getAllUsers():
+    return userHandler.getAllUsers(request, userDao, True)
+
 @app.route('/addUser', methods=['POST'])
 def addUser():
     return userHandler.addUser(request, userDao)

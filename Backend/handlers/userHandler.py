@@ -1,3 +1,4 @@
+import logging
 import json
 import string
 import random
@@ -48,6 +49,10 @@ class UserHandler:
         keys = ["email"]
         return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=1)
 
+    def getAllUsers(self, request, userDao, hasAuth):
+        keys = ["email"]
+        return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=4)
+
     def addUser(self, request, userDao):
         dictOfUserAttrib = None
         # keys to scape from request
@@ -84,22 +89,30 @@ class UserHandler:
         keys = ['email']
         return self.userCRUDS(data=[request,keys], userDao=userDao, hasAuth=hasAuth, f=2)
 
-    #f values 0->add 1->get 2->delete 3->update
+    #f values 0->add 1->get 2->delete 3->update 4->getAll
     def userCRUDS(self, data, userDao, hasAuth, f):
         dictOfUserAttrib = None
         request = data[0]
         keys = data[1]
         formats=None
         t= "json"
-        if f == 1:
+        isSelectAll=False #remember if request is for select or selectAll
+        if f == 1 or f==4:
             t= "args"
         if f==3:
             formats = self.formats
+        if f==4:
+            isSelectAll=True
         if hasAuth is True and "auth_token" not in keys:
             keys.append('auth_token')
         try:
             dictOfUserAttrib = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, formats=formats, hasAuth=hasAuth, t=t)
-            res = self.userDao.selectUser(dictOfUserAttrib["email"])
+            if(isSelectAll==True):
+                res = self.userDao.selectAll()
+                self.helperHandler.falseQueryCheck(res)
+                return self.helperHandler.handleResponse(res)
+            else:
+                res = self.userDao.selectUser(dictOfUserAttrib["email"])
             self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
