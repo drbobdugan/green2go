@@ -146,7 +146,11 @@ function StatusCount (props) {
             <div className ="back">
                 <input type='button' value='Back' onClick={() => {backPage()}}/>
             </div>
-             <h1>All Locations</h1>
+            <br></br>
+            <br></br>
+            <div className="title">
+            <h1>All Locations</h1>
+            </div>
             {displayLocationCounts()}
            </div>    
         )
