@@ -132,5 +132,5 @@ class ReuseStrings {
       'No, the containers and QR codes are the property of Stonehill College. All containers must be returned in good condition. The user will incur a \$5 fee per container that is damaged, lost, or not returned by the end of the academic year.';
   static String faqQuestion7 = 'May I return someone else\'s container?';
   static String faqAnswer7 =
-      'Yes, you can return any containers. However, you will only recieve points for returning your own containers.';
+      'Yes, you can return any containers. You will recieve points for any containers you return.';
 }
