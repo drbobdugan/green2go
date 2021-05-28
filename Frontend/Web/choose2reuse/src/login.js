@@ -21,13 +21,18 @@ function Login (props) {
             'email' : email,
             'password' : password
         }
+        try{
         var response = await axios.post('http://198.199.77.174:5000/login', obj)
         var user_response = await axios.get('http://198.199.77.174:5000/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
-        if(response.data.success && user_response.data.data.role === 'Admin'){
-            setAuthToken(response.data.data.auth_token)
-            routeChange(response.data.data.auth_token)
-        }else{
-            alert(response.data.message)
+            if(response.data.success && user_response.data.data.role === 'Admin'){
+                setAuthToken(response.data.data.auth_token)
+                routeChange(response.data.data.auth_token)
+            }else{
+                alert(response.data.message)
+            }
+        }
+        catch(error){
+            alert("You do not have login privileges")
         }
        
     }
