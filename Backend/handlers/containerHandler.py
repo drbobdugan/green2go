@@ -224,14 +224,13 @@ class ContainerHandler:
             userContainer = eval(func)
             self.validateQRCode(userContainer['qrcode'], False)
 
-            #call method in relationdao that checks if current user has container checked out, if not return json dumps false
+            #call method in relationdao that checks if current container is checked out, if not return json dumps false
             if "/checkinContainer" in str(request):
-                logging.info("Entering isPendingReturn testing")
                 try:
                     containerStatus = self.relationdao.isCheckedOut(userContainer['email'],userContainer['qrcode'])
                     if(containerStatus[0]==False):
-                        logging.info("You do not have this Container Checked Out")
-                        return json.dumps({"success" : False, "message" : "Cannot return a Container that you do not have Checked Out"})
+                        logging.info("Container not Checked Out")
+                        return json.dumps({"success" : False, "message" : "Cannot return a Container that is Pending Return/Verified Return"})
                 except Exception as e:
                     logging.info("Exiting isPendingReturn testing")
 

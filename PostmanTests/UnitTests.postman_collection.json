@@ -15817,7 +15817,7 @@
 											"});",
 											"",
 											"pm.test(\"Successful Post Response\", function () {",
-											"    pm.expect(pm.response.text()).to.include(\"false\");",
+											"    pm.expect(pm.response.text()).to.include(\"true\");",
 											"});",
 											""
 										],

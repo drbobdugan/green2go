@@ -309,7 +309,7 @@ class RelationshipDAO(dao):
     def isCheckedOut(self,email,qrcode):
         logging.info("Entering isCheckedOut")
         try:
-            sql = "SELECT * from hascontainer WHERE email = '" + email + "' and qrcode = '" + qrcode + "' and status = 'Checked Out'"
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and status = 'Checked Out'"
             result = self.handleSQL(sql,True,None)
             logging.info("%s Result successful",result[1])
             if(result[1] == []):
