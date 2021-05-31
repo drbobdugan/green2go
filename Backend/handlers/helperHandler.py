@@ -110,7 +110,7 @@ class HelperHandler:
         return dic
 
     def handleAuth(self, dic):
-        res = self.authDao.selectByEmail(dic["email"])
+        res = self.authDao.selectByEmail(dic["email"]) 
         if res[0] is False:
             return False, "No matching user with that authorization token"
         # make sure auth code actually exixts in dattabse
