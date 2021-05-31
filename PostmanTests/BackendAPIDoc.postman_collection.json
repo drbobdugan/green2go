@@ -3,7 +3,7 @@
 		"_postman_id": "109e5ab5-0418-43e9-a3ea-860003acbbe1",
 		"name": "BackendAPIDoc",
 		"description": "Use the Choose2Reuse Environment",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
 	"item": [
 		{
@@ -37,15 +37,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/secretDeleteUser",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"secretDeleteUser"
-							]
-						}
+						"url": "{{baseUrl}}/secretDeleteUser"
 					},
 					"response": [
 						{
@@ -62,15 +54,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/deleteUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"deleteUser"
-									]
-								}
+								"url": "{{baseUrl}}/deleteUser"
 							},
 							"status": "OK",
 							"code": 200,
@@ -129,15 +113,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/secretAddUser",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"secretAddUser"
-							]
-						}
+						"url": "{{baseUrl}}/secretAddUser"
 					},
 					"response": [
 						{
@@ -154,15 +130,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addUser"
-									]
-								}
+								"url": "{{baseUrl}}/addUser"
 							},
 							"status": "OK",
 							"code": 200,
@@ -202,15 +170,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addUser"
-									]
-								}
+								"url": "{{baseUrl}}/addUser"
 							},
 							"status": "OK",
 							"code": 200,
@@ -250,15 +210,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addUser",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addUser"
-									]
-								}
+								"url": "{{baseUrl}}/addUser"
 							},
 							"status": "OK",
 							"code": 200,
@@ -424,15 +376,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/validateCode",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"validateCode"
-							]
-						}
+						"url": "{{baseUrl}}/validateCode"
 					},
 					"response": [
 						{
@@ -449,15 +393,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
+								"url": "{{baseUrl}}/validateCode"
 							},
 							"status": "OK",
 							"code": 200,
@@ -497,15 +433,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/validateCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"validateCode"
-									]
-								}
+								"url": "{{baseUrl}}/validateCode"
 							},
 							"status": "OK",
 							"code": 200,
@@ -568,15 +496,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"login"
-							]
-						}
+						"url": "{{baseUrl}}/login"
 					},
 					"response": [
 						{
@@ -593,15 +513,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
+								"url": "{{baseUrl}}/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -641,15 +553,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
+								"url": "{{baseUrl}}/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -689,15 +593,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
+								"url": "{{baseUrl}}/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -962,15 +858,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/updateUser",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updateUser"
-							]
-						}
+						"url": "{{baseUrl}}/updateUser"
 					},
 					"response": []
 				},
@@ -1005,15 +893,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/changePassword",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"changePassword"
-							]
-						}
+						"url": "{{baseUrl}}/changePassword"
 					},
 					"response": []
 				},
@@ -1052,16 +932,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/auth/refresh",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"auth",
-								"refresh"
-							]
-						}
+						"url": "{{baseUrl}}/auth/refresh"
 					},
 					"response": [
 						{
@@ -1078,16 +949,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/auth/refresh",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"auth",
-										"refresh"
-									]
-								}
+								"url": "{{baseUrl}}/auth/refresh"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1129,15 +991,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/resendAuthCode",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"resendAuthCode"
-							]
-						}
+						"url": "{{baseUrl}}/resendAuthCode"
 					},
 					"response": [
 						{
@@ -1154,15 +1008,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/resendAuthCode",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"resendAuthCode"
-									]
-								}
+								"url": "{{baseUrl}}/resendAuthCode"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1329,15 +1175,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/forgetPassword",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"forgetPassword"
-							]
-						}
+						"url": "{{baseUrl}}/forgetPassword"
 					},
 					"response": []
 				},
@@ -1376,15 +1214,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/login",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"login"
-							]
-						}
+						"url": "{{baseUrl}}/login"
 					},
 					"response": [
 						{
@@ -1401,15 +1231,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
+								"url": "{{baseUrl}}/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1449,15 +1271,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
+								"url": "{{baseUrl}}/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1497,15 +1311,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/login",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"login"
-									]
-								}
+								"url": "{{baseUrl}}/login"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1569,15 +1375,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteContainer",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteContainer"
-							]
-						}
+						"url": "{{baseUrl}}/deleteContainer"
 					},
 					"response": [
 						{
@@ -1594,15 +1392,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/deleteContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"deleteContainer"
-									]
-								}
+								"url": "{{baseUrl}}/deleteContainer"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1660,15 +1450,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/addContainer",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"addContainer"
-							]
-						}
+						"url": "{{baseUrl}}/addContainer"
 					},
 					"response": [
 						{
@@ -1685,15 +1467,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addContainer"
-									]
-								}
+								"url": "{{baseUrl}}/addContainer"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1733,15 +1507,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addContainer"
-									]
-								}
+								"url": "{{baseUrl}}/addContainer"
 							},
 							"status": "OK",
 							"code": 200,
@@ -1970,15 +1736,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/checkoutContainer",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"checkoutContainer"
-							]
-						}
+						"url": "{{baseUrl}}/checkoutContainer"
 					},
 					"response": [
 						{
@@ -1995,15 +1753,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addRelationship"
-									]
-								}
+								"url": "{{baseUrl}}/addRelationship"
 							},
 							"status": "OK",
 							"code": 200,
@@ -2043,15 +1793,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/addRelationship",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"addRelationship"
-									]
-								}
+								"url": "{{baseUrl}}/addRelationship"
 							},
 							"status": "OK",
 							"code": 200,
@@ -2366,15 +2108,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/checkinContainer",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"checkinContainer"
-							]
-						}
+						"url": "{{baseUrl}}/checkinContainer"
 					},
 					"response": [
 						{
@@ -2391,15 +2125,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/checkinContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"checkinContainer"
-									]
-								}
+								"url": "{{baseUrl}}/checkinContainer"
 							},
 							"status": "INTERNAL SERVER ERROR",
 							"code": 500,
@@ -2546,15 +2272,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteLocation"
-							]
-						}
+						"url": "{{baseUrl}}/deleteLocation"
 					},
 					"response": []
 				},
@@ -2590,15 +2308,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/addLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"addLocation"
-							]
-						}
+						"url": "{{baseUrl}}/addLocation"
 					},
 					"response": []
 				},
@@ -2630,15 +2340,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/selectLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"selectLocation"
-							]
-						}
+						"url": "{{baseUrl}}/selectLocation"
 					},
 					"response": [
 						{
@@ -2655,15 +2357,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/selectLocation",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"selectLocation"
-									]
-								}
+								"url": "{{baseUrl}}/selectLocation"
 							},
 							"status": "INTERNAL SERVER ERROR",
 							"code": 500,
@@ -2727,15 +2421,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/clearLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"clearLocation"
-							]
-						}
+						"url": "{{baseUrl}}/clearLocation"
 					},
 					"response": []
 				},
@@ -2770,15 +2456,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/updateLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updateLocation"
-							]
-						}
+						"url": "{{baseUrl}}/updateLocation"
 					},
 					"response": []
 				},
@@ -2874,15 +2552,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteLocation",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteLocation"
-							]
-						}
+						"url": "{{baseUrl}}/deleteLocation"
 					},
 					"response": []
 				},
@@ -2914,15 +2584,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/secretDeleteRelationship",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"secretDeleteRelationship"
-							]
-						}
+						"url": "{{baseUrl}}/secretDeleteRelationship"
 					},
 					"response": []
 				},
@@ -2956,15 +2618,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteContainer",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteContainer"
-							]
-						}
+						"url": "{{baseUrl}}/deleteContainer"
 					},
 					"response": [
 						{
@@ -2981,15 +2635,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{baseUrl}}/deleteContainer",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"deleteContainer"
-									]
-								}
+								"url": "{{baseUrl}}/deleteContainer"
 							},
 							"status": "OK",
 							"code": 200,
@@ -3050,280 +2696,7 @@
 								}
 							}
 						},
-						"url": {
-							"raw": "{{baseUrl}}/secretDeleteUser",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"secretDeleteUser"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Appinfo Tests",
-			"item": [
-				{
-					"name": "Insert Version",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"major\":1,\n    \"minor\":0,\n    \"patch\":3,\n    \"host\":\"test\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/insertVersion",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"insertVersion"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Version",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"var version = JSON.parse(responseBody).data;",
-									"pm.environment.set(\"versionTest0\", version);",
-									"",
-									"",
-									"var res = version.split(\".\");",
-									"",
-									"var majorTest0 = res[0];",
-									"var minorTest0 = res[1];",
-									"var patchTest0 = res[2];",
-									"",
-									"pm.environment.set(\"majorTest0\", parseInt(majorTest0));",
-									"pm.environment.set(\"minorTest0\", parseInt(minorTest0));",
-									"pm.environment.set(\"patchTest0\", parseInt(patchTest0));",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/getVersion?host=test",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"getVersion"
-							],
-							"query": [
-								{
-									"key": "host",
-									"value": "test"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Major",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/updateMajor",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updateMajor"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Minor",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/updateMinor",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updateMinor"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Patch",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/updatePatch",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"updatePatch"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Version",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"host\":\"test\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{baseUrl}}/deleteVersion",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"deleteVersion"
-							]
-						}
+						"url": "{{baseUrl}}/secretDeleteUser"
 					},
 					"response": []
 				}
