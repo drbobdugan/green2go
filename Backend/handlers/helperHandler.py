@@ -18,6 +18,7 @@ from pusher_push_notifications import PushNotifications
 from pathlib import Path
 from pusher_push_notifications import PushNotifications
 from passlib.context import CryptContext
+import logging
 
 
 class HelperHandler:
@@ -149,7 +150,7 @@ class HelperHandler:
 
     def getVersion(self,request,appInfoDao):
         relDict = None
-        keys=['host']
+        keys=['host','version']
         try:
             relDict = self.handleRequestAndAuth(request, keys, t="args", hasAuth=False )
         except Exception as e:

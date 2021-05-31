@@ -61,14 +61,18 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
 
   @override
   void initState() {
+    print('test 1');
     super.initState();
     checkVersion();
   }
 
   void checkVersion() {
     widget.onVersionCheck().then((APIResponse resp) {
-      //isVersionLatest = resp.data['isVersionGood'] as bool;
-      isVersionLatest = true;
+      if (resp.data != "Not correct version") {
+        isVersionLatest = true;
+      } else {
+        isVersionLatest = false;
+      }
     });
   }
 

@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io' show Platform;
+import 'package:package_info/package_info.dart';
 import '../static/student.dart';
 import '../static/user.dart';
 import 'api.dart';
@@ -99,8 +100,27 @@ class UserService {
     return resp;
   }
 
+  //Returns True if users version is correct, if not returns False
   static Future<APIResponse> versionCheck() async {
-    final APIResponse resp = await API.getResponse('getVersion');
-    return resp;
+    String host = '';
+    if (Platform.isAndroid) {
+      host = 'Android';
+    } else if (Platform.isIOS) {
+      host = 'iOS';
+    }
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version;
+
+    final APIResponse resp =
+        await API.getResponse('getVersion?host=${host}&version=${version}');
+
+    if (version == resp.data) {
+      return resp;
+    } else {
+      resp.data = "Not correct version";
+      return resp;
+    }
   }
 }
