@@ -221,11 +221,11 @@ function ContainerTable (props) {
                   <option value="Checked Out">Checked Out</option>
                   <option value="Pending Return">Pending Return</option>
                   <option value="Verified Return">Verified Return</option>
-                  <option value="Damaged Lost">Damaged Lost</option>
+                  <option value="Damaged Lost">Damaged/Lost</option>
                 </select>
                </th>
-               <th>Mark Damaged Lost</th>
-               <th>Revert Damaged Lost</th>
+               <th>Mark Damaged/Lost</th>
+               <th>Revert Damaged/Lost</th>
                <th>Remove Container</th>
              </tr>
              </thead>
