@@ -79,7 +79,7 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
       } else {
         print("checkVersion() user is all set, returning true");
         return true;
-      }
+      } 
     });
     */
 
