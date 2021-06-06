@@ -170,7 +170,7 @@ function Table (props) {
                   <option value="Checked Out">Checked Out</option>
                   <option value="Pending Return">Pending Return</option>
                   <option value="Verified Return">Verified Return</option>
-                  <option value="Damaged Lost">Damaged Lost</option>
+                  <option value="Damaged Lost">Damaged/Lost</option>
                 </select>
                </th>
                <th>Status Update Time</th>

@@ -195,7 +195,7 @@ function ContainerTable (props) {
                         <td>{inStock}</td>
                     </tr>
                     <tr>
-                        <td>Damaged Lost</td> 
+                        <td>Damaged/Lost</td> 
                         <td>{damagedLost}</td>
                     </tr>
                 </tbody>
