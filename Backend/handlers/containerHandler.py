@@ -245,7 +245,7 @@ class ContainerHandler:
         relationship = rel[1][0]
         relDict = relationship.relationshipToDict()
         if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
-            return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
+            return json.dumps({"success" : False, "message" : "Container is not Damaged/Lost"})
         for key in userContainer:
             if key != "auth_token" and key != "email":
                 relDict[key] = userContainer[key]
