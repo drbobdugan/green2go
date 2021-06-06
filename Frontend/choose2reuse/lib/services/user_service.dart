@@ -115,11 +115,16 @@ class UserService {
 
     final APIResponse resp =
         await API.getResponse('getVersion?host=${host}&version=${version}');
-
+    print("version on device");
+    print(version);
+    print("version on database");
+    print(resp.data);
     if (version == resp.data) {
+      print("version in database matches version on phone");
+      resp.data = true;
       return resp;
     } else {
-      resp.data = "Not correct version";
+      resp.data = false;
       return resp;
     }
   }

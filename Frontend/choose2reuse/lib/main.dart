@@ -2,6 +2,7 @@ import 'package:Choose2Reuse/pages/contactUs.dart';
 import 'package:Choose2Reuse/pages/containerPass.dart';
 import 'package:flutter/material.dart';
 import 'package:pusher_beams/pusher_beams.dart';
+import 'components/reuse_loading.dart';
 import 'pages/FAQ.dart';
 import 'pages/appError.dart';
 import 'pages/changePassword.dart';
@@ -57,27 +58,135 @@ class Choose2ReuseApp extends StatefulWidget {
 }
 
 class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
-  bool isVersionLatest = true;
+  //bool isVersionLatest;
+  Future<bool> isVersionLatest;
 
   @override
   void initState() {
-    print('test 1');
     super.initState();
-    checkVersion();
+    //checkVersion();
+    isVersionLatest = checkVersion();
   }
 
-  void checkVersion() {
-    widget.onVersionCheck().then((APIResponse resp) {
-      if (resp.data != "Not correct version") {
-        isVersionLatest = true;
+  Future<bool> checkVersion() async {
+    /*
+    await widget.onVersionCheck().then((APIResponse resp) {
+      print("checkVersion() printing resp.data");
+      print(resp.data);
+      if (resp.data == "Not correct version") {
+        print("checkVersion() user needs to update, returning false");
+        return false;
       } else {
-        isVersionLatest = false;
+        print("checkVersion() user is all set, returning true");
+        return true;
       }
     });
+    */
+
+    final APIResponse resp = await widget.onVersionCheck();
+    if (resp.data == true) {
+      return true;
+    }
+    return false;
   }
 
   @override
   Widget build(BuildContext context) {
+    return FutureBuilder<bool>(
+        future: isVersionLatest,
+        builder: (context, snapshot) {
+          print("build(): printing snapshot");
+          print(snapshot);
+          if (snapshot.hasData) {
+            print("build(): snapshot has data, data is:");
+            print(snapshot.data);
+            if (snapshot.data == true) {
+              print("build(): verwsions match");
+              //version on app==database
+              return MaterialApp(
+                title: ReuseStrings.appName,
+                theme: CustomTheme.appTheme(),
+                home: const LoginPage(),
+                onGenerateRoute: (RouteSettings settings) {
+                  return MaterialPageRoute<dynamic>(
+                      builder: (BuildContext context) {
+                    switch (settings.name) {
+                      case C2RPages.home:
+                        return HomePage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.profile:
+                        return ProfilePage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.login:
+                        return const LoginPage();
+                      case C2RPages.signup:
+                        return const SignUpPage();
+                      case C2RPages.validation:
+                        return ValidationPage(
+                            user: settings.arguments as NewUser);
+                      case C2RPages.checkoutContainer:
+                        return CheckoutContainerPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.returnContainer:
+                        return ReturnContainerPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.containerList:
+                        return ContainerListPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.changePassword:
+                        return ChangePasswordPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.forgotPassword:
+                        return const ForgotPasswordPage();
+                      case C2RPages.points:
+                        return PointsPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.returnConfirmation:
+                        final NavArguments args =
+                            settings.arguments as NavArguments;
+                        return ReturnConfirmationPage(
+                            userAuth: args.user,
+                            points: args.points,
+                            earnedBadge: args.earnedBadge);
+                      case C2RPages.reward:
+                        return RewardPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.containerPass:
+                        return ContainerPass(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.FAQ:
+                        return FAQPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      case C2RPages.contactUs:
+                        return ContactUsPage(
+                            userAuth: settings.arguments as StudentAuth);
+                      default:
+                        break;
+                    }
+                    return const LoginPage();
+                  });
+                },
+              );
+            } else {
+              print("build(): verwsions DO NOT match");
+
+              return MaterialApp(
+                  title: ReuseStrings.appName,
+                  theme: CustomTheme.appTheme(),
+                  home: const AppErrorPage());
+            }
+          } else {
+            print("build(): no data yet");
+            return MaterialApp(
+                title: ReuseStrings.appName,
+                theme: CustomTheme.appTheme(),
+                home: const AppErrorPage());
+          }
+        });
+
+    /*
+    print("isVersionLatest:");
+    print(isVersionLatest);
     if (!isVersionLatest) {
       return MaterialApp(
           title: ReuseStrings.appName,
@@ -139,5 +248,6 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
         });
       },
     );
+    */
   }
 }
