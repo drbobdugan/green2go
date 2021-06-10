@@ -14,9 +14,6 @@ function EmailUsers (props) {
         const [filteredUsers, setFilteredUsers] = useState([])
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
-        const [checked, setChecked] = React.useState(true);
-
-        var dict = {};
 
         function backPage(){
             history.goBack()
@@ -68,23 +65,11 @@ function EmailUsers (props) {
           }
         }
 
-        function onChangeChecked(email){
-            console.log(dict.email)
-            if(dict.email == true){
-                console.log("Changed from true to false")
-                dict.email = false;
-            }
-            else if(dict.email==false){
-                console.log("Changed to true from false")
-                dict.email = true;
-            }
-            console.log(dict.email)
-        }
-
+        /*
         function copyToClipboard(e) {
             navigator.clipboard.writeText(getSelectedUsers())
         }
-
+        
         function getSelectedUsers(){
             //iterate through dict, if something is true then add it to a string, return the string
             const copied = "";
@@ -95,6 +80,7 @@ function EmailUsers (props) {
                 }
             }
         }
+        */
 
         if(props.location && props.location.state && !email){
             setEmail(props.location.state.email);
@@ -117,11 +103,6 @@ function EmailUsers (props) {
         catch(error) {
             history.push('/login')
         }
-
-        //initialize users selected checkboxes to all false
-        //{filteredUsers.map((elem)=>(
-        //    dict.elem.email=false
-        //))}
         return (
             <div className="App">
                 <div className ="back">
@@ -146,14 +127,12 @@ function EmailUsers (props) {
                 <table className="centerone">
                     <thead>
                         <tr>
-                            <th>Select</th>
                             <th>Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         {filteredUsers.map((elem)=>(
                             <tr onClick={()=>{select(elem)}}>
-                            <td><input type="checkbox" checked="false" onChange={() => onChangeChecked(elem.email)} /></td>
                             <td>{elem.email}</td>
                             </tr>
                         ))}
