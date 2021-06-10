@@ -14,6 +14,7 @@ function EmailUsers (props) {
         const [filteredUsers, setFilteredUsers] = useState([])
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
+        var usersFormattedEmail="";
 
         function backPage(){
             history.goBack()
@@ -37,6 +38,16 @@ function EmailUsers (props) {
             catch (error) {
              history.push('/login')
            }
+           //format all users into a string that can be inputted into an email
+           usersFormattedEmail="";
+           var i;
+           for(i=0; i<response.data.data.length; i++){
+               usersFormattedEmail+=response.data.data[i].email+",";
+           }
+           if(usersFormattedEmail.length!=0){
+               usersFormattedEmail=usersFormattedEmail.slice(0,-1);
+           }
+           console.log(usersFormattedEmail);
         }
 
         function toggleLimit(){
@@ -66,21 +77,22 @@ function EmailUsers (props) {
         }
 
         
-        function copyToClipboard(e) {
-            navigator.clipboard.writeText(getAllUsers())
-        }
-        
-        function getAllUsers(){
-            //grab all users from db and return them in the format user1,user2,user3
-            const copied = "";
-            console.log(users);
-            {users.map((elem)=>(
-                copied=copied+elem+","
-            ))}
-            console.log(copied);
-            return copied;
-        }
-        
+        async function copyToClipboard(e) {
+            console.log("copying all users to clipboard")
+
+            var response = await axios.get('http://198.199.77.174:5000/getAllUsers?email='+email+'&auth_token='+authToken)
+            //format all users into a string that can be inputted into an email
+            var usersFormattedEmail="";
+            var i;
+            for(i=0; i<response.data.data.length; i++){
+                usersFormattedEmail+=response.data.data[i].email+",";
+            }
+            if(usersFormattedEmail.length!=0){
+                usersFormattedEmail=usersFormattedEmail.slice(0,-1);
+            }
+            console.log(usersFormattedEmail);
+            navigator.clipboard.writeText(usersFormattedEmail)
+        }     
 
         if(props.location && props.location.state && !email){
             setEmail(props.location.state.email);
