@@ -35,20 +35,6 @@ function StatusCount (props) {
             getLocationInfo(email,authToken)
         }
 
-        async function clearLocation2(qr_code){
-            const obj = {email: email, qrcode: qr_code, auth_token: authToken};
-            var response = await axios.patch('http://198.199.77.174:5000/clearLocation', obj)
-        }
-
-        async function clearAllLocations(){
-            await Promise.all(locations.map((elem)=>(
-                console.log("clearing location"),
-                console.log(elem.location_qrcode),
-                clearLocation2(elem.location_qrcode)
-                )))
-            getLocationInfo(email,authToken)
-        }
-
         async function removeLocation(qr_code){
             
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
@@ -121,14 +107,6 @@ function StatusCount (props) {
 
                         </tr>
                     ))}
-                    <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><input type='button' value='Clear All' onClick ={clearAllLocations}/></td>
-                    <td></td>
-                    <td></td>
-                    </tr>
                 </tbody>
              </table>
              <table className="addLocation">
