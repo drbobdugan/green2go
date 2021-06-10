@@ -65,22 +65,22 @@ function EmailUsers (props) {
           }
         }
 
-        /*
+        
         function copyToClipboard(e) {
-            navigator.clipboard.writeText(getSelectedUsers())
+            navigator.clipboard.writeText(getAllUsers())
         }
         
-        function getSelectedUsers(){
-            //iterate through dict, if something is true then add it to a string, return the string
+        function getAllUsers(){
+            //grab all users from db and return them in the format user1,user2,user3
             const copied = "";
-            for (var key in dict) {
-                if (dict.key==true){
-                    console.log(key)
-                    copied.append(key+",")
-                }
-            }
+            console.log(users);
+            {users.map((elem)=>(
+                copied=copied+elem+","
+            ))}
+            console.log(copied);
+            return copied;
         }
-        */
+        
 
         if(props.location && props.location.state && !email){
             setEmail(props.location.state.email);
@@ -89,15 +89,10 @@ function EmailUsers (props) {
 
         try{
             if(users.length === 0 && props.location && props.location.state){
-                getUsers(props.location.state.email,props.location.state.authToken).then( _ => {
-                    //initialize users selected checkboxes to all false
-                    {users.map((elem)=>(
-                        console.log(dict.elem.email)
-                    ))}
-                })
+                getUsers(props.location.state.email,props.location.state.authToken)
             }
             else if(!props.location || !props.location.state){
-            history.push("/login");
+                history.push("/login");
             }
         }
         catch(error) {
@@ -119,7 +114,7 @@ function EmailUsers (props) {
                 <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input>
                 <br></br>
                 <br></br>
-                <input type="button" value="Copy to Clipboard" onClick={() => copyToClipboard()}></input>
+                <input type="button" value="Copy all users to clipboard" onClick={() => copyToClipboard()}></input>
                 <br></br>
                 <br></br>
                 <br></br>
