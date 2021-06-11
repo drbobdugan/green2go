@@ -14,7 +14,7 @@ function EmailUsers (props) {
         const [filteredUsers, setFilteredUsers] = useState([])
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
-        var usersFormattedEmail="";
+        //var usersFormattedEmail="";
 
         function backPage(){
             history.goBack()
@@ -39,6 +39,7 @@ function EmailUsers (props) {
              history.push('/login')
            }
            //format all users into a string that can be inputted into an email
+           /*
            usersFormattedEmail="";
            var i;
            for(i=0; i<response.data.data.length; i++){
@@ -48,6 +49,7 @@ function EmailUsers (props) {
                usersFormattedEmail=usersFormattedEmail.slice(0,-1);
            }
            console.log(usersFormattedEmail);
+           */
         }
 
         function toggleLimit(){
@@ -91,7 +93,10 @@ function EmailUsers (props) {
                 usersFormattedEmail=usersFormattedEmail.slice(0,-1);
             }
             console.log(usersFormattedEmail);
-            navigator.clipboard.writeText(usersFormattedEmail)
+
+            window.alert("Copy the following text:"+"\\n"+usersFormattedEmail)
+
+            //navigator.clipboard.writeText(this.state.usersFormattedEmail)
         }     
 
         if(props.location && props.location.state && !email){
