@@ -4,6 +4,7 @@ import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
 import ExportCSV from './ExportCSV';
+import logo from './logo.jpg';
 
 function ContainerTable (props) {
         const [containers, setContainers] = useState([])
@@ -164,6 +165,9 @@ function ContainerTable (props) {
 
         return (
             <div className="App">
+            <div>
+                <img src={logo} width="25%" height="100%"/>
+            </div>
               <div className ="back">
                 <input type='button' value='Back' onClick={() => {backPage()}}/>
               </div>
@@ -172,7 +176,7 @@ function ContainerTable (props) {
             <div className="title">
             <h1>All Containers</h1>
             </div>
-            <h2>Container Status Counts</h2>
+            <h3>Container Status Counts</h3>
             <div className = "statustable">
                 <table className="statuscounts">
                     <thead>

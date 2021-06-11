@@ -3,7 +3,7 @@ import React,{Component, useState} from 'react';
 import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
-
+import logo from './logo.jpg';
 
 function EmailUsers (props) {
         const [locations, setLocations] = useState([])
@@ -102,6 +102,9 @@ function EmailUsers (props) {
         }
         return (
             <div className="App">
+            <div>
+                <img src={logo} width="25%" height="100%"/>
+            </div>
                 <div className ="back">
                     <input type='button' value='Back' onClick={() => {backPage()}}/>
                 </div>

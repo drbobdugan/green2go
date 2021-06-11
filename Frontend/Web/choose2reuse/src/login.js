@@ -2,6 +2,7 @@ import './App.css';
 import React,{Component, useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import logo from './logo.jpg';
 
 function Login (props) {
     const history = useHistory();
@@ -48,6 +49,9 @@ function Login (props) {
 
     return (
         <div className="App">
+            <div>
+                <img src={logo} width="25%" height="100%"/>
+            </div>
             <h1>Login</h1>
             <form id="form">
                 <p>Email:  <input placeholder="Email" type="text" name="email" value={email} onChange={(event) => {setEmail(event.target.value)} } /> </p>

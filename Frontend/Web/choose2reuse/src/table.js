@@ -4,6 +4,7 @@ import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
 import ExportCSV from './ExportCSV';
+import logo from './logo.jpg';
 
 function Table (props) {
         const [containers, setContainers] = useState([])
@@ -139,6 +140,9 @@ function Table (props) {
         }
         return (
             <div className="App">
+              <div>
+                <img src={logo} width="25%" height="100%"/>
+              </div>
               <div className="nav">
                 <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>All Locations</button>
                 <button className="navButton3" type="button" onClick={() => { routeChangeEmailUsers() } }>Email Users</button>
