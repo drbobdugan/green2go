@@ -83,6 +83,9 @@ class _Choose2ReuseAppState extends State<Choose2ReuseApp> {
     });
     */
 
+    //temp version control fix
+    return true;
+
     final APIResponse resp = await widget.onVersionCheck();
     if (resp.data == true) {
       return true;
