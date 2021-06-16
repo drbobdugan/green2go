@@ -5,6 +5,7 @@ import './table.css';
 import { useHistory } from "react-router-dom";
 import ExportCSV from './ExportCSV';
 import logo from './logo.jpg';
+import Textarea from 'react-expanding-textarea'
 
 function ContainerTable (props) {
         const [containers, setContainers] = useState([])
@@ -21,6 +22,8 @@ function ContainerTable (props) {
         const [damagedLost, setDamagedLost] = useState()
         const fileName = 'Container Status Counts';
         const [cont_qr, setCont_qr] = useState('')
+        const [cont_qrs, setCont_qrs] = useState('')
+
 
 
         async function markDamagedLost(qr_code) { 
@@ -43,6 +46,16 @@ function ContainerTable (props) {
           await getContainerInfo(email,authToken)
           setCont_qr('')
       }
+
+
+      
+      async function addContainers(qrcodes){
+        var tempStr = qrcodes.split(/[\s,]+/)
+        console.log(tempStr)
+        tempStr.forEach(element => {
+          addContainer(element)
+        });
+    }
 
       async function getContainerInfo(email, authToken){
         var response = await axios.get('http://198.199.77.174:5000/containerList?email='+email+'&auth_token='+authToken)
@@ -258,6 +271,22 @@ function ContainerTable (props) {
                         <td><input type='text' value={cont_qr} placeholder="qr_code" onChange={event => setCont_qr(event.target.value)}/></td> 
                         <td><input type='button' value='Add' onClick ={() => {addContainer(cont_qr)}}/></td>
                     </tr>
+                    
+                </tbody>
+             </table>
+             <table className="addLocation">
+                <thead>
+                    <tr>
+                      <th>Container QR Codes List</th>
+                      <th>Add Containers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><Textarea value={cont_qrs} placeholder="qr_codes (space separated or comma separated list)" onChange={event => setCont_qrs(event.target.value)}/></td> 
+                        <td><input type='button' value='Add' onClick ={() => {addContainers(cont_qrs)}}/></td>
+                    </tr>
+                    
                 </tbody>
              </table>
              </div>
