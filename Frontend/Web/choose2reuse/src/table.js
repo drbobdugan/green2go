@@ -31,9 +31,9 @@ function Table (props) {
           console.log(container)
           setSelected(container)
          }
-        
+         
         async function getContainers(email, authToken){
-         var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
+         var response = await axios.get('https://choose2reuse.org:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
          console.log(response)
          try{
