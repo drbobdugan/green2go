@@ -22,6 +22,7 @@ function Login (props) {
             'email' : email,
             'password' : password
         }
+        
         try{
         var response = await axios.post('https://choose2reuse.org/login', obj)
         var user_response = await axios.get('https://choose2reuse.org/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
