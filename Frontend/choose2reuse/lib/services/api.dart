@@ -17,7 +17,8 @@ class APIResponse {
 
 class API {
   static Future<String> getURL() async {
-    const String remoteURL = '198.199.77.174:5000';
+    //const String remoteURL = '198.199.77.174:5000';
+    const String remoteURL = 'choose2reuse.org:5000';
     const String localURL = '127.0.0.1:5000';
     const String localAndroidURL = '10.0.2.2:5000';
 
@@ -51,7 +52,7 @@ class API {
   static Future<APIResponse> postResponse(String path, dynamic params) async {
     return getURL().then((String url) async {
       final Response response = await post(
-        Uri.parse('http://$url/$path'),
+        Uri.parse('https://$url/$path'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -78,7 +79,7 @@ class API {
 
   static Future<APIResponse> getResponse(String path) async {
     return getURL().then((String url) async {
-      final Response response = await get(Uri.parse('http://$url/$path'));
+      final Response response = await get(Uri.parse('https://$url/$path'));
       print(response.body);
       return formatResponse(response);
     });
