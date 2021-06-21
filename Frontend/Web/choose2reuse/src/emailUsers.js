@@ -26,7 +26,7 @@ function EmailUsers (props) {
 
         async function getUsers(email, authToken){
             //need to add get users route
-            var response = await axios.get('http://198.199.77.174:5000/getAllUsers?email='+email+'&auth_token='+authToken)
+            var response = await axios.get('https://choose2reuse.org:5000/getAllUsers?email='+email+'&auth_token='+authToken)
             console.log(response)
             setUsers(response.data.data)
             setLimit(users.length)
@@ -69,7 +69,7 @@ function EmailUsers (props) {
         async function copyToClipboard(e) {
             console.log("copying all users to clipboard")
 
-            var response = await axios.get('http://198.199.77.174:5000/getAllUsers?email='+email+'&auth_token='+authToken)
+            var response = await axios.get('https://choose2reuse.org:5000/getAllUsers?email='+email+'&auth_token='+authToken)
             //format all users into a string that can be inputted into an email
             var usersFormattedEmail="";
             var i;

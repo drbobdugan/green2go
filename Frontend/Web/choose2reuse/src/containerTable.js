@@ -29,19 +29,19 @@ function ContainerTable (props) {
         async function markDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
           console.log(obj)
-          var response = await axios.post('http://198.199.77.174:5000/reportContainer', obj)
+          var response = await axios.post('https://choose2reuse.org:5000/reportContainer', obj)
           getContainers(email,authToken)
         }
 
         async function revertDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code, auth_token: authToken};
-          var response = await axios.post('http://198.199.77.174:5000/undoReportContainer', obj)
+          var response = await axios.post('https://choose2reuse.org:5000/undoReportContainer', obj)
           getContainers(email,authToken)
         }
 
         async function addContainer(qrcode){
           const obj = {qrcode: qrcode, email: email, auth_token: authToken};
-          var response = await axios.post('http://198.199.77.174:5000/addContainer', obj)
+          var response = await axios.post('https://choose2reuse.org:5000/addContainer', obj)
           console.log(response)
           await getContainerInfo(email,authToken)
           setCont_qr('')
@@ -58,7 +58,7 @@ function ContainerTable (props) {
     }
 
       async function getContainerInfo(email, authToken){
-        var response = await axios.get('http://198.199.77.174:5000/containerList?email='+email+'&auth_token='+authToken)
+        var response = await axios.get('https://choose2reuse.org:5000/containerList?email='+email+'&auth_token='+authToken)
         console.log(response.data.data)
         if(response && response.data && response.data.data)
         {
@@ -75,7 +75,7 @@ function ContainerTable (props) {
         
         async function getContainers(email, authToken){
           try{
-            var response = await axios.get('http://198.199.77.174:5000/getCurrent?email='+email+'&auth_token='+authToken)
+            var response = await axios.get('https://choose2reuse.org:5000/getCurrent?email='+email+'&auth_token='+authToken)
             if(response && response.data && response.data.data && response.data.data.length){
               setContainers(response.data.data)
               setFilteredContainers(response.data.data)
@@ -91,14 +91,14 @@ function ContainerTable (props) {
         async function removeContainer(qr_code){
           const obj = {qrcode: qr_code, auth_token: authToken, email: email};
           console.log(obj)
-          var response = await axios.delete('http://198.199.77.174:5000/deleteContainer', { data: obj })
+          var response = await axios.delete('https://choose2reuse.org:5000/deleteContainer', { data: obj })
           console.log(response)
           await getContainerInfo(email,authToken)
       }
 
         async function getCounts(email, authToken){
           try{
-            var response = await axios.get('http://198.199.77.174:5000/getCounts?email='+email+'&auth_token='+authToken)
+            var response = await axios.get('https://choose2reuse.org:5000/getCounts?email='+email+'&auth_token='+authToken)
             console.log(response.data.data)
             setRetrieved(true)
             setCheckedOut(response.data.data["Checked Out"].length)

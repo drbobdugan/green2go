@@ -6,7 +6,6 @@ import random
 from flask import request
 import sys
 import os
-import ssl
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from userDAO import UserDAO
 from containerDAO import ContainerDAO
@@ -52,10 +51,6 @@ authHandler = AuthHandler(helperHandler)
 userHandler = UserHandler(helperHandler)
 containerHandler = ContainerHandler(helperHandler, notificationHelper)
 locationHandler = LocationHandler(helperHandler)
-
-#SSL/HTTPS config
-context = ssl.SSLContext()
-context.load_cert_chain('fullchain.pem', 'privkey.pem')
 
 #----------------------------User Methods --------------------------------
 @app.route('/getUser', methods=['GET'])
@@ -251,6 +246,4 @@ def secretGetRelationships():
     return containerHandler.getContainersForUser(request, containerDao, False)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000', ssl_context=context)#ssl context for https
-    #app.run(host='0.0.0.0', port='5000')
-
+    app.run(host='0.0.0.0', port='5000')

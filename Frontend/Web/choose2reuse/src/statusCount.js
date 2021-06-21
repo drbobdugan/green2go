@@ -32,7 +32,7 @@ function StatusCount (props) {
 
         async function clearLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
-            var response = await axios.patch('http://198.199.77.174:5000/clearLocation', obj)
+            var response = await axios.patch('https://choose2reuse.org:5000/clearLocation', obj)
             getLocationInfo(email,authToken)
         }
 
@@ -40,14 +40,14 @@ function StatusCount (props) {
             
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
             console.log(obj)
-            var response = await axios.post('http://198.199.77.174:5000/deleteLocation', obj)
+            var response = await axios.post('https://choose2reuse.org:5000/deleteLocation', obj)
             console.log(response)
             getLocationInfo(email,authToken)
         }
 
         async function addLocation(description,location_qrcode){
             const obj = {location_qrcode: location_qrcode, email: email, auth_token: authToken, description: description};
-            var response = await axios.post('http://198.199.77.174:5000/addLocation', obj)
+            var response = await axios.post('https://choose2reuse.org:5000/addLocation', obj)
             console.log(response)
             await getLocationInfo(email,authToken)
             setLoc_qr('')
@@ -56,7 +56,7 @@ function StatusCount (props) {
 
         async function updateLocation(qr_code){
             const obj = {email: email, qrcode: qr_code, auth_token: authToken};
-            //var response = await axios.patch('http://198.199.77.174:5000/updateLocation', obj)
+            //var response = await axios.patch('https://choose2reuse.org:5000/updateLocation', obj)
             //console.log(response)
             getLocationInfo(email,authToken)
         }
@@ -67,7 +67,7 @@ function StatusCount (props) {
         
         
         async function getLocationInfo(email, authToken){
-            var response = await axios.get('http://198.199.77.174:5000/locationList?email='+email+'&auth_token='+authToken)
+            var response = await axios.get('https://choose2reuse.org:5000/locationList?email='+email+'&auth_token='+authToken)
             console.log(response.data.data)
             if(response && response.data && response.data.data)
             {
