@@ -23,8 +23,10 @@ function Login (props) {
             'password' : password
         }
         try{
-        var response = await axios.post('198.199.77.174:5002/login', obj)
-        var user_response = await axios.get('198.199.77.174:5002/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
+        var response = await axios.post('https://choose2reuse.org/login', obj)
+        console.log(response)
+        console.log(response.data)
+        var user_response = await axios.get('http://choose2reuse.org/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
             if(response.data.success && user_response.data.data.role === 'Admin'){
                 setAuthToken(response.data.data.auth_token)
                 routeChange(response.data.data.auth_token)
