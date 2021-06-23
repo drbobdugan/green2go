@@ -75,7 +75,7 @@ const Map<String, ContainerStatus> containerDataStrings =
   'Checked Out': ContainerStatus.CheckedOut,
   'Pending Return': ContainerStatus.Pending,
   'Verified Return': ContainerStatus.Verified,
-  'Damaged/Lost': ContainerStatus.DamagedLost
+  'Damaged Lost': ContainerStatus.DamagedLost
 };
 
 const Map<ContainerStatus, String> containerIconColors =
@@ -97,5 +97,5 @@ const Map<ContainerStatus, String> containerLabels = <ContainerStatus, String>{
   ContainerStatus.CheckedOut: 'Checked Out',
   ContainerStatus.Pending: 'Pending Return',
   ContainerStatus.Verified: 'Verified Return',
-  ContainerStatus.DamagedLost: 'Damaged/Lost'
+  ContainerStatus.DamagedLost: 'Damaged Lost'
 };
