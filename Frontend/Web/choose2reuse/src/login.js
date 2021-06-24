@@ -23,9 +23,7 @@ function Login (props) {
             'password' : password
         }
         try{
-        //var response = await axios.post('http://198.199.77.174:5000/login', obj)
         var response = await axios.post('https://choose2reuse.org:5000/login', obj)
-        //var user_response = await axios.get('http://198.199.77.174:5000/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
         var user_response = await axios.get('https://choose2reuse.org:5000/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
         if(response.data.success && user_response.data.data.role === 'Admin'){
                 setAuthToken(response.data.data.auth_token)

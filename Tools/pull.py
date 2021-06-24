@@ -26,7 +26,8 @@ def restartDatabase():
     return str(x.text)
 
 def deleteUser(email):
-    url = "http://198.199.77.174:5000/secretDeleteUser"
+    #url = "http://198.199.77.174:5000/secretDeleteUser"
+    url = "https://choose2reuse.org:5000/secretDeleteUser"
     myobj = {'email': email}
     x = requests.delete(url, json=myobj) 
     print(x.text)
@@ -54,7 +55,8 @@ def renderDelete():
     """
 
 def updateCheckout():
-    url = "http://198.199.77.174:5000/secretGetRelationships?email=Checkout@stonehill.edu"
+    #url = "http://198.199.77.174:5000/secretGetRelationships?email=Checkout@stonehill.edu"
+    url = "https://choose2reuse.org:5000/secretGetRelationships?email=Checkout@stonehill.edu"
     x = requests.get(url)
     return x.json()
 
@@ -62,7 +64,8 @@ def updateCheckout():
 def checkoutByEmail():
     configData = initializeConfigInfo()
     if 'password' in request.form and 'email' in request.form and request.form['password'] == configData['password']:
-        url = "http://198.199.77.174:5000/secretCheckout"
+        #url = "http://198.199.77.174:5000/secretCheckout"
+        url = "https://choose2reuse.org:5000/secretCheckout"
         myobj = {'email' : request.form['email']}
         x = requests.post(url, json=myobj)
     userContainers = updateCheckout()
@@ -88,12 +91,14 @@ def checkoutByEmail():
     """
 
 def getVersion(host):
-    url="http://198.199.77.174:5000/getVersion?host="+host
+    #url="http://198.199.77.174:5000/getVersion?host="+host
+    url="https://choose2reuse.org:5000/getVersion?host="+host
     x = requests.get(url)
     return x.json()
 
 def updateVersion(version):
-    url="http://198.199.77.174:5000/update"+version
+    #url="http://198.199.77.174:5000/update"+version
+    url="https://choose2reuse.org:5000/update"+version
     myobj = {'host' : 'iOS'}
     x = requests.post(url, json=myobj)
     myobj = {'host' : 'Android'}
