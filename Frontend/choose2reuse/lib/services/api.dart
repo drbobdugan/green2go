@@ -66,7 +66,7 @@ class API {
   static Future<APIResponse> patchResponse(String path, dynamic params) async {
     return getURL().then((String url) async {
       final Response response = await patch(
-        Uri.parse('http://$url/$path'),
+        Uri.parse('https://$url/$path'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
