@@ -1,32 +1,52 @@
 import 'dart:math' as math;
-import 'package:Choose2Reuse/components/font_scale_blocker.dart';
 import 'package:flutter/material.dart';
 
 import '../services/navigation_service.dart';
 import '../static/custom_theme.dart';
 import '../static/student.dart';
 
-enum AppBarItems { Home, Profile, Checkout, Return }
+enum AppBarItems {
+  Home,
+  Profile,
+  Checkout,
+  Return,
+  Points,
+  containerPass,
+  FAQ,
+  ContactUs
+}
 
 const List<AppBarItems> items = <AppBarItems>[
   AppBarItems.Home,
   AppBarItems.Profile,
   AppBarItems.Checkout,
-  AppBarItems.Return
+  AppBarItems.Return,
+  AppBarItems.Points,
+  AppBarItems.containerPass,
+  AppBarItems.FAQ,
+  AppBarItems.ContactUs
 ];
 
 const Map<AppBarItems, IconData> icons = <AppBarItems, IconData>{
   AppBarItems.Home: Icons.home,
   AppBarItems.Profile: Icons.account_circle,
   AppBarItems.Checkout: Icons.rotate_right_rounded,
-  AppBarItems.Return: Icons.rotate_right_rounded
+  AppBarItems.Return: Icons.rotate_right_rounded,
+  AppBarItems.Points: Icons.stars_rounded,
+  AppBarItems.containerPass: Icons.ad_units_rounded,
+  AppBarItems.FAQ: Icons.question_answer_rounded,
+  AppBarItems.ContactUs: Icons.contact_page_rounded
 };
 
 const Map<AppBarItems, String> labels = <AppBarItems, String>{
   AppBarItems.Home: 'Dashboard',
   AppBarItems.Profile: 'Profile',
   AppBarItems.Checkout: 'Check Out Container',
-  AppBarItems.Return: 'Return Container'
+  AppBarItems.Return: 'Return Container',
+  AppBarItems.Points: 'Points & Rewards',
+  AppBarItems.containerPass: 'Container Pass',
+  AppBarItems.FAQ: 'FAQ',
+  AppBarItems.ContactUs: 'Contact Us'
 };
 
 class UserAppBar extends StatefulWidget implements PreferredSizeWidget {
@@ -54,6 +74,18 @@ class _UserAppBarState extends State<UserAppBar> {
     } else if (choice == labels[AppBarItems.Profile]) {
       NavigationService(context: context)
           .goToPage(C2RPages.profile, widget.userAuth);
+    } else if (choice == labels[AppBarItems.Points]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.points, widget.userAuth);
+    } else if (choice == labels[AppBarItems.containerPass]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.containerPass, widget.userAuth);
+    } else if (choice == labels[AppBarItems.FAQ]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.FAQ, widget.userAuth);
+    } else if (choice == labels[AppBarItems.ContactUs]) {
+      NavigationService(context: context)
+          .goToPage(C2RPages.contactUs, widget.userAuth);
     }
   }
 

@@ -81,4 +81,14 @@ class StudentService {
         }));
     return resp;
   }
+
+  static Future<APIResponse> claimReward(StudentAuth auth) async {
+    final APIResponse resp = await API.postResponse(
+        'claimReward',
+        jsonEncode(<String, String>{
+          'email': auth.email,
+          'auth_token': auth.token,
+        }));
+    return resp;
+  }
 }

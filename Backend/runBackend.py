@@ -6,12 +6,14 @@ import random
 from flask import request
 import sys
 import os
+import ssl
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from userDAO import UserDAO
 from containerDAO import ContainerDAO
 from authDAO import AuthDao
 from locationDAO import LocationDao
 from relationshipDAO import RelationshipDAO
+from appInfoDAO import appInfoDAO
 from datetime import datetime
 import re
 import logging
@@ -39,6 +41,7 @@ userDao=UserDAO()
 containerDao=ContainerDAO()
 authDao = AuthDao()
 locationDao=LocationDao()
+appinfoDao=appInfoDAO()
 relationshipDao = RelationshipDAO()
 emailServer = EmailManager()
 notificationHelper = NotificationHelper()
@@ -50,10 +53,18 @@ userHandler = UserHandler(helperHandler)
 containerHandler = ContainerHandler(helperHandler, notificationHelper)
 locationHandler = LocationHandler(helperHandler)
 
+#SSL/HTTPS config
+context = ssl.SSLContext()
+context.load_cert_chain('fullchain.pem', 'privkey.pem')
+
 #----------------------------User Methods --------------------------------
 @app.route('/getUser', methods=['GET'])
 def getUser():
     return userHandler.getUser(request, userDao, True)
+
+@app.route('/getAllUsers', methods=['GET'])
+def getAllUsers():
+    return userHandler.getAllUsers(request, userDao, True)
 
 @app.route('/addUser', methods=['POST'])
 def addUser():
@@ -80,6 +91,10 @@ def forgetPassword():
         return userHandler.changePassword(request, userDao)
     else: 
         return res
+
+@app.route("/claimReward", methods = ['POST'])
+def claimReward():
+    return userHandler.claimReward(request, userDao)
 
 #----------------------------Container Methods --------------------------------
 @app.route('/addContainer', methods=['POST'])
@@ -129,6 +144,15 @@ def getallContainers():
 @app.route("/getCounts",methods =['GET'])
 def getCounts():
     return containerHandler.GetRelationships(request,relationshipDao,True)
+
+@app.route("/getCurrent",methods =['GET'])
+def getCurrent():
+    return containerHandler.GetRelationships(request,relationshipDao,True)
+
+@app.route('/containerList',methods=['GET'])
+def containerList():
+    return containerHandler.allContainers(request,containerDao)
+
 #----------------------------Auth Methods --------------------------------
 @app.route('/validateCode', methods=['POST'])
 def validateCode():
@@ -152,6 +176,28 @@ def beams_auth():
         return "true"
     val = request.args.get('id')
     return authHandler.beams_auth(val)
+#-----------------------------Version Methods---------------------------
+@app.route('/getVersion', methods=['GET'])
+def getVersion():
+    return helperHandler.getVersion(request,appinfoDao)
+
+@app.route('/updateMajor', methods=['POST'])
+def updateMajor():
+    return helperHandler.updateVersion(request,appinfoDao)
+@app.route('/updateMinor', methods=['POST'])
+def updateMinor():
+    return helperHandler.updateVersion(request,appinfoDao)
+@app.route('/updatePatch', methods=['POST'])
+def updatePatch():
+    return helperHandler.updateVersion(request,appinfoDao)
+@app.route('/deleteVersion',methods={'DELETE'})
+def deleteVersion():
+    return helperHandler.deleteAppInfo(request,appinfoDao)
+
+@app.route('/insertVersion',methods={'POST'})
+def insertVersion():
+    return helperHandler.insertAppInfo(request,appinfoDao)
+
 
 #----------------------------Location Methods --------------------------------
 @app.route('/selectLocation',methods=['POST'])
@@ -166,7 +212,7 @@ def clearLocation():
 def addLocation():
     return locationHandler.addLocation(request,locationDao)
 
-@app.route('/deleteLocation',methods=['DELETE'])
+@app.route('/deleteLocation',methods=['POST'])
 def deleteLocation():
     return locationHandler.locationcheckandAuth(request,locationDao)
 
@@ -205,5 +251,6 @@ def secretGetRelationships():
     return containerHandler.getContainersForUser(request, containerDao, False)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port='5000')
+    app.run(host='0.0.0.0', port='5000', ssl_context=context)#ssl context for https
+    #app.run(host='0.0.0.0', port='5000')
 

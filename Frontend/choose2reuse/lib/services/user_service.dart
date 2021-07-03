@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io' show Platform;
+import 'package:package_info/package_info.dart';
 import '../static/student.dart';
 import '../static/user.dart';
 import 'api.dart';
@@ -37,8 +38,6 @@ class UserService {
           'phoneNum': user.phoneNum,
           'role': 'RegularUser'
         }));
-        print('here in reponse');
-        print(resp);
     return resp;
   }
 
@@ -86,5 +85,47 @@ class UserService {
           'auth_token': auth.token,
         }));
     return resp;
+  }
+
+  static Future<APIResponse> forgotPassword(
+      String authCode, String email, String password) async {
+    final APIResponse resp = await API.patchResponse(
+        'forgetPassword',
+        jsonEncode(<String, String>{
+          'code': authCode,
+          'email': email,
+          'newPass': password,
+          'auth_token': 'None'
+        }));
+    return resp;
+  }
+
+  //Returns True if users version is correct, if not returns False
+  static Future<APIResponse> versionCheck() async {
+    String host = '';
+    if (Platform.isAndroid) {
+      host = 'Android';
+    } else if (Platform.isIOS) {
+      host = 'iOS';
+    }
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    String version = packageInfo.version;
+
+    final APIResponse resp =
+        await API.getResponse('getVersion?host=${host}&version=${version}');
+    print("version on device");
+    print(version);
+    print("version on database");
+    print(resp.data);
+    if (version == resp.data) {
+      print("version in database matches version on phone");
+      resp.data = true;
+      return resp;
+    } else {
+      resp.data = false;
+      return resp;
+    }
   }
 }

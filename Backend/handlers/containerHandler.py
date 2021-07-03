@@ -3,7 +3,7 @@ import string
 import os
 import sys
 from datetime import datetime
-
+import logging
 sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from containerDAO import ContainerDAO
 from authDAO import AuthDao
@@ -11,12 +11,15 @@ from locationDAO import LocationDao
 from relationshipDAO import RelationshipDAO
 from relationship import Relationship
 from container import Container
+from userDAO import UserDAO
+from user import User
 class ContainerHandler:
 
     def __init__(self, helperHandler, notificationHelper):
         self.helperHandler = helperHandler
         self.validCodes = self.helperHandler.extractQRCodesFromFile()
         self.validLocations = self.helperHandler.getValidLocationCodes()
+        self.userDao = UserDAO()
         self.relationdao = RelationshipDAO()
         self.containerdao = ContainerDAO()
         self.locationdao= LocationDao()
@@ -68,6 +71,25 @@ class ContainerHandler:
             res= res[0],res[1].containerToDict()
         return self.helperHandler.handleResponse(res)
 
+    def allContainers(self,request,containerDao):
+        containerDic = None
+        keys = ['email','auth_token']
+        containers=[]
+        try:
+            containerDic = self.helperHandler.handleRequestAndAuth(request, keys, t="args", hasAuth=True )
+            res = self.containerdao.selectAll()
+            self.helperHandler.falseQueryCheck(res)
+            #BinCounts = self.containerdao.totalContainersInBins()
+            #self.helperHandler.falseQueryCheck(BinCounts)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        #Bin = BinCounts[1]
+        for r in res[1]:
+            tempCont = r.containerToDict()
+            containers.append(tempCont)
+        res=res[0],containers
+        return self.helperHandler.handleResponse(res)
+
     def checkoutContainer(self, userContainer):
         try:
             self.validateQRCode(userContainer['qrcode'], False)
@@ -81,7 +103,8 @@ class ContainerHandler:
             userContainer['status'] = "Pending Return"
             res = self.relationdao.selectAllByStatus(userContainer['email'], userContainer['status'])
             self.helperHandler.falseQueryCheck(res)
-            userContainer = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+            rel = (res[1][len(res[1])-1]) # retrieves the most recent pending return
+            userContainer = rel.relationshipToDict()
             userContainer['status'] = "Checked Out"
             userContainer['email'] = "Checkout@stonehill.edu"
         except Exception as e:
@@ -105,6 +128,17 @@ class ContainerHandler:
             userContainer = eval(func)
             userContainer['statusUpdateTime']=datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             old_code = relationshipDAO.getRecentUser(userContainer['qrcode'])
+
+            #If user has already checked out the container they cannot check it out
+            if "/checkoutContainer" in str(request):
+                logging.info("Entering isCheckedOut testing")
+                try:
+                    containerStatus = relationshipDAO.isCheckedOut(userContainer['email'],userContainer['qrcode'])
+                    if(containerStatus[0]==True):
+                        logging.info("Container is checked out already")
+                        return json.dumps({"success" : False, "message" : "You already have this container Checked Out"})
+                except Exception as e:
+                    logging.info("Exiting checked out testing")
             relationship=Relationship()
             relationship.dictToRelationship(userContainer)
             res = self.relationdao.insertRelationship(relationship)
@@ -126,30 +160,29 @@ class ContainerHandler:
             hasAuth = True
         try:
             relationship = self.helperHandler.handleRequestAndAuth(request=request, keys=keys, t="args", hasAuth=hasAuth)
+            res = self.relationdao.selectAllByEmail(relationship['email'])
+            self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = self.relationdao.selectAllByEmail(relationship['email'])
         #print(res)
-        
         res[1].reverse()
-        damagedQR = []
+        dictList = []
         for item in res[1]:
-            if item['status'] == "Damaged Lost":
-                damagedQR.append(item['qrcode'])
-            if item['qrcode'] in damagedQR and item['status'] == "Checked Out":
-                res[1].remove(item)
-        if res[0] is True and isSorted is True:
+            item = item.relationshipToDict()
+            dictList.append(item)
+        res = (True, dictList)
+        if isSorted is True:
             sortDict={
-                'All' : res[1],
+                'All' : dictList,
                 'Checked_Out':[],
                 'Pending_Return':[],
                 'Verified_Return':[],
                 'Damaged_Lost':[]
             }
-            for item in res[1]:
+            for item in dictList:
                 #print(item['status'].replace(' ', '_'))
                 sortDict[item['status'].replace(' ', '_')].append(item)
-            res= (True,sortDict)
+            res = (True,sortDict)
         return self.helperHandler.handleResponse(res)
     
     def reportContainer(self, userContainer):
@@ -190,27 +223,73 @@ class ContainerHandler:
             userContainer = self.helperHandler.handleRequestAndAuth(request, keys)
             userContainer = eval(func)
             self.validateQRCode(userContainer['qrcode'], False)
+
+            #call method in relationdao that checks if current container is checked out, if not return json dumps false
+            if "/checkinContainer" in str(request):
+                try:
+                    containerStatus = self.relationdao.isCheckedOut(userContainer['email'],userContainer['qrcode'])
+                    if(containerStatus[0]==False):
+                        logging.info("Container not Checked Out")
+                        return json.dumps({"success" : False, "message" : "Cannot return a Container that is Pending Return/Verified Return"})
+                except Exception as e:
+                    logging.info("Exiting isPendingReturn testing")
+
             rel = self.relationdao.selectActiveQRcode(userContainer["qrcode"])
+            if "/checkinContainer" in str(request):
+                reward = self.addPoints(rel[1][0])
             self.helperHandler.falseQueryCheck(rel)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
         #print(dictOfUserAttrib)
         #change over to search by qrcode and active = 1
-        relationship = Relationship()
-        relationship.listToRelationship(rel[1][0])
-
+        relationship = rel[1][0]
         relDict = relationship.relationshipToDict()
-        
         if "/undoReportContainer" in str(request) and relDict['status'] != "Damaged Lost":
-            return json.dumps({"success" : False, "message" : "Container is not Damaged Lost"})
+            return json.dumps({"success" : False, "message" : "Container is not Damaged/Lost"})
         for key in userContainer:
             if key != "auth_token" and key != "email":
                 relDict[key] = userContainer[key]
         relationship.dictToRelationship(relDict)
-       
         res = self.relationdao.updateRelationship(relationship)
+        if "/checkinContainer" in str(request):
+            res = reward
         return self.helperHandler.handleResponse(res)
 
+    def addPoints(self, rel):
+        try:
+            f='%Y-%m-%d %H:%M:%S'
+            relDict = rel.relationshipToDict()
+            res = self.userDao.selectUser(relDict['email'])
+            self.helperHandler.falseQueryCheck(res)
+            user = res[1]
+            userDict = user.userToDict()
+            points = userDict['points']
+            checkoutTime = str(relDict['statusUpdateTime'])
+            authtimets=datetime.strptime(checkoutTime, f)
+            timepassed=datetime.now()-authtimets
+            if (timepassed.total_seconds() / 3600) >= 48 and relDict['status'] == "Checked Out":
+                points = points + 5
+                userDict['points'] = points
+                reward = self.rewardCheck(15, userDict)
+            elif (timepassed.total_seconds() / 3600) < 48 and relDict['status'] == "Checked Out":
+                points = points + 15
+                userDict['points'] = points
+                reward = self.rewardCheck(15, userDict)
+            else:
+                reward = ""
+            user.dictToUser(userDict)
+            res = self.userDao.updateUser(user)
+            self.helperHandler.falseQueryCheck(res)
+        except Exception as e:
+            raise Exception(e)
+        return (True, reward)
+
+    def rewardCheck(self, newPoints, userDic):
+        if userDic['points'] // 300 > 0 and userDic['points'] % 300 < newPoints:
+            userDic['reward_date'] = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            return {'newReward' : True, 'points' : newPoints}
+        else:
+            return {'newReward' : False, 'points' : newPoints}
 
     def deleteRelationship(self, request, relationshipDao, hasAuth):
         relDict = None
@@ -243,9 +322,18 @@ class ContainerHandler:
             rel=self.relationdao.selectAll()
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
+            relDict = []
+            for item in rel[1]:
+                relDict.append(item.relationshipToDict())
+            rel = (True, relDict)
         elif '/getCounts' in str(request):
-            sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1],"Pending Returns":self.relationdao.selectPendingReturns()[1]}
+            sitedic={"In Stock":self.containerdao.totalContainersInStock()[1],"Checked Out":self.containerdao.totalContainersCheckedOut()[1],"In Bin":self.containerdao.totalContainersInBins()[1],"Damaged Lost":self.containerdao.totalContainersDamagedLost()[1]}
             rel=[True,sitedic]
             if rel[0] is False:
                 return self.helperHandler.handleResponse(rel)
-        return self.helperHandler.handleResponse(rel)      
+        elif '/getCurrent' in str(request):
+            rel=self.containerdao.selectRecentStatus()
+            if rel[0] is False:
+                return self.helperHandler.handleResponse(rel)
+        
+        return self.helperHandler.handleResponse(rel)

@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-do
 import Login from './login';
 import Table from './table';
 import StatusCount from './statusCount';
+import ContainerTable from './containerTable';
+import ExportCSV from './ExportCSV';
+import EmailUsers from './emailUsers';
 import React,{Component} from 'react';
 
 export default class App extends Component {
@@ -17,6 +20,8 @@ export default class App extends Component {
           <Route exact path= "/login" component={Login} />
           <Route exact path= "/table" component={Table} />
           <Route exact path= "/statusCount" component={StatusCount} />
+          <Route exact path= "/containerTable" component={ContainerTable} />
+          <Route exact path= "/emailUsers" component={EmailUsers} />
         </Switch>
       </Router>
     </div>

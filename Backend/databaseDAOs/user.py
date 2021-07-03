@@ -11,13 +11,13 @@ class User:
                 self.middleName,
                 self.phoneNum,
                 self.role,
-                self.classYear,
                 self.authCode,
                 self.authTime,
                 self.lastLogIn,
                 self.authorized,
                 self.beams_token,
-                self.points)
+                self.points,
+                self.reward_date)
 
     def listToUser(self,list):
         self.email = list[0]
@@ -27,13 +27,13 @@ class User:
         self.middleName = list[4]
         self.phoneNum = list[5]
         self.role = list[6]
-        self.classYear = "2021"
-        self.authCode = list[8]
-        self.authTime = list[9]
-        self.lastLogIn = list[10]
-        self.authorized = list[11]
-        self.beams_token = list[12]
-        self.points = list[13]
+        self.authCode = list[7]
+        self.authTime = list[8]
+        self.lastLogIn = list[9]
+        self.authorized = list[10]
+        self.beams_token = list[11]
+        self.points = list[12]
+        self.reward_date = list[13]
         
     def dictToUser(self,dict):
         self.listToUser((dict["email"],
@@ -43,13 +43,13 @@ class User:
                         dict["middleName"],
                         dict["phoneNum"],
                         dict["role"],
-                        "2021",
                         dict["authCode"],
                         dict["authTime"],
                         dict["lastLogIn"],
                         dict["authorized"],
                         dict["beams_token"],
-                        dict["points"]))
+                        dict["points"],
+                        dict["reward_date"]))
 
     def userToDict(self):
         return {"email": self.email,
@@ -64,4 +64,5 @@ class User:
                 "lastLogIn": self.lastLogIn,
                 "authorized":self.authorized,
                 "beams_token":self.beams_token,
-                "points": self.points}
+                "points": self.points,
+                "reward_date": self.reward_date}

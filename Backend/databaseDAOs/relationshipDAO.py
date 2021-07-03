@@ -33,7 +33,7 @@ class RelationshipDAO(dao):
                    return myresult
             if(myresult[1] != [] and myresult[1] is not None):
                 oldEmail = myresult[1][0]
-                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4],"0",None)
+                tempR = Relationship(oldEmail[0],oldEmail[1],oldEmail[2],oldEmail[3],oldEmail[4], None)
                 if(tempR.status=="Damaged Lost"):
                     tempR.description = ""
                     #return False, "Container has been marked as Damaged Lost"
@@ -91,6 +91,8 @@ class RelationshipDAO(dao):
             logging.error(str(e))
             return self.handleError(e)
 
+
+
     def selectAllByEmail(self,email):
         try:
             logging.info("Entering selectAllByEmail")
@@ -101,13 +103,14 @@ class RelationshipDAO(dao):
                 return myresult
             temp = []
             for x in myresult[1]:
-                relDict={
-                "qrcode": x[1],
-                "status": x[2],
-                "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4],
-                "description": x[5]}
-                temp.append(relDict)
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectAllByEmail successful")
             return True, temp
         except Exception as e:
@@ -127,14 +130,14 @@ class RelationshipDAO(dao):
                 return myresult
             temp = []
             for x in myresult[1]:
-                relDict={
-                "email": x[0],
-                "qrcode": x[1],
-                "status": x[2],
-                "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4],
-                "description": x[5]}
-                temp.append(relDict)
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectAllByStatus successful")
             return True, temp
         except Exception as e:
@@ -151,14 +154,14 @@ class RelationshipDAO(dao):
                 return myresult
             temp = []
             for x in myresult[1]:
-                relDict={
-                "email": x[0],
-                "qrcode": x[1],
-                "status": x[2],
-                "statusUpdateTime": str(x[3]),
-                "location_qrcode": x[4],
-                "description": x[5]}
-                temp.append(relDict)
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectAll successful")
             return True, temp
         except Exception as e:
@@ -173,14 +176,27 @@ class RelationshipDAO(dao):
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
-            myresult = myresult[1]
+            #myresult = myresult[1]
+            #print(myresult)
+            temp = []
+            for x in myresult[1]:
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
+            #print(temp)
             logging.info("selectPendingReturns successful")
-            return True, myresult
+            return True, temp
         except Exception as e:
             logging.error("Error in selectPendingReturns")
             logging.error(str(e))
             return self.handleError(e)
 
+    #DELETE THIS
     def selectActiveQRcode(self,qrcode):
         try: 
             logging.info("Entering selectActiveQRcode")
@@ -188,41 +204,24 @@ class RelationshipDAO(dao):
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
                 return myresult
-            myresult = myresult[1]
+            #myresult = myresult[1]
+            temp = []
+            for x in myresult[1]:
+                email=x[0]
+                qrcode=x[1]
+                status=x[2]
+                statusUpdateTime=str(x[3])
+                location_qrcode=x[4]
+                descrption = x[5]
+                r = Relationship(email,qrcode,status,statusUpdateTime,location_qrcode,descrption)
+                temp.append(r)
             logging.info("selectActiveQRcode successful")
-            return True, myresult
+            return True, temp
         except Exception as e:
             logging.error("Error in selectActiveQRcode")
             logging.error(str(e))
             return self.handleError(e)
 
-    def updatePoints(self,r): #when a user returns a container
-        userdao = UserDAO()
-        user = userdao.selectUser(r.email)
-        returnTime = datetime.strptime(r.statusUpdateTime, '%Y-%m-%d %H:%M:%S')
-        #check now-statusUpdateTime
-        timePassed = datetime.now() - returnTime #type is datetime.timedelta
-        hours48 = timedelta(hours = 48)
-
-        #select user to get points
-        result = userdao.selectUser(r.email)
-
-        if(timePassed < hours48): #if less than 48 hours, user.points +15
-            tempUser = result[1]
-            parsePoints = int(tempUser.points) #need to parse to int and then back to str
-            temp2 = parsePoints + 15
-            newPoints = str(temp2)
-            tempUser.points = newPoints
-            userdao.updateUser(tempUser) #call update user with new points
-            
-        else:  #else user.points +5
-            tempUser = result[1]
-            parsePoints = int(tempUser.points) #need to parse to int and then back to str
-            temp2 = parsePoints + 5
-            newPoints = str(temp2)
-            tempUser.points = newPoints
-            userdao.updateUser(tempUser) #call update user with new points
-            
 
     # UPDATE RELATIONSHIP
     def updateRelationship(self,r): 
@@ -233,8 +232,8 @@ class RelationshipDAO(dao):
             logging.info("Entering updateRelationship")
             #r.statusUpdateTime = (r.statusUpdateTime + timedelta(seconds = 2)).strftime('%Y-%m-%d %H:%M:%S')
             #if status is Pending Return, call updatePoints()
-            if(r.status == "Pending Return"):
-                updatePoints(r)
+
+                
             result = r.relationshipToList()
             #sql = "SELECT * from hascontainer WHERE email = '" + result[0] + "' and qrcode = '" + result[1] + "' and status <> 'Verified Return'" + " ORDER BY statusUpdateTime DESC"
             sql = "SELECT * from hascontainer WHERE qrcode = '" + result[1] + "' and status != 'Verified Return'"
@@ -304,6 +303,24 @@ class RelationshipDAO(dao):
         if(r.status == "Checked Out" or r.status == "Pending Return" or r.status == "Verified Return" or r.status == "Damaged Lost"):
             return True, ""
         return False, "Invalid Status"
+
+
+    #Returns true if container is checked out (and email matches passed email). 
+    def isCheckedOut(self,email,qrcode):
+        logging.info("Entering isCheckedOut")
+        try:
+            sql = "SELECT * from hascontainer WHERE qrcode = '" + qrcode + "' and status = 'Checked Out'"
+            result = self.handleSQL(sql,True,None)
+            logging.info("%s Result successful",result[1])
+            if(result[1] == []):
+                logging.info("Result is empty")
+                return False, "container doesn't exist"
+            else:
+                logging.info("Result is full")
+                return True, "container exists"
+        except Exception as e:
+            logging.info("Exception")
+            return False, "error"
 
     def checkLength(self,r):
         maxLength = {

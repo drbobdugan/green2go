@@ -3,7 +3,8 @@ import React,{Component, useState} from 'react';
 import axios from 'axios';
 import './table.css';
 import { useHistory } from "react-router-dom";
-
+import ExportCSV from './ExportCSV';
+import logo from './logo.jpg';
 
 function Table (props) {
         const [containers, setContainers] = useState([])
@@ -11,14 +12,18 @@ function Table (props) {
         const [selected, setSelected] = useState()
         const [limit, setLimit] = useState(20)
         const history = useHistory();
+        const fileName = 'Container Transactions';
 
-        function routeChangeLocationCount() { 
-        let path = `/locationCount`; 
-        //*
+        function routeChangeContainerTable() { 
+        let path = `/containerTable`; 
         history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
         }
         function routeChangeStatusCount() { 
           let path = `/statusCount`; 
+          history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
+        }
+        function routeChangeEmailUsers() { 
+          let path = `/emailUsers`; 
           history.push(path,{email:props.location.state.email,authToken:props.location.state.authToken});
         }
 
@@ -26,11 +31,17 @@ function Table (props) {
           console.log(container)
           setSelected(container)
          }
-        
+         
         async function getContainers(email, authToken){
-         var response = await axios.get('http://198.199.77.174:5000/getallContainers?email='+email+'&auth_token='+authToken)
+         var response = await axios.get('https://choose2reuse.org:5000/getallContainers?email='+email+'&auth_token='+authToken)
          setContainers(response.data.data)
-         setFilteredContainers(response.data.data.slice(0,limit))
+         console.log(response)
+         try{
+          setFilteredContainers(response.data.data.slice(0,limit))
+         }
+         catch (error) {
+          history.push('/login')
+        }
         }
         
         function filterByStatus(e) {
@@ -84,7 +95,6 @@ function Table (props) {
               container.status.includes(filter) ||
               container.statusUpdateTime.includes(filter) ||
               container.location_qrcode.includes(filter) ||
-              container.active.includes(filter) ||
               container.description.includes(filter)
             )
             }
@@ -94,7 +104,6 @@ function Table (props) {
                 container.qrcode.includes(filter) ||
                 container.status.includes(filter) ||
                 container.statusUpdateTime.includes(filter) ||
-                container.active.includes(filter) ||
                 container.description.includes(filter)
               )
               }
@@ -104,7 +113,6 @@ function Table (props) {
                   container.qrcode.includes(filter) ||
                   container.status.includes(filter) ||
                   container.statusUpdateTime.includes(filter) ||
-                  container.active.includes(filter) ||
                   container.location_qrcode.includes(filter) 
                 )
                 }
@@ -113,30 +121,44 @@ function Table (props) {
                     container.email.includes(filter) || 
                     container.qrcode.includes(filter) ||
                     container.status.includes(filter) ||
-                    container.statusUpdateTime.includes(filter) ||
-                    container.active.includes(filter)  
+                    container.statusUpdateTime.includes(filter)
                   )
                   }
           }))
         }
         }
-
-        if(containers.length === 0 && props.location && props.location.state){
-        getContainers(props.location.state.email,props.location.state.authToken)
-        }else if(!props.location || !props.location.state){
-          history.push("/login");
+        
+        try{
+          if(containers.length === 0 && props.location && props.location.state){
+          getContainers(props.location.state.email,props.location.state.authToken)
+          }else if(!props.location || !props.location.state){
+            history.push("/login");
+          }
+        }
+        catch(error) {
+          history.push('/login')
         }
         return (
             <div className="App">
+              <div>
+                <img src={logo} width="25%" height="100%"/>
+              </div>
+              <div className="nav">
+                <button className="navButton2" type="button" onClick={() => { routeChangeStatusCount() } }>All Locations</button>
+                <button className="navButton3" type="button" onClick={() => { routeChangeEmailUsers() } }>Email Users</button>
+                <button className="navButton1" type="button" onClick={() => { routeChangeContainerTable() } }>All Containers</button>
+              </div>
+            <br></br>
+            <div className="title">
             <h1>All Container Transactions</h1>
-            <div className="row">
-              <div className="column"><button type="button" onClick={() => { routeChangeStatusCount() } }>Container Status and Location Counts</button></div>
-           </div>
-            
+            </div>
             <br></br>
             <br></br>
             <input type="text" placeholder="Search for anything.." onChange={filterBySearch}></input>
-            <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input> 
+            <input type="button" value="Toggle Limit" onClick={() => {toggleLimit()}}></input>
+            <div>
+              <ExportCSV csvData={filteredContainers} fileName={fileName} />
+            </div>
             <br></br>
             <br></br>
             <br></br>
@@ -152,12 +174,11 @@ function Table (props) {
                   <option value="Checked Out">Checked Out</option>
                   <option value="Pending Return">Pending Return</option>
                   <option value="Verified Return">Verified Return</option>
-                  <option value="Damaged Lost">Damaged Lost</option>
+                  <option value="Damaged Lost">Damaged/Lost</option>
                 </select>
                </th>
                <th>Status Update Time</th>
                <th>Location QR Code</th>
-               <th>Active</th>
                <th>Description</th>
                
              </tr>
@@ -170,7 +191,6 @@ function Table (props) {
                  <td>{elem.status}</td>
                  <td>{elem.statusUpdateTime}</td>
                  <td>{elem.location_qrcode}</td>
-                 <td>{elem.active}</td>
                  <td>{elem.description}</td>
                 </tr>
                ))}

@@ -6,21 +6,32 @@ from DAO import dao
 class ContainerDAO(dao):
 
 
-    def totalContainersCheckedOut(self):
+    def totalContainersDamagedLost(self):
         try:
-            logging.info("Entering totalCheckedOutContainers")
-            sql = "select email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Pending Return' and location.lastPickup < hascontainer.statusUpdateTime and location.location_qrcode = hascontainer.location_qrcode order by hascontainer.location_qrcode"
-            sql1 = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer, location where hascontainer.status = 'Checked Out'"
+            logging.info("Entering totalDamagedLostContainers")
+            sql = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer where hascontainer.status = 'Damaged Lost'"
             myresult = self.handleSQL(sql,True,None)
             if(myresult[0] == False):
-                return myresult
-            myresult1 = self.handleSQL(sql1,True,None)
-            if(myresult1[0] == False):
                 return myresult
             temp = []
             for result in myresult[1]:
                 temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
-            for result in myresult1[1]:
+            print(temp)
+            return True, temp
+        except Exception as e:
+            logging.error("Error in totalDamagedLostContainers")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    def totalContainersCheckedOut(self):
+        try:
+            logging.info("Entering totalCheckedOutContainers")
+            sql = "select distinct email, qrcode, statusUpdateTime, hascontainer.location_qrcode from hascontainer where hascontainer.status = 'Checked Out'"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            temp = []
+            for result in myresult[1]:
                 temp.append({"email":result[0],"qrcode":result[1],"statusUpdateTime":str(result[2])})
             return True, temp
         except Exception as e:
@@ -29,6 +40,34 @@ class ContainerDAO(dao):
             return self.handleError(e)
 
             
+    def selectRecentStatus(self):
+        try:
+            logging.info("Entering selectRecentStatus")
+            #sql = "SELECT container.qrcode, hascontainer.status, container.name FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
+            sql = "SELECT container.qrcode, hascontainer.status FROM container LEFT JOIN hascontainer ON container.qrcode = hascontainer.qrcode"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0] == False):
+                return myresult
+            temp = []
+            for result in myresult[1]:
+                qrcode = result[0]
+                try:
+                    status = result[1]
+                except:
+                    status = None
+                #try:
+                #    name = result[2]
+                #except:
+                #    name = ''
+                if status != 'Verified Return':
+                    temp.append({"qrcode":qrcode,"status":status})
+                    #temp.append({"qrcode":qrcode,"name":name,"status":status})
+            return True, temp
+        except Exception as e:
+            logging.error("Error in selectRecentStatus")
+            logging.error(str(e))
+            return self.handleError(e)
+        
     def totalContainersInBins(self):
         try:
             logging.info("Entering totalContainersInBins")
@@ -84,6 +123,26 @@ class ContainerDAO(dao):
             return True, ""
         except Exception as e:
             logging.error("Error in insertContainer")
+            logging.error(str(e))
+            return self.handleError(e)
+
+    #READ ALL CONTAINERS
+    def selectAll(self): #returns --> "true, list of location objects"
+        try:
+            logging.info("Entering selectAll")
+            sql = "SELECT * FROM container"
+            myresult = self.handleSQL(sql,True,None)
+            if(myresult[0]==False):
+                return myresult
+            result = []
+            for row in myresult[1]:
+                #container = Container(row[0],row[1],row[2])
+                #result.append(container)
+                container = Container(row[0])
+                result.append(container)
+            return True, result
+        except Exception as e:
+            logging.error("Error in selectAll")
             logging.error(str(e))
             return self.handleError(e)
     

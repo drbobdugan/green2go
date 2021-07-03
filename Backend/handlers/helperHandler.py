@@ -9,13 +9,16 @@ sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 from userDAO import UserDAO
 from authDAO import AuthDao
 from auth import Auth
+from appInfo import appInfo
 from containerDAO import ContainerDAO
 from locationDAO import LocationDao
+from appInfoDAO import appInfoDAO
 from emailServer import EmailManager
 from pusher_push_notifications import PushNotifications
 from pathlib import Path
 from pusher_push_notifications import PushNotifications
 from passlib.context import CryptContext
+import logging
 
 
 class HelperHandler:
@@ -23,6 +26,7 @@ class HelperHandler:
     def __init__(self, emailServer):
         self.emailServer = emailServer
         self.authDao = AuthDao()
+        self.appInfoDao = appInfoDAO()
         self.pwd_context = CryptContext(
         schemes=["pbkdf2_sha256"],
         default="pbkdf2_sha256",
@@ -106,7 +110,7 @@ class HelperHandler:
         return dic
 
     def handleAuth(self, dic):
-        res = self.authDao.selectByEmail(dic["email"])
+        res = self.authDao.selectByEmail(dic["email"]) 
         if res[0] is False:
             return False, "No matching user with that authorization token"
         # make sure auth code actually exixts in dattabse
@@ -140,3 +144,76 @@ class HelperHandler:
     def falseQueryCheck(self, res):
         if res[0] == False:
             raise Exception(res[1])
+
+
+    # these methods are for the version control
+
+    def getVersion(self,request,appInfoDao):
+        relDict = None
+        keys=['host','version']
+        try:
+            relDict = self.handleRequestAndAuth(request, keys, t="args", hasAuth=False )
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        rel=self.appInfoDao.selectAppInfo(relDict['host'])
+        self.falseQueryCheck(rel)
+        version=rel[1]
+        rel=rel[0],str(version.major)+"."+str(version.minor)+"."+str(version.patch)
+        return self.handleResponse(rel)
+
+    def updateVersion(self,request,appInfoDao):
+        # may want to add auth not sure
+        relDict = None
+        keys=['host']
+        try:
+            
+            relDict = self.handleRequestAndAuth(request, keys, hasAuth=False )
+        except Exception as e:
+            
+            return json.dumps({"success" : False, "message" : str(e)})
+        
+        rel=self.appInfoDao.selectAppInfo(relDict['host'])
+        self.falseQueryCheck(rel)
+        appinfo=rel[1]
+        if '/updateMajor' in str(request):
+            appinfo.major=appinfo.major+1
+            appinfo.minor=0
+            appinfo.patch=0
+        elif '/updateMinor'in str(request):
+            appinfo.minor=appinfo.minor+1
+            appinfo.patch=0
+        elif '/updatePatch' in str(request):
+            appinfo.patch=appinfo.patch+1
+        res = self.appInfoDao.updateAppInfo(appinfo)
+        return self.handleResponse(res)
+
+    def deleteAppInfo(self,request,appInfoDao):
+        relDict = None
+        keys=['host']
+        try:
+            relDict = self.handleRequestAndAuth(request, keys,hasAuth=False )
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        rel=self.appInfoDao.selectAppInfo(relDict['host'])
+        self.falseQueryCheck(rel)
+        res=self.appInfoDao.deleteAppInfo(rel[1])
+        return self.handleResponse(res)
+    def insertAppInfo(self,request,appInfoDao):
+        appInfodic=None
+        t = "json"
+        keys = ["major","minor", "patch","host"]
+        try:
+            appInfodic = self.handleRequestAndAuth(request=request, keys=keys, t = t, hasAuth=False)
+        except Exception as e:
+            return json.dumps({"success" : False, "message" : str(e)})
+        appinfo=appInfo()
+        
+        appinfo.dictToAppInfo(appInfodic)
+        res=self.appInfoDao.insertAppInfo(appinfo)
+        #print(res)
+        return self.handleResponse(res)
+
+        
+    
+
+

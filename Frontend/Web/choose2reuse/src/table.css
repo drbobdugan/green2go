@@ -1,14 +1,14 @@
-tr:hover{
-  color:#9fd4b9;
-}
-
-tr{
-  cursor:pointer;
+.title{
+  text-align: center;
 }
 
 th {
   background-color: #4CAF50;
   color: white;
+}
+
+input{
+  cursor: pointer;
 }
 
 tr:nth-child(even) {
@@ -50,6 +50,11 @@ h1{
   margin-right: auto;
 }
 
+.addLocation{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .statuscounts{
   margin-left: auto;
   margin-right: auto;
@@ -61,8 +66,34 @@ div {
 }
 
 .column {
+  float: right;
+  width: 33.33
+}
+
+.back{
   float: left;
-  width: 33.33%;
+  padding-left: 50px;
+}
+
+.nav{
+  align-self: center;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+.navButton3{
+  float: center;
+  width: 20%;
+}
+
+.navButton2{
+  float: right;
+  width: 20%;
+}
+
+.navButton1{
+  float: left;
+  width: 20%;
 }
 
 /* Clear floats after the columns */

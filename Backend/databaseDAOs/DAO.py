@@ -1,13 +1,29 @@
 import mysql.connector
+import json
 from datetime import datetime
 import logging
+import os
+import sys
+from pathlib import Path
+sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
 class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-
+        self.configData = {"host" : "198.199.77.174", "user" : "root", "password" : "Capstone2021!"}
+       
+        
+        
     def changeDatabase(self,database):
         self.database = database
+
+    def initConfig(self):
+        config = {}
+        os.chdir("/root")
+        with open("credentials.json") as file:
+            config = json.load(file)
+        file.close()
+        return config
 
     def reconnectSql(self):
         try:
@@ -15,13 +31,14 @@ class dao:
         except:
             #logging.error("Error closing connection: Already disconnected")
             test = 1
-            
+
         self.mydb = mysql.connector.connect(
-            host="198.199.77.174",
-            user="root",
-            password="Capstone2021!",
+            host=self.configData['host'],
+            user=self.configData['user'],
+            password=self.configData['password'],
             database=self.database,
             buffered=True)
+            
     def disconnectedSql(self):
         try:
             self.mydb.shutdown()
@@ -66,3 +83,4 @@ class dao:
             return False, "Entry could not be found"
         if "NoneType" in error:
             return False, "Null value passed in"
+        return False, error

@@ -125,13 +125,12 @@ class AuthHandler:
         keys = ["email", "refresh_token"]
         try:
             dic = self.helperHandler.handleRequestAndAuth(request, keys, hasAuth=False)
+            res = self.authDao.selectByEmail(dic["email"])
+            self.helperHandler.falseQueryCheck(res)
         except Exception as e:
             return json.dumps({"success" : False, "message" : str(e)})
-        res = self.authDao.selectByEmail(dic["email"])
         auth = res[1]
         message = None
-        if res[0] is False:
-            message = "Invalid refresh token"
         # refresh token mismatch
         authDic = auth.authToDict()
         if dic["refresh_token"] != authDic["refresh_token"]:

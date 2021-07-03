@@ -2,6 +2,7 @@ import './App.css';
 import React,{Component, useState} from 'react';
 import axios from 'axios';
 import { useHistory } from "react-router-dom";
+import logo from './logo.jpg';
 
 function Login (props) {
     const history = useHistory();
@@ -21,14 +22,18 @@ function Login (props) {
             'email' : email,
             'password' : password
         }
-        var response = await axios.post('http://198.199.77.174:5000/login', obj)
-        var user_response = await axios.get('http://198.199.77.174:5000/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
-        
+        try{
+        var response = await axios.post('https://choose2reuse.org:5000/login', obj)
+        var user_response = await axios.get('https://choose2reuse.org:5000/getUser?email='+ email + '&auth_token=' + response.data.data.auth_token)
         if(response.data.success && user_response.data.data.role === 'Admin'){
-            setAuthToken(response.data.data.auth_token)
-            routeChange(response.data.data.auth_token)
-        }else{
-            alert(response.data.message)
+                setAuthToken(response.data.data.auth_token)
+                routeChange(response.data.data.auth_token)
+            }else{
+                alert(response.data.message)
+            }
+        }
+        catch(error){
+            alert("You do not have login privileges")
         }
        
     }
@@ -44,6 +49,9 @@ function Login (props) {
 
     return (
         <div className="App">
+            <div>
+                <img src={logo} width="25%" height="100%"/>
+            </div>
             <h1>Login</h1>
             <form id="form">
                 <p>Email:  <input placeholder="Email" type="text" name="email" value={email} onChange={(event) => {setEmail(event.target.value)} } /> </p>
