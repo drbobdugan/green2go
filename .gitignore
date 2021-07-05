@@ -3,3 +3,5 @@
 green_to_go/
 Frontend/flutter
 environmentVars.py
+backendEnvironmentVars.py
+emailEnvironmentVars.py

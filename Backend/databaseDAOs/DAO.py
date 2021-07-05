@@ -6,13 +6,13 @@ import os
 import sys
 from pathlib import Path
 sys.path.insert(0, os.getcwd()+'/Backend/databaseDAOs/')
-from environmentVars import EnvironmentVars
+from backendEnvironmentVars import BackendEnvironmentVars
 
 class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-        env = EnvironmentVars()
+        env = BackendEnvironmentVars()
         self.configData = {"host" : os.getenv('host'), "user" : os.getenv('user'), "password" : os.getenv('password')}
         
     def changeDatabase(self,database):
