@@ -5,7 +5,7 @@ class EmailManager:
     def sendEmail(self, recip, code):
         port = 465  # For SSL
         password = os.getenv('emailPassword')
-        # Create a secure SSL context
+        # Create a secure SSL context 
         context = ssl.create_default_context()
 
         sent_from = "CapstoneSpring2021@gmail.com"
