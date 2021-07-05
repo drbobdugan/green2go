@@ -5,9 +5,8 @@ import subprocess
 import requests
 from pathlib import Path
 sys.path.insert(0, os.getcwd())
+from environmentVars import EnvironmentVars
 app = Flask(__name__)
-
-
 
 @app.route('/pull', methods=['POST'])
 def hello(msg="Build has been Updated..."):
@@ -26,7 +25,6 @@ def restartDatabase():
     return str(x.text)
 
 def deleteUser(email):
-    #url = "http://198.199.77.174:5000/secretDeleteUser"
     url = "https://choose2reuse.org:5000/secretDeleteUser"
     myobj = {'email': email}
     x = requests.delete(url, json=myobj) 
@@ -34,9 +32,8 @@ def deleteUser(email):
 
 @app.route('/deleteUser', methods=['GET', 'POST'])
 def renderDelete():
-    configData = initializeConfigInfo()
-
-    if 'password' in request.form and 'email'in request.form and request.form['password'] == configData['password']:
+    env = EnvironmentVars()
+    if 'password' in request.form and 'email'in request.form and request.form['password'] == os.getenv('password'):
         deleteUser(request.form['email'].replace(' ', '').replace('\n', ''))
     return """<!doctype html>
     <html>
@@ -55,16 +52,14 @@ def renderDelete():
     """
 
 def updateCheckout():
-    #url = "http://198.199.77.174:5000/secretGetRelationships?email=Checkout@stonehill.edu"
     url = "https://choose2reuse.org:5000/secretGetRelationships?email=Checkout@stonehill.edu"
     x = requests.get(url)
     return x.json()
 
 @app.route('/checkout', methods=['GET', 'POST'])
 def checkoutByEmail():
-    configData = initializeConfigInfo()
-    if 'password' in request.form and 'email' in request.form and request.form['password'] == configData['password']:
-        #url = "http://198.199.77.174:5000/secretCheckout"
+    env = EnvironmentVars()
+    if 'password' in request.form and 'email' in request.form and request.form['password'] == os.getenv('password'):
         url = "https://choose2reuse.org:5000/secretCheckout"
         myobj = {'email' : request.form['email']}
         x = requests.post(url, json=myobj)
@@ -91,13 +86,11 @@ def checkoutByEmail():
     """
 
 def getVersion(host):
-    #url="http://198.199.77.174:5000/getVersion?host="+host
     url="https://choose2reuse.org:5000/getVersion?host="+host
     x = requests.get(url)
     return x.json()
 
 def updateVersion(version):
-    #url="http://198.199.77.174:5000/update"+version
     url="https://choose2reuse.org:5000/update"+version
     myobj = {'host' : 'iOS'}
     x = requests.post(url, json=myobj)
@@ -137,7 +130,7 @@ def version():
 
 @app.route('/server', methods=['GET', 'POST'])
 def control():
-    configData = initializeConfigInfo()
+    env = EnvironmentVars()
     status = os.popen('lsof -i:5000 -t').read()
     val = None
     f = open('/root/green2go/Backend/demo.log')
@@ -150,9 +143,9 @@ def control():
         val = "Online"
     else:
         val = "Offline"
-    if 'Password' in request.form and request.form['Password'] == configData['password']:
+    if 'Password' in request.form and request.form['Password'] == os.getenv('password'):
         hello("Server has been restarted...")
-    if 'Password1' in request.form and request.form['Password1'] == configData['password']:
+    if 'Password1' in request.form and request.form['Password1'] == os.getenv('password'):
         restartDatabase()
     return """<!doctype html>
     <html>
@@ -172,20 +165,6 @@ def control():
     """+ str(linesTemp) + """
     </body>
     </html>"""
-
-
-
-def initializeConfigInfo():
-    configData = {} 
-    path = os.path.abspath('/root/credentials.txt')
-    with open(path) as file:
-        for line in file:
-            (key,value) = line.split()
-            configData[key] = value
-    file.close()
-
-    return configData
-        
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
