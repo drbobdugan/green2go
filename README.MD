@@ -66,6 +66,7 @@ Result: Sets up database
 Contact a user to get an environmentVars.py file which contains variables this project will need to run. Additionally make these changes to run the Backend locally:
 
 #app.run(host='0.0.0.0', port='5000', ssl_context=context)#ssl context for https
+
 app.run(host='0.0.0.0', port='5000')
 
 To install/run:
