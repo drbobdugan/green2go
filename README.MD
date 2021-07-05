@@ -63,6 +63,10 @@ sudo mysql_secure_installation
 Result: Sets up database
 
 ## Back-End Installation (python3/flask) <a name="back"></a>
+Contact a user to get an environmentVars.py file which contains variables this project will need to run. Additionally make these changes to run the Backend locally:
+
+#app.run(host='0.0.0.0', port='5000', ssl_context=context)#ssl context for https
+app.run(host='0.0.0.0', port='5000')
 
 To install/run:
 ```bash
