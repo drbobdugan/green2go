@@ -5,34 +5,18 @@ import logging
 import os
 import sys
 from pathlib import Path
-sys.path.insert(0, os.getcwd()+'/databaseDAOs/')
+sys.path.insert(0, os.getcwd()+'/Backend/databaseDAOs/')
+from environmentVars import EnvironmentVars
+
 class dao:
     def __init__(self):
         logging.basicConfig(filename='DAO.log', level=logging.DEBUG)
         self.database = "sys"
-        self.configData = {"host" : "198.199.77.174", "user" : "root", "password" : "Capstone2021!"}
-        #self.configData = self.initializeConfigInfo()
-        
+        env = EnvironmentVars()
+        self.configData = {"host" : os.getenv('host'), "user" : os.getenv('user'), "password" : os.getenv('password')}
         
     def changeDatabase(self,database):
         self.database = database
-
-    #def initConfig(self):
-    #    config = {}
-    #    os.chdir("/root")
-    #    with open("credentials.json") as file:
-    #        config = json.load(file)
-    #    file.close()
-    #    return config
-    def initializeConfigInfo():
-        config = {} 
-        path = os.path.abspath('/root/credentials.txt')
-        with open(path) as file:
-            for line in file:
-                (key,value) = line.split()
-                config[key] = value
-        file.close()
-        return config
 
     def reconnectSql(self):
         try:
