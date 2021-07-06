@@ -49,7 +49,7 @@ class ReuseStrings {
   static String newPasswordField = 'New Password';
   static String confirmNewPasswordField = 'Confirm New Password';
   static String homepageMessage =
-      'Thank you for helping to eliminate waste from ___ single-use takeout containers';
+      'Thank you for helping to eliminate waste from single-use takeout containers!';
 
   //textButton text
   static String rememberPassword = 'Remember me';

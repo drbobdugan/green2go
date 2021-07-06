@@ -141,7 +141,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ReuseLabel(
               text: ReuseStrings.homepageMessage,
-              textStyle: CustomTheme.brightLabelStyleSmall(),
+              textStyle: CustomTheme.darkLabelStyleMedium(),
               top: 0.0,
               bottom: 20.0,
             ),
