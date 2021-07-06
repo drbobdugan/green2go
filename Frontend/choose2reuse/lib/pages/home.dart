@@ -139,6 +139,12 @@ class _HomePageState extends State<HomePage> {
               top: 30.0,
               bottom: 20.0,
             ),
+            ReuseLabel(
+              text: ReuseStrings.homepageMessage,
+              textStyle: CustomTheme.brightLabelStyleSmall(),
+              top: 0.0,
+              bottom: 20.0,
+            ),
             Padding(
               padding: const EdgeInsets.only(bottom: 0.0),
               child: Row(
