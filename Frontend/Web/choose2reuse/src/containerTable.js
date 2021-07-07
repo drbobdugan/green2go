@@ -230,7 +230,6 @@ function ContainerTable (props) {
             <table className="centerone">
             <thead>
              <tr>
-               <th>Name</th>
                <th>QR Code</th>
                <th>Status
                 <select name="status" id="status" onChange={filterByStatus}>
@@ -249,7 +248,6 @@ function ContainerTable (props) {
              <tbody>
                {filteredContainers.map((elem)=>(
                 <tr onClick={()=>{select(elem)}}>
-                <td>{elem.name}</td>
                  <td>{elem.qrcode}</td>
                  <td>{elem.status}</td>
                  <td><input type="button" value="Damaged Lost" onClick ={() => {markDamagedLost(elem.qrcode)}}/></td>
