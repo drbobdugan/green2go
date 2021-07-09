@@ -24,8 +24,6 @@ function ContainerTable (props) {
         const [cont_qr, setCont_qr] = useState('')
         const [cont_qrs, setCont_qrs] = useState('')
 
-
-
         async function markDamagedLost(qr_code) { 
           const obj = {email: email, qrcode: qr_code,status: 'Damaged Lost', auth_token: authToken, description: 'Damaged Lost'};
           console.log(obj)
