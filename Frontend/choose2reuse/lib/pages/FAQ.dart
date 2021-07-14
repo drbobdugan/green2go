@@ -96,6 +96,17 @@ class _FAQPageState extends State<FAQPage> {
                 bottom: 20.0,
               ),
               ReuseLabel(
+                text: ReuseStrings.faqQuestion8,
+                textStyle: CustomTheme.secondaryDarkLabelStyle(),
+                top: 10.0,
+                bottom: 20.0,
+              ),
+              ReuseLabel(
+                text: ReuseStrings.faqAnswer8,
+                textStyle: CustomTheme.secondaryLabelStyle(),
+                bottom: 20.0,
+              ),
+              ReuseLabel(
                 text: ReuseStrings.faqQuestion5,
                 textStyle: CustomTheme.secondaryDarkLabelStyle(),
                 top: 10.0,

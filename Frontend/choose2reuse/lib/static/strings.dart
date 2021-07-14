@@ -125,14 +125,17 @@ class ReuseStrings {
   static String faqAnswer4 =
       'First, scan the QR code on a return location using the \'Return Container\' feature. Then, scan the QR code of the container and leave it at the return location.';
   static String faqQuestion5 =
-      'How many containers can I have checked out at once?';
+      'How many containers may I have checked out at once?';
   static String faqAnswer5 =
-      'You can have two containers checked out at once. Checking out more than two containers will incur a \$5 fee per container over two.';
+      'You may have two containers checked out at once for free. Checking out more than two containers will incur a \$5 fee per container over two.';
   static String faqQuestion6 =
       'Do I own the containers that I have checked out?';
   static String faqAnswer6 =
       'No, the containers and QR codes are the property of Stonehill College. All containers must be returned in good condition. The user will incur a \$5 fee per container that is damaged, lost, or not returned by the end of each semester.';
   static String faqQuestion7 = 'May I return someone else\'s container?';
   static String faqAnswer7 =
-      'Yes, you can return any containers. You will receive points for any containers you return.';
+      'Yes, you may return any containers. You will receive points for any containers you return.';
+  static String faqQuestion8 = 'What locations may I drop off my containers?';
+  static String faqAnswer8 =
+      'You may drop off your containers at Dining Commons​, Holy Cross Center​, Library​, Ames Sports Complex​, Shields Science Center​, Duffy Academic Center​, and Martin Institute​';
 }
